@@ -4,7 +4,6 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "../environments/environment";
 import { UserService } from "./user.service";
 import * as _ from "lodash";
-import { resolve } from "url";
 
 export interface RPCRequest {
   service: string;
@@ -70,10 +69,19 @@ export class ServiceService {
   logs(service: string): Promise<types.LogRecord[]> {
     return new Promise<types.LogRecord[]>((resolve, reject) => {
       return this.http
-        .get<types.LogRecord[]>(
-          environment.apiUrl + "/runtime/logs?service=" + service,
+        .post<types.LogRecord[]>(
+          environment.apiUrl + "/runtime/logs",
           {
-            withCredentials: true,
+            service: service,
+            options: {
+              namespace: "micro",
+            },
+          },
+          {
+            headers: {
+              authorization: this.us.token(),
+              "micro-namespace": "micro",
+            },
           }
         )
         .toPromise()
@@ -86,18 +94,24 @@ export class ServiceService {
     });
   }
 
-  stats(service: string, version?: string): Promise<types.DebugSnapshot[]> {
-    return new Promise<types.DebugSnapshot[]>((resolve, reject) => {
+  stats(service: string, version?: string): Promise<types.DebugSnapshot> {
+    return new Promise<types.DebugSnapshot>((resolve, reject) => {
       return this.http
-        .get<types.DebugSnapshot[]>(
-          environment.apiUrl + "/debug/stats?service=" + service,
+        .post<types.DebugSnapshot>(
+          environment.apiUrl + "/" + service + "/debug/stats",
           {
-            withCredentials: true,
+   
+          },
+          {
+            headers: {
+              authorization: this.us.token(),
+              "micro-namespace": "micro",
+            },
           }
         )
         .toPromise()
         .then((servs) => {
-          resolve(servs as types.DebugSnapshot[]);
+          resolve(servs as types.DebugSnapshot);
         })
         .catch((e) => {
           reject(e);
@@ -128,11 +142,28 @@ export class ServiceService {
   }
 
   call(rpc: RPCRequest): Promise<string> {
+    function toTitleCase(str) {
+      return str.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
+    }
+
     return new Promise<string>((resolve, reject) => {
+      const endpointName = rpc.endpoint
+        .replace(".", "")
+        .replace(toTitleCase(rpc.service), "");
+
       return this.http
-        .post<string>(environment.apiUrl + "/", rpc, {
-          withCredentials: true,
-        })
+        .post<string>(
+          environment.apiUrl + "/" + rpc.service + "/" + endpointName,
+          JSON.parse(rpc.request),
+          {
+            headers: {
+              authorization: this.us.token(),
+              "micro-namespace": "micro",
+            },
+          }
+        )
         .toPromise()
         .then((response) => {
           resolve(JSON.stringify(response, null, "  "));

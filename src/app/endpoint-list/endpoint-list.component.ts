@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import * as types from "../types";
 import { ServiceService } from "../service.service";
+import { NotificationsService } from "angular2-notifications";
 
 @Component({
   selector: "app-endpoint-list",
@@ -13,7 +14,10 @@ export class EndpointListComponent implements OnInit {
   @Input() selectedVersion: string = "";
   service: types.Service;
 
-  constructor(private ses: ServiceService) {}
+  constructor(
+    private ses: ServiceService,
+    private notif: NotificationsService
+  ) {}
 
   ngOnInit() {
     this.regenJSONs();
@@ -28,7 +32,7 @@ export class EndpointListComponent implements OnInit {
       s.endpoints.forEach((endpoint) => {
         endpoint.requestJSON = this.valueToJson(endpoint.request, 1);
       });
-      this.service = s
+      this.service = s;
     });
   }
 
@@ -43,6 +47,13 @@ export class EndpointListComponent implements OnInit {
       })
       .then((rsp) => {
         endpoint.responseJSON = rsp;
+      })
+      .catch((e) => {
+        try {
+          this.notif.error("Error calling service", e.error.Detail);
+        } catch {
+          this.notif.error("Error calling service", e);
+        }
       });
   }
 

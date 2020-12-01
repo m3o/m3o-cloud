@@ -8,8 +8,9 @@
     />
   </mat-form-field>
 </form>
-<ng-container>
+<ng-container *ngIf="service">
   <div
+    
     *ngFor="let endpoint of service.endpoints | search: 'name':endpointQuery"
   >
     <div>

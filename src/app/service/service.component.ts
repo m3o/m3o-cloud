@@ -13,7 +13,7 @@ const tabNamesToIndex = {
   stats: 2,
   nodes: 3,
   traces: 4,
-  events: 5
+  events: 5,
 };
 
 const tabIndexesToName = {
@@ -22,7 +22,7 @@ const tabIndexesToName = {
   2: "stats",
   3: "nodes",
   4: "traces",
-  5: "events"
+  5: "events",
 };
 
 @Component({
@@ -30,14 +30,14 @@ const tabIndexesToName = {
   templateUrl: "./service.component.html",
   styleUrls: [
     "./service.component.css",
-    "../../../node_modules/nvd3/build/nv.d3.css"
+    "../../../node_modules/nvd3/build/nv.d3.css",
   ],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ServiceComponent implements OnInit {
   services: types.Service[];
   logs: types.LogRecord[];
-  stats: types.DebugSnapshot[];
+  stats: types.DebugSnapshot[] = [];
   traceSpans: types.Span[];
   events: types.Event[];
 
@@ -60,24 +60,24 @@ export class ServiceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.activeRoute.params.subscribe(p => {
+    this.activeRoute.params.subscribe((p) => {
       if (this.intervalId) {
         clearInterval(this.intervalId);
       }
       this.serviceName = <string>p["id"];
-      this.ses.list().then(servs => {
-        this.services = servs.filter(s => s.name == this.serviceName);
+      this.ses.list().then((servs) => {
+        this.services = servs.filter((s) => s.name == this.serviceName);
         this.selectedVersion =
-          this.services.filter(s => s.version == "latest").length > 0
+          this.services.filter((s) => s.version == "latest").length > 0
             ? "latest"
             : this.services[0].version;
       });
       this.ses
         .events(this.serviceName)
-        .then(events => {
+        .then((events) => {
           this.events = events;
         })
-        .catch(e => {
+        .catch((e) => {
           this.notif.error(
             "Error listing events",
             JSON.parse(e.error.error).detail
@@ -94,11 +94,10 @@ export class ServiceComponent implements OnInit {
   loadVersionData() {
     this.ses
       .trace(this.serviceName)
-      .then(spans => {
+      .then((spans) => {
         this.traceSpans = spans;
       })
-      .catch(e => {
-        console.log(e);
+      .catch((e) => {
         this.notif.error(
           "Error listing trace",
           JSON.parse(e.error.error).detail
@@ -112,38 +111,32 @@ export class ServiceComponent implements OnInit {
       }
       this.ses
         .stats(this.serviceName)
-        .then(stats => {
-          this.stats = stats;
+        .then((stats) => {
+          this.stats = [].concat(this.stats, stats)
         })
-        .catch(e => {
+        .catch((e) => {
           if (statsFailure) {
             return;
           }
           statsFailure = true;
-          this.notif.error(
-            "Error reading stats",
-            JSON.parse(e.error.error).detail
-          );
+          this.notif.error("Error reading stats", e);
         });
     }, 2000);
-    this.tabValueChange.subscribe(index => {
+    this.tabValueChange.subscribe((index) => {
       if (index !== 2 || !this.refresh) {
         return;
       }
       this.ses
         .stats(this.serviceName)
-        .then(stats => {
-          this.stats = stats;
+        .then((stats) => {
+          this.stats = [].concat(this.stats, stats)
         })
-        .catch(e => {
+        .catch((e) => {
           if (statsFailure) {
             return;
           }
           statsFailure = true;
-          this.notif.error(
-            "Error reading stats",
-            JSON.parse(e.error.error).detail
-          );
+          this.notif.error("Error reading stats", e);
         });
     });
     // logs subscriptions
@@ -154,10 +147,10 @@ export class ServiceComponent implements OnInit {
       }
       this.ses
         .logs(this.serviceName)
-        .then(logs => {
+        .then((logs) => {
           this.logs = logs;
         })
-        .catch(e => {
+        .catch((e) => {
           if (logFailure) {
             return;
           }
@@ -168,16 +161,16 @@ export class ServiceComponent implements OnInit {
           );
         });
     }, 2000);
-    this.tabValueChange.subscribe(index => {
+    this.tabValueChange.subscribe((index) => {
       if (index !== 1 || !this.refreshLogs) {
         return;
       }
       this.ses
         .logs(this.serviceName)
-        .then(logs => {
+        .then((logs) => {
           this.logs = logs;
         })
-        .catch(e => {
+        .catch((e) => {
           if (logFailure) {
             return;
           }

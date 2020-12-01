@@ -71,7 +71,7 @@
             >
           </div>
           <br />
-          <app-stat-charts [stats]="stats"></app-stat-charts>
+          <app-stat-charts *ngIf="stats" [serviceName]="serviceName" [stats]="stats"></app-stat-charts>
         </ng-template>
       </mat-tab>
       <mat-tab label="Nodes">

@@ -38,6 +38,7 @@
     "ngx-monaco-editor": "^8.1.1",
     "nvd3": "^1.8.6",
     "rxjs": "~6.4.0",
+    "rxjs-compat": "^6.6.3",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

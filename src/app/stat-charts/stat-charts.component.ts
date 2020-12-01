@@ -4,10 +4,12 @@ import * as types from "../types";
 @Component({
   selector: "app-stat-charts",
   templateUrl: "./stat-charts.component.html",
-  styleUrls: ["./stat-charts.component.css"]
+  styleUrls: ["./stat-charts.component.css"],
 })
 export class StatChartsComponent implements OnInit {
   @Input() stats: types.DebugSnapshot[] = [];
+  @Input() serviceName: string;
+
   constructor() {}
 
   ngOnInit() {}
@@ -24,23 +26,21 @@ export class StatChartsComponent implements OnInit {
       return self.indexOf(value) === index;
     }
     const STAT_WINDOW = 8 * 60 * 1000; /* ms */
-    this.stats = this.stats.filter(stat => {
+    this.stats = this.stats.filter((stat) => {
       return Date.now() - stat.timestamp * 1000 < STAT_WINDOW;
     });
-    const nodes = this.stats
-      .map(stat => stat.service.node.id)
-      .filter(onlyUnique);
-    this.requestRates.data = nodes.map(node => {
+
+    const services = [this.serviceName]
+    this.requestRates.data = services.map((service) => {
       return {
-        label: node,
-        name: node,
+        label: service,
+        name: service,
         type: "line",
         pointRadius: 0,
         fill: false,
         lineTension: 0,
         borderWidth: 2,
         data: this.stats
-          .filter(stat => stat.service.node.id == node)
           .map((stat, i) => {
             let value = stat.requests;
             if (i == 0 && this.stats.length > 0) {
@@ -54,41 +54,41 @@ export class StatChartsComponent implements OnInit {
             }
             return {
               x: new Date(stat.timestamp * 1000),
-              y: value ? value : 0
+              y: value ? value : 0,
             };
-          })
+          }),
       };
     });
 
-    this.memoryRates.data = nodes.map(node => {
+    this.memoryRates.data = services.map((service) => {
       return {
-        label: node,
+        label: service,
         type: "line",
         pointRadius: 0,
         fill: false,
         lineTension: 0,
         borderWidth: 2,
         data: this.stats
-          .filter(stat => stat.service.node.id == node)
+          //.filter((stat) => stat.service.node.id == service)
           .map((stat, i) => {
             let value = stat.memory;
             return {
               x: new Date(stat.timestamp * 1000),
-              y: value ? value / (1000 * 1000) : 0
+              y: value ? value / (1000 * 1000) : 0,
             };
-          })
+          }),
       };
     });
-    this.errorRates.data = nodes.map(node => {
+    this.errorRates.data = services.map((service) => {
       return {
-        label: node,
+        label: service,
         type: "line",
         pointRadius: 0,
         fill: false,
         lineTension: 0,
         borderWidth: 2,
         data: this.stats
-          .filter(stat => stat.service.node.id == node)
+        //.filter((stat) => stat.service.node.id == node)
           .map((stat, i) => {
             let value = stat.errors;
             if (i == 0 && this.stats.length > 0) {
@@ -102,22 +102,22 @@ export class StatChartsComponent implements OnInit {
             }
             return {
               x: new Date(stat.timestamp * 1000),
-              y: value ? value : 0
+              y: value ? value : 0,
             };
-          })
+          }),
       };
     });
     let concMax = 0;
-    this.concurrencyRates.data = nodes.map(node => {
+    this.concurrencyRates.data = services.map((service) => {
       return {
-        label: node,
+        label: service,
         type: "line",
         pointRadius: 0,
         fill: false,
         lineTension: 0,
         borderWidth: 2,
         data: this.stats
-          .filter(stat => stat.service.node.id == node)
+         // .filter((stat) => stat.service.node.id == node)
           .map((stat, i) => {
             let value = stat.threads;
             if (value > concMax) {
@@ -125,23 +125,23 @@ export class StatChartsComponent implements OnInit {
             }
             return {
               x: new Date(stat.timestamp * 1000),
-              y: value ? value : 0
+              y: value ? value : 0,
             };
-          })
+          }),
       };
     });
     //this.concurrencyRates.options.scales.yAxes[0].ticks.max = concMax * 1.5;
-    this.gcRates.data = nodes.map(node => {
+    this.gcRates.data = services.map((service) => {
       return {
-        label: node,
-        name: node,
+        label: service,
+        name: service,
         type: "line",
         pointRadius: 0,
         fill: false,
         lineTension: 0,
         borderWidth: 2,
         data: this.stats
-          .filter(stat => stat.service.node.id == node)
+          //.filter((stat) => stat.service.node.id == node)
           .map((stat, i) => {
             let value = stat.gc;
             if (i == 0 && this.stats.length > 0) {
@@ -153,28 +153,28 @@ export class StatChartsComponent implements OnInit {
             }
             return {
               x: new Date(stat.timestamp * 1000),
-              y: value ? value : 0
+              y: value ? value : 0,
             };
-          })
+          }),
       };
     });
-    this.uptime.data = nodes.map(node => {
+    this.uptime.data = services.map((service) => {
       return {
-        label: node,
-        name: node,
+        label: service,
+        name: service,
         type: "line",
         pointRadius: 0,
         fill: false,
         lineTension: 0,
         borderWidth: 2,
         data: this.stats
-          .filter(stat => stat.service.node.id == node)
+          //.filter((stat) => stat.service.node.id == node)
           .map((stat, i) => {
             return {
               x: new Date(stat.timestamp * 1000),
-              y: stat.uptime ? stat.uptime : 0
+              y: stat.uptime ? stat.uptime : 0,
             };
-          })
+          }),
       };
     });
   }
@@ -188,11 +188,11 @@ export class StatChartsComponent implements OnInit {
       options: {
         title: {
           display: true,
-          text: title
+          text: title,
         },
         //maintainAspectRatio: false,
         animation: {
-          duration: 0
+          duration: 0,
         },
         scales: {
           xAxes: [
@@ -203,42 +203,42 @@ export class StatChartsComponent implements OnInit {
               ticks: {
                 major: {
                   enabled: true,
-                  fontStyle: "bold"
+                  fontStyle: "bold",
                 },
                 source: "data",
                 autoSkip: true,
                 autoSkipPadding: 75,
                 maxRotation: 0,
-                sampleSize: 100
-              }
-            }
+                sampleSize: 100,
+              },
+            },
           ],
           yAxes: [
             {
               gridLines: {
-                drawBorder: false
+                drawBorder: false,
               },
               scaleLabel: {
                 display: true,
-                labelString: ylabel
-              }
-            }
-          ]
+                labelString: ylabel,
+              },
+            },
+          ],
         },
         tooltips: {
           intersect: false,
           mode: "index",
           callbacks: {
-            label: function(tooltipItem, myData) {
+            label: function (tooltipItem, myData) {
               var label = myData.datasets[tooltipItem.datasetIndex].label || "";
               if (label) {
                 label += ": ";
               }
               label += parseFloat(tooltipItem.value).toFixed(2);
               return label;
-            }
-          }
-        }
+            },
+          },
+        },
       },
       data: [],
       chartColors: [
@@ -249,7 +249,7 @@ export class StatChartsComponent implements OnInit {
           pointBackgroundColor: "rgba(10,24,225,0.6)",
           pointBorderColor: "#fff",
           pointHoverBackgroundColor: "#fff",
-          pointHoverBorderColor: "rgba(10,24,225,0.6)"
+          pointHoverBorderColor: "rgba(10,24,225,0.6)",
         },
         {
           // second color
@@ -258,10 +258,10 @@ export class StatChartsComponent implements OnInit {
           pointBackgroundColor: "rgba(10,24,225,0.6)",
           pointBorderColor: "#fff",
           pointHoverBackgroundColor: "#fff",
-          pointHoverBorderColor: "rgba(10,24,225,0.6)"
-        }
+          pointHoverBorderColor: "rgba(10,24,225,0.6)",
+        },
       ],
-      lineChartType: "line"
+      lineChartType: "line",
     };
   }
   memoryRates = this.options("Memory Usage", "memory usage (MB)");
