@@ -4,6 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "../environments/environment";
 import { UserService } from "./user.service";
 import * as _ from "lodash";
+import { map } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 export interface RPCRequest {
   service: string;
@@ -66,32 +68,31 @@ export class ServiceService {
     });
   }
 
-  logs(service: string): Promise<types.LogRecord[]> {
-    return new Promise<types.LogRecord[]>((resolve, reject) => {
-      return this.http
-        .post<types.LogRecord[]>(
-          environment.apiUrl + "/runtime/logs",
-          {
-            service: service,
-            options: {
-              namespace: "micro",
-            },
+  logs(service: string): Observable<types.LogRecord> {
+    return this.http
+      .post<types.LogRecord>(
+        environment.apiUrl + "/runtime/logs",
+        {
+          service: service,
+          stream: true,
+          options: {
+            namespace: "micro",
           },
-          {
-            headers: {
-              authorization: this.us.token(),
-              "micro-namespace": "micro",
-            },
-          }
-        )
-        .toPromise()
-        .then((servs) => {
-          resolve(servs as types.LogRecord[]);
-        })
-        .catch((e) => {
-          reject(e);
-        });
-    });
+        },
+        {
+          headers: {
+            authorization: this.us.token(),
+            "micro-namespace": "micro",
+          },
+        }
+      )
+
+    //.then((servs) => {
+    //  resolve(servs as types.LogRecord[]);
+    //})
+    //.catch((e) => {
+    //  reject(e);
+    //});
   }
 
   stats(service: string, version?: string): Promise<types.DebugSnapshot> {
@@ -99,9 +100,7 @@ export class ServiceService {
       return this.http
         .post<types.DebugSnapshot>(
           environment.apiUrl + "/" + service + "/debug/stats",
-          {
-   
-          },
+          {},
           {
             headers: {
               authorization: this.us.token(),

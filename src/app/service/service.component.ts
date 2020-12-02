@@ -112,7 +112,7 @@ export class ServiceComponent implements OnInit {
       this.ses
         .stats(this.serviceName)
         .then((stats) => {
-          this.stats = [].concat(this.stats, stats)
+          this.stats = [].concat(this.stats, stats);
         })
         .catch((e) => {
           if (statsFailure) {
@@ -129,7 +129,7 @@ export class ServiceComponent implements OnInit {
       this.ses
         .stats(this.serviceName)
         .then((stats) => {
-          this.stats = [].concat(this.stats, stats)
+          this.stats = [].concat(this.stats, stats);
         })
         .catch((e) => {
           if (statsFailure) {
@@ -141,44 +141,20 @@ export class ServiceComponent implements OnInit {
     });
     // logs subscriptions
     let logFailure = false;
-    this.intervalId = setInterval(() => {
-      if (this.selected !== 1 || !this.refreshLogs) {
-        return;
-      }
-      this.ses
-        .logs(this.serviceName)
-        .then((logs) => {
-          this.logs = logs;
-        })
-        .catch((e) => {
-          if (logFailure) {
-            return;
-          }
-          logFailure = true;
-          this.notif.error(
-            "Error reading logs",
-            JSON.parse(e.error.error).detail
-          );
-        });
-    }, 2000);
+
+
+      this.ses.logs(this.serviceName).subscribe((v) => {
+        console.log("obv", v);
+      });
+
     this.tabValueChange.subscribe((index) => {
       if (index !== 1 || !this.refreshLogs) {
         return;
       }
       this.ses
         .logs(this.serviceName)
-        .then((logs) => {
-          this.logs = logs;
-        })
-        .catch((e) => {
-          if (logFailure) {
-            return;
-          }
-          logFailure = true;
-          this.notif.error(
-            "Error reading logs",
-            JSON.parse(e.error.error).detail
-          );
+        .subscribe((v) => {
+          console.log("obv", v);
         });
     });
   }
