@@ -13,8 +13,9 @@ import { RegisterComponent } from "./register/register.component";
 
 const routes: Routes = [
   {
-    path: '',
-    component: LoginComponent,
+    path: "",
+    redirectTo: "services",
+    pathMatch: "full",
   },
   {
     path: "not-invited",
