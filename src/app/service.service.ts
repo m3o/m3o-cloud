@@ -28,10 +28,11 @@ export class ServiceService {
   list(): Promise<types.Service[]> {
     return new Promise<types.Service[]>((resolve, reject) => {
       return this.http
-        .get<ServicesResponse>(environment.apiUrl + "/runtime/read", {
+        .post<ServicesResponse>(environment.apiUrl + "/runtime/read", {}, {
           headers: {
             authorization: this.us.token(),
-            "micro-namespace": "micro",
+            "micro-namespace": this.us.namespace(),
+            //"micro-namespace": "micro",
           },
         })
         .toPromise()
@@ -55,6 +56,7 @@ export class ServiceService {
           {
             headers: {
               authorization: this.us.token(),
+              //"micro-namespace": this.us.namespace(),
             },
           }
         )
@@ -69,23 +71,22 @@ export class ServiceService {
   }
 
   logs(service: string): Observable<types.LogRecord> {
-    return this.http
-      .post<types.LogRecord>(
-        environment.apiUrl + "/runtime/logs",
-        {
-          service: service,
-          stream: true,
-          options: {
-            namespace: "micro",
-          },
+    return this.http.post<types.LogRecord>(
+      environment.apiUrl + "/runtime/logs",
+      {
+        service: service,
+        stream: true,
+        options: {
+          namespace: this.us.namespace(),
         },
-        {
-          headers: {
-            authorization: this.us.token(),
-            "micro-namespace": "micro",
-          },
-        }
-      )
+      },
+      {
+        headers: {
+          authorization: this.us.token(),
+          //"micro-namespace": this.us.namespace(),
+        },
+      }
+    );
 
     //.then((servs) => {
     //  resolve(servs as types.LogRecord[]);
@@ -104,7 +105,7 @@ export class ServiceService {
           {
             headers: {
               authorization: this.us.token(),
-              "micro-namespace": "micro",
+              "micro-namespace": this.us.namespace(),
             },
           }
         )
@@ -159,7 +160,7 @@ export class ServiceService {
           {
             headers: {
               authorization: this.us.token(),
-              "micro-namespace": "micro",
+              "micro-namespace": this.us.namespace(),
             },
           }
         )

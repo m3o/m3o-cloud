@@ -63,6 +63,7 @@ import { TraceListComponent } from "./trace-list/trace-list.component";
 import { EndpointListComponent } from "./endpoint-list/endpoint-list.component";
 import { LogsComponent } from "./logs/logs.component";
 import { NodesComponent } from "./nodes/nodes.component";
+import { RegisterComponent } from './register/register.component';
 
 /**
  * Import specific languages to avoid importing everything
@@ -98,7 +99,8 @@ export function getHighlightLanguages() {
     TraceListComponent,
     EndpointListComponent,
     LogsComponent,
-    NodesComponent
+    NodesComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

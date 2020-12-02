@@ -9,6 +9,10 @@
       <mat-label>Password</mat-label>
       <input matInput [(ngModel)]="password" type="password" />
     </mat-form-field>
+    <mat-form-field class="full" appearance="legacy">
+      <mat-label>Namespace</mat-label>
+      <input matInput [(ngModel)]="namespace" type="text" />
+    </mat-form-field>
     <br />
     <button mat-raised-button type="button" color="primary" (click)="login()">
       Login

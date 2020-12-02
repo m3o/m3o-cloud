@@ -1,0 +1,42 @@
+<div style="width: 100%">
+  <div style="width: 50%; margin: 0 auto">
+    <mat-form-field class="full" appearance="legacy">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="email" type="email" />
+    </mat-form-field>
+    <br />
+    <mat-form-field class="full" appearance="legacy">
+      <mat-label>Password</mat-label>
+      <input matInput [(ngModel)]="password" type="password" />
+    </mat-form-field>
+    <br />
+    <button
+      mat-raised-button
+      type="button"
+      color="primary"
+      (click)="sendVerificationEmail()"
+    >
+      Register
+    </button>
+    <div *ngIf="verifySent">
+      <br />
+      <mat-form-field class="full" appearance="legacy">
+        <mat-label>Verification code</mat-label>
+        <input
+          matInput
+          [(ngModel)]="verificationCode"
+          type="verification code"
+        />
+      </mat-form-field>
+      <button
+        mat-raised-button
+        type="button"
+        color="primary"
+        (click)="verify()"
+      >
+        Verify
+      </button>
+    </div>
+    <br />
+  </div>
+</div>

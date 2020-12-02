@@ -3,7 +3,7 @@ import {
   OnInit,
   ViewEncapsulation,
   ViewChild,
-  ElementRef
+  ElementRef,
 } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
@@ -20,13 +20,12 @@ import { NotificationsService } from "angular2-notifications";
   selector: "app-new-service",
   templateUrl: "./new-service.component.html",
   styleUrls: ["./new-service.component.css"],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class NewServiceComponent implements OnInit {
   serviceInput = new FormControl("", [Validators.required]);
   @ViewChild("sinput", { static: false }) sinput: ElementRef;
   alias = "";
-  namespace = "go.micro";
   serviceType = "srv";
   serviceName = "";
   code: string = "";
@@ -58,7 +57,7 @@ export class NewServiceComponent implements OnInit {
       "Found your service on GitHub. Waiting for the build to start...",
       "Build is in progress. Waiting for the build to finish...",
       "Build finished. Waiting for your service to start...",
-      "Ready to roll! Redirecting you to your service page..."
+      "Ready to roll! Redirecting you to your service page...",
     ];
   };
 
@@ -74,7 +73,7 @@ export class NewServiceComponent implements OnInit {
   ngOnInit() {
     this.alias = this.us.user.name;
     this.serviceInput.markAsTouched();
-    this.activeRoute.params.subscribe(p => {
+    this.activeRoute.params.subscribe((p) => {
       const id = <string>p["id"];
       if (id) {
         this.alias = _.last(id.split("."));
@@ -83,8 +82,7 @@ export class NewServiceComponent implements OnInit {
       this.serviceInput.markAsTouched();
     });
 
-    this.serviceName =
-      this.namespace + "." + this.serviceType + "." + this.alias;
+    this.serviceName = this.alias;
     this.location.replaceState("/service/new/" + this.serviceName);
 
     this.loadAll(true);
@@ -96,7 +94,7 @@ export class NewServiceComponent implements OnInit {
 
   ngAfterViewInit() {
     const source = rxjs.fromEvent(this.sinput.nativeElement, "keyup");
-    source.pipe(debounceTime(600)).subscribe(c => {
+    source.pipe(debounceTime(600)).subscribe((c) => {
       this.loadAll(true);
     });
   }
@@ -107,11 +105,11 @@ export class NewServiceComponent implements OnInit {
     }
     this.ses
       .events(this.serviceName)
-      .then(events => {
+      .then((events) => {
         this.events = events;
         this.checkEvents();
       })
-      .catch(e => {
+      .catch((e) => {
         if (this.eventErrored) {
           return;
         }
@@ -122,7 +120,7 @@ export class NewServiceComponent implements OnInit {
         } catch (e) {}
         this.notif.error("Error listing events", errMsg);
       });
-    this.ses.list().then(services => {
+    this.ses.list().then((services) => {
       this.services = services;
       this.checkServices(setLoader);
       if (setLoader) {
@@ -141,7 +139,7 @@ export class NewServiceComponent implements OnInit {
     if (!this.events || this.events.length == 0) {
       return;
     }
-    const e = _.last(_.orderBy(this.events, e => e.timestamp, "asc"));
+    const e = _.last(_.orderBy(this.events, (e) => e.timestamp, "asc"));
     if (e.service.name != this.serviceName) {
       return;
     }
@@ -251,7 +249,7 @@ export class NewServiceComponent implements OnInit {
 
   checkServices(setExists?: boolean) {
     const inRegistry =
-      this.services.filter(e => {
+      this.services.filter((e) => {
         return e.name == this.serviceName;
       }).length > 0;
     if (!inRegistry) {
@@ -286,8 +284,7 @@ export class NewServiceComponent implements OnInit {
   }
 
   regen() {
-    this.serviceName =
-      this.namespace + "." + this.serviceType + "." + this.alias;
+    this.serviceName = this.alias;
     this.newCode();
     this.newRunCode();
   }

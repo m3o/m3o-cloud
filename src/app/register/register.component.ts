@@ -1,0 +1,43 @@
+import { Component, OnInit } from "@angular/core";
+import { UserService } from "../user.service";
+import { environment } from "../../environments/environment";
+import { Router } from "@angular/router";
+import { NotificationsService } from "angular2-notifications";
+
+@Component({
+  selector: "app-register",
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.css"],
+})
+export class RegisterComponent implements OnInit {
+  email: string = "";
+  password: string = "";
+  verifySent = false;
+  verificationCode: string = "";
+
+  constructor(
+    private us: UserService,
+    private router: Router,
+    private notif: NotificationsService
+  ) {}
+
+  ngOnInit() {}
+
+  sendVerificationEmail() {
+    this.us
+      .sendVerification(this.email)
+      .then(() => {
+        this.verifySent = true;
+      })
+      .catch((e) => {});
+  }
+
+  verify() {
+    this.us
+      .verify(this.email, this.password, this.verificationCode)
+      .then(() => {
+        document.location.href = "/services";
+      })
+      .catch((e) => {});
+  }
+}
