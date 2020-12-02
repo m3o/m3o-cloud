@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     return false;
   }
 
-  public login(event: any) {
+  public login() {
     this.us.login(this.email, this.password).then(() => {
       this.router.navigate(["/services"]);
     });
