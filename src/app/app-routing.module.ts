@@ -13,6 +13,10 @@ import { RegisterComponent } from "./register/register.component";
 
 const routes: Routes = [
   {
+    path: '',
+    component: LoginComponent,
+  },
+  {
     path: "not-invited",
     component: NotInvitedComponent,
   },

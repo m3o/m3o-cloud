@@ -1,7 +1,3 @@
-#new-servcie-input .mat-form-field-infix {
-  padding: 0 !important;
-  border: 0;
-}
 
 code {
   padding: 15px !important;
@@ -26,12 +22,4 @@ code {
 .simple-notification a {
   color: #f3f3f3 !important;
   text-decoration: underline;
-}
-
-/* Without this the input border and padding causes the page title to be aligned
-differently on step 0 vs the rest */
-.mat-form-field-infix {
-  padding-top: 0 !important;
-  margin-top: 0;
-  border-top: 0;
 }

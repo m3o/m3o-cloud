@@ -201,6 +201,7 @@ export class UserService {
               {
                 email: email,
                 token: verificationCode,
+                secret: password,
               }
             )
             .toPromise()

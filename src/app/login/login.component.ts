@@ -15,7 +15,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private us: UserService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.namespace = this.us.namespace();
+  }
 
   public githubLogin(event: any) {
     this.us.logout();
