@@ -8,6 +8,11 @@ export interface Account {
   issuer: string;
   secret: string;
   name: string;
+
+  organizationAvatarUrl?: string;
+  avatarUrl?: string;
+  teamName?: string;
+  teamUrl?: string;
 }
 
 export interface Value {
