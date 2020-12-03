@@ -24,7 +24,7 @@
     <ng-container *ngIf="services">
       <mat-card
         class="mat-card-flat"
-        *ngFor="let service of services | search: query"
+        *ngFor="let service of services | search:'name':query"
         style="margin-bottom: 1em; background: #fcfcfc"
       >
         <mat-card-title
@@ -42,8 +42,7 @@
             <mat-chip>{{ service.version }}</mat-chip>
           </mat-chip-list>
           <span style="color: grey; font-size: 0.75em">
-            &nbsp;
-            {{ service.metadata.started | timeago }} by
+            &nbsp; started {{ service.metadata.started | timeago }} by
             {{ service.metadata.owner }}
           </span>
         </mat-card-title>

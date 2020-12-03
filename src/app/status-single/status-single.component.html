@@ -29,9 +29,8 @@
         <mat-chip-list selectable="false" aria-label="Versions">
           <mat-chip
             selectable="false"
-            (click)="versionSelected(service)"
             [ngStyle]="
-              selectedVersion == service.version && {
+              true && {
                 'background-color': '#673ab7',
                 color: 'white'
               }
@@ -54,13 +53,13 @@
         <br />
         <div fxLayoutAlign="row wrap" fxLayoutGap="2%">
           <mat-card
-            *ngIf="service?.metadata?.error"
+            *ngIf="service?.metadata['error']"
             fxFlex="0 1 48%"
             style="margin-left: 2px; margin-bottom: 2px; background: #fcfcfc"
           >
             <mat-card-title>Errors</mat-card-title>
             <p>
-              {{ service.metadata.error }}
+              {{ service?.metadata['error'] }}
             </p>
           </mat-card>
 
