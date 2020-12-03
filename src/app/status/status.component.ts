@@ -1,14 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { RuntimeService } from "../runtime.service";
+import { UserService } from "../user.service";
 import * as types from "../types";
 import { NotificationsService } from "angular2-notifications";
-
-var groupBy = function (xs, key) {
-  return xs.reduce(function (rv, x) {
-    (rv[x[key]] = rv[x[key]] || []).push(x);
-    return rv;
-  }, {});
-};
 
 @Component({
   selector: "app-services",
@@ -16,11 +10,12 @@ var groupBy = function (xs, key) {
   styleUrls: ["./status.component.scss"],
 })
 export class StatusComponent implements OnInit {
-  services: Map<string, types.Service[]>;
+  services: types.Service[];
   query: string;
 
   constructor(
     private rus: RuntimeService,
+    private us: UserService,
     private notif: NotificationsService
   ) {}
 
@@ -28,7 +23,7 @@ export class StatusComponent implements OnInit {
     this.rus
       .list()
       .then((servs) => {
-        this.services = groupBy(servs, "name");
+        this.services = servs;
       })
       .catch((e) => {
         console.log(e);
@@ -39,11 +34,14 @@ export class StatusComponent implements OnInit {
       });
   }
 
-  hasError(ss: types.Service[]): boolean {
-    return (
-      ss.filter((s) => {
-        return s.metadata["error"] != undefined;
-      }).length > 0
-    );
+  hasError(ss: types.Service): boolean {
+    return ss.metadata["error"] != undefined;
+  }
+
+  name(name: string): string {
+    if (this.us.user.name == name) {
+      return 'you'
+    }
+    return name
   }
 }

@@ -37,6 +37,7 @@ const tabIndexesToName = {
 })
 export class StatusSingleComponent implements OnInit {
   service: types.Service = {} as types.Service;
+  version = "";
 
   services: types.Service[];
   logs: types.LogRecord[];
@@ -44,7 +45,6 @@ export class StatusSingleComponent implements OnInit {
   traceSpans: types.Span[];
   events: types.Event[];
 
-  selectedVersion = "";
   serviceName: string;
   endpointQuery: string;
   intervalId: any;
@@ -69,15 +69,13 @@ export class StatusSingleComponent implements OnInit {
         clearInterval(this.intervalId);
       }
       this.serviceName = <string>p["id"];
-      this.rs.list().then((servs) => {
-        this.services = servs.filter((s) => s.name == this.serviceName);
-        this.service = this.services[0];
-        console.log(this.service);
+      this.version = <string>p["version"];
 
-        this.selectedVersion =
-          this.services.filter((s) => s.version == "latest").length > 0
-            ? "latest"
-            : this.services[0].version;
+      this.rs.list().then((servs) => {
+        this.services = servs.filter(
+          (s) => s.name == this.serviceName && s.version == this.version
+        );
+        this.service = this.services[0];
       });
       this.loadVersionData();
       const tab = <string>p["tab"];
@@ -85,6 +83,10 @@ export class StatusSingleComponent implements OnInit {
         this.selected = tabNamesToIndex[tab];
       }
     });
+  }
+
+  public hasError(ss: types.Service): boolean {
+    return ss.metadata["error"] != undefined;
   }
 
   loadVersionData() {
@@ -135,15 +137,6 @@ export class StatusSingleComponent implements OnInit {
           this.notif.error("Error reading stats", e);
         });
     });
-  }
-
-  versionSelected(service: types.Service) {
-    if (this.selectedVersion == service.version) {
-      this.selectedVersion = "";
-      return;
-    }
-    this.selectedVersion = service.version;
-    this.loadVersionData();
   }
 
   tabChange($event: number) {

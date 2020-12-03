@@ -66,6 +66,7 @@ import { EndpointListComponent } from "./endpoint-list/endpoint-list.component";
 import { LogsComponent } from "./logs/logs.component";
 import { NodesComponent } from "./nodes/nodes.component";
 import { RegisterComponent } from "./register/register.component";
+import { TimeagoModule } from "ngx-timeago";
 
 /**
  * Import specific languages to avoid importing everything
@@ -118,6 +119,7 @@ export function getHighlightLanguages() {
     MatListModule,
     FlexLayoutModule,
     MatMenuModule,
+    TimeagoModule.forRoot(),
     HttpClientModule,
     SimpleNotificationsModule.forRoot({
       //position: ["top", "right"],

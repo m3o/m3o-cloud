@@ -24,25 +24,28 @@
     <ng-container *ngIf="services">
       <mat-card
         class="mat-card-flat"
-        *ngFor="let service of services | keyvalue | search: 'key':query"
+        *ngFor="let service of services | search: query"
         style="margin-bottom: 1em; background: #fcfcfc"
       >
         <mat-card-title
           style="display: flex; align-items: center; font-size: 1.25em"
         >
-          <mat-icon
-            [style.color]="hasError(service.value) ? 'red' : 'green'"
+          <mat-icon [style.color]="hasError(service) ? 'red' : 'green'"
             >fiber_manual_record</mat-icon
           >
-          &nbsp;<a href="#" routerLink="/status/{{ service.key }}">{{
-            service.key
-          }}</a
+          &nbsp;<a
+            href="#"
+            routerLink="/status/{{ service.name }}/{{ service.version }}"
+            >{{ service.name }}</a
           >&nbsp;&nbsp;
           <mat-chip-list aria-label="Versions">
-            <mat-chip *ngFor="let serv of service.value">{{
-              serv.version
-            }}</mat-chip>
+            <mat-chip>{{ service.version }}</mat-chip>
           </mat-chip-list>
+          <span style="color: grey; font-size: 0.75em">
+            &nbsp;
+            {{ service.metadata.started | timeago }} by
+            {{ service.metadata.owner }}
+          </span>
         </mat-card-title>
       </mat-card>
       <br />&nbsp;

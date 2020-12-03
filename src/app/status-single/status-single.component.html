@@ -13,14 +13,14 @@
       style="align-items: center"
     >
       <div>
-        <a routerLink="/status"
-          >Status <span fxHide.lt-md>&gt; &nbsp;</span></a
-        >
+        <a routerLink="/status">Status <span fxHide.lt-md>&gt; &nbsp;</span></a>
       </div>
       <div>
-        <!-- <mat-icon style="color: green; vertical-align: middle;"
+        <mat-icon
+          [style.color]="hasError(service) ? 'red' : 'green'"
+          style="vertical-align: middle"
           >fiber_manual_record</mat-icon
-        >-->
+        >
         {{ serviceName }} &nbsp;
       </div>
       <div>
@@ -30,7 +30,6 @@
           <mat-chip
             selectable="false"
             (click)="versionSelected(service)"
-            *ngFor="let service of services"
             [ngStyle]="
               selectedVersion == service.version && {
                 'background-color': '#673ab7',
@@ -48,12 +47,15 @@
       [selectedIndex]="selected"
       (selectedIndexChange)="tabChange($event)"
     >
-      <mat-tab style="padding-top: 1em" label="Process">
+      <mat-tab
+        style="padding-top: 1em; padding-left: 0.5em; padding-right: 0.5em"
+        label="Process"
+      >
         <br />
-        <div fxLayoutAlign="row wrap">
+        <div fxLayoutAlign="row wrap" fxLayoutGap="2%">
           <mat-card
             *ngIf="service?.metadata?.error"
-            fxFlex="0 1 33%"
+            fxFlex="0 1 48%"
             style="margin-left: 2px; margin-bottom: 2px; background: #fcfcfc"
           >
             <mat-card-title>Errors</mat-card-title>
@@ -63,20 +65,30 @@
           </mat-card>
 
           <mat-card
-            fxFlex="0 1 33%"
+            fxFlex="0 1 48%"
             style="margin-left: 2px; margin-bottom: 2px; background: #fcfcfc"
           >
             <mat-card-title>Process</mat-card-title>
             <p>
               <mat-form-field style="width: 100%" appearance="legacy">
                 <mat-label>Source</mat-label>
-                <input matInput placeholder="Source" [(ngModel)]="service.source" />
+                <input
+                  matInput
+                  placeholder="Source"
+                  readonly="true"
+                  [(ngModel)]="service.source"
+                />
               </mat-form-field>
             </p>
             <p>
               <mat-form-field style="width: 100%" appearance="legacy">
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="Source" [(ngModel)]="service.name" />
+                <input
+                  matInput
+                  readonly="true"
+                  placeholder="Source"
+                  [(ngModel)]="service.name"
+                />
               </mat-form-field>
             </p>
           </mat-card>

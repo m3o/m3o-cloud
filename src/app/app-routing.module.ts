@@ -37,19 +37,19 @@ const routes: Routes = [
     component: NewServiceComponent,
     canActivate: [AuthGuard],
   },
-  
+
   {
     path: "service/:id/:tab",
     component: ServiceComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: "status/:id",
+    path: "status/:id/:version",
     component: StatusSingleComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: "status/:id/:tab",
+    path: "status/:id/:version/:tab",
     component: StatusSingleComponent,
     canActivate: [AuthGuard],
   },
