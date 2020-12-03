@@ -6,15 +6,10 @@ import {
   ElementRef,
 } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
-import { Location } from "@angular/common";
-import { UserService } from "../user.service";
-import { ServiceService } from "../service.service";
-import * as types from "../types";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as _ from "lodash";
-import * as rxjs from "rxjs";
-import { debounceTime } from "rxjs/operators";
 import { NotificationsService } from "angular2-notifications";
+import { RuntimeService } from "../runtime.service";
 
 @Component({
   selector: "app-new-service",
@@ -31,11 +26,8 @@ export class NewServiceComponent implements OnInit {
   deploying = false;
 
   constructor(
-    private us: UserService,
-    private ses: ServiceService,
     private router: Router,
-    private location: Location,
-    private activeRoute: ActivatedRoute,
+    private rus: RuntimeService,
     private notif: NotificationsService
   ) {}
 
@@ -48,7 +40,7 @@ export class NewServiceComponent implements OnInit {
       this.deploying = false;
       return false;
     }
-    this.ses
+    this.rus
       .create(this.serviceName, this.source)
       .then((v) => {
         setTimeout(() => {

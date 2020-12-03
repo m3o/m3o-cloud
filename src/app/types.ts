@@ -25,7 +25,7 @@ export interface Endpoint {
   name: string;
   request: Value;
   response: Value;
-  metadata: Map<string, string>;
+  metadata: Object;
   title: string; // does not exist yet
   description: string; // does not exist yet
   //
@@ -57,6 +57,7 @@ export interface Service {
   metadata: Map<string, string>;
   endpoints: Endpoint[];
   nodes: Node[];
+  source: string;
 }
 
 // taken from https://github.com/micro/micro/blob/master/debug/log/proto/log.proto

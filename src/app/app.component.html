@@ -5,7 +5,7 @@
 >
   <mat-toolbar style="padding: 1em; padding-left: 0em; background-color: white">
     <mat-toolbar-row
-      style="padding-bottom: 0; padding-left: 0.5em; padding-right: 0.5em"
+      style="padding-bottom: 0; padding-left: 0.75em; padding-right: 0em"
     >
       <button mat-icon-button (click)="sidenav.toggle()" fxHide.gt-sm>
         <mat-icon>menu</mat-icon>&nbsp;&nbsp;&nbsp;
@@ -17,6 +17,7 @@
         <a *ngIf="user && user.name" routerLink="/services" mat-button
           >Services</a
         >
+        <a *ngIf="user && user.name" routerLink="/status" mat-button>Status</a>
         <!--<a *ngIf="user && user.name" routerLink="/events" mat-button>Events</a> -->
 
         <mat-menu id="matmenu" #menu="matMenu">
@@ -59,7 +60,7 @@
         <span fxHide="false" fxHide.lt-md>
           <button
             *ngIf="user && user.name"
-            mat-button
+            mat-stroked-button
             [matMenuTriggerFor]="menu"
             class="dropdown-menu"
             id="dropdown-menu"
@@ -143,8 +144,8 @@
           >
         </div>
         <div *ngIf="user && user.name">
-          <a mat-list-item (click)="sidenav.toggle()" routerLink="/events"
-            >Events</a
+          <a mat-list-item (click)="sidenav.toggle()" routerLink="/status"
+            >Status</a
           >
         </div>
         <div *ngIf="user && user.name">

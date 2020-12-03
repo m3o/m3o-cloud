@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { RegistryService } from "../registry.service";
+import { RuntimeService } from "../runtime.service";
 import * as types from "../types";
 import { NotificationsService } from "angular2-notifications";
 
@@ -12,20 +12,20 @@ var groupBy = function (xs, key) {
 
 @Component({
   selector: "app-services",
-  templateUrl: "./services.component.html",
-  styleUrls: ["./services.component.scss"],
+  templateUrl: "./status.component.html",
+  styleUrls: ["./status.component.scss"],
 })
-export class ServicesComponent implements OnInit {
+export class StatusComponent implements OnInit {
   services: Map<string, types.Service[]>;
   query: string;
 
   constructor(
-    private rs: RegistryService,
+    private rus: RuntimeService,
     private notif: NotificationsService
   ) {}
 
   ngOnInit() {
-    this.rs
+    this.rus
       .list()
       .then((servs) => {
         this.services = groupBy(servs, "name");
@@ -37,5 +37,13 @@ export class ServicesComponent implements OnInit {
           JSON.parse(e.error.error).detail
         );
       });
+  }
+
+  hasError(ss: types.Service[]): boolean {
+    return (
+      ss.filter((s) => {
+        return s.metadata["error"] != undefined;
+      }).length > 0
+    );
   }
 }

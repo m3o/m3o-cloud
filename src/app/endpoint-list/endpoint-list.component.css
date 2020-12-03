@@ -1,3 +1,7 @@
 .reqresp {
     font-family: 'Source Code Pro';
 }
+
+.mat-form-field-infix {
+    padding-top: 0;
+}

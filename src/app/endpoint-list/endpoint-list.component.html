@@ -1,8 +1,9 @@
-<form style="margin-left: 1.5em" class="example-form">
-  <mat-form-field class="example-full-width">
+<form class="example-form">
+  <mat-form-field appearance="outline" class="example-full-width">
     <input
       name="query"
       matInput
+      
       [(ngModel)]="endpointQuery"
       placeholder="Search endpoints"
     />
@@ -10,11 +11,10 @@
 </form>
 <ng-container *ngIf="service">
   <div
-    
     *ngFor="let endpoint of service.endpoints | search: 'name':endpointQuery"
   >
     <div>
-      <mat-expansion-panel class="mat-elevation-z0">
+      <mat-expansion-panel style="background: #fcfcfc; border: 1px solid #f2f2f2;" class="mat-elevation-z0">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{ endpoint.name }}

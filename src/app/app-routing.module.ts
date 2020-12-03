@@ -10,12 +10,18 @@ import { SettingsComponent } from "./settings/settings.component";
 import { EventsComponent } from "./events/events.component";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
+import { StatusComponent } from "./status/status.component";
+import { StatusSingleComponent } from "./status-single/status-single.component";
 
 const routes: Routes = [
   {
     path: "",
     redirectTo: "services",
     pathMatch: "full",
+  },
+  {
+    path: "status",
+    component: StatusComponent,
   },
   {
     path: "not-invited",
@@ -31,9 +37,20 @@ const routes: Routes = [
     component: NewServiceComponent,
     canActivate: [AuthGuard],
   },
+  
   {
     path: "service/:id/:tab",
     component: ServiceComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "status/:id",
+    component: StatusSingleComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "status/:id/:tab",
+    component: StatusSingleComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { ServiceService } from "../service.service";
-import { RegistryService } from "../registry.service";
+import { RuntimeService } from "../runtime.service";
 import * as types from "../types";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
@@ -28,14 +28,16 @@ const tabIndexesToName = {
 
 @Component({
   selector: "app-service",
-  templateUrl: "./service.component.html",
+  templateUrl: "./status-single.component.html",
   styleUrls: [
-    "./service.component.css",
+    "./status-single.component.css",
     "../../../node_modules/nvd3/build/nv.d3.css",
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class ServiceComponent implements OnInit {
+export class StatusSingleComponent implements OnInit {
+  service: types.Service = {} as types.Service;
+
   services: types.Service[];
   logs: types.LogRecord[];
   stats: types.DebugSnapshot[] = [];
@@ -55,7 +57,7 @@ export class ServiceComponent implements OnInit {
 
   constructor(
     private ses: ServiceService,
-    private rs: RegistryService,
+    private rs: RuntimeService,
     private activeRoute: ActivatedRoute,
     private location: Location,
     private notif: NotificationsService
@@ -69,6 +71,9 @@ export class ServiceComponent implements OnInit {
       this.serviceName = <string>p["id"];
       this.rs.list().then((servs) => {
         this.services = servs.filter((s) => s.name == this.serviceName);
+        this.service = this.services[0];
+        console.log(this.service);
+
         this.selectedVersion =
           this.services.filter((s) => s.version == "latest").length > 0
             ? "latest"
@@ -82,7 +87,55 @@ export class ServiceComponent implements OnInit {
     });
   }
 
-  loadVersionData() {}
+  loadVersionData() {
+    this.ses
+      .trace(this.serviceName)
+      .then((spans) => {
+        this.traceSpans = spans;
+      })
+      .catch((e) => {
+        this.notif.error(
+          "Error listing trace",
+          JSON.parse(e.error.error).detail
+        );
+      });
+    // stats subscriptions
+    let statsFailure = false;
+    this.intervalId = setInterval(() => {
+      if (this.selected !== 2 || !this.refresh) {
+        return;
+      }
+      this.ses
+        .stats(this.serviceName)
+        .then((stats) => {
+          this.stats = [].concat(this.stats, stats);
+        })
+        .catch((e) => {
+          if (statsFailure) {
+            return;
+          }
+          statsFailure = true;
+          this.notif.error("Error reading stats", e);
+        });
+    }, 2000);
+    this.tabValueChange.subscribe((index) => {
+      if (index !== 2 || !this.refresh) {
+        return;
+      }
+      this.ses
+        .stats(this.serviceName)
+        .then((stats) => {
+          this.stats = [].concat(this.stats, stats);
+        })
+        .catch((e) => {
+          if (statsFailure) {
+            return;
+          }
+          statsFailure = true;
+          this.notif.error("Error reading stats", e);
+        });
+    });
+  }
 
   versionSelected(service: types.Service) {
     if (this.selectedVersion == service.version) {
@@ -96,7 +149,7 @@ export class ServiceComponent implements OnInit {
   tabChange($event: number) {
     this.selected = $event;
     this.location.replaceState(
-      "/service/" + this.serviceName + "/" + tabIndexesToName[this.selected]
+      "/status/" + this.serviceName + "/" + tabIndexesToName[this.selected]
     );
     this.tabValueChange.next(this.selected);
   }

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import * as types from "../types";
 import { ServiceService } from "../service.service";
 import { NotificationsService } from "angular2-notifications";
+import { RegistryService } from '../registry.service';
 
 @Component({
   selector: "app-endpoint-list",
@@ -16,6 +17,7 @@ export class EndpointListComponent implements OnInit {
 
   constructor(
     private ses: ServiceService,
+    private rs: RegistryService,
     private notif: NotificationsService
   ) {}
 
@@ -28,7 +30,7 @@ export class EndpointListComponent implements OnInit {
   }
 
   regenJSONs() {
-    this.ses.get(this.serviceName).then((s) => {
+    this.rs.get(this.serviceName).then((s) => {
       s.endpoints.forEach((endpoint) => {
         endpoint.requestJSON = this.valueToJson(endpoint.request, 1);
       });

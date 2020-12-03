@@ -1,0 +1,131 @@
+<div>
+  <mat-spinner
+    [diameter]="70"
+    style="margin: auto"
+    *ngIf="!services"
+  ></mat-spinner>
+</div>
+<div *ngIf="services" style="margin: auto">
+  <mat-card style="margin-top: 0em; padding-top: 0em" class="mat-card-flat">
+    <mat-card-title
+      fxLayout="row"
+      fxLayout.lt-sm="column"
+      style="align-items: center"
+    >
+      <div>
+        <a routerLink="/status"
+          >Status <span fxHide.lt-md>&gt; &nbsp;</span></a
+        >
+      </div>
+      <div>
+        <!-- <mat-icon style="color: green; vertical-align: middle;"
+          >fiber_manual_record</mat-icon
+        >-->
+        {{ serviceName }} &nbsp;
+      </div>
+      <div>
+        <!-- The ngStyle background color is a horrible hack due to mat-chips not
+        supporting dynamically the selected property. -->
+        <mat-chip-list selectable="false" aria-label="Versions">
+          <mat-chip
+            selectable="false"
+            (click)="versionSelected(service)"
+            *ngFor="let service of services"
+            [ngStyle]="
+              selectedVersion == service.version && {
+                'background-color': '#673ab7',
+                color: 'white'
+              }
+            "
+            >{{ service.version }}</mat-chip
+          >
+        </mat-chip-list>
+      </div>
+    </mat-card-title>
+
+    <mat-tab-group
+      animationDuration="0ms"
+      [selectedIndex]="selected"
+      (selectedIndexChange)="tabChange($event)"
+    >
+      <mat-tab style="padding-top: 1em" label="Process">
+        <br />
+        <div fxLayoutAlign="row wrap">
+          <mat-card
+            *ngIf="service?.metadata?.error"
+            fxFlex="0 1 33%"
+            style="margin-left: 2px; margin-bottom: 2px; background: #fcfcfc"
+          >
+            <mat-card-title>Errors</mat-card-title>
+            <p>
+              {{ service.metadata.error }}
+            </p>
+          </mat-card>
+
+          <mat-card
+            fxFlex="0 1 33%"
+            style="margin-left: 2px; margin-bottom: 2px; background: #fcfcfc"
+          >
+            <mat-card-title>Process</mat-card-title>
+            <p>
+              <mat-form-field style="width: 100%" appearance="legacy">
+                <mat-label>Source</mat-label>
+                <input matInput placeholder="Source" [(ngModel)]="service.source" />
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field style="width: 100%" appearance="legacy">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Source" [(ngModel)]="service.name" />
+              </mat-form-field>
+            </p>
+          </mat-card>
+        </div>
+      </mat-tab>
+      <mat-tab label="Logs">
+        <div style="text-align: center; margin-top: 1.5em">
+          <mat-checkbox [(ngModel)]="refreshLogs">Refresh</mat-checkbox>
+        </div>
+        <app-logs [logs]="logs"></app-logs>
+      </mat-tab>
+      <mat-tab label="Stats">
+        <ng-template matTabContent>
+          <br />
+          <div style="text-align: center">
+            <mat-checkbox class="example-margin" [(ngModel)]="refresh"
+              >Refresh</mat-checkbox
+            >
+          </div>
+          <br />
+          <app-stat-charts
+            *ngIf="stats"
+            [serviceName]="serviceName"
+            [stats]="stats"
+          ></app-stat-charts>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Nodes">
+        <br />
+        <ng-template matTabContent>
+          <br />
+          <app-nodes [services]="services"></app-nodes>
+        </ng-template>
+      </mat-tab>
+      <!-- <mat-tab label="Trace">
+        <ng-template matTabContent>
+          <br />
+          <app-trace-list
+            [serviceName]="services[0].name"
+            [spans]="traceSpans"
+          ></app-trace-list>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Events">
+        <ng-template matTabContent>
+          <br />
+          <app-events-list [events]="events"></app-events-list>
+        </ng-template>
+      </mat-tab> -->
+    </mat-tab-group>
+  </mat-card>
+</div>
