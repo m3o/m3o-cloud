@@ -67,6 +67,7 @@ import { LogsComponent } from "./logs/logs.component";
 import { NodesComponent } from "./nodes/nodes.component";
 import { RegisterComponent } from "./register/register.component";
 import { TimeagoModule } from "ngx-timeago";
+import { TitlePipe } from './title.pipe';
 
 /**
  * Import specific languages to avoid importing everything
@@ -106,6 +107,7 @@ export function getHighlightLanguages() {
     LogsComponent,
     NodesComponent,
     RegisterComponent,
+    TitlePipe,
   ],
   imports: [
     BrowserModule,
