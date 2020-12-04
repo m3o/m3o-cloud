@@ -13,7 +13,7 @@
       style="align-items: center"
     >
       <div>
-        <a routerLink="/status">Status <span fxHide.lt-md>&gt; &nbsp;</span></a>
+        <a routerLink="/status">Status&nbsp; <span fxHide.lt-md>&gt; &nbsp;</span></a>
       </div>
       <div>
         <mat-icon
@@ -51,21 +51,21 @@
         label="Process"
       >
         <br />
-        <div fxLayoutAlign="row wrap" fxLayoutGap="2%">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
           <mat-card
             *ngIf="service?.metadata['error']"
-            fxFlex="0 1 48%"
-            style="margin-left: 2px; margin-bottom: 2px; background: #fcfcfc"
+            fxFlex="0 1 calc(49% - 1em)"
+            style="margin-left: 2px; margin-bottom: 2px; background: #f8f8f8"
           >
             <mat-card-title>Errors</mat-card-title>
             <p>
-              {{ service?.metadata['error'] }}
+              {{ service?.metadata["error"] }}
             </p>
           </mat-card>
 
           <mat-card
             fxFlex="0 1 48%"
-            style="margin-left: 2px; margin-bottom: 2px; background: #fcfcfc"
+            style="margin-left: 2px; margin-bottom: 2px; background: #f8f8f8"
           >
             <mat-card-title>Process</mat-card-title>
             <p>

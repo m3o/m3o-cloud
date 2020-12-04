@@ -13,13 +13,24 @@
       <span id="logo" class="hover" routerLink="/">Micro</span>
       <span class="menu-spacer"></span>
       <div style="padding-top: 4px" fxShow="true" fxHide.lt-md>
+        <button
+          mat-icon-button
+          color="primary"
+          aria-label="Example icon button with a home icon"
+        >
+          <button mat-fab color="grey">
+            <mat-icon>add</mat-icon>
+          </button>
+        </button>
+        &nbsp; &nbsp;
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
         <a *ngIf="user && user.name" routerLink="/services" mat-button
           >Services</a
         >
+        &nbsp; &nbsp;
         <a *ngIf="user && user.name" routerLink="/status" mat-button>Status</a>
         <!--<a *ngIf="user && user.name" routerLink="/events" mat-button>Events</a> -->
-
+        &nbsp; &nbsp;
         <mat-menu id="matmenu" #menu="matMenu">
           <button
             mat-menu-item

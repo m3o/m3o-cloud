@@ -1,15 +1,14 @@
 <div style="margin: auto">
-  <mat-card style="margin-top: 0em; padding-top: 0em" class="mat-card-flat">
+  <mat-card style="padding-top: 0em" class="mat-card-flat">
     <mat-card-title>
       <a routerLink="/status">Status</a>
     </mat-card-title>
     <form class="example-form">
-      <mat-form-field class="example-full-width">
+      <mat-form-field appearance="outline" class="example-full-width">
         <input name="query" matInput [(ngModel)]="query" placeholder="Search" />
       </mat-form-field>
     </form>
 
-    <br />
     <!-- <div>
       <mat-spinner
         [diameter]="70"
@@ -22,31 +21,38 @@
       <a routerLink="/service/new">new one?</a>
     </div>
     <ng-container *ngIf="services">
-      <mat-card
-        class="mat-card-flat"
-        *ngFor="let service of services | search:'name':query"
-        style="margin-bottom: 1em; background: #fcfcfc"
-      >
-        <mat-card-title
-          style="display: flex; align-items: center; font-size: 1.25em"
+      <div fxLayout="row wrap" fxLayoutAlign="space-between">
+        <mat-card
+          fxFlex="0 1 calc(33% - 1em)"
+          class="mat-card"
+          *ngFor="let service of services | search: 'name':query"
+          style="margin-bottom: 1em; background: #f8f8f8"
         >
-          <mat-icon [style.color]="hasError(service) ? 'red' : 'green'"
-            >fiber_manual_record</mat-icon
+          <mat-card-title
+            style="display: flex; align-items: center; font-size: 1.25em"
           >
-          &nbsp;<a
-            href="#"
-            routerLink="/status/{{ service.name }}/{{ service.version }}"
-            >{{ service.name }}</a
-          >&nbsp;&nbsp;
-          <mat-chip-list aria-label="Versions">
-            <mat-chip>{{ service.version }}</mat-chip>
-          </mat-chip-list>
-          <span style="color: grey; font-size: 0.75em">
-            &nbsp; started {{ service.metadata.started | timeago }} by
-            {{ service.metadata.owner }}
-          </span>
-        </mat-card-title>
-      </mat-card>
+            <mat-icon [style.color]="hasError(service) ? 'red' : 'green'"
+              >fiber_manual_record</mat-icon
+            >
+            &nbsp;<a
+              href="#"
+              routerLink="/status/{{ service.name }}/{{ service.version }}"
+              >{{ service.name }}</a
+            >
+            &nbsp;&nbsp;
+            <mat-chip-list aria-label="Versions">
+              <mat-chip>{{ service.version }}</mat-chip>
+            </mat-chip-list>
+          </mat-card-title>
+          <mat-card-subtitle>
+            <span>{{ service.source }}</span>
+          </mat-card-subtitle>
+          <mat-card-content>
+            Started {{ service.metadata.started | timeago }} by
+            {{ name(service.metadata.owner) }}.
+          </mat-card-content>
+        </mat-card>
+      </div>
       <br />&nbsp;
     </ng-container>
   </mat-card>

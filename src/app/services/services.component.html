@@ -9,17 +9,14 @@
         mat-raised-button
         color="primary"
         aria-label="Add new service"
-      >
-        <b style="font-weight: 700">New</b>
-      </button>
+      ></button>
     </mat-card-title>
     <form class="example-form">
-      <mat-form-field class="example-full-width">
+      <mat-form-field appearance="outline" class="example-full-width">
         <input name="query" matInput [(ngModel)]="query" placeholder="Search" />
       </mat-form-field>
     </form>
 
-    <br />
     <!-- <div>
       <mat-spinner
         [diameter]="70"
@@ -44,11 +41,6 @@
             service.key
           }}</a
           >&nbsp;&nbsp;
-          <mat-chip-list aria-label="Versions">
-            <mat-chip *ngFor="let serv of service.value">{{
-              serv.version
-            }}</mat-chip>
-          </mat-chip-list>
         </mat-card-title>
       </mat-card>
       <br />&nbsp;

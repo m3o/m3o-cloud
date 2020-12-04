@@ -14,7 +14,7 @@
     >
       <div>
         <a routerLink="/services"
-          >Services <span fxHide.lt-md>&gt; &nbsp;</span></a
+          >Services&nbsp; <span fxHide.lt-md>&gt; &nbsp;</span></a
         >
       </div>
       <div>
@@ -22,24 +22,6 @@
           >fiber_manual_record</mat-icon
         >-->
         {{ serviceName }} &nbsp;
-      </div>
-      <div>
-        <!-- The ngStyle background color is a horrible hack due to mat-chips not
-        supporting dynamically the selected property. -->
-        <mat-chip-list selectable="false" aria-label="Versions">
-          <mat-chip
-            selectable="false"
-            (click)="versionSelected(service)"
-            *ngFor="let service of services"
-            [ngStyle]="
-              selectedVersion == service.version && {
-                'background-color': '#673ab7',
-                color: 'white'
-              }
-            "
-            >{{ service.version }}</mat-chip
-          >
-        </mat-chip-list>
       </div>
     </mat-card-title>
 
