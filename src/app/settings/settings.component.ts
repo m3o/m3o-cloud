@@ -6,7 +6,7 @@ import { UserService } from "../user.service";
   styleUrls: ["./settings.component.css"]
 })
 export class SettingsComponent implements OnInit {
-  constructor(private us: UserService) {}
+  constructor(public us: UserService) {}
 
   ngOnInit() {}
 
