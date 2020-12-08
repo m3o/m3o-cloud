@@ -1,12 +1,13 @@
 <div style="margin: auto">
+
   <mat-card style="margin-top: 0; padding-top: 0" class="mat-card-flat">
     <mat-card-title
       >Settings&nbsp;
       <span fxHide.lt-md>&#47; &nbsp;</span>Tokens</mat-card-title
     >
-
+    <br />
     <mat-card
-      style="width: 100%; overflow: scroll; margin: 0 auto"
+      style="width: 100%; overflow: scroll; margin: 0 auto; background: #fcfcfc"
     >
       <mat-card-title>API Token</mat-card-title>
       <mat-card-subtitle
@@ -18,7 +19,13 @@
     </mat-card>
     <br />
     <mat-card
-      style="width: 100%; overflow: scroll; margin-bottom: 1em; margin: 0 auto"
+      style="
+        width: 100%;
+        overflow: scroll;
+        margin-bottom: 1em;
+        margin: 0 auto;
+        background: #fcfcfc;
+      "
     >
       <mat-card-title>Call example</mat-card-title>
       <mat-card-content> curl {{ this.us.token() }} </mat-card-content>

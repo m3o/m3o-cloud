@@ -17,15 +17,21 @@
         <input matInput [(ngModel)]="namespace" type="text" />
       </mat-form-field>
       <br /><br />
-      <button mat-raised-button type="button" color="primary" (click)="login()">
+      <button
+        mat-raised-button
+        type="button"
+        style="font-weight: bold"
+        color="primary"
+        (click)="login()"
+      >
         Login
       </button>
       &nbsp;&nbsp;&nbsp;
     </mat-card>
     <br />
     <div style="text-align: center">
-      Do not have an account yet?<br />
-      <a href="#" routerLink="/register"> Register </a>
+      <a href="#" routerLink="/register" style="text-decoration: underline;">Sign up</a> if you don't have an
+      account
     </div>
     <br />
   </div>
