@@ -44,7 +44,7 @@ export class NewServiceComponent implements OnInit {
       .create(this.serviceName, this.source)
       .then((v) => {
         setTimeout(() => {
-          this.router.navigate(["/services"]);
+          this.router.navigate(["/status"]);
         }, 1500);
       })
       .catch((e) => {

@@ -51,7 +51,8 @@
             <span>{{ service.source }}</span>
           </mat-card-subtitle>
           <mat-card-content>
-            Started {{ service.metadata.started | timeago }} by
+            {{ toStatus(service.status) | title }}. Started
+            {{ service.metadata.started | timeago }} by
             {{ name(service.metadata.owner) }}.
           </mat-card-content>
         </mat-card>

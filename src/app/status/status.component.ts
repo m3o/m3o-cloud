@@ -40,8 +40,29 @@ export class StatusComponent implements OnInit {
 
   name(name: string): string {
     if (this.us.user.name == name) {
-      return 'you'
+      return "you";
     }
-    return name
+    return name;
+  }
+
+  toStatus(n: number) {
+    switch (n) {
+      case 1:
+        return "pending";
+      case 2:
+        return "building";
+      case 3:
+        return "starting";
+      case 4:
+        return "running";
+      case 5:
+        return "stopping";
+      case 6:
+        return "stopped";
+      case 7:
+        return "error";
+      default:
+        return "unknown";
+    }
   }
 }

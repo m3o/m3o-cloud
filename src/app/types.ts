@@ -1,5 +1,3 @@
-
-
 export interface Account {
   id: string;
   type: string;
@@ -57,6 +55,7 @@ export interface Service {
   metadata: Map<string, string>;
   endpoints: Endpoint[];
   nodes: Node[];
+  status: number;
   source: string;
 }
 

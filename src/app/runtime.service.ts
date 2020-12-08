@@ -81,6 +81,39 @@ export class RuntimeService {
     });
   }
 
+  delete(name: string, version: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      return this.http
+        .post(
+          environment.apiUrl + "/runtime/delete",
+          {
+            resource: {
+              service: {
+                name: name,
+                version: version,
+              },
+            },
+            options: {
+              namespace: this.us.namespace(),
+            },
+          },
+          {
+            headers: {
+              authorization: this.us.token(),
+              "micro-namespace": "micro",
+            },
+          }
+        )
+        .toPromise()
+        .then(() => {
+          resolve();
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  }
+
   logs(service: string): Promise<Response> {
     return fetch(environment.apiUrl + "/runtime/logs", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.

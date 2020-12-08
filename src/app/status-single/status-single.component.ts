@@ -3,7 +3,7 @@ import { ServiceService } from "../service.service";
 import { RuntimeService } from "../runtime.service";
 import * as types from "../types";
 import { Location } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Subject } from "rxjs";
 import * as _ from "lodash";
 import { NotificationsService } from "angular2-notifications";
@@ -60,7 +60,8 @@ export class StatusSingleComponent implements OnInit {
     private rs: RuntimeService,
     private activeRoute: ActivatedRoute,
     private location: Location,
-    private notif: NotificationsService
+    private notif: NotificationsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -89,7 +90,7 @@ export class StatusSingleComponent implements OnInit {
           return reader.read().then(function ({ value, done }) {
             let newData = decoder.decode(value, { stream: !done });
             if (that.log.length > 10000) {
-              that.log = ""
+              that.log = "";
             }
             that.log += newData + "\n";
             if (done) {
@@ -156,5 +157,49 @@ export class StatusSingleComponent implements OnInit {
     }
   }
 
+  remove() {
+    if (
+      confirm(
+        "Are you sure you want to delete service " +
+          this.service.name +
+          " and version " +
+          this.service.version +
+          "?"
+      )
+    ) {
+      this.rs
+        .delete(this.service.name, this.service.version)
+        .then(() => {
+          setTimeout(() => {
+            this.router.navigate(["/status"]);
+          }, 1500);
+        })
+        .catch((e) => {
+          this.notif.error(e);
+        });
+    }
+  }
+
   code: string = "{}";
+
+  toStatus(n: number) {
+    switch (n) {
+      case 1:
+        return "pending";
+      case 2:
+        return "building";
+      case 3:
+        return "starting";
+      case 4:
+        return "running";
+      case 5:
+        return "stopping";
+      case 6:
+        return "stopped";
+      case 7:
+        return "error";
+      default:
+        return "unknown";
+    }
+  }
 }

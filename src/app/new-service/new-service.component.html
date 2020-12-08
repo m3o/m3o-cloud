@@ -15,8 +15,10 @@
       -->
     </mat-card-title>
     <mat-card-content>
-      <div style="width: 50%; margin: 0 auto; margin-top: 2em; padding-bottom: 1em;">
-        <mat-card style="background: #fcfcfc;">
+      <div
+        style="width: 50%; margin: 0 auto; margin-top: 2em; padding-bottom: 1em"
+      >
+        <mat-card style="background: #fcfcfc">
           <mat-card-title>New Service</mat-card-title>
 
           <mat-form-field
@@ -36,6 +38,7 @@
           <br /><br />
           <button
             mat-raised-button
+            style="font-weight: bold"
             [disabled]="deploying"
             color="primary"
             (click)="deploy()"

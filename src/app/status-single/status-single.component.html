@@ -78,6 +78,8 @@
                 <input
                   matInput
                   placeholder="Source"
+                  disabled
+                  style="color: #444"
                   readonly="true"
                   [(ngModel)]="service.source"
                 />
@@ -88,12 +90,54 @@
                 <mat-label>Name</mat-label>
                 <input
                   matInput
+                  disabled
                   readonly="true"
+                  style="color: #444"
                   placeholder="Source"
                   [(ngModel)]="service.name"
                 />
               </mat-form-field>
             </p>
+            <p>
+              <mat-form-field style="width: 100%" appearance="legacy">
+                <mat-label>Owner</mat-label>
+                <input
+                  matInput
+                  disabled
+                  readonly="true"
+                  style="color: #444"
+                  placeholder="Owner"
+                  [(ngModel)]="service.metadata['owner']"
+                />
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field style="width: 100%" appearance="legacy">
+                <mat-label>Group</mat-label>
+                <input
+                  matInput
+                  disabled
+                  readonly="true"
+                  style="color: #444"
+                  placeholder="Owner"
+                  [(ngModel)]="service.metadata['group']"
+                />
+              </mat-form-field>
+            </p>
+            <p>
+              {{ toStatus(service.status) | title}}. <br />
+              Last updated
+              {{ service.metadata["started"] | timeago }}
+            </p>
+            <br />
+            <button
+              (click)="remove()"
+              mat-raised-button
+              style="font-weight: bold"
+              color="primary"
+            >
+              Remove
+            </button>
           </mat-card>
         </div>
       </mat-tab>
