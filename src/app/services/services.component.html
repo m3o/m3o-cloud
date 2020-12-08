@@ -30,9 +30,10 @@
     </div>
     <ng-container *ngIf="services">
       <mat-card
+        routerLink="/service/{{ service.key }}"
         class="mat-card"
         *ngFor="let service of services | keyvalue | search: 'key':query"
-        style="margin-bottom: 1em; background: #fcfcfc"
+        style="cursor: pointer; margin-bottom: 1em; background: #fcfcfc"
       >
         <mat-card-title
           style="display: flex; align-items: center; font-size: 1.25em"
@@ -43,9 +44,9 @@
           >&nbsp;&nbsp;
         </mat-card-title>
         <mat-card-subtitle>
-          &nbsp;<span *ngFor="let endpoint of service.value[0].endpoints; let last = last">
+          <!-- &nbsp;<span *ngFor="let endpoint of service.value[0].endpoints; let last = last">
             {{ endpoint.name }}<span *ngIf="!last">, </span>
-          </span>
+          </span> -->
         </mat-card-subtitle>
       </mat-card>
       <br />&nbsp;

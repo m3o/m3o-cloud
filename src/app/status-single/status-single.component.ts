@@ -40,7 +40,7 @@ export class StatusSingleComponent implements OnInit {
   version = "";
 
   services: types.Service[];
-  logs: types.LogRecord[];
+  log: string = "";
   stats: types.DebugSnapshot[] = [];
   traceSpans: types.Span[];
   events: types.Event[];
@@ -64,6 +64,7 @@ export class StatusSingleComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    var that: StatusSingleComponent = this;
     this.activeRoute.params.subscribe((p) => {
       if (this.intervalId) {
         clearInterval(this.intervalId);
@@ -79,6 +80,26 @@ export class StatusSingleComponent implements OnInit {
       });
       this.loadVersionData();
       const tab = <string>p["tab"];
+
+      this.rs.logs(this.serviceName).then(function (response) {
+        let reader = response.body.getReader();
+        let decoder = new TextDecoder();
+        return readData();
+        function readData() {
+          return reader.read().then(function ({ value, done }) {
+            let newData = decoder.decode(value, { stream: !done });
+            if (that.log.length > 10000) {
+              that.log = ""
+            }
+            that.log += newData + "\n";
+            if (done) {
+              console.log("Stream complete");
+              return;
+            }
+            return readData();
+          });
+        }
+      });
       if (tab) {
         this.selected = tabNamesToIndex[tab];
       }
@@ -90,17 +111,6 @@ export class StatusSingleComponent implements OnInit {
   }
 
   loadVersionData() {
-    this.ses
-      .trace(this.serviceName)
-      .then((spans) => {
-        this.traceSpans = spans;
-      })
-      .catch((e) => {
-        this.notif.error(
-          "Error listing trace",
-          JSON.parse(e.error.error).detail
-        );
-      });
     // stats subscriptions
     let statsFailure = false;
     this.intervalId = setInterval(() => {
@@ -121,28 +131,21 @@ export class StatusSingleComponent implements OnInit {
         });
     }, 2000);
     this.tabValueChange.subscribe((index) => {
-      if (index !== 2 || !this.refresh) {
+      if (index !== 1 || !this.refresh) {
         return;
       }
-      this.ses
-        .stats(this.serviceName)
-        .then((stats) => {
-          this.stats = [].concat(this.stats, stats);
-        })
-        .catch((e) => {
-          if (statsFailure) {
-            return;
-          }
-          statsFailure = true;
-          this.notif.error("Error reading stats", e);
-        });
     });
   }
 
   tabChange($event: number) {
     this.selected = $event;
     this.location.replaceState(
-      "/status/" + this.serviceName + "/" + tabIndexesToName[this.selected]
+      "/status/" +
+        this.serviceName +
+        "/" +
+        this.version +
+        "/" +
+        tabIndexesToName[this.selected]
     );
     this.tabValueChange.next(this.selected);
   }

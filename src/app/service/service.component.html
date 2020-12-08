@@ -14,7 +14,7 @@
     >
       <div>
         <a routerLink="/services"
-          >Services&nbsp; <span fxHide.lt-md>&gt; &nbsp;</span></a
+          >Services&nbsp; <span fxHide.lt-md>&#47; &nbsp;</span></a
         >
       </div>
       <div>
@@ -37,6 +37,14 @@
           [endpointQuery]="endpointQuery"
           [selectedVersion]="selectedVersion"
         ></app-endpoint-list>
+      </mat-tab>
+
+      <mat-tab label="Nodes">
+        <br />
+        <ng-template matTabContent>
+          <br />
+          <app-nodes [services]="services"></app-nodes>
+        </ng-template>
       </mat-tab>
     </mat-tab-group>
   </mat-card>

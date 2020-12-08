@@ -23,10 +23,13 @@
     <ng-container *ngIf="services">
       <div fxLayout="row wrap" fxLayoutAlign="space-between">
         <mat-card
+          routerLink="/status/{{ service.name }}/{{ service.version }}"
           fxFlex="0 1 calc(33% - 1em)"
+          fxFlex.lt-md="0 1 calc(50% - 1em)"
+          fxFlex.lt-sm="0 1 100%"
           class="mat-card"
           *ngFor="let service of services | search: 'name':query"
-          style="margin-bottom: 1em; background: #fcfcfc"
+          style="cursor: pointer; margin-bottom: 1em; background: #fcfcfc"
         >
           <mat-card-title
             style="display: flex; align-items: center; font-size: 1.25em"

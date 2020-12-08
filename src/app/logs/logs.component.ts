@@ -4,12 +4,12 @@ import * as types from "../types";
 @Component({
   selector: "app-logs",
   templateUrl: "./logs.component.html",
-  styleUrls: ["./logs.component.css"]
+  styleUrls: ["./logs.component.css"],
 })
 export class LogsComponent implements OnInit {
   @ViewChild("scrollMe", { static: false })
   private myScrollContainer: ElementRef;
-  @Input() logs: types.LogRecord[] = [];
+  @Input() log = "";
 
   constructor() {}
 

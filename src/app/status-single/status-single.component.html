@@ -13,7 +13,9 @@
       style="align-items: center"
     >
       <div>
-        <a routerLink="/status">Status&nbsp; <span fxHide.lt-md>&gt; &nbsp;</span></a>
+        <a routerLink="/status"
+          >Status&nbsp; <span fxHide.lt-md>&#47; &nbsp;</span></a
+        >
       </div>
       <div>
         <mat-icon
@@ -54,7 +56,8 @@
         <div fxLayout="row wrap" fxLayoutAlign="space-between">
           <mat-card
             *ngIf="service?.metadata['error']"
-            fxFlex="0 1 calc(49% - 1em)"
+            fxFlex="0 1 calc(50% - 1em)"
+            fxFlex.lt-md="0 1 100%"
             style="margin-left: 2px; margin-bottom: 2px; background: #fcfcfc"
           >
             <mat-card-title>Errors</mat-card-title>
@@ -64,7 +67,8 @@
           </mat-card>
 
           <mat-card
-            fxFlex="0 1 48%"
+            fxFlex="0 1 calc(50% - 1em)"
+            fxFlex.lt-md="0 1 100%"
             style="margin-left: 2px; margin-bottom: 2px; background: #fcfcfc"
           >
             <mat-card-title>Process</mat-card-title>
@@ -97,9 +101,9 @@
         <div style="text-align: center; margin-top: 1.5em">
           <mat-checkbox [(ngModel)]="refreshLogs">Refresh</mat-checkbox>
         </div>
-        <app-logs [logs]="logs"></app-logs>
+        <app-logs [log]="log"></app-logs>
       </mat-tab>
-      <mat-tab label="Stats">
+      <!-- <mat-tab label="Stats">
         <ng-template matTabContent>
           <br />
           <div style="text-align: center">
@@ -115,13 +119,7 @@
           ></app-stat-charts>
         </ng-template>
       </mat-tab>
-      <mat-tab label="Nodes">
-        <br />
-        <ng-template matTabContent>
-          <br />
-          <app-nodes [services]="services"></app-nodes>
-        </ng-template>
-      </mat-tab>
+      -->
       <!-- <mat-tab label="Trace">
         <ng-template matTabContent>
           <br />
