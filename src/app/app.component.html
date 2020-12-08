@@ -18,7 +18,12 @@
           color="primary"
           aria-label="Example icon button with a home icon"
         >
-          <button routerLink="/service/new" mat-mini-fab color="grey">
+          <button
+            *ngIf="user && user.name"
+            routerLink="/service/new"
+            mat-mini-fab
+            color="grey"
+          >
             <mat-icon>add</mat-icon>
           </button>
         </button>
