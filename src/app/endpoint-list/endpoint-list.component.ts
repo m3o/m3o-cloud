@@ -114,8 +114,9 @@ ${indent}}`;
 
   // code editor
   coptions = {
-    theme: "vs-dark",
+    theme: "vs-light",
     language: "json",
+    lineNumbers: false,
   };
 
   pickVersion(services: types.Service[]): types.Service[] {
