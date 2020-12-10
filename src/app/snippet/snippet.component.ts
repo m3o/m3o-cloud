@@ -8,6 +8,7 @@ import {
 
 export interface DialogData {
   src: string;
+  fullsrc: string;
   namespace: string;
   email: string;
 }
@@ -19,6 +20,7 @@ export interface DialogData {
 })
 export class SnippetComponent implements OnInit {
   @Input() src: string = "";
+  @Input() fullsrc: string = "";
 
   constructor(public dialog: MatDialog, private us: UserService) {}
 
@@ -29,6 +31,7 @@ export class SnippetComponent implements OnInit {
       width: "90%",
       data: {
         src: this.src,
+        fullsrc: this.fullsrc,
         namespace: this.us.namespace(),
         email: this.us.user.name,
       },

@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from "@angular/core";
 import { UserService } from "../user.service";
 import { environment } from "../../environments/environment";
 import { Router } from "@angular/router";
+import { NotificationsService } from "angular2-notifications";
 
 @Component({
   selector: "app-login",
@@ -13,7 +14,11 @@ export class LoginComponent implements OnInit {
   password: string = "";
   namespace: string = "micro";
 
-  constructor(private us: UserService, private router: Router) {}
+  constructor(
+    private us: UserService,
+    private router: Router,
+    private notif: NotificationsService
+  ) {}
 
   ngOnInit() {
     this.namespace = this.us.namespace();
@@ -26,9 +31,15 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
-    this.us.login(this.email, this.password, this.namespace).then(() => {
-      document.location.href = "/services";
-    });
+    this.us
+      .login(this.email, this.password, this.namespace)
+      .then(() => {
+        document.location.href = "/services";
+      })
+      .catch((e) => {
+        console.log(e)
+        this.notif.error(e.error.Detail);
+      });
     return false;
   }
 }

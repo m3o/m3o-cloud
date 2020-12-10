@@ -155,6 +155,11 @@
           >
         </div>
         <div *ngIf="user && user.name">
+          <a mat-list-item (click)="sidenav.toggle()" routerLink="/service/new"
+            >New Service</a
+          >
+        </div>
+        <div *ngIf="user && user.name">
           <a mat-list-item (click)="sidenav.toggle()" routerLink="/services"
             >Services</a
           >

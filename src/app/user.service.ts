@@ -114,6 +114,7 @@ export class UserService {
           options: {
             namespace: namespace,
           },
+          token_expiry: 30 * 24 * 3600,
         })
         .toPromise()
         .then((userResponse) => {
@@ -123,7 +124,7 @@ export class UserService {
             "micro_token",
             tok.access_token,
             30,
-            '/',
+            "/",
             null,
             null,
             null
@@ -132,7 +133,7 @@ export class UserService {
             "micro_refresh",
             tok.refresh_token,
             30,
-            '/',
+            "/",
             null,
             null,
             null
@@ -141,7 +142,7 @@ export class UserService {
             "micro_expiry",
             tok.expiry,
             30,
-            '/',
+            "/",
             null,
             null,
             null
@@ -150,7 +151,7 @@ export class UserService {
             "micro_namespace",
             namespace,
             30,
-            '/',
+            "/",
             null,
             null,
             null
@@ -211,7 +212,7 @@ export class UserService {
                 "micro_token",
                 tok.access_token,
                 30,
-                '/',
+                "/",
                 null,
                 null,
                 null
@@ -220,7 +221,7 @@ export class UserService {
                 "micro_refresh",
                 tok.refresh_token,
                 30,
-                '/',
+                "/",
                 null,
                 null,
                 null
@@ -229,7 +230,7 @@ export class UserService {
                 "micro_expiry",
                 tok.expiry,
                 30,
-                '/',
+                "/",
                 null,
                 null,
                 null
@@ -238,7 +239,7 @@ export class UserService {
                 "micro_namespace",
                 resp.namespace,
                 30,
-                '/',
+                "/",
                 null,
                 null,
                 null
@@ -273,7 +274,7 @@ export class UserService {
             "micro_token",
             tok.access_token,
             30,
-            '/',
+            "/",
             null,
             null,
             null
@@ -282,7 +283,7 @@ export class UserService {
             "micro_refresh",
             tok.refresh_token,
             30,
-            '/',
+            "/",
             null,
             null,
             null
@@ -291,7 +292,7 @@ export class UserService {
             "micro_expiry",
             tok.expiry,
             30,
-            '/',
+            "/",
             null,
             null,
             null
