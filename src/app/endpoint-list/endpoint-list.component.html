@@ -3,7 +3,6 @@
     <input
       name="query"
       matInput
-      
       [(ngModel)]="endpointQuery"
       placeholder="Search endpoints"
     />
@@ -14,7 +13,10 @@
     *ngFor="let endpoint of service.endpoints | search: 'name':endpointQuery"
   >
     <div>
-      <mat-expansion-panel style="background: #fcfcfc; border: 1px solid #f2f2f2;" class="mat-elevation-z0">
+      <mat-expansion-panel
+        style="background: #fcfcfc; border: 1px solid #f2f2f2"
+        class="mat-elevation-z0"
+      >
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{ endpoint.name }}
@@ -44,19 +46,17 @@
               <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap="1em">
                 <div fxFlex="calc(50% - 0.5em)">
                   Request<br /><br />
-                  <ngx-monaco-editor
-                    style="height: 25em"
-                    [options]="coptions"
+                  <textarea
+                    style="height: 25em; width: 98%"
                     [(ngModel)]="endpoint.requestJSON"
-                  ></ngx-monaco-editor>
+                  ></textarea>
                 </div>
                 <div fxFlex="calc(50% - 0.5em)">
                   Response<br /><br />
-                  <ngx-monaco-editor
-                    style="height: 25em"
-                    [options]="coptions"
+                  <textarea
+                    style="height: 25em; width: 98%"
                     [(ngModel)]="endpoint.responseJSON"
-                  ></ngx-monaco-editor>
+                  ></textarea>
                 </div>
               </div>
               <br />
