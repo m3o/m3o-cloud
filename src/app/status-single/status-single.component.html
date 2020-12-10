@@ -14,7 +14,7 @@
     >
       <div>
         <a routerLink="/status"
-          >Status&nbsp; <span fxHide.lt-md>&#47; &nbsp;</span></a
+          >Status&nbsp; <span fxHide.lt-md>| &nbsp;</span></a
         >
       </div>
       <div>
@@ -59,7 +59,7 @@
             fxFlex.lt-md="0 1 100%"
             style="margin-bottom: 1em; background: #fcfcfc"
           >
-            <mat-card-title>Info</mat-card-title>
+            <mat-card-title>{{ serviceName | title }}</mat-card-title>
             <p>
               <mat-form-field style="width: 100%" appearance="legacy">
                 <mat-label>Source</mat-label>
@@ -140,7 +140,7 @@
             "
           >
             <mat-card-title>Errors</mat-card-title>
-            <div style="padding: 0.5em; background: #444; color: white;">
+            <div style="padding: 0.5em; background: #444; color: white">
               {{ service?.metadata["error"] }}
             </div>
           </mat-card>
