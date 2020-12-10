@@ -11,11 +11,31 @@
         aria-label="Add new service"
       ></button>
     </mat-card-title>
-    <form class="example-form">
-      <mat-form-field appearance="outline" class="example-full-width">
-        <input name="query" matInput [(ngModel)]="query" placeholder="Search" />
-      </mat-form-field>
-    </form>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between">
+      <div
+        fxFlex="0 1 calc(33% - 1em)"
+        fxFlex.lt-md="0 1 calc(50% - 1em)"
+        fxFlex.lt-sm="0 1 100%"
+      >
+        <form class="example-form">
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              name="query"
+              matInput
+              [(ngModel)]="query"
+              placeholder="Search"
+            />
+          </mat-form-field>
+        </form>
+      </div>
+      <app-snippet
+        style="margin-bottom: 1em; overflow: hidden; height: 4em; border-radius: 5px"
+        fxFlex="0 1 calc(33% - 1em)"
+        fxFlex.lt-md="0 1 calc(50% - 1em)"
+        fxFlex.lt-sm="0 1 100%"
+        src="micro services"
+      ></app-snippet>
+    </div>
 
     <!-- <div>
       <mat-spinner

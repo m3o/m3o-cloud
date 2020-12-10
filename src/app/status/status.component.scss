@@ -1,13 +1,18 @@
 div.mat-chip-list-wrapper {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-  
-    .mat-chip {
-      flex: 0 0 auto;
-    }
-  }
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 
-  .new-button {
-    vertical-align: 3px;
+  .mat-chip {
+    flex: 0 0 auto;
   }
+}
+
+.new-button {
+  vertical-align: 3px;
+}
+
+
+
+.example-full-width {
+}

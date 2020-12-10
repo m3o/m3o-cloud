@@ -67,7 +67,12 @@ import { LogsComponent } from "./logs/logs.component";
 import { NodesComponent } from "./nodes/nodes.component";
 import { RegisterComponent } from "./register/register.component";
 import { TimeagoModule } from "ngx-timeago";
-import { TitlePipe } from './title.pipe';
+import { TitlePipe } from "./title.pipe";
+import {
+  SnippetComponent,
+  DialogOverviewExampleDialog,
+} from "./snippet/snippet.component";
+import { MatDialogModule } from "@angular/material/dialog";
 
 /**
  * Import specific languages to avoid importing everything
@@ -108,6 +113,8 @@ export function getHighlightLanguages() {
     NodesComponent,
     RegisterComponent,
     TitlePipe,
+    SnippetComponent,
+    DialogOverviewExampleDialog
   ],
   imports: [
     BrowserModule,
@@ -123,6 +130,7 @@ export function getHighlightLanguages() {
     MatMenuModule,
     TimeagoModule.forRoot(),
     HttpClientModule,
+    MatDialogModule,
     SimpleNotificationsModule.forRoot({
       //position: ["top", "right"],
     }),
@@ -154,5 +162,6 @@ export function getHighlightLanguages() {
     },
   ],
   bootstrap: [AppComponent],
+  entryComponents: [DialogOverviewExampleDialog],
 })
 export class AppModule {}

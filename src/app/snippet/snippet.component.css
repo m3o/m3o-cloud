@@ -1,0 +1,15 @@
+.command {
+  background: #eee;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 1.25em;
+  height: 4em;
+}
+
+.command-text {
+  height: 1.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -82,25 +82,25 @@ export class StatusSingleComponent implements OnInit {
       this.loadVersionData();
       const tab = <string>p["tab"];
 
-      this.rs.logs(this.serviceName).then(function (response) {
-        let reader = response.body.getReader();
-        let decoder = new TextDecoder();
-        return readData();
-        function readData() {
-          return reader.read().then(function ({ value, done }) {
-            let newData = decoder.decode(value, { stream: !done });
-            if (that.log.length > 10000) {
-              that.log = "";
-            }
-            that.log += newData + "\n";
-            if (done) {
-              console.log("Stream complete");
-              return;
-            }
-            return readData();
-          });
-        }
-      });
+      //this.rs.logs(this.serviceName).then(function (response) {
+      //  let reader = response.body.getReader();
+      //  let decoder = new TextDecoder();
+      //  return readData();
+      //  function readData() {
+      //    return reader.read().then(function ({ value, done }) {
+      //      let newData = decoder.decode(value, { stream: !done });
+      //      if (that.log.length > 10000) {
+      //        that.log = "";
+      //      }
+      //      that.log += newData + "\n";
+      //      if (done) {
+      //        console.log("Stream complete");
+      //        return;
+      //      }
+      //      return readData();
+      //    });
+      //  }
+      //});
       if (tab) {
         this.selected = tabNamesToIndex[tab];
       }

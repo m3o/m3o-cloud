@@ -55,21 +55,9 @@
         <br />
         <div fxLayout="row wrap" fxLayoutAlign="space-between">
           <mat-card
-            *ngIf="service?.metadata['error']"
             fxFlex="0 1 calc(50% - 1em)"
             fxFlex.lt-md="0 1 100%"
-            style="margin-left: 2px; margin-bottom: 2px; background: #fcfcfc"
-          >
-            <mat-card-title>Errors</mat-card-title>
-            <p>
-              {{ service?.metadata["error"] }}
-            </p>
-          </mat-card>
-
-          <mat-card
-            fxFlex="0 1 calc(50% - 1em)"
-            fxFlex.lt-md="0 1 100%"
-            style="margin-left: 2px; margin-bottom: 2px; background: #fcfcfc"
+            style="margin-bottom: 1em; background: #fcfcfc"
           >
             <mat-card-title>Info</mat-card-title>
             <p>
@@ -125,7 +113,7 @@
               </mat-form-field>
             </p>
             <p>
-              {{ toStatus(service.status) | title}}. <br />
+              {{ toStatus(service.status) | title }}. <br />
               Last updated
               {{ service.metadata["started"] | timeago }}
             </p>
@@ -134,18 +122,45 @@
               (click)="remove()"
               mat-raised-button
               style="font-weight: bold"
-              color="primary"
+              color="warn"
             >
               Remove
             </button>
           </mat-card>
+
+          <mat-card
+            *ngIf="service?.metadata['error']"
+            fxFlex="0 1 calc(50% - 1.5em)"
+            fxFlex.lt-md="0 1 100%"
+            style="
+              overflow: hidden;
+              word-wrap: break-word;
+              margin-bottom: 1em;
+              background: #fcfcfc;
+            "
+          >
+            <mat-card-title>Errors</mat-card-title>
+            <div style="padding: 0.5em; background: #444; color: white;">
+              {{ service?.metadata["error"] }}
+            </div>
+          </mat-card>
         </div>
       </mat-tab>
       <mat-tab label="Logs">
-        <div style="text-align: center; margin-top: 1.5em">
-          <mat-checkbox [(ngModel)]="refreshLogs">Refresh</mat-checkbox>
+        <br />
+        <div fxLayout="row">
+          <app-snippet
+            style="
+              margin: 0 auto;
+              overflow: hidden;
+              height: 4em;
+              border-radius: 5px;
+            "
+            fxFlex="0 1 calc(50% - 1.5em)"
+            fxFlex.lt-md="0 1 100%"
+            src="micro logs -f {{ serviceName }}"
+          ></app-snippet>
         </div>
-        <app-logs [log]="log"></app-logs>
       </mat-tab>
       <!-- <mat-tab label="Stats">
         <ng-template matTabContent>
