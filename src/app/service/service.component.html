@@ -30,7 +30,7 @@
       [selectedIndex]="selected"
       (selectedIndexChange)="tabChange($event)"
     >
-      <mat-tab style="padding-top: 1em" label="Endpoints">
+      <mat-tab style="padding-top: 1em" label="Query">
         <br />
         <app-endpoint-list
           [serviceName]="services[0].name"
@@ -39,7 +39,7 @@
         ></app-endpoint-list>
       </mat-tab>
 
-      <mat-tab label="Nodes">
+      <mat-tab label="Info">
         <br />
         <ng-template matTabContent>
           <br />

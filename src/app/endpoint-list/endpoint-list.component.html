@@ -61,8 +61,9 @@
         <mat-tab label="API">
           <ng-template matTabContent>
             <br />
-            <span class="url">POST /{{ service.name }}/{{ endpoint.name }}</span
-            ><br /><br />
+             <span class="url"
+                >POST </span> /{{ service.name }}/{{ endpoint.name }}
+            <br /><br />
             Request<br /><br />
             <pre class="reqresp" style="padding: 1em; background: #f6f6f6">{{
               valueToString(endpoint.request, 1)

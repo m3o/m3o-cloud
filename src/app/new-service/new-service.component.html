@@ -9,22 +9,44 @@
     class="mat-card-flat"
   >
     <mat-card-title>
-      <a routerLink="/services">Services&nbsp;</a> |&nbsp; New
+      <a routerLink="/services">Services&nbsp;</a> &#124;&nbsp; New
       <!-- Using ngif here breaks viewchild, see:
         https://stackoverflow.com/questions/39158922/viewchild-not-working-cannot-read-property-nativeelement-of-undefined
       -->
     </mat-card-title>
+
+    <div fxLayout="row wrap" fxLayoutAlign="space-between">
+      <div
+        fxFlex="0 1 calc(33% - 1em)"
+        fxFlex.lt-md="0 1 calc(50% - 1em)"
+        fxFlex.lt-sm="0 1 100%"
+      >
+      </div>
+      <app-snippet
+        style="
+          margin-bottom: 1em;
+          overflow: hidden;
+          height: 4em;
+          border-radius: 5px;
+        "
+        fxFlex="0 1 calc(33% - 1em)"
+        fxFlex.lt-md="0 1 calc(50% - 1em)"
+        fxFlex.lt-sm="0 1 100%"
+        src="micro run"
+        fullsrc="micro run {{ source }}"
+      ></app-snippet>
+    </div>
     <mat-card-content>
       <div
         ngStyle.lt-md="width: 100%"
-        style="width: 50%; margin: 0 auto; margin-bottom: 1em"
+        style="width: 60%; margin: 0 auto; margin-bottom: 1em"
       >
         <mat-card style="background: #fcfcfc">
-          <mat-card-title>New Service</mat-card-title>
-
+          <mat-card-title>Run a new service</mat-card-title>
+          <mat-card-subtitle>A service will be built and deployed from a git source url</mat-card-subtitle>
           <mat-form-field
             id="new-service-input"
-            style="width: 100%; margin-top: 2em"
+            style="width: 100%; margin-top: 1em"
           >
             <mat-label>Name</mat-label>
             <input matInput [(ngModel)]="serviceName" />
