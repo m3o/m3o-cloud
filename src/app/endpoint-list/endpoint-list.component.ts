@@ -17,6 +17,8 @@ export class EndpointListComponent implements OnInit {
   @Input() selectedVersion: string = "";
   service: types.Service;
   request: any = {};
+  endpoint: types.Endpoint = {} as any;
+  selectedEndpoint = "";
 
   public configuration: Config;
 
@@ -34,8 +36,13 @@ export class EndpointListComponent implements OnInit {
     return JSON.parse(s);
   }
 
+  select(e: types.Endpoint) {
+    this.endpoint = e;
+    this.selectedEndpoint = e.name;
+  }
+
   ngOnCange() {
-    this.regenJSONs();
+    //this.regenJSONs();
   }
 
   regenJSONs() {
@@ -45,6 +52,10 @@ export class EndpointListComponent implements OnInit {
         endpoint.requestValue = JSON.parse(endpoint.requestJSON);
       });
       this.service = s;
+      if (!this.selectedEndpoint) {
+        this.endpoint = this.service.endpoints[0];
+        this.selectedEndpoint = this.endpoint.name;
+      }
     });
   }
 
@@ -75,20 +86,29 @@ export class EndpointListComponent implements OnInit {
       });
   }
 
+  // https://stackoverflow.com/questions/50139508/input-loses-focus-when-editing-value-using-ngfor-and-ngmodel-angular5
+  trackByFn(index, item) {
+    return index;
+  }
+
   callEndpointForm(service: types.Service, endpoint: types.Endpoint) {
+    // hack to not modify original
+    var obj = JSON.parse(JSON.stringify(endpoint.requestValue));
+    Object.keys(obj).forEach(
+      (k) => !obj[k] && obj[k] !== undefined && delete obj[k]
+    );
     this.ses
       .call({
         endpoint: endpoint.name,
         service: service.name,
         address: service.nodes[0].address,
         method: "POST",
-        request: JSON.stringify(endpoint.requestValue),
+        request: JSON.stringify(obj),
       })
       .then((rsp) => {
-        var jsonRsp = JSON.parse(rsp)
-        var keys = Object.keys(jsonRsp)
+        var jsonRsp = JSON.parse(rsp);
+        var keys = Object.keys(jsonRsp);
         endpoint.responseValue = jsonRsp[keys[0]];
-        console.log(endpoint.responseValue)
       })
       .catch((e) => {
         try {

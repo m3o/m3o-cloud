@@ -13,3 +13,8 @@
   border-radius: 5px;
   padding: 0.5em;
 }
+
+.mat-toolbar.mat-primary {
+    background: #007bff;
+    color: #fff;
+  }
