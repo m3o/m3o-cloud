@@ -26,9 +26,51 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-tab-group animationDuration="0ms">
+          <mat-tab label="Form">
+            <ng-template matTabContent>
+              <br />
+              <form>
+                <mat-form-field
+                  class="full"
+                  style="width: 100%"
+                  *ngFor="let field of endpoint.requestValue | keyvalue"
+                  appearance="legacy"
+                >
+                  <mat-label>{{ field.key }}</mat-label>
+                  <input
+                    matInput
+                    formControl="standalone"
+                    [(ngModel)]="field.value"
+                    type="text"
+                  />
+                </mat-form-field>
+              </form>
+              <button
+                mat-raised-button
+                style="font-weight: bold"
+                (click)="callEndpointForm(service, endpoint)"
+                color="primary"
+              >
+                Call
+              </button>
+              <br /> <br />
+              <div style="background: white" *ngIf="endpoint.responseValue">
+                <ngx-table
+                  [data]="endpoint.responseValue"
+                  [configuration]="configuration"
+                  [columns]="columns(endpoint)"
+                >
+                </ngx-table>
+              </div>
+            </ng-template>
+          </mat-tab>
+
           <mat-tab label="API">
             <ng-template matTabContent>
-              <br /><br />
+              <br />
+              <span class="url"
+                >POST /{{ service.name }}/{{ endpoint.name }}</span
+              ><br /><br />
               Request<br /><br />
               <pre class="reqresp" style="padding: 1em; background: #f6f6f6">{{
                 valueToString(endpoint.request, 1)
@@ -40,6 +82,7 @@
               }}</pre>
             </ng-template>
           </mat-tab>
+
           <mat-tab label="JSON">
             <ng-template matTabContent>
               <br />

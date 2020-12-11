@@ -73,7 +73,7 @@ import {
   DialogOverviewExampleDialog,
 } from "./snippet/snippet.component";
 import { MatDialogModule } from "@angular/material/dialog";
-
+import { TableModule } from "ngx-easy-table";
 /**
  * Import specific languages to avoid importing everything
  * The following will lazy load highlight.js core script (~9.6KB) + the selected languages bundle (each lang. ~1kb)
@@ -114,7 +114,7 @@ export function getHighlightLanguages() {
     RegisterComponent,
     TitlePipe,
     SnippetComponent,
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
   ],
   imports: [
     BrowserModule,
@@ -150,6 +150,7 @@ export function getHighlightLanguages() {
     MatPaginatorModule,
     MatCheckboxModule,
     MonacoEditorModule.forRoot(),
+    TableModule,
   ],
   providers: [
     CookieService,

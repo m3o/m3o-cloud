@@ -1,7 +1,15 @@
 .reqresp {
-    font-family: 'Source Code Pro';
+  font-family: "Source Code Pro";
 }
 
 .mat-form-field-infix {
-    padding-top: 0;
+  padding-top: 0;
+}
+
+.url {
+  display: inline-block;
+  background: rgb(110, 110, 216);
+  color: white;
+  border-radius: 5px;
+  padding: 0.5em;
 }

@@ -5,7 +5,7 @@ import * as _ from "lodash";
 @Component({
   selector: "app-nodes",
   templateUrl: "./nodes.component.html",
-  styleUrls: ["./nodes.component.css"]
+  styleUrls: ["./nodes.component.css"],
 })
 export class NodesComponent implements OnInit {
   @Input() services: types.Service[] = [];
@@ -14,8 +14,15 @@ export class NodesComponent implements OnInit {
 
   ngOnInit() {
     this.nodes = _.uniqBy(
-      _.flatten(this.services.map(s => s.nodes)),
-      n => n.id
+      _.flatten(
+        this.services.map((s) =>
+          s.nodes.map((n) => {
+            n.version = s.version;
+            return n;
+          })
+        )
+      ),
+      (n) => n.id
     );
     //this.nodes.push(this.nodes[0])
   }
@@ -33,13 +40,11 @@ export class NodesComponent implements OnInit {
         maxKeyLength = key.length;
       }
     }
-    console.log(maxKeyLength)
+    console.log(maxKeyLength);
     for (var key in v) {
-      console.log(maxKeyLength - key.length)
+      console.log(maxKeyLength - key.length);
       serialised +=
-        key.padEnd(maxKeyLength + 3, " ") +
-        node.metadata[key] +
-        "\n";
+        key.padEnd(maxKeyLength + 3, " ") + node.metadata[key] + "\n";
     }
     return serialised;
   }

@@ -29,6 +29,8 @@ export interface Endpoint {
   //
   requestJSON: string;
   responseJSON: string;
+  requestValue: any;
+  responseValue: any;
 }
 
 export interface Node {
@@ -37,6 +39,7 @@ export interface Node {
   metadata: Map<string, string>;
   // @TODO come up with a way to wrap all types in conenience interfaces
   show?: boolean;
+  version?: string;
 }
 
 // ... slightly different version of Service...
