@@ -109,6 +109,19 @@ export class EndpointListComponent implements OnInit {
         var jsonRsp = JSON.parse(rsp);
         var keys = Object.keys(jsonRsp);
         endpoint.responseValue = jsonRsp[keys[0]];
+        // If the response is of format
+        // {'message':'hi'}
+        // we want to transform that to appear like it's
+        // a list: [{'message':'hi'}] so it displays nicely
+        if (
+          typeof endpoint.responseValue === "string" ||
+          endpoint.responseValue instanceof String
+        ) {
+          var k = keys[0];
+          var obj = {};
+          obj[k] = jsonRsp[keys[0]];
+          endpoint.responseValue = [obj];
+        }
       })
       .catch((e) => {
         try {
