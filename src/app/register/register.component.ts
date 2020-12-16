@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    alert('hi')
+
   }
 
   sendVerificationEmail() {
