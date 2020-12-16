@@ -65,7 +65,6 @@ export class StatusSingleComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    var that: StatusSingleComponent = this;
     this.activeRoute.params.subscribe((p) => {
       if (this.intervalId) {
         clearInterval(this.intervalId);
@@ -81,13 +80,6 @@ export class StatusSingleComponent implements OnInit {
       });
       this.loadVersionData();
       const tab = <string>p["tab"];
-
-      this.rs.logs(this.serviceName).then(function (response) {
-        response.text().then(function (text) {
-	  var parts = text.split("}");
-          that.log = parts.join("}\n");
-        });
-      });
       if (tab) {
         this.selected = tabNamesToIndex[tab];
       }
@@ -101,7 +93,16 @@ export class StatusSingleComponent implements OnInit {
   loadVersionData() {
     // stats subscriptions
     let statsFailure = false;
+    var that = this;
     this.intervalId = setInterval(() => {
+      if (this.selected == 1) {
+        this.rs.logs(this.serviceName).then(function (response) {
+          response.text().then(function (text) {
+            var parts = text.split("}");
+            that.log = parts.join("}\n");
+          });
+        });
+      }
       if (this.selected !== 2 || !this.refresh) {
         return;
       }
