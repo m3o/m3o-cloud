@@ -21,7 +21,9 @@ export class RegisterComponent implements OnInit {
     private notif: NotificationsService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    alert('hi')
+  }
 
   sendVerificationEmail() {
     this.us
@@ -29,7 +31,9 @@ export class RegisterComponent implements OnInit {
       .then(() => {
         this.verifySent = true;
       })
-      .catch((e) => {});
+      .catch((e) => {
+        this.notif.error(e.error.Detail);
+      });
   }
 
   verify() {
@@ -38,6 +42,8 @@ export class RegisterComponent implements OnInit {
       .then(() => {
         document.location.href = "/services";
       })
-      .catch((e) => {});
+      .catch((e) => {
+        this.notif.error(e.error.Detail);
+      });
   }
 }
