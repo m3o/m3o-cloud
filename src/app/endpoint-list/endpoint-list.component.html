@@ -68,16 +68,19 @@ Micro-Namespace: "{{ namespace() }}"</pre
             <br />
             <mat-divider></mat-divider>
             <br />
-            Request<br/><br/>
-            <textarea
-              style="height: 25em; width: 95%; border: 1px solid whitesmoke; padding: 10px; color: #333333;"
+            Request<br /><br />
+            <ngx-monaco-editor
+              style="height: 25em"
+              [options]="coptions"
               [(ngModel)]="endpoint.requestJSON"
-            ></textarea>
+            ></ngx-monaco-editor>
             <br /><br />
             Response<br /><br />
-            <textarea style="height: 25em; width: 95%; border: 1px solid whitesmoke; padding: 10px; color: #333333"
+            <ngx-monaco-editor
+              style="height: 25em"
+              [options]="coptions"
               [(ngModel)]="endpoint.responseJSON"
-            ></textarea>
+            ></ngx-monaco-editor>
             <br />
             <button
               mat-raised-button
@@ -89,7 +92,7 @@ Micro-Namespace: "{{ namespace() }}"</pre
             </button>
           </ng-template>
         </mat-tab>
-<!--
+        <!--
         <mat-tab label="Form">
           <ng-template matTabContent>
             <br />
@@ -185,16 +188,11 @@ Micro-Namespace: "{{ namespace() }}"</pre
             <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap="1em">
               <div fxFlex="calc(100% - 0.5em)">
                 Javascript<br /><br />
-                <div
-                  style="
-                    padding: 1em;
-                    min-height: 20em;
-                    background: #444;
-                    color: #f3f3f3;
-                  "
-                >
-                  <pre>{{ embeddable }}</pre>
-                </div>
+                <ngx-monaco-editor
+                  style="height: 25em"
+                  [options]="htmlOptions"
+                  [(ngModel)]="embeddable"
+                ></ngx-monaco-editor>
               </div>
             </div>
           </ng-template>

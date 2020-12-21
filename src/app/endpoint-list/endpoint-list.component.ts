@@ -322,6 +322,14 @@ ${indent}}`;
     lineNumbers: false,
   };
 
+    // code editor
+    htmlOptions = {
+      theme: "vs-light",
+      language: "html",
+      lineNumbers: false,
+      
+    };
+
   pickVersion(services: types.Service[]): types.Service[] {
     return services.filter((s) => {
       return s.version == this.selectedVersion;
