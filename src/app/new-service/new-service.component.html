@@ -20,8 +20,7 @@
         fxFlex="0 1 calc(33% - 1em)"
         fxFlex.lt-md="0 1 calc(50% - 1em)"
         fxFlex.lt-sm="0 1 100%"
-      >
-      </div>
+      ></div>
       <app-snippet
         style="
           margin-bottom: 1em;
@@ -42,58 +41,80 @@
         ngStyle.lt-md="width: 100%"
         style="margin: 0 auto; margin-bottom: 1em"
       >
-      <div fxLayout="row wrap" fxLayoutAlign="space-around" >
-        <mat-card style="background: #fcfcfc;"
-          fxFlex="0 1 calc(35% - 1em)"
-          fxFlex.lt-md="0 1 calc(100% - 1em)"
-          fxFlex.lt-sm="0 1 100%"
-        >
-          <mat-card-title>Explore Micro Services</mat-card-title>
-          <mat-card-subtitle>Run from an existing list of open source Micro services</mat-card-subtitle>
-          <mat-card-content style="width: 300px; margin: 0 auto; text-align: center;">
-            Coming soon...
-            <br><br>
-            <a href="https://github.com/micro/services">
-              <img src="/assets/github.png" />
-            </a>
-            <br><br>See <a href="https://github.com/micro/services">github.com/micro/services</a> for more info.
-          </mat-card-content>
-          <!-- TODO populate list of services from micro/services (name, description, source) -->
-        </mat-card>
-        &nbsp;&nbsp;
-        <mat-card style="background: #fcfcfc;;"
-          fxFlex="0 1 calc(60% - 1em)"
-          fxFlex.lt-md="0 1 calc(100% - 1em)"
-          fxFlex.lt-sm="0 1 100%"
-        >
-          <mat-card-title>Run a service from source</mat-card-title>
-          <mat-card-subtitle>A service will be built and deployed from the git source url</mat-card-subtitle>
-          <mat-form-field
-            id="new-service-input"
-            style="width: 100%; margin-top: 1em"
+        <div fxLayout="row wrap" fxLayoutAlign="space-around">
+          <mat-card
+            style="background: #fcfcfc"
+            fxFlex="0 1 calc(35% - 1em)"
+            fxFlex.lt-md="0 1 calc(100% - 1em)"
+            fxFlex.lt-sm="0 1 100%"
           >
-            <mat-label>Name</mat-label>
-            <input matInput [(ngModel)]="serviceName" />
-          </mat-form-field>
-          <mat-form-field
-            id="new-service-input"
-            style="width: 100%; margin-top: 2em"
+            <mat-card-title>Explore Micro Services</mat-card-title>
+            <mat-card-subtitle
+              >Run from an existing list of open source Micro
+              services</mat-card-subtitle
+            >
+            <input
+              name="query"
+              matInput
+              [(ngModel)]="query"
+              placeholder="Search"
+            />
+            <br /><br />
+            <mat-card-content style="margin: 0 auto">
+              <mat-card
+                (click)="select(r)"
+                style="cursor: pointer; margin-bottom: 1em"
+                class="mat-card-flat"
+                *ngFor="
+                  let r of runnables | search: 'description,name,title':query
+                "
+              >
+                <mat-card-title>{{ r.title }}</mat-card-title>
+                <mat-card-subtitle>{{ r.source }}</mat-card-subtitle>
+                <div>{{ r.description }}</div>
+                <br /><br />
+              </mat-card>
+            </mat-card-content>
+            <!-- TODO populate list of services from micro/services (name, description, source) -->
+          </mat-card>
+          &nbsp;&nbsp;
+          <mat-card
+            style="background: #fcfcfc"
+            fxFlex="0 1 calc(60% - 1em)"
+            fxFlex.lt-md="0 1 calc(100% - 1em)"
+            fxFlex.lt-sm="0 1 100%"
           >
-            <mat-label>Source</mat-label>
-            <input matInput [(ngModel)]="source" />
-          </mat-form-field>
-          <br /><br />
-          <button
-            mat-raised-button
-            style="font-weight: bold"
-            [disabled]="deploying"
-            color="primary"
-            (click)="deploy()"
-          >
-            Run
-          </button>
-        </mat-card>
-      </div>
+            <mat-card-title>Run a service from source</mat-card-title>
+            <mat-card-subtitle
+              >A service will be built and deployed from the git source
+              url</mat-card-subtitle
+            >
+            <mat-form-field
+              id="new-service-input"
+              style="width: 100%; margin-top: 1em"
+            >
+              <mat-label>Name</mat-label>
+              <input matInput [(ngModel)]="serviceName" />
+            </mat-form-field>
+            <mat-form-field
+              id="new-service-input"
+              style="width: 100%; margin-top: 2em"
+            >
+              <mat-label>Source</mat-label>
+              <input matInput [(ngModel)]="source" />
+            </mat-form-field>
+            <br /><br />
+            <button
+              mat-raised-button
+              style="font-weight: bold"
+              [disabled]="deploying"
+              color="primary"
+              (click)="deploy()"
+            >
+              Run
+            </button>
+          </mat-card>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>

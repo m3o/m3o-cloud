@@ -21,9 +21,7 @@ export class RegisterComponent implements OnInit {
     private notif: NotificationsService
   ) {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   sendVerificationEmail() {
     this.us

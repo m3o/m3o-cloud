@@ -11,6 +11,28 @@ import * as _ from "lodash";
 import { NotificationsService } from "angular2-notifications";
 import { RuntimeService } from "../runtime.service";
 
+interface Runnable {
+  name?: string;
+  title?: string;
+  source?: string;
+  description?: string;
+}
+
+var runnables: Runnable[] = [
+  {
+    title: "Helloworld",
+    name: "helloworld",
+    source: "github.com/micro/services/helloworld",
+    description: "The only helloworld service you will ever need",
+  },
+  {
+    title: "Posts - A headless CMS",
+    name: "posts",
+    source: "github.com/micro/services/blog/posts",
+    description: "Use this service to embed blog posts on your website",
+  },
+];
+
 @Component({
   selector: "app-new-service",
   templateUrl: "./new-service.component.html",
@@ -19,10 +41,12 @@ import { RuntimeService } from "../runtime.service";
 })
 export class NewServiceComponent implements OnInit {
   serviceInput = new FormControl("", [Validators.required]);
+  runnables = runnables;
   @ViewChild("sinput", { static: false }) sinput: ElementRef;
 
   source = "";
   serviceName = "";
+  query = "";
   deploying = false;
 
   constructor(
@@ -51,5 +75,10 @@ export class NewServiceComponent implements OnInit {
         this.notif.error(e);
         this.deploying = false;
       });
+  }
+
+  select(r: Runnable) {
+    this.serviceName = r.name;
+    this.source = r.source;
   }
 }
