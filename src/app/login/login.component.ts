@@ -18,7 +18,12 @@ export class LoginComponent implements OnInit {
     private us: UserService,
     private router: Router,
     private notif: NotificationsService
-  ) {}
+  ) {
+    if (this.us.token()) {
+      this.router.navigate["/services"];
+      return;
+    }
+  }
 
   ngOnInit() {
     this.namespace = this.us.namespace();
@@ -37,7 +42,7 @@ export class LoginComponent implements OnInit {
         document.location.href = "/services";
       })
       .catch((e) => {
-        console.log(e)
+        console.log(e);
         this.notif.error(e.error.Detail);
       });
     return false;
