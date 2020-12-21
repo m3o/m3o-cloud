@@ -6,6 +6,26 @@ import { RegistryService } from "../registry.service";
 import { Columns, Config, DefaultConfig } from "ngx-easy-table";
 import { keyValuesToMap } from "@angular/flex-layout/extended/typings/style/style-transforms";
 
+var template = `<div id="content"></div>
+
+<script src="https://web.m3o.com/assets/micro.js"></script>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function (event) {
+
+    Micro.requireLogin(function () {
+      Micro.post(
+        "$serviceName/$endpointName",
+        "$namespace",
+        $reqJSON,
+        function (data) {
+          console.log("Successfully saved.", data);
+        }
+      );
+    });
+
+  });
+</script>`;
+
 @Component({
   selector: "app-endpoint-list",
   templateUrl: "./endpoint-list.component.html",
@@ -19,6 +39,7 @@ export class EndpointListComponent implements OnInit {
   request: any = {};
   endpoint: types.Endpoint = {} as any;
   selectedEndpoint = "";
+  embeddable = template;
 
   public configuration: Config;
 
@@ -30,6 +51,7 @@ export class EndpointListComponent implements OnInit {
 
   ngOnInit() {
     this.regenJSONs();
+    this.regenEmbed();
   }
 
   public parse(s: string): any {
@@ -42,7 +64,31 @@ export class EndpointListComponent implements OnInit {
   }
 
   ngOnCange() {
-    //this.regenJSONs();
+    this.regenJSONs();
+    this.regenEmbed();
+  }
+
+  regenEmbed() {
+    if (!this.endpoint || !this.endpoint.requestJSON) {
+      return
+    }
+    this.embeddable = template
+      .replace("$endpointName", this.selectedEndpoint)
+      .replace("$serviceName", this.serviceName)
+      .replace("$namespace", this.ses.namespace())
+      .replace(
+        "$reqJSON",
+        this.endpoint.requestJSON
+          .split("\n")
+          .map((l, i) => {
+            // dont indent first line
+            if (i == 0) {
+              return l;
+            }
+            return "        " + l;
+          })
+          .join("\n")
+      );
   }
 
   regenJSONs() {
@@ -51,8 +97,10 @@ export class EndpointListComponent implements OnInit {
         endpoint.requestJSON = this.valueToJson(endpoint.request, 1);
         endpoint.requestValue = JSON.parse(endpoint.requestJSON);
 
-	// delete the cruft fro the value;
-        endpoint.requestValue = this.deleteProtoCruft(JSON.parse(endpoint.requestJSON));
+        // delete the cruft fro the value;
+        endpoint.requestValue = this.deleteProtoCruft(
+          JSON.parse(endpoint.requestJSON)
+        );
 
         // rebuild the request JSON value
         endpoint.requestJSON = JSON.stringify(endpoint.requestValue, null, 4);
@@ -61,15 +109,22 @@ export class EndpointListComponent implements OnInit {
       if (!this.selectedEndpoint) {
         this.endpoint = this.service.endpoints[0];
         this.selectedEndpoint = this.endpoint.name;
+        this.regenEmbed();
       }
     });
   }
 
   apiURL(): string {
+    if (!this) {
+      return;
+    }
     return this.ses.url();
   }
 
   namespace(): string {
+    if (!this) {
+      return;
+    }
     return this.ses.namespace();
   }
 
@@ -157,7 +212,7 @@ export class EndpointListComponent implements OnInit {
       } else if (key == "unknownFields") {
         delete value["unknownFields"];
       }
-    };
+    }
 
     return value;
   }
@@ -184,7 +239,7 @@ export class EndpointListComponent implements OnInit {
       return "";
     }
 
-    name = name.replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+    name = name.replace(/([a-z0-9])([A-Z])/g, "$1 $2");
     var newName = name.split(".", -1);
     return newName.join(" | ");
   }
@@ -193,11 +248,11 @@ export class EndpointListComponent implements OnInit {
     if (!input) return "";
 
     if (input.name == "MessageState") {
-       return "";
+      return "";
     } else if (input.name == "int32") {
-       return "";
+      return "";
     } else if (input.name == "unknownFields") {
-       return "";
+      return "";
     }
 
     const indent = Array(indentLevel).join("\t");
@@ -206,7 +261,8 @@ export class EndpointListComponent implements OnInit {
     if (input.values) {
       var vals = input.values
         .map((field) => this.valueToString(field, indentLevel + 1))
-          .filter(Boolean).join(fieldSeparator);
+        .filter(Boolean)
+        .join(fieldSeparator);
 
       if (indentLevel == 0) {
         if (vals.trim().length == 0) {

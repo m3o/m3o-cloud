@@ -58,10 +58,12 @@
               matInput
               [(ngModel)]="query"
               placeholder="Search"
-              style="border-bottom: 2px solid #eee;"
+              style="border-bottom: 2px solid #eee"
             />
             <br /><br />
-            <mat-card-content style="margin: 0 auto; max-height: 400px; overflow: scroll;">
+            <mat-card-content
+              style="margin: 0 auto; max-height: 400px; overflow: scroll"
+            >
               <mat-card
                 (click)="select(r)"
                 style="cursor: pointer; margin-bottom: 1em"
@@ -69,7 +71,9 @@
                   let r of runnables | search: 'description,name,title':query
                 "
               >
-                <button mat-stroked-button style="float: right;"><mat-icon>add</mat-icon></button>
+                <button mat-stroked-button style="float: right">
+                  <mat-icon>add</mat-icon>
+                </button>
                 <mat-card-title>{{ r.title }}</mat-card-title>
                 <mat-card-subtitle>{{ r.source }}</mat-card-subtitle>
                 <div>{{ r.description }}</div>

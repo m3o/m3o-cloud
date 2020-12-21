@@ -51,7 +51,12 @@ import { WelcomeComponent } from "./welcome/welcome.component";
 import { LogUserInComponent } from "./log-user-in/log-user-in.component";
 
 import { ClipboardModule } from "ngx-clipboard";
-import { HighlightModule, HIGHLIGHT_OPTIONS } from "ngx-highlightjs";
+
+import {
+  HighlightModule,
+  HIGHLIGHT_OPTIONS,
+  HighlightOptions,
+} from "ngx-highlightjs";
 import { NotInvitedComponent } from "./not-invited/not-invited.component";
 
 import { Ng2GoogleChartsModule } from "ng2-google-charts";
@@ -74,6 +79,10 @@ import {
 } from "./snippet/snippet.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { TableModule } from "ngx-easy-table";
+
+import hljs from "highlight.js";
+document.defaultView["hljs"] = hljs;
+
 /**
  * Import specific languages to avoid importing everything
  * The following will lazy load highlight.js core script (~9.6KB) + the selected languages bundle (each lang. ~1kb)
@@ -157,8 +166,10 @@ export function getHighlightLanguages() {
     UserService,
     {
       provide: HIGHLIGHT_OPTIONS,
-      useValue: {
-        languages: getHighlightLanguages(),
+      useValue: <HighlightOptions>{
+        lineNumbers: true,
+        // The following is just a workaround to activate the line numbers script since dynamic import does not work in Stackblitz
+        lineNumbersLoader: () => null,
       },
     },
   ],
