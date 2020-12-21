@@ -18,14 +18,13 @@ export class LoginComponent implements OnInit {
     private us: UserService,
     private router: Router,
     private notif: NotificationsService
-  ) {
-    if (this.us.token()) {
-      this.router.navigate["/services"];
-      return;
-    }
-  }
+  ) {}
 
   ngOnInit() {
+    if (this.us.refreshToken() != "") {
+      this.router.navigate(["/services"]);
+      return;
+    }
     this.namespace = this.us.namespace();
   }
 

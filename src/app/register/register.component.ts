@@ -20,14 +20,13 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private notif: NotificationsService
   ) {
-    if (this.us.token()) {
-      this.router.navigate["/services"];
+    if (this.us.refreshToken() != "") {
+      this.router.navigate(["/services"]);
       return;
     }
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   sendVerificationEmail() {
     this.us

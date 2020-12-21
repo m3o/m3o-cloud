@@ -101,6 +101,11 @@ export class UserService {
     return "Bearer " + this.cookie.get("micro_token");
   }
 
+  refreshToken(): string {
+
+    return this.cookie.get("micro_refresh");
+  }
+
   namespace(): string {
     return this.cookie.get("micro_namespace");
   }
