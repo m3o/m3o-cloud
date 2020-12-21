@@ -68,18 +68,28 @@ Micro-Namespace: "{{ namespace() }}"</pre
             <br />
             <mat-divider></mat-divider>
             <br />
-            Request<br /><br />
-            <pre class="reqresp" style="padding: 1em; background: #f6f6f6">{{
-              valueToString(endpoint.request, 0)
-            }}</pre>
+            Request<br/><br/>
+            <textarea
+              style="height: 25em; width: 95%; border: 1px solid whitesmoke; padding: 10px; color: #333333;"
+              [(ngModel)]="endpoint.requestJSON"
+            ></textarea>
             <br /><br />
-            Response
-            <pre class="reqresp" style="padding: 1em; background: #f6f6f6">{{
-              valueToString(endpoint.response, 0)
-            }}</pre>
+            Response<br /><br />
+            <textarea style="height: 25em; width: 95%; border: 1px solid whitesmoke; padding: 10px; color: #333333"
+              [(ngModel)]="endpoint.responseJSON"
+            ></textarea>
+            <br />
+            <button
+              mat-raised-button
+              style="font-weight: bold"
+              (click)="callEndpoint(service, endpoint)"
+              color="primary"
+            >
+              Call
+            </button>
           </ng-template>
         </mat-tab>
-
+<!--
         <mat-tab label="Form">
           <ng-template matTabContent>
             <br />
@@ -168,7 +178,7 @@ Micro-Namespace: "{{ namespace() }}"</pre
             </button>
           </ng-template>
         </mat-tab>
-
+-->
         <mat-tab label="Embed">
           <ng-template matTabContent>
             <br />
