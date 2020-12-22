@@ -18,7 +18,7 @@ var template = `<div id="content"></div>
         "$namespace",
         $reqJSON,
         function (data) {
-          console.log("Successfully saved.", data);
+          document.getElementById("content").innerHTML = "Response: " + JSON.stringify(data);
         }
       );
     });
@@ -71,10 +71,13 @@ export class EndpointListComponent implements OnInit {
 
   regenEmbed() {
     if (!this.endpoint || !this.endpoint.requestJSON) {
-      return
+      return;
     }
     this.embeddable = template
-      .replace("$endpointName", this.selectedEndpoint)
+      .replace(
+        "$endpointName",
+        this.selectedEndpoint.toLowerCase().replace(this.serviceName + ".", "")
+      )
       .replace("$serviceName", this.serviceName)
       .replace("$namespace", this.ses.namespace())
       .replace(
@@ -337,7 +340,7 @@ ${indent}}`;
     },
   };
 
-    // code editor
+  // code editor
   htmlOptions = {
     automaticLayout: true,
     theme: "vs-light",
