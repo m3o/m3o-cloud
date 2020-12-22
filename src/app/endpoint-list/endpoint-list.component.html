@@ -73,6 +73,7 @@ Micro-Namespace: "{{ namespace() }}"</pre
               style="height: 25em; overflow: hidden; border: 1px solid #eee; padding: 10px;"
               [options]="coptions"
               [(ngModel)]="endpoint.requestJSON"
+              (ngModelChange)="regenEmbed()"
             ></ngx-monaco-editor>
             <br />
             Response<br /><br />
@@ -80,6 +81,7 @@ Micro-Namespace: "{{ namespace() }}"</pre
               style="height: 25em; overflow: hidden; border: 1px solid #eee; padding: 10px;"
               [options]="coptions"
               [(ngModel)]="endpoint.responseJSON"
+              (ngModelChange)="regenEmbed()"
             ></ngx-monaco-editor>
             <br />
             <button

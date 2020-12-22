@@ -61,6 +61,7 @@ export class EndpointListComponent implements OnInit {
   select(e: types.Endpoint) {
     this.endpoint = e;
     this.selectedEndpoint = e.name;
+    this.regenEmbed();
   }
 
   ngOnCange() {
