@@ -35,5 +35,29 @@
         </div></mat-card-content
       >
     </mat-card>
+    <br/>
+    <mat-card >
+      <mat-card-title>API Keys</mat-card-title>
+
+      <mat-card-content ng>
+        <mat-list>
+          <mat-list-item *ngFor="let key of this.keys" >
+            <h2 mat-line>{{ key.description }}</h2>
+            <p mat-line><span>Scopes: {{ key.scopes }}</span></p>
+            <p mat-line><span>Created {{ key.createdTime * 1000 | dateAgo }}</span></p>
+            <mat-icon mat-list-icon>vpn_key</mat-icon>
+            <button mat-raised-button (click)="revokeKey(key)">Delete</button>
+          </mat-list-item>
+        </mat-list>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+                mat-raised-button
+                (click)="createKeyDialog()"
+                color="primary"
+        >Create</button>
+      </mat-card-actions>
+    </mat-card>
   </mat-card>
 </div>
