@@ -2,38 +2,44 @@
   <mat-card style="margin-top: 0; padding-top: 0" class="mat-card-flat">
     <mat-card-title
       >Settings&nbsp;
-      <span>| &nbsp;</span>Tokens</mat-card-title
+      <span>| &nbsp;</span>API Keys</mat-card-title
     >
-    <br />
-    <mat-card style="margin: 0 auto; background: #fcfcfc">
-      <mat-card-title>API Token</mat-card-title>
-      <mat-card-subtitle>Below find your API token</mat-card-subtitle>
-      <mat-card-content>
-        <div
-          style="
-            overflow: scroll;
-            word-wrap: break-word;
-            background: #eee;
-            border-radius: 5px;
-            padding: 0.5em;
-          "
-        >
-          {{ this.us.token().replace("Bearer ", "") }}
-        </div>
-      </mat-card-content>
-    </mat-card>
     <br />
     <mat-card style="margin-bottom: 1em; margin: 0 auto; background: #fcfcfc">
       <mat-card-title>API Usage</mat-card-title>
       <mat-card-subtitle
-        >To use the token simply pass in a "Authorization: Bearer" header to the
+        >To use an API key simply pass in a "Authorization: Bearer" header to the
         Micro API.</mat-card-subtitle
       >
       <mat-card-content
         ><div style="background: #eee; border-radius: 5px; padding: 0.5em">
-          curl -H 'Authorization: Bearer $token' https://api.m3o.com
+          curl -H 'Authorization: Bearer $apikey' https://api.m3o.com
         </div></mat-card-content
       >
+    </mat-card>
+    <br/>
+    <mat-card >
+      <mat-card-title>API Keys</mat-card-title>
+
+      <mat-card-content ng>
+        <mat-list>
+          <mat-list-item *ngFor="let key of this.keys" >
+            <h2 mat-line>{{ key.description }}</h2>
+            <p mat-line><span>Scopes: {{ key.scopes }}</span></p>
+            <p mat-line><span>Created {{ key.createdTime * 1000 | dateAgo }}</span></p>
+            <mat-icon mat-list-icon>vpn_key</mat-icon>
+            <button mat-raised-button (click)="revokeKey(key)">Delete</button>
+          </mat-list-item>
+        </mat-list>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+                mat-raised-button
+                (click)="createKeyDialog()"
+                color="primary"
+        >Create</button>
+      </mat-card-actions>
     </mat-card>
   </mat-card>
 </div>

@@ -79,10 +79,10 @@
           </button>
           <mat-divider></mat-divider>
           <button
-            class="tokens"
-            id="tokens"
+            class="keys"
+            id="keys"
             mat-menu-item
-            routerLink="/settings/tokens"
+            routerLink="/settings/keys"
           >
             Settings
           </button>
@@ -194,7 +194,7 @@
         </div>
         <div *ngIf="user && user.name">
           <a
-            routerLink="/settings/tokens"
+            routerLink="/settings/keys"
             (click)="sidenav.toggle()"
             mat-list-item
             >Settings</a

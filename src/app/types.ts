@@ -126,3 +126,10 @@ export interface Event {
   metadata: { string: string };
   service: EventService;
 }
+
+export interface APIKey {
+  id: string;
+  description: string;
+  createdTime: number;
+  scopes: string[];
+}

@@ -38,6 +38,7 @@ import { StatusComponent } from "./status/status.component";
 
 import { CookieService } from "ngx-cookie-service";
 import { UserService } from "./user.service";
+import { V1ApiService } from "./v1api.service";
 import { HttpClientModule } from "@angular/common/http";
 import { SimpleNotificationsModule } from "angular2-notifications";
 import { ServiceComponent } from "./service/service.component";
@@ -61,7 +62,7 @@ import { NotInvitedComponent } from "./not-invited/not-invited.component";
 
 import { Ng2GoogleChartsModule } from "ng2-google-charts";
 import { MonacoEditorModule } from "ngx-monaco-editor";
-import { SettingsComponent } from "./settings/settings.component";
+import {CreateKeyDialogComponent, SettingsComponent} from './settings/settings.component';
 import { EventsComponent } from "./events/events.component";
 import { DateAgoPipe } from "./dateago.pipe";
 import { EventsListComponent } from "./events-list/events-list.component";
@@ -111,6 +112,7 @@ export function getHighlightLanguages() {
     LogUserInComponent,
     NotInvitedComponent,
     SettingsComponent,
+    CreateKeyDialogComponent,
     EventsComponent,
     DateAgoPipe,
     EventsListComponent,
@@ -164,8 +166,12 @@ export function getHighlightLanguages() {
   providers: [
     CookieService,
     UserService,
+    V1ApiService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogOverviewExampleDialog],
+  entryComponents: [
+    DialogOverviewExampleDialog,
+    CreateKeyDialogComponent
+  ],
 })
 export class AppModule {}
