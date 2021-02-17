@@ -82,9 +82,8 @@ export interface Input {
 export class CreateKeyDialogComponent {
 
   public input: Input = {} as Input;
-  private submitted = false;
-  private errorMsg = '';
-  private apiKey = '';
+  public errorMsg = '';
+  public apiKey = '';
 
   constructor(
     public dialogRef: MatDialogRef<CreateKeyDialogComponent>,
