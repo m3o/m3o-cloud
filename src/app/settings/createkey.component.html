@@ -1,14 +1,17 @@
 <h1 mat-dialog-title>Create new API key</h1>
 <div mat-dialog-content>
-    <p>Please provide a description and a comma separated list of scopes</p>
-    <mat-form-field style="width: 100%">
+    <mat-form-field style="width: 400px">
         <mat-label>Description</mat-label>
-        <input matInput [(ngModel)]="input.description">
+        <mat-hint>What's this key for?</mat-hint>
+        <input matInput [(ngModel)]="description" required>
     </mat-form-field>
     <br/>
     <mat-form-field style="width: 100%">
         <mat-label>Scopes</mat-label>
-        <input matInput [(ngModel)]="input.scopes">
+        <mat-hint>Select scopes to restrict key or leave blank to allow access to all available APIs</mat-hint>
+        <mat-select [formControl]="scopesForm" multiple>
+            <mat-option *ngFor="let scope of scopes" [value]="scope">{{scope}}</mat-option>
+        </mat-select>
     </mat-form-field>
 
 </div>
@@ -18,8 +21,6 @@
     <p style="background: #eee;">{{ apiKey }}</p>
 </div>
 <div *ngIf="errorMsg">
-    <p>Error while creating the key: </p>
-    <br/>
     <p style="background: #eee;">{{ errorMsg }}</p>`
 </div>
 <div mat-dialog-actions>
@@ -28,6 +29,6 @@
             (click)="onCreateClick()"
             cdkFocusInitial
             color="primary"
-            [disabled]="!input.scopes || !input.description "
+            [disabled]="!description"
     >{{ apiKey == '' ? 'Create' : 'Close' }}</button>
 </div>

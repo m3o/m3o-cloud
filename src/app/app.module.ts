@@ -12,8 +12,8 @@ import {
   MatToolbar,
   MatList,
   MatMenu,
-  MatProgressSpinnerModule,
-} from "@angular/material";
+  MatProgressSpinnerModule, MatSelectModule,
+} from '@angular/material';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { MatToolbarModule } from "@angular/material";
@@ -162,6 +162,7 @@ export function getHighlightLanguages() {
     MatCheckboxModule,
     MonacoEditorModule.forRoot(),
     TableModule,
+    MatSelectModule,
   ],
   providers: [
     CookieService,
