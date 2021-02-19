@@ -133,3 +133,16 @@ export interface APIKey {
   createdTime: number;
   scopes: string[];
 }
+
+export interface QuotaUsage {
+  name: string;
+  usage: number;
+  limit: number;
+}
+
+export interface Quota {
+  id: string;
+  path: string;
+  limit: number;
+  reset_frequency: number;
+}

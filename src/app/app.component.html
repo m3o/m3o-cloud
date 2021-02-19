@@ -19,6 +19,7 @@
         >
         <a *ngIf="user && user.name" routerLink="/status" mat-button>Status</a>
         <!--<a *ngIf="user && user.name" routerLink="/events" mat-button>Events</a> -->
+        <a *ngIf="user && user.name" routerLink="/apis" mat-button>APIs</a>
         &nbsp;
         <button mat-stroked-button color="primary" [matMenuTriggerFor]="new" aria-label="Example icon-button with a menu"
           *ngIf="user && user.name"
@@ -190,6 +191,11 @@
         <div *ngIf="user && user.name">
           <a mat-list-item (click)="sidenav.toggle()" routerLink="/status"
             >Status</a
+          >
+        </div>
+        <div *ngIf="user && user.name">
+          <a mat-list-item (click)="sidenav.toggle()" routerLink="/apis"
+          >APIs</a
           >
         </div>
         <div *ngIf="user && user.name">

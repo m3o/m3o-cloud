@@ -1,0 +1,37 @@
+<div style="margin: auto">
+  <mat-card>
+    <mat-card-title>APIs&nbsp;</mat-card-title>
+    <br />
+
+    <mat-card >
+      <mat-card-title>Explore</mat-card-title>
+      <mat-card-subtitle>Available APIs on the platform</mat-card-subtitle>
+
+      <mat-card *ngFor="let api of this.availableAPIs">
+        <mat-card-title><a href="https://services.m3o.com/{{ api }}">{{ api }}</a></mat-card-title>
+      </mat-card>
+    </mat-card>
+
+    <mat-card >
+      <mat-card-title>Usage</mat-card-title>
+      <mat-card-subtitle>Your current usage of API</mat-card-subtitle>
+
+      <mat-grid-list cols="3" >
+        <mat-grid-tile *ngFor="let usage of this.quotaUsage">
+          <div id="request">
+            <h1>/v1{{ quotas.get(usage.name).path }}</h1>
+            <p><b>{{ usage.usage ? usage.usage : 0 }}/{{ usage.limit }}</b> reqs</p>
+            <p>Quota resets {{ quotas.get(usage.name).reset_frequency }}</p>
+          </div>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+    </mat-card>
+
+    <mat-card >
+      <mat-card-title>Keys</mat-card-title>
+      <mat-card-subtitle>You can see your API keys and generate new ones in the <a routerLink="/settings/keys">settings page</a></mat-card-subtitle>
+    </mat-card>
+
+  </mat-card>
+</div>
