@@ -1,7 +1,8 @@
 # Micro Cloud
 
-Highly experimental project with loads of cruft.
-Please ignore this folder for now.
+This is the Micro Cloud platform dashboard
+
+## Usage
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.
 
