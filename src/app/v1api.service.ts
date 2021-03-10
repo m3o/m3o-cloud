@@ -15,6 +15,10 @@ interface ListKeysResponse {
   api_keys: APIKeyEntry[];
 }
 
+interface ListAPIsResponse {
+  names: string[];
+}
+
 interface GenerateKeyResponse {
   api_key: string;
 }
@@ -102,6 +106,34 @@ export class V1ApiService {
         });
     });
   }
+
+
+  // listAPIs returns the list of available APIs
+  listAPIs(): Promise<string[]> {
+    return new Promise<string[]>((resolve, reject) => {
+      return this.http
+        .post<ListAPIsResponse>(environment.apiUrl + '/v1/api/apis/list',
+          {},
+          {
+            headers: {
+              'Micro-Namespace' : 'micro',
+              authorization: this.token()
+            }})
+        .toPromise()
+        .then((listResponse) => {
+          const apis = [] as string[];
+          listResponse.names.forEach(value => {
+            apis.push(value);
+          });
+          resolve(apis);
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+
+  }
+
 
   token(): string {
     return 'Bearer ' + this.cookie.get('micro_token');

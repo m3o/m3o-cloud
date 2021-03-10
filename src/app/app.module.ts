@@ -12,8 +12,8 @@ import {
   MatToolbar,
   MatList,
   MatMenu,
-  MatProgressSpinnerModule,
-} from "@angular/material";
+  MatProgressSpinnerModule, MatSelectModule, MatGridListModule,
+} from '@angular/material';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { MatToolbarModule } from "@angular/material";
@@ -82,6 +82,8 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { TableModule } from "ngx-easy-table";
 
 import hljs from "highlight.js";
+import {ApisComponent} from './apis/apis.component';
+import {QuotaService} from './quota.service';
 document.defaultView["hljs"] = hljs;
 
 /**
@@ -126,6 +128,7 @@ export function getHighlightLanguages() {
     TitlePipe,
     SnippetComponent,
     DialogOverviewExampleDialog,
+    ApisComponent,
   ],
   imports: [
     BrowserModule,
@@ -162,11 +165,14 @@ export function getHighlightLanguages() {
     MatCheckboxModule,
     MonacoEditorModule.forRoot(),
     TableModule,
+    MatSelectModule,
+    MatGridListModule,
   ],
   providers: [
     CookieService,
     UserService,
     V1ApiService,
+    QuotaService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [

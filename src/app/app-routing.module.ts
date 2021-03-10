@@ -12,6 +12,7 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { StatusComponent } from "./status/status.component";
 import { StatusSingleComponent } from "./status-single/status-single.component";
+import {ApisComponent} from './apis/apis.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,11 @@ const routes: Routes = [
   { path: "services", component: ServicesComponent, canActivate: [AuthGuard] },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
+  {
+    path: "apis",
+    component: ApisComponent,
+  },
+
 ];
 
 @NgModule({

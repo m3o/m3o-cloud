@@ -1,16 +1,17 @@
-import { Component, OnInit, Inject } from "@angular/core";
-import { UserService } from "../user.service";
+import { Component, OnInit, Inject } from '@angular/core';
+import { UserService } from '../user.service';
 import { V1ApiService } from '../v1api.service';
 import * as types from '../types';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {FormArray, FormBuilder, FormGroup, FormControl} from '@angular/forms';
+
 
 @Component({
-  selector: "app-settings",
-  templateUrl: "./settings.component.html",
-  styleUrls: ["./settings.component.css"]
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  public keys: types.APIKey[] = [] as types.APIKey[];
 
   constructor(
     public us: UserService,
@@ -18,6 +19,9 @@ export class SettingsComponent implements OnInit {
     public dialog: MatDialog
   ) {
   }
+  public keys: types.APIKey[] = [] as types.APIKey[];
+
+  languages = ['bash'];
 
   ngOnInit() {
     this.listKeys();
@@ -27,16 +31,21 @@ export class SettingsComponent implements OnInit {
     this.v1api
       .listKeys()
       .then((keys) => {
+        // sort newest first
+        keys.sort((a, b) => {
+          return b.createdTime - a.createdTime;
+        });
         this.keys = keys;
       })
       .catch((e) => {
         // TODO
+        console.log(e);
       });
   }
 
 
   revokeKey(key: types.APIKey) {
-    if (!confirm('Are you sure you want to delete "'+key.description + '"')) {
+    if (!confirm('Are you sure you want to delete "' + key.description + '"')) {
       return;
     }
     this.v1api
@@ -59,8 +68,6 @@ export class SettingsComponent implements OnInit {
       this.listKeys();
     });
   }
-
-  languages = ["bash"];
 }
 
 export interface DialogData {
@@ -75,21 +82,36 @@ export interface Input {
 }
 
 
+export interface ScopeCheckbox {
+  name: string;
+  checked: boolean;
+}
+
+
 @Component({
   selector: 'app-create-key-dialog',
   templateUrl: './createkey.component.html',
 })
 export class CreateKeyDialogComponent {
 
-  public input: Input = {} as Input;
+  public description = '';
   public errorMsg = '';
   public apiKey = '';
+  public form: FormGroup;
+  public scopes = [] as string[];
+  public scopesForm = new FormControl();
+
 
   constructor(
     public dialogRef: MatDialogRef<CreateKeyDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private v1api: V1ApiService
-  ) {}
+    private v1api: V1ApiService,
+  ) {
+    this.v1api.listAPIs().then((value => {
+      this.scopes = value;
+      })
+    );
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -100,11 +122,17 @@ export class CreateKeyDialogComponent {
       this.dialogRef.close(this.apiKey);
       return;
     }
-    this.v1api.createKey(this.input.description, this.input.scopes.split(',')).then(apiKey => {
+    this.errorMsg = '';
+    let selectedScopes = this.scopesForm.value as string[];
+    if (!selectedScopes || selectedScopes.length === 0) {
+      // select all
+      selectedScopes = this.scopes;
+    }
+    this.v1api.createKey(this.description, selectedScopes).then(apiKey => {
       this.apiKey = apiKey;
     }).catch((e) => {
-      console.log("ERROR" +JSON.stringify(e));
-      // this.dialogRef.close();
+      this.errorMsg = 'There was an error creating the key. Please try again later.';
+      console.log('ERROR' + JSON.stringify(e));
     });
 
   }
