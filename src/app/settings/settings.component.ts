@@ -27,6 +27,24 @@ export class SettingsComponent implements OnInit {
     this.listKeys();
   }
 
+  config(): string {
+    var c = `{
+  "env": "platform",
+  "namespace": "` + this.us.namespace() + `",
+  "namespaces": {
+    "platform": {
+      "all": "` + this.us.namespace() + `",
+      "current": "` +  this.us.namespace() + `"
+    }
+  },
+  "platform": {
+    "current-user": "` + this.us.user.name + `"
+  }
+}`
+
+    return c;
+  }
+
   listKeys(): void {
     this.v1api
       .listKeys()

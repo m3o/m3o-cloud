@@ -1,9 +1,9 @@
 <div style="margin: auto">
   <mat-card style="margin-top: 0; padding-top: 0" class="mat-card-flat">
     <mat-card-title
-      >Settings&nbsp;
-      <span>| &nbsp;</span>API Keys</mat-card-title
+      >Settings</mat-card-title
     >
+    <mat-card-subtitle>Your account settings</mat-card-subtitle>
     <br />
     <mat-card style="margin-bottom: 1em; margin: 0 auto; background: #fcfcfc">
       <mat-card-title>API Usage</mat-card-title>
@@ -12,7 +12,7 @@
         Micro API.</mat-card-subtitle
       >
       <mat-card-content
-        ><div style="background: #eee; border-radius: 5px; padding: 0.5em">
+        ><div style="background: whitesmoke; border-radius: 5px; padding: 0.5em">
           curl -H 'Authorization: Bearer $apikey' https://api.m3o.com
         </div></mat-card-content
       >
@@ -22,7 +22,8 @@
       <mat-card-title>API Keys</mat-card-title>
 
       <mat-card-content ng>
-        <mat-list>
+        <mat-card-subtitle *ngIf="this.keys.length == 0">No API keys</mat-card-subtitle>
+        <mat-list *ngIf="this.keys.length > 0">
           <mat-list-item *ngFor="let key of this.keys" >
             <h2 mat-line>{{ key.description }}</h2>
             <p mat-line><span>Scopes: {{ key.scopes }}</span></p>
@@ -40,6 +41,17 @@
                 color="primary"
         >Create</button>
       </mat-card-actions>
+    </mat-card>
+
+    <br/>
+    <mat-card>
+      <mat-card-title>CLI Config</mat-card-title>
+      <mat-card-subtitle>
+        Copy the following config into ~/.micro/config.json and run `micro login`</mat-card-subtitle>
+
+      <mat-card-content ng>
+        <pre style="background: whitesmoke; border-radius: 5px; padding: 0.5em">{{ config() }}</pre>
+      </mat-card-content>
     </mat-card>
   </mat-card>
 </div>
