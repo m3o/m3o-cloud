@@ -62,7 +62,7 @@ import {
   CreateKeyDialogComponent,
   SettingsComponent,
 } from './settings/settings.component';
-import { EventsComponent } from './events/events.component';
+//import { EventsComponent } from './events/events.component';
 import { DateAgoPipe } from './dateago.pipe';
 //import { EventsListComponent } from './events-list/events-list.component';
 //import { StatChartsComponent } from './stat-charts/stat-charts.component';
@@ -116,7 +116,7 @@ export function getHighlightLanguages() {
     NotInvitedComponent,
     SettingsComponent,
     CreateKeyDialogComponent,
-    EventsComponent,
+    //EventsComponent,
     DateAgoPipe,
     //EventsListComponent,
     //StatChartsComponent,
