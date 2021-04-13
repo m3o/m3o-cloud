@@ -26,6 +26,14 @@ interface TokenResponse {
   token: Token;
 }
 
+interface LoginResponse {
+  access_token: string;
+  refresh_token: string;
+  created: string;
+  expiry: string;
+  issuer: string;
+}
+
 interface CompleteSignupResponse {
   authToken: Token;
   namespace: string;
@@ -113,7 +121,7 @@ export class UserService {
   login(email: string, password: string, namespace: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       return this.http
-        .post<Token>(environment.apiUrl + "/platform/LoginUser", {
+        .post<LoginResponse>(environment.apiUrl + "/platform/LoginUser", {
           username: email,
           password: password,
           namespace: namespace,
@@ -150,7 +158,7 @@ export class UserService {
           );
           this.cookie.set(
             "micro_namespace",
-            namespace,
+            token.issuer,
             30,
             "/",
             null,
