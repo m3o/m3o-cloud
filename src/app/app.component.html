@@ -21,7 +21,11 @@
         <!--<a *ngIf="user && user.name" routerLink="/events" mat-button>Events</a> -->
         <a *ngIf="user && user.name" routerLink="/apis" mat-button>APIs</a>
         &nbsp;
-        <button mat-stroked-button color="primary" [matMenuTriggerFor]="new" aria-label="Example icon-button with a menu"
+        <button
+          mat-stroked-button
+          color="primary"
+          [matMenuTriggerFor]="new"
+          aria-label="Example icon-button with a menu"
           *ngIf="user && user.name"
           style="padding: 0; width: 40px; min-width: 40px"
         >
@@ -38,11 +42,7 @@
             <span>New Service</span>
           </button>
 
-          <button
-            *ngIf="user && user.name"
-            mat-menu-item
-            disabled
-           >
+          <button *ngIf="user && user.name" mat-menu-item disabled>
             <mat-icon>access_time</mat-icon>
             <span>New Namespace</span>
           </button>
@@ -69,12 +69,20 @@
             />
             <span style="font-weight: 700">{{ user.teamName }}</span>
           </button>
-          <span style="font-size: small; display: block; padding: 5px 15px 5px 15px; color: grey;">Namespaces</span>
+          <span
+            style="
+              font-size: small;
+              display: block;
+              padding: 5px 15px 5px 15px;
+              color: grey;
+            "
+            >Namespaces</span
+          >
           <button
             class="namespace"
             id="namespace"
             mat-flat-button
-            style="font-weight: 800; cursor: arrow;"
+            style="font-weight: 800; cursor: arrow"
           >
             {{ us.namespace() }}
           </button>
@@ -120,9 +128,9 @@
             <mat-icon>keyboard_arrow_down</mat-icon>
           </button>
 
-          <!-- <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
-            <a routerLink="/login" color="accent" mat-raised-button>Login</a>
-          </ng-container> -->
+          <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
+            <a routerLink="/login" color="primary" mat-raised-button>Login</a>
+          </ng-container>
         </span>
 
         <span fxHide="false" fxHide.gt-sm>
@@ -195,7 +203,7 @@
         </div>
         <div *ngIf="user && user.name">
           <a mat-list-item (click)="sidenav.toggle()" routerLink="/apis"
-          >APIs</a
+            >APIs</a
           >
         </div>
         <div *ngIf="user && user.name">
