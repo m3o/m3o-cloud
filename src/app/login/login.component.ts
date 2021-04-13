@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(["/services"]);
       return;
     }
-    this.namespace = this.us.namespace();
+    //this.namespace = this.us.namespace();
   }
 
   public githubLogin(event: any) {
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.us
       .login(this.email, this.password, this.namespace)
       .then(() => {
-        document.location.href = "/services";
+        document.location.href = "/";
       })
       .catch((e) => {
         console.log(e);

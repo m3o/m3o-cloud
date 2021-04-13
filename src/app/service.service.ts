@@ -85,10 +85,9 @@ export class ServiceService {
         .replace(".", "")
         .replace(toTitleCase(rpc.service), "");
       let headers = {
-        
         "micro-namespace": this.us.namespace(),
       }
-      if (this.us.token()) {
+      if (this.us.token().length > 10) {
         headers["authorization"] = this.us.token()
       }
       return this.http
