@@ -92,7 +92,7 @@ export class ApiSingleComponent implements OnInit {
   tabChange($event: number) {
     this.selected = $event;
     this.location.replaceState(
-      "/service/" + this.serviceName + "/" + tabIndexesToName[this.selected]
+      "/" + this.serviceName + "/" + tabIndexesToName[this.selected]
     );
     this.tabValueChange.next(this.selected);
   }

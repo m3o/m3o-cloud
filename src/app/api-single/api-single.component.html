@@ -1,39 +1,46 @@
 <div>
-    <mat-spinner
-      [diameter]="70"
-      style="margin: auto"
-      *ngIf="!service"
-    ></mat-spinner>
-  </div>
-  <div *ngIf="service" style="margin: auto">
-    <mat-card style="margin-top: 0em; padding-top: 0em" class="mat-card-flat">
-      <mat-card-title
-        fxLayout="row"
-        style="align-items: center"
-      >
-        <div>
-          <!-- <mat-icon style="color: green; vertical-align: middle;"
+  <mat-spinner
+    [diameter]="70"
+    style="margin: auto"
+    *ngIf="!service"
+  ></mat-spinner>
+</div>
+<div *ngIf="service" style="margin: auto">
+  <mat-card style="margin-top: 0em; padding-top: 0em" class="mat-card-flat">
+    <mat-card-title fxLayout="row" style="align-items: center">
+      <div>
+        <!-- <mat-icon style="color: green; vertical-align: middle;"
             >fiber_manual_record</mat-icon
           >-->
-          {{ serviceName | title }} &nbsp;
-        </div>
-      </mat-card-title>
-  
-      <mat-tab-group
-        animationDuration="0ms"
-        [selectedIndex]="selected"
-        (selectedIndexChange)="tabChange($event)"
+        {{ serviceName | title }} &nbsp;
+      </div>
+    </mat-card-title>
+
+    <mat-tab-group
+      animationDuration="0ms"
+      [selectedIndex]="selected"
+      (selectedIndexChange)="tabChange($event)"
+    >
+      <mat-tab
+        style="padding-top: 1em"
+        label="Readme"
+        *ngIf="service.service.endpoints"
       >
-        <mat-tab style="padding-top: 1em" label="Query" *ngIf="service.service.endpoints">
-          <br />
-          <app-api-endpoints
-            [serviceName]="service.service.name"
-            [endpointQuery]="endpointQuery"
-            [selectedVersion]="selectedVersion"
-          ></app-api-endpoints>
-        </mat-tab>
-  
-      </mat-tab-group>
-    </mat-card>
-  </div>
-  
+        <br />
+        <markdown [data]="service.readme"></markdown>
+      </mat-tab>
+      <mat-tab
+        style="padding-top: 1em"
+        label="Query"
+        *ngIf="service.service.endpoints"
+      >
+        <br />
+        <app-api-endpoints
+          [serviceName]="service.service.name"
+          [endpointQuery]="endpointQuery"
+          [selectedVersion]="selectedVersion"
+        ></app-api-endpoints>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>
