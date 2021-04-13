@@ -26,6 +26,14 @@ interface TokenResponse {
   token: Token;
 }
 
+interface LoginResponse {
+  access_token: string;
+  refresh_token: string;
+  created: string;
+  expiry: string;
+  issuer: string;
+}
+
 interface CompleteSignupResponse {
   authToken: Token;
   namespace: string;
@@ -113,21 +121,17 @@ export class UserService {
   login(email: string, password: string, namespace: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       return this.http
-        .post<TokenResponse>(environment.apiUrl + "/auth/Auth/Token", {
-          id: email,
-          secret: password,
-          options: {
-            namespace: namespace,
-          },
-          token_expiry: 30 * 24 * 3600,
+        .post<LoginResponse>(environment.apiUrl + "/platform/LoginUser", {
+          username: email,
+          password: password,
+          namespace: namespace,
         })
         .toPromise()
-        .then((userResponse) => {
-          const tok = userResponse.token;
+        .then((token) => {
           // ugly param list, see: https://github.com/stevermeister/ngx-cookie-service/issues/86
           this.cookie.set(
             "micro_token",
-            tok.access_token,
+            token.access_token,
             30,
             "/",
             null,
@@ -136,7 +140,7 @@ export class UserService {
           );
           this.cookie.set(
             "micro_refresh",
-            tok.refresh_token,
+            token.refresh_token,
             30,
             "/",
             null,
@@ -145,7 +149,7 @@ export class UserService {
           );
           this.cookie.set(
             "micro_expiry",
-            tok.expiry,
+            token.expiry,
             30,
             "/",
             null,
@@ -154,7 +158,7 @@ export class UserService {
           );
           this.cookie.set(
             "micro_namespace",
-            namespace,
+            token.issuer,
             30,
             "/",
             null,
