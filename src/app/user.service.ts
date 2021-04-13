@@ -113,7 +113,7 @@ export class UserService {
   login(email: string, password: string, namespace: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       return this.http
-        .post<TokenResponse>(environment.apiUrl + "/platform/LoginUser", {
+        .post<Token>(environment.apiUrl + "/platform/LoginUser", {
           username: email,
           password: password,
           namespace: namespace,
