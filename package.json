@@ -24,7 +24,6 @@
     "@angular/router": "~11.0.9",
     "@swimlane/ngx-charts": "^17.0.1",
     "@types/lodash": "^4.14.149",
-    "angular2-notifications": "^9.0.0",
     "chart.js": "^2.9.3",
     "d3": "^5.15.0",
     "hammerjs": "^2.0.8",
