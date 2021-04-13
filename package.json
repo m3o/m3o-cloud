@@ -30,7 +30,7 @@
     "highlight.js": "^10.4.0",
     "lodash-es": "^4.17.15",
     "ng2-charts": "^2.4.2",
-    "ng2-google-charts": "^5.0.0",
+    "ng2-google-charts": "^6.1.0",
     "ng2-nvd3": "^2.0.0",
     "ngx-clipboard": "^12.3.0",
     "ngx-cookie-service": "^11.0.2",
