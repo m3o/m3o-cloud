@@ -84,6 +84,8 @@ import { TableModule } from "ngx-easy-table";
 import hljs from "highlight.js";
 import {ApisComponent} from './apis/apis.component';
 import {QuotaService} from './quota.service';
+import { ApiSingleComponent } from './api-single/api-single.component';
+import { ApiEndpointsComponent } from './api-endpoints/api-endpoints.component';
 document.defaultView["hljs"] = hljs;
 
 /**
@@ -129,6 +131,8 @@ export function getHighlightLanguages() {
     SnippetComponent,
     DialogOverviewExampleDialog,
     ApisComponent,
+    ApiSingleComponent,
+    ApiEndpointsComponent,
   ],
   imports: [
     BrowserModule,

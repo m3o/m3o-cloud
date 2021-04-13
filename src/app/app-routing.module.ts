@@ -14,6 +14,7 @@ import { StatusComponent } from './status/status.component';
 import { StatusSingleComponent } from './status-single/status-single.component';
 import { ApisComponent } from './apis/apis.component';
 import { HomeComponent } from './home/home.component'
+import { ApiSingleComponent } from './api-single/api-single.component';
 
 const routes: Routes = [
   {
@@ -67,9 +68,13 @@ const routes: Routes = [
     component: ApisComponent,
   },
   {
-    path: ':owner/:id/:tab',
+    path: 'service/:id/:tab',
     component: ServiceComponent,
   },
+  {
+    path: ':id',
+    component: ApiSingleComponent,
+  }
 ];
 
 @NgModule({
