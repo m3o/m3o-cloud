@@ -7,20 +7,20 @@ import { AuthGuard } from './auth.guard';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { NotInvitedComponent } from './not-invited/not-invited.component';
 import { SettingsComponent } from './settings/settings.component';
-import { EventsComponent } from './events/events.component';
+//import { EventsComponent } from './events/events.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { StatusComponent } from './status/status.component';
-import { StatusSingleComponent } from './status-single/status-single.component';
+//import { StatusComponent } from './status/status.component';
+//import { StatusSingleComponent } from './status-single/status-single.component';
 import { ApisComponent } from './apis/apis.component';
 import { HomeComponent } from './home/home.component'
 import { ApiSingleComponent } from './api-single/api-single.component';
 
 const routes: Routes = [
-  {
-    path: 'status',
-    component: StatusComponent,
-  },
+  //{
+  //  path: 'status',
+  //  component: StatusComponent,
+  //},
   {
     path: 'not-invited',
     component: NotInvitedComponent,
@@ -35,16 +35,16 @@ const routes: Routes = [
     component: NewServiceComponent,
     canActivate: [AuthGuard],
   },
-  {
-    path: 'status/:id/:version',
-    component: StatusSingleComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'status/:id/:version/:tab',
-    component: StatusSingleComponent,
-    canActivate: [AuthGuard],
-  },
+  //{
+  //  path: 'status/:id/:version',
+  //  component: StatusSingleComponent,
+  //  canActivate: [AuthGuard],
+  //},
+  //{
+  //  path: 'status/:id/:version/:tab',
+  //  component: StatusSingleComponent,
+  //  canActivate: [AuthGuard],
+  //},
   {
     path: 'service/:id',
     component: ServiceComponent,
@@ -55,11 +55,11 @@ const routes: Routes = [
     component: SettingsComponent,
     canActivate: [AuthGuard],
   },
-  {
-    path: 'events',
-    component: EventsComponent,
-    canActivate: [AuthGuard],
-  },
+  //{
+  //  path: 'events',
+  //  component: EventsComponent,
+  //  canActivate: [AuthGuard],
+  //},
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
