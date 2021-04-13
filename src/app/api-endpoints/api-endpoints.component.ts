@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import * as types from "../types";
 import { ServiceService } from "../service.service";
-import { NotificationsService } from "angular2-notifications";
+import { ToastrService } from 'ngx-toastr';
 import { Columns, Config, DefaultConfig } from "ngx-easy-table";
 import { ExploreService, Service } from '../explore.service';
 
@@ -45,7 +45,7 @@ export class ApiEndpointsComponent implements OnInit {
   constructor(
     private ses: ServiceService,
     private ex: ExploreService,
-    private notif: NotificationsService
+    private notif: ToastrService
   ) {}
 
   ngOnInit() {

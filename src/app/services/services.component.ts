@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { RegistryService } from "../registry.service";
 import * as types from "../types";
-import { NotificationsService } from "angular2-notifications";
+import { ToastrService } from 'ngx-toastr';
 
 var groupBy = function (xs, key) {
   return xs.reduce(function (rv, x) {
@@ -21,7 +21,7 @@ export class ServicesComponent implements OnInit {
 
   constructor(
     private rs: RegistryService,
-    private notif: NotificationsService
+    private notif: ToastrService
   ) {}
 
   ngOnInit() {

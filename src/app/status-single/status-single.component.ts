@@ -6,7 +6,7 @@ import { Location } from "@angular/common";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subject } from "rxjs";
 import * as _ from "lodash";
-import { NotificationsService } from "angular2-notifications";
+import { ToastrService } from 'ngx-toastr';
 
 const tabNamesToIndex = {
   "": 0,
@@ -60,7 +60,7 @@ export class StatusSingleComponent implements OnInit {
     private rs: RuntimeService,
     private activeRoute: ActivatedRoute,
     private location: Location,
-    private notif: NotificationsService,
+    private notif: ToastrService,
     private router: Router
   ) {}
 

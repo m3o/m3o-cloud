@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { environment } from "../environments/environment";
 import { CookieService } from "ngx-cookie-service";
-import { NotificationsService } from "angular2-notifications";
+import { ToastrService } from 'ngx-toastr';
 import { Router } from "@angular/router";
 
 interface ReadUserResponse {
@@ -39,7 +39,7 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private cookie: CookieService,
-    private notif: NotificationsService,
+    private notif: ToastrService,
     private router: Router
   ) {
     this.get()

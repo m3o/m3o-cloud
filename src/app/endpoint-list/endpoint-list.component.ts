@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import * as types from "../types";
 import { ServiceService } from "../service.service";
-import { NotificationsService } from "angular2-notifications";
+import { ToastrService } from 'ngx-toastr';
 import { RegistryService } from "../registry.service";
 import { Columns, Config, DefaultConfig } from "ngx-easy-table";
 import { keyValuesToMap } from "@angular/flex-layout/extended/typings/style/style-transforms";
@@ -46,7 +46,7 @@ export class EndpointListComponent implements OnInit {
   constructor(
     private ses: ServiceService,
     private rs: RegistryService,
-    private notif: NotificationsService
+    private notif: ToastrService
   ) {}
 
   ngOnInit() {

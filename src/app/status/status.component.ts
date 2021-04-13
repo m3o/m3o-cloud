@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { RuntimeService } from "../runtime.service";
 import { UserService } from "../user.service";
 import * as types from "../types";
-import { NotificationsService } from "angular2-notifications";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: "app-services",
@@ -16,7 +16,7 @@ export class StatusComponent implements OnInit {
   constructor(
     private rus: RuntimeService,
     private us: UserService,
-    private notif: NotificationsService
+    private notif: ToastrService
   ) {}
 
   ngOnInit() {

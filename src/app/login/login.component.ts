@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from "@angular/core";
 import { UserService } from "../user.service";
 import { environment } from "../../environments/environment";
 import { Router } from "@angular/router";
-import { NotificationsService } from "angular2-notifications";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: "app-login",
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private us: UserService,
     private router: Router,
-    private notif: NotificationsService
+    private notif: ToastrService
   ) {}
 
   ngOnInit() {

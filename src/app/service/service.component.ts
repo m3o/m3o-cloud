@@ -6,7 +6,7 @@ import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { Subject } from "rxjs";
 import * as _ from "lodash";
-import { NotificationsService } from "angular2-notifications";
+import { ToastrService } from 'ngx-toastr';
 
 const tabNamesToIndex = {
   "": 0,
@@ -58,7 +58,7 @@ export class ServiceComponent implements OnInit {
     private rs: RegistryService,
     private activeRoute: ActivatedRoute,
     private location: Location,
-    private notif: NotificationsService
+    private notif: ToastrService
   ) {}
 
   ngOnInit() {

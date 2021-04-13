@@ -8,7 +8,7 @@ import {
 import { FormControl, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as _ from "lodash";
-import { NotificationsService } from "angular2-notifications";
+import { ToastrService } from 'ngx-toastr';
 import { RuntimeService } from "../runtime.service";
 
 interface Runnable {
@@ -100,7 +100,7 @@ export class NewServiceComponent implements OnInit {
   constructor(
     private router: Router,
     private rus: RuntimeService,
-    private notif: NotificationsService
+    private notif: ToastrService
   ) {}
 
   ngOnInit() {}
