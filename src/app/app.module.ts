@@ -31,7 +31,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginComponent } from './login/login.component';
 import { ServicesComponent } from './services/services.component';
-import { StatusComponent } from './status/status.component';
+// import { StatusComponent } from './status/status.component';
 
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from './user.service';
@@ -107,7 +107,7 @@ export function getHighlightLanguages() {
     HomeComponent,
     LoginComponent,
     ServicesComponent,
-    StatusComponent,
+   // StatusComponent,
     ServiceComponent,
     SearchPipe,
     NewServiceComponent,
