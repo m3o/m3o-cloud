@@ -38,7 +38,7 @@ import { UserService } from './user.service';
 import { V1ApiService } from './v1api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceComponent } from './service/service.component';
-import { StatusSingleComponent } from './status-single/status-single.component';
+//import { StatusSingleComponent } from './status-single/status-single.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './search.pipe';
 import { NewServiceComponent } from './new-service/new-service.component';
@@ -64,9 +64,9 @@ import {
 } from './settings/settings.component';
 import { EventsComponent } from './events/events.component';
 import { DateAgoPipe } from './dateago.pipe';
-import { EventsListComponent } from './events-list/events-list.component';
-import { StatChartsComponent } from './stat-charts/stat-charts.component';
-import { TraceListComponent } from './trace-list/trace-list.component';
+//import { EventsListComponent } from './events-list/events-list.component';
+//import { StatChartsComponent } from './stat-charts/stat-charts.component';
+//import { TraceListComponent } from './trace-list/trace-list.component';
 import { EndpointListComponent } from './endpoint-list/endpoint-list.component';
 import { LogsComponent } from './logs/logs.component';
 import { NodesComponent } from './nodes/nodes.component';
@@ -118,10 +118,10 @@ export function getHighlightLanguages() {
     CreateKeyDialogComponent,
     EventsComponent,
     DateAgoPipe,
-    EventsListComponent,
-    StatChartsComponent,
-    StatusSingleComponent,
-    TraceListComponent,
+    //EventsListComponent,
+    //StatChartsComponent,
+    //StatusSingleComponent,
+    //TraceListComponent,
     EndpointListComponent,
     LogsComponent,
     NodesComponent,
