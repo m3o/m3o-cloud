@@ -40,20 +40,19 @@
               <div>
                 <h3>{{ pathToRequestSchema(path.key)['title'] }}</h3>
                 <table class="params">
-                  <tr>
-                    <th>Fieldname</th>
-                    <th>Type</th>
-                  </tr>
-                  <tr
-                    *ngFor="
-                      let property of pathToRequestSchema(path.key)[
-                        'properties'
-                      ] | keyvalue
-                    "
-                  >
-                    <td>{{ property.key }}</td>
-                    <td>{{ property.value['type'] }}</td>
-                  </tr>
+                  <app-property-lister
+                    [schema]="pathToRequestSchema(path.key)"
+                  ></app-property-lister>
+                </table>
+                <br />
+              </div>
+
+              <div>
+                <h3>{{ pathToResponseSchema(path.key)['title'] }}</h3>
+                <table class="params">
+                  <app-property-lister
+                    [schema]="pathToResponseSchema(path.key)"
+                  ></app-property-lister>
                 </table>
                 <br />
               </div>

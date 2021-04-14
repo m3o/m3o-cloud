@@ -39,3 +39,7 @@ h3 {
 .params th {
     padding: 0.5em;
 }
+
+app-property-lister {
+    display: contents;
+}

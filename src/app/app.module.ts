@@ -85,6 +85,7 @@ import { ApisComponent } from './apis/apis.component';
 import { QuotaService } from './quota.service';
 import { ApiSingleComponent } from './api-single/api-single.component';
 import { ApiEndpointsComponent } from './api-endpoints/api-endpoints.component';
+import { PropertyListerComponent } from './property-lister/property-lister.component';
 document.defaultView['hljs'] = hljs;
 
 /**
@@ -132,6 +133,7 @@ export function getHighlightLanguages() {
     ApisComponent,
     ApiSingleComponent,
     ApiEndpointsComponent,
+    PropertyListerComponent,
   ],
   imports: [
     BrowserModule,

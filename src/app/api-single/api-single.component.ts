@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { ExploreService, Service } from '../explore.service';
 import { ReturnStatement } from '@angular/compiler';
+import * as openapi from 'openapi3-ts';
 
 const tabNamesToIndex = {
   '': 0,
@@ -42,7 +43,7 @@ export class ApiSingleComponent implements OnInit {
   stats: types.DebugSnapshot[] = [];
   traceSpans: types.Span[];
   events: types.Event[];
-  openAPI: any = {};
+  openAPI: openapi.OpenAPIObject = {} as any;
 
   selectedVersion = '';
   serviceName: string;
@@ -111,21 +112,33 @@ export class ApiSingleComponent implements OnInit {
 
   code: string = '{}';
 
-  pathToRequestSchema(path: string): any {
+  pathToRequestSchema(path: string): openapi.SchemaObject {
     let paths = path.split('/');
     let endpointName = paths[paths.length - 1];
     let serviceName = jsUcfirst(this.serviceName);
 
     if (
       this.openAPI &&
-      this.openAPI['components']['schemas'] &&
-      this.openAPI['components']['schemas'][
-       endpointName + 'Request'
-      ]
+      this.openAPI.components.schemas &&
+      this.openAPI.components.schemas[endpointName + 'Request']
     ) {
-      return this.openAPI['components']['schemas'][
-        endpointName + 'Request'
-      ];
+      return this.openAPI.components.schemas[endpointName + 'Request'];
+    }
+    return {};
+  }
+
+
+  pathToResponseSchema(path: string): openapi.SchemaObject {
+    let paths = path.split('/');
+    let endpointName = paths[paths.length - 1];
+    let serviceName = jsUcfirst(this.serviceName);
+
+    if (
+      this.openAPI &&
+      this.openAPI.components.schemas &&
+      this.openAPI.components.schemas[endpointName + 'Response']
+    ) {
+      return this.openAPI.components.schemas[endpointName + 'Response'];
     }
     return {};
   }
