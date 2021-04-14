@@ -1,4 +1,41 @@
 h1 {
     font-size: 2em;
-    padding-top: 1em;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.25em;
+}
+
+.endpoint {
+    display: inline-block;
+    border-radius: 10px;
+    background: #f2f2f2;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.params {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.params tr {
+    border-bottom: 1px dashed #ccc;
+    
+}
+
+.params td {
+    padding: 0.5em;
+}
+
+.params th {
+    padding: 0.5em;
 }

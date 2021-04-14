@@ -27,7 +27,42 @@
         *ngIf="service.service.endpoints"
       >
         <br />
-        <markdown [data]="service.readme"></markdown>
+        <div
+          fxLayout="row wrap"
+          style="padding-bottom: 1em; padding-right: 1px"
+          fxLayoutAlign="space-between"
+        >
+          <div fxFlex="70%">
+            <div *ngFor="let path of openAPI.paths | keyvalue">
+              <h2>
+                <span class="endpoint">{{ path.key }}</span>
+              </h2>
+              <div>
+                <h3>{{ pathToRequestSchema(path.key)['title'] }}</h3>
+                <table class="params">
+                  <tr>
+                    <th>Fieldname</th>
+                    <th>Type</th>
+                  </tr>
+                  <tr
+                    *ngFor="
+                      let property of pathToRequestSchema(path.key)[
+                        'properties'
+                      ] | keyvalue
+                    "
+                  >
+                    <td>{{ property.key }}</td>
+                    <td>{{ property.value['type'] }}</td>
+                  </tr>
+                </table>
+                <br />
+              </div>
+            </div>
+          </div>
+          <mat-card fxFlex="28%">
+            <markdown [data]="service.readme"></markdown>
+          </mat-card>
+        </div>
       </mat-tab>
       <mat-tab
         style="padding-top: 1em"
