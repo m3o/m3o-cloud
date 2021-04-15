@@ -27,14 +27,18 @@
     </div>
   </div>
 
-  <div style="margin: 2em 0">
-    <div *ngIf="loading == false" fxLayout="row wrap" fxLayoutGap="2em">
+  <div style="margin: 2em 0; padding: 1px">
+    <div
+      *ngIf="loading == false"
+      fxLayoutAlign="space-between"
+      fxLayout="row wrap"
+    >
       <div
         *ngFor="let service of services"
-        fxFlex="calc(50% - 2em)"
-        style="padding-top: 1em"
+        fxFlex="49%"
+        style="padding-top: 1em;"
       >
-        <mat-card>
+        <mat-card style="background: #fdfdfd">
           <mat-card-title
             ><a routerLink="/{{ service.service.name }}">{{
               service.service.name

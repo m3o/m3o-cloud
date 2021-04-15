@@ -7,8 +7,8 @@ import { Subject } from 'rxjs';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { ExploreService, Service } from '../explore.service';
-import { ReturnStatement } from '@angular/compiler';
 import * as openapi from 'openapi3-ts';
+import { UserService } from '../user.service';
 
 const tabNamesToIndex = {
   '': 0,
@@ -55,28 +55,25 @@ export class ApiSingleComponent implements OnInit {
 
   selected = 0;
   tabValueChange = new Subject<number>();
+  user: types.Account;
 
   constructor(
     private ses: ServiceService,
     private ex: ExploreService,
     private activeRoute: ActivatedRoute,
     private location: Location,
-    private notif: ToastrService
+    private notif: ToastrService,
+    public us: UserService
   ) {}
 
   ngOnInit() {
+    this.user = this.us.user;
     this.activeRoute.params.subscribe((p) => {
       if (this.intervalId) {
         clearInterval(this.intervalId);
       }
       this.serviceName = <string>p['id'];
-      this.ex.search(this.serviceName).then((servs) => {
-        this.service = servs.filter(
-          (s) => s.service.name == this.serviceName
-        )[0];
-        this.openAPI = JSON.parse(this.service.openAPIJSON);
-        console.log(this.openAPI);
-      });
+      this.loadAPI()
       this.loadVersionData();
       const tab = <string>p['tab'];
       if (tab) {
@@ -85,7 +82,52 @@ export class ApiSingleComponent implements OnInit {
     });
   }
 
+  loadAPI() {
+    this.ex.search(this.serviceName).then((servs) => {
+      this.service = servs.filter((s) => s.service.name == this.serviceName)[0];
+      this.openAPI = JSON.parse(this.service.openAPIJSON);
+      console.log(this.openAPI);
+    });
+  }
+
   loadVersionData() {}
+  jsOptions = {
+    automaticLayout: true,
+    theme: 'vs-light',
+    folding: false,
+    glyphMargin: false,
+    language: 'json',
+    lineNumbers: false,
+    lineDecorationsWidth: 0,
+    lineNumbersMinChars: 0,
+    renderLineHighlight: false,
+    renderIndentGuides: false,
+    minimap: {
+      enabled: false,
+    },
+    scrollbar: {
+      vertical: 'hidden',
+      horizontal: 'hidden',
+    },
+  };
+
+  specEditing = false;
+  editSpec() {
+    this.specEditing = !this.specEditing;
+  }
+
+  saveSpec() {
+    this.ex
+      .saveMeta(
+        this.service.service.name,
+        this.service.readme,
+        this.service.openAPIJSON
+      )
+      .then(() => {
+        this.editSpec();
+        this.loadAPI();
+      });
+  }
 
   versionSelected(service: types.Service) {
     if (this.selectedVersion == service.version) {
@@ -126,7 +168,6 @@ export class ApiSingleComponent implements OnInit {
     }
     return {};
   }
-
 
   pathToResponseSchema(path: string): openapi.SchemaObject {
     let paths = path.split('/');

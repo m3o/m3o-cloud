@@ -23,7 +23,7 @@
     >
       <mat-tab
         style="padding-top: 1em"
-        label="Readme"
+        label="Spec"
         *ngIf="service.service.endpoints"
       >
         <br />
@@ -32,7 +32,30 @@
           style="padding-bottom: 1em; padding-right: 1px"
           fxLayoutAlign="space-between"
         >
-          <div fxFlex="70%">
+          <div fxFlex="70%" style="padding: 1px;">
+            <div *ngIf="us.user.scopes.includes('admin')">
+              <button
+                *ngIf="!specEditing"
+                (click)="editSpec()"
+                mat-raised-button
+              >
+                Edit spec
+              </button>
+              <div *ngIf="specEditing">
+                <ngx-monaco-editor
+                  style="height: 25em; border: 1px solid #eee; padding: 10px"
+                  [options]="jsOptions"
+                  [(ngModel)]="service.openAPIJSON"
+                ></ngx-monaco-editor>
+                <br />
+                <button (click)="saveSpec()" color="primary" mat-raised-button>
+                  Save
+                </button>
+                &nbsp;
+                <button (click)="editSpec()" mat-raised-button>Cancel</button>
+              </div>
+              <br /><br />
+            </div>
             <div *ngFor="let path of openAPI.paths | keyvalue">
               <h2>
                 <span class="endpoint">{{ path.key }}</span>
@@ -40,7 +63,8 @@
               <div>
                 <h3>{{ pathToRequestSchema(path.key)['title'] }}</h3>
                 <table class="params">
-                  <div app-property-lister
+                  <div
+                    app-property-lister
                     [schema]="pathToRequestSchema(path.key)"
                   ></div>
                 </table>
@@ -50,7 +74,8 @@
               <div>
                 <h3>{{ pathToResponseSchema(path.key)['title'] }}</h3>
                 <table class="params">
-                  <div app-property-lister
+                  <div
+                    app-property-lister
                     [schema]="pathToResponseSchema(path.key)"
                   ></div>
                 </table>
@@ -58,23 +83,26 @@
               </div>
             </div>
           </div>
-          <mat-card fxFlex="28%">
-            <markdown [data]="service.readme"></markdown>
-          </mat-card>
+          <div fxFlex="28%">
+            <mat-card style="background: #fdfdfd">
+              <markdown [data]="service.readme"></markdown>
+            </mat-card>
+          </div>
         </div>
       </mat-tab>
+
       <mat-tab
         style="padding-top: 1em"
         label="Query"
-        *ngIf="service.service.endpoints"
+        *ngIf="us.user.scopes.includes('admin') && service.service.endpoints"
       >
         <br />
         <app-api-endpoints
           [serviceName]="service.service.name"
           [endpointQuery]="endpointQuery"
           [selectedVersion]="selectedVersion"
-        ></app-api-endpoints>
-      </mat-tab>
+        ></app-api-endpoints> </mat-tab
+      >-->
     </mat-tab-group>
   </mat-card>
 </div>

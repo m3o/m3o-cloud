@@ -51,4 +51,36 @@ export class ExploreService {
         });
     });
   }
+
+  saveMeta(
+    serviceName: string,
+    readme: string,
+    openAPIJSON: string
+  ): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      return this.http
+        .post<SearchResponse>(
+          environment.apiUrl + '/explore/SaveMeta',
+          {
+            readme: readme,
+            openAPIJSON: openAPIJSON,
+            serviceName: serviceName,
+          },
+          {
+            headers: {
+              authorization: this.us.token(),
+              'micro-namespace': this.us.namespace(),
+              'Micro-Namespace': 'micro',
+            },
+          }
+        )
+        .toPromise()
+        .then((servs) => {
+          resolve();
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  }
 }
