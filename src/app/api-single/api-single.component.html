@@ -33,7 +33,7 @@
           fxLayoutAlign="space-between"
         >
           <div fxFlex="70%" style="padding: 1px;">
-            <div *ngIf="us.user.scopes.includes('admin')">
+            <div *ngIf="us.user?.scopes?.includes('admin')">
               <button
                 *ngIf="!specEditing"
                 (click)="editSpec()"
@@ -94,7 +94,7 @@
       <mat-tab
         style="padding-top: 1em"
         label="Query"
-        *ngIf="us.user.scopes.includes('admin') && service.service.endpoints"
+        *ngIf="us.user?.scopes?.includes('admin') && service.service.endpoints"
       >
         <br />
         <app-api-endpoints
