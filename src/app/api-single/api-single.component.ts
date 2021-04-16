@@ -73,7 +73,7 @@ export class ApiSingleComponent implements OnInit {
         clearInterval(this.intervalId);
       }
       this.serviceName = <string>p['id'];
-      this.loadAPI()
+      this.loadAPI();
       this.loadVersionData();
       const tab = <string>p['tab'];
       if (tab) {
@@ -127,6 +127,54 @@ export class ApiSingleComponent implements OnInit {
         this.editSpec();
         this.loadAPI();
       });
+  }
+
+  valueToJson(input: types.Value, indentLevel: number): string {
+    const typeToDefault = (type: string): string => {
+      switch (type) {
+        case "string":
+          return '""';
+        case "int":
+        case "int32":
+        case "int64":
+          return "0";
+        case "bool":
+          return "false";
+        default:
+          return "{}";
+      }
+    };
+
+    if (!input) return "";
+
+    const indent = Array(indentLevel).join("    ");
+    const fieldSeparator = `,\n`;
+    if (input.values) {
+      return `${indent}${indentLevel == 1 ? "{" : '"' + input.name + '": {'}
+${input.values
+  .map((field) => this.valueToJson(field, indentLevel + 1))
+  .join(fieldSeparator)}
+${indent}}`;
+    } else if (indentLevel == 1) {
+      return `{}`;
+    }
+
+    return `${indent}"${input.name}": ${typeToDefault(input.type)}`;
+  }
+
+  endpointOf(path: string): types.Endpoint {
+    let es = this.service.service.endpoints.filter(e => {
+      return e.name.includes(this.lastPart(path))
+    })
+    if (es.length > 0) {
+      return es[0]
+    }
+    return {} as types.Endpoint
+  }
+
+  lastPart(s :string): string {
+    let ss = s.split("/")
+    return ss[ss.length - 1]
   }
 
   versionSelected(service: types.Service) {
