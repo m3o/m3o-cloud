@@ -70,7 +70,12 @@ Micro-Namespace: "{{ namespace() }}"</pre
             <br />
             Request<br /><br />
             <ngx-monaco-editor
-              style="height: 25em; overflow: hidden; border: 1px solid #eee; padding: 10px;"
+              style="
+                height: 25em;
+                overflow: hidden;
+                border: 1px solid #eee;
+                padding: 10px;
+              "
               [options]="coptions"
               [(ngModel)]="endpoint.requestJSON"
               (ngModelChange)="regenEmbed()"
@@ -78,7 +83,12 @@ Micro-Namespace: "{{ namespace() }}"</pre
             <br />
             Response<br /><br />
             <ngx-monaco-editor
-              style="height: 25em; overflow: hidden; border: 1px solid #eee; padding: 10px;"
+              style="
+                height: 25em;
+                overflow: hidden;
+                border: 1px solid #eee;
+                padding: 10px;
+              "
               [options]="coptions"
               [(ngModel)]="endpoint.responseJSON"
               (ngModelChange)="regenEmbed()"
@@ -190,7 +200,7 @@ Micro-Namespace: "{{ namespace() }}"</pre
             <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap="1em">
               <div fxFlex="calc(100% - 0.5em)">
                 <ngx-monaco-editor
-                  style="height: 25em; border: 1px solid #eee; padding :10px;"
+                  style="height: 25em; border: 1px solid #eee; padding: 10px"
                   [options]="htmlOptions"
                   [(ngModel)]="embeddable"
                 ></ngx-monaco-editor>

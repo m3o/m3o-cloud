@@ -1,9 +1,11 @@
 <ng-container *ngFor="let property of schema['properties'] | keyvalue">
   <tr>
     <td>
-      <span [ngStyle]="{ 'padding-left': level + 'em;' }" style="display: inline-block;">{{
-        property.key
-      }}</span>
+      <span
+        [ngStyle]="{ 'padding-left': level + 'em;' }"
+        style="display: inline-block"
+        >{{ property.key }}</span
+      >
     </td>
     <td>
       <ng-container *ngIf="property.value['type'] == 'array'"

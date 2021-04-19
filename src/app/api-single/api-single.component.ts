@@ -129,52 +129,57 @@ export class ApiSingleComponent implements OnInit {
       });
   }
 
-  valueToJson(input: types.Value, indentLevel: number): string {
-    const typeToDefault = (type: string): string => {
-      switch (type) {
-        case "string":
-          return '""';
-        case "int":
-        case "int32":
-        case "int64":
-          return "0";
-        case "bool":
-          return "false";
+  schemaToJSON(schema: openapi.SchemaObject): string {
+    let recur = function (schema: openapi.SchemaObject): Object {
+      switch (schema.type as string) {
+        case 'object':
+          let ret = {};
+          for (let key in schema.properties) {
+            ret[key] = recur(schema.properties[key]);
+          }
+          return ret;
+        case 'array':
+          switch ((schema.items as any).type) {
+            case 'object':
+              return [recur(schema.items)];
+            case 'string':
+              return [''];
+            case 'int':
+            case 'int32':
+            case 'int64':
+              return [0];
+            case 'bool':
+              return [false];
+          }
+        case 'string':
+          return '';
+        case 'int':
+        case 'int32':
+        case 'int64':
+          return 0;
+        case 'bool':
+          return false;
         default:
-          return "{}";
+          return schema.type;
       }
+      return '';
     };
-
-    if (!input) return "";
-
-    const indent = Array(indentLevel).join("    ");
-    const fieldSeparator = `,\n`;
-    if (input.values) {
-      return `${indent}${indentLevel == 1 ? "{" : '"' + input.name + '": {'}
-${input.values
-  .map((field) => this.valueToJson(field, indentLevel + 1))
-  .join(fieldSeparator)}
-${indent}}`;
-    } else if (indentLevel == 1) {
-      return `{}`;
-    }
-
-    return `${indent}"${input.name}": ${typeToDefault(input.type)}`;
+    return JSON.stringify(recur(schema), null, 2);
   }
 
   endpointOf(path: string): types.Endpoint {
-    let es = this.service.service.endpoints.filter(e => {
-      return e.name.includes(this.lastPart(path))
-    })
+    let es = this.service.service.endpoints.filter((e) => {
+      return e.name.includes(this.lastPart(path));
+    });
     if (es.length > 0) {
-      return es[0]
+      return es[0];
     }
-    return {} as types.Endpoint
+    return {} as types.Endpoint;
   }
 
-  lastPart(s :string): string {
-    let ss = s.split("/")
-    return ss[ss.length - 1]
+  lastPart(s: string): string {
+    let ss = s.split('/');
+    return ss[ss.length - 1];
   }
 
   versionSelected(service: types.Service) {
