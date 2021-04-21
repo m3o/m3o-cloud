@@ -16,10 +16,8 @@ h3 {
 
 .endpoint {
   display: inline-block;
-  border-radius: 10px;
-  background: #fdfdfd;
-  border: 1px solid #eee;
-  padding: 0.5em;
+  font-style: bold;
+  font-weight: 600;
   margin-bottom: 0.5em;
 }
 
