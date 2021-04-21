@@ -129,6 +129,8 @@ export class ApiSingleComponent implements OnInit {
       });
   }
 
+  showJSON = false;
+
   schemaToJSON(schema: openapi.SchemaObject): string {
     let recur = function (schema: openapi.SchemaObject): Object {
       switch (schema.type as string) {
@@ -159,12 +161,138 @@ export class ApiSingleComponent implements OnInit {
           return 0;
         case 'bool':
           return false;
+        // typescript types below
+        case 'number':
+          return 0;
+        case 'boolean':
+          return false;
         default:
           return schema.type;
       }
       return '';
     };
     return JSON.stringify(recur(schema), null, 2);
+  }
+
+  example(
+    path: string,
+    request: openapi.SchemaObject,
+    response: openapi.SchemaObject,
+    language: string
+  ): string {
+    switch (language) {
+      case 'go':
+        return this.exampleGo(path, request, response);
+    }
+    return '';
+  }
+
+  exampleGo(
+    path: string,
+    request: openapi.SchemaObject,
+    response: openapi.SchemaObject
+  ): string {
+    this.schemaToGoStructs(request);
+    this.schemaToGoStructs(response);
+    return `package main
+
+import (
+  "bytes"
+  "encoding/json"
+  "io/ioutil"
+  "log"
+  "net/http"
+)
+    
+func main() {
+  client := &http.Client{}
+
+  //Encode the data
+  postBody, _ := json.Marshal(map[string]string{
+    "searchTerm": "datastore",
+  })
+  rbody := bytes.NewBuffer(postBody)
+
+  //Leverage Go's HTTP Post function to make request
+  req, err := http.NewRequest("POST", "https://api.m3o.com/explore/Search", rbody)
+
+  // Add auth headers here if needed
+  //req.Header.Add("If-None-Match", 'W/"wyzzy"')
+  resp, err := client.Do(req)
+
+  //Handle Error
+  if err != nil {
+    log.Fatalf("An Error Occured %v", err)
+  }
+  defer resp.Body.Close()
+  //Read the response body
+  body, err := ioutil.ReadAll(resp.Body)
+  if err != nil {
+    log.Fatalln(err)
+  }
+  sb := string(body)
+  log.Printf(sb)
+}`;
+  }
+
+  // this is an unfinished method to convert
+  // openapi schemas to go struct type definitions
+  schemaToGoStructs(schema: openapi.SchemaObject): string {
+    let accum = '';
+    let recur = function (schema: openapi.SchemaObject): Object {
+      switch (schema.type as string) {
+        case 'object':
+          let ret = {};
+
+          accum += 'type ' + schema.title + ' struct {\n';
+          for (let key in schema.properties) {
+            accum +=
+              '  ' +
+              key +
+              ' ' +
+              ((schema.properties[key] as openapi.SchemaObject)
+                .type as string) +
+              '\n';
+          }
+          accum += '\n}\n\n';
+
+          for (let key in schema.properties) {
+            ret[key] = recur(schema.properties[key]);
+          }
+          return ret;
+        case 'array':
+          switch ((schema.items as any).type) {
+            case 'object':
+              return [recur(schema.items)];
+            case 'string':
+              return [''];
+            case 'int':
+            case 'int32':
+            case 'int64':
+              return [0];
+            case 'bool':
+              return [false];
+          }
+        case 'string':
+          return '';
+        case 'int':
+        case 'int32':
+        case 'int64':
+          return 0;
+        case 'bool':
+          return false;
+        // typescript types below
+        case 'number':
+          return 0;
+        case 'boolean':
+          return false;
+        default:
+          return schema.type;
+      }
+      return '';
+    };
+    recur(schema);
+    return accum;
   }
 
   endpointOf(path: string): types.Endpoint {
@@ -218,6 +346,13 @@ export class ApiSingleComponent implements OnInit {
       this.openAPI.components.schemas[endpointName + 'Request']
     ) {
       return this.openAPI.components.schemas[endpointName + 'Request'];
+    } else if (
+      // this is just a quick hack to support the helloworld example
+      this.openAPI &&
+      this.openAPI.components.schemas &&
+      this.openAPI.components.schemas['Request']
+    ) {
+      return this.openAPI.components.schemas['Request'];
     }
     return {};
   }
@@ -233,6 +368,13 @@ export class ApiSingleComponent implements OnInit {
       this.openAPI.components.schemas[endpointName + 'Response']
     ) {
       return this.openAPI.components.schemas[endpointName + 'Response'];
+    } else if (
+      // this is just a quick hack to support the helloworld example
+      this.openAPI &&
+      this.openAPI.components.schemas &&
+      this.openAPI.components.schemas['Response']
+    ) {
+      return this.openAPI.components.schemas['Response'];
     }
     return {};
   }

@@ -49,20 +49,32 @@ app-property-lister {
 }
 
 .infoblurb {
-    display: inline-block;
-    border-radius: 20px;
-    background: #eef;
-    padding: 0.5em;
-    margin-left: 0.5em;
+  display: inline-block;
+  border-radius: 20px;
+  background: #eef;
+  padding: 0.5em;
+  margin-left: 0.5em;
 }
 
 .authorimg {
-    border-radius: 3em;
-    width: 3em;
-    height: 3em;
-    margin-right: 0.5em;
+  border-radius: 3em;
+  width: 3em;
+  height: 3em;
+  margin-right: 0.5em;
 }
 
 .right h3 {
-    margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.endpointtab mat-tab-body {
+  padding-top: 1em;
+}
+
+.json-switcher {
+  cursor: pointer;
+}
+
+.endpoint-description {
+  padding-top: 1em;
 }

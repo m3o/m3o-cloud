@@ -76,30 +76,55 @@
                 <h2>
                   <span class="endpoint">{{ lastPart(path.key) }}</span>
                 </h2>
+                <div class="endpoint-description">
+                  {{ pathToRequestSchema(path.key).description }}
+                </div>
                 <br />
-                <div>
-                  <h3>Request</h3>
-                  <table class="params">
-                    <div
-                      app-property-lister
-                      [schema]="pathToRequestSchema(path.key)"
-                    ></div>
-                  </table>
-                  <pre><code language="'javascript'" [highlight]="schemaToJSON(pathToRequestSchema(path.key))"></code></pre>
-                  <br />
-                </div>
-
-                <div>
-                  <h3>Response</h3>
-                  <table class="params">
-                    <div
-                      app-property-lister
-                      [schema]="pathToResponseSchema(path.key)"
-                    ></div>
-                  </table>
-                  <pre><code language="'javascript'" [highlight]="schemaToJSON(pathToResponseSchema(path.key))"></code></pre>
-                  <br />
-                </div>
+                <mat-tab-group class="endpointtab" animationDuration="0ms">
+                  <mat-tab label="Request">
+                    <div>
+                      <table class="params">
+                        <div
+                          app-property-lister
+                          [schema]="pathToRequestSchema(path.key)"
+                        ></div>
+                      </table>
+                      <br />
+                      <h4 class="json-switcher" (click)="showJSON = !showJSON">
+                        <a>JSON Example</a>
+                      </h4>
+                      <br />
+                      <pre
+                        *ngIf="showJSON"
+                        class="json-example"
+                      ><code language="'javascript'" [highlight]="schemaToJSON(pathToRequestSchema(path.key))"></code></pre>
+                      <br />
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Response">
+                    <div>
+                      <table class="params">
+                        <div
+                          app-property-lister
+                          [schema]="pathToResponseSchema(path.key)"
+                        ></div>
+                      </table>
+                      <br />
+                      <h4 class="json-switcher" (click)="showJSON = !showJSON">
+                        <a>JSON Example</a>
+                      </h4>
+                      <br />
+                      <pre
+                        *ngIf="showJSON"
+                        class="json-example"
+                      ><code language="'javascript'" [highlight]="schemaToJSON(pathToResponseSchema(path.key))"></code></pre>
+                      <br />
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Call Examples">
+                    <pre><code language="'javascript'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'go')"></code></pre>
+                  </mat-tab>
+                </mat-tab-group>
               </div>
             </mat-card>
           </div>
