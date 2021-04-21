@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { ApisComponent } from './apis/apis.component';
 import { HomeComponent } from './home/home.component'
 import { ApiSingleComponent } from './api-single/api-single.component';
+import {UsageComponent} from './usage/usage.component';
 
 const routes: Routes = [
   //{
@@ -74,6 +75,10 @@ const routes: Routes = [
   {
     path: ':id',
     component: ApiSingleComponent,
+  },
+  {
+    path: 'overview/usage',
+    component: UsageComponent,
   }
 ];
 

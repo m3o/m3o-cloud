@@ -86,6 +86,10 @@ import { QuotaService } from './quota.service';
 import { ApiSingleComponent } from './api-single/api-single.component';
 import { ApiEndpointsComponent } from './api-endpoints/api-endpoints.component';
 import { PropertyListerComponent } from './property-lister/property-lister.component';
+import { UsageComponent } from './usage/usage.component';
+import { UsageService } from './usage.service';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 document.defaultView['hljs'] = hljs;
 
 /**
@@ -134,6 +138,7 @@ export function getHighlightLanguages() {
     ApiSingleComponent,
     ApiEndpointsComponent,
     PropertyListerComponent,
+    UsageComponent,
   ],
   imports: [
     BrowserModule,
@@ -171,12 +176,14 @@ export function getHighlightLanguages() {
     ToastrModule.forRoot(),
     MarkdownModule.forRoot(),
     HighlightModule,
+    NgxChartsModule,
   ],
   providers: [
     CookieService,
     UserService,
     V1ApiService,
     QuotaService,
+    UsageService,
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
