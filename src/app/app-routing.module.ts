@@ -16,6 +16,7 @@ import { ApisComponent } from './apis/apis.component';
 import { HomeComponent } from './home/home.component'
 import { ApiSingleComponent } from './api-single/api-single.component';
 import {UsageComponent} from './usage/usage.component';
+import {PaymentsComponent} from './payments/payments.component';
 
 const routes: Routes = [
   //{
@@ -79,6 +80,10 @@ const routes: Routes = [
   {
     path: 'overview/usage',
     component: UsageComponent,
+  },
+  {
+    path: 'overview/billing',
+    component: PaymentsComponent,
   }
 ];
 
