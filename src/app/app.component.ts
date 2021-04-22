@@ -12,15 +12,16 @@ export class AppComponent implements OnInit {
   title = 'micro';
   user: types.Account;
 
-  constructor(
-    public us: UserService,
-  ) { }
+  constructor(public us: UserService) {}
 
   ngOnInit() {
     this.user = this.us.user;
+    this.us.isUserLoggedIn.subscribe(() => {
+      this.user = this.us.user;
+    });
   }
 
   goToTeam() {
-    window.location.replace("team url???")
+    window.location.replace('team url???');
   }
 }
