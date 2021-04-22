@@ -121,8 +121,16 @@
                       <br />
                     </div>
                   </mat-tab>
-                  <mat-tab label="Call Examples">
-                    <pre><code language="'javascript'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'go')"></code></pre>
+                  <mat-tab label="Usage">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Language</mat-label>
+                      <mat-select [(ngModel)]="exampleLanguage">
+                        <mat-option value="node">Node.js</mat-option>
+                        <mat-option value="go">Go</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <pre><code *ngIf="exampleLanguage == 'node'" language="'javascript'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'node')"></code>
+                      <code *ngIf="exampleLanguage == 'go'" language="'go'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'go')"></code></pre>
                   </mat-tab>
                 </mat-tab-group>
               </div>

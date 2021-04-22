@@ -183,8 +183,33 @@ export class ApiSingleComponent implements OnInit {
     switch (language) {
       case 'go':
         return this.exampleGo(path, request, response);
+      case 'node':
+        return this.exampleNode(path, request, response);
     }
     return '';
+  }
+
+  exampleNode(
+    path: string,
+    request: openapi.SchemaObject,
+    response: openapi.SchemaObject
+  ): string {
+    return (
+      `// npm install --save @m3o/m3o-node 
+const m3o = require('@m3o/m3o-node');
+
+new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
+  .call('` +
+      this.serviceName +
+      `', '` +
+      this.lastPart(path) +
+      `', ` +
+      this.schemaToJSON(request) +
+      `)
+  .then((response) => {
+    console.log(response);
+});`
+    );
   }
 
   exampleGo(
@@ -192,107 +217,87 @@ export class ApiSingleComponent implements OnInit {
     request: openapi.SchemaObject,
     response: openapi.SchemaObject
   ): string {
-    this.schemaToGoStructs(request);
-    this.schemaToGoStructs(response);
-    return `package main
+    return (
+      `package main
 
 import (
-  "bytes"
-  "encoding/json"
-  "io/ioutil"
-  "log"
-  "net/http"
+  "github.com/m3o/m3o-go/client"
 )
     
 func main() {
-  client := &http.Client{}
-
-  //Encode the data
-  postBody, _ := json.Marshal(map[string]string{
-    "searchTerm": "datastore",
+  c := client.NewClient(client.Options{
+    Token: "INSERT_YOUR_TOKEN_HERE"
   })
-  rbody := bytes.NewBuffer(postBody)
 
-  //Leverage Go's HTTP Post function to make request
-  req, err := http.NewRequest("POST", "https://api.m3o.com/explore/Search", rbody)
+  req := ` +
+      this.schemaToGoMap(request) +
+      `
+	
+	var rsp map[string]interface{}{}
 
-  // Add auth headers here if needed
-  //req.Header.Add("If-None-Match", 'W/"wyzzy"')
-  resp, err := client.Do(req)
-
-  //Handle Error
-  if err != nil {
-    log.Fatalf("An Error Occured %v", err)
+	if err := c.Call("` +
+      this.serviceName +
+      `", "` +
+      this.lastPart(path) +
+      `", req, &rsp); err != nil {
+		fmt.Println(err)
+		return
+	}
+}`
+    );
   }
-  defer resp.Body.Close()
-  //Read the response body
-  body, err := ioutil.ReadAll(resp.Body)
-  if err != nil {
-    log.Fatalln(err)
-  }
-  sb := string(body)
-  log.Printf(sb)
-}`;
-  }
+  exampleLanguage = 'node';
 
   // this is an unfinished method to convert
   // openapi schemas to go struct type definitions
-  schemaToGoStructs(schema: openapi.SchemaObject): string {
-    let accum = '';
-    let recur = function (schema: openapi.SchemaObject): Object {
+  schemaToGoMap(schema: openapi.SchemaObject): string {
+    const prefix = '   ';
+    let recur = function (schema: openapi.SchemaObject, level: number): string {
       switch (schema.type as string) {
         case 'object':
-          let ret = {};
-
-          accum += 'type ' + schema.title + ' struct {\n';
-          for (let key in schema.properties) {
-            accum +=
-              '  ' +
-              key +
-              ' ' +
-              ((schema.properties[key] as openapi.SchemaObject)
-                .type as string) +
-              '\n';
-          }
-          accum += '\n}\n\n';
+          let ret = prefix.repeat(level) + 'map[string]interface{}{\n';
 
           for (let key in schema.properties) {
-            ret[key] = recur(schema.properties[key]);
+            ret +=
+              prefix.repeat(level + 1) +
+              '"' + key + '"' +
+              ' : ' +
+              recur(schema.properties[key], level + 1) +
+              ',\n';
           }
+          ret += prefix.repeat(level) + '\n}\n';
           return ret;
         case 'array':
           switch ((schema.items as any).type) {
             case 'object':
-              return [recur(schema.items)];
+              return '[]interface{}{\n' + recur(schema.items, level + 1) + '}';
             case 'string':
-              return [''];
+              return prefix.repeat(level) + '[]interface{}{""}';
             case 'int':
             case 'int32':
+            case 'number':
             case 'int64':
-              return [0];
+              return prefix.repeat(level) + '[]interface{}{0}';
+            case 'boolean':
             case 'bool':
-              return [false];
+              return prefix.repeat(level) + '[]interface{}{false}';
           }
         case 'string':
-          return '';
+          return prefix.repeat(level) + '""';
         case 'int':
         case 'int32':
-        case 'int64':
-          return 0;
-        case 'bool':
-          return false;
-        // typescript types below
         case 'number':
-          return 0;
+        case 'int64':
+          return prefix.repeat(level) + '0';
         case 'boolean':
-          return false;
+        case 'bool':
+          return prefix.repeat(level) + 'false';
         default:
           return schema.type;
       }
       return '';
     };
-    recur(schema);
-    return accum;
+    return recur(schema, 1);
   }
 
   endpointOf(path: string): types.Endpoint {
