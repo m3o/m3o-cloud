@@ -221,28 +221,28 @@ new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
       `package main
 
 import (
+  "fmt"
   "github.com/m3o/m3o-go/client"
 )
     
 func main() {
-  c := client.NewClient(client.Options{
-    Token: "INSERT_YOUR_TOKEN_HERE"
+  c := client.NewClient(&client.Options{
+    Token: "INSERT_YOUR_TOKEN_HERE",
   })
 
   req := ` +
       this.schemaToGoMap(request) +
       `
-	
-	var rsp map[string]interface{}{}
+  var rsp map[string]interface{}
 
-	if err := c.Call("` +
+  if err := c.Call("` +
       this.serviceName +
       `", "` +
       this.lastPart(path) +
       `", req, &rsp); err != nil {
-		fmt.Println(err)
-		return
-	}
+    fmt.Println(err)
+    return
+  }
 }`
     );
   }
@@ -251,7 +251,7 @@ func main() {
   // this is an unfinished method to convert
   // openapi schemas to go struct type definitions
   schemaToGoMap(schema: openapi.SchemaObject): string {
-    const prefix = '   ';
+    const prefix = '  ';
     let recur = function (schema: openapi.SchemaObject, level: number): string {
       switch (schema.type as string) {
         case 'object':
@@ -260,38 +260,50 @@ func main() {
           for (let key in schema.properties) {
             ret +=
               prefix.repeat(level + 1) +
-              '"' + key + '"' +
+              '"' +
+              key +
+              '"' +
               ' : ' +
               recur(schema.properties[key], level + 1) +
               ',\n';
           }
-          ret += prefix.repeat(level) + '\n}\n';
+          ret += prefix.repeat(level) + '}';
+          if (level > 1) {
+            ret += ',\n';
+          } else {
+            ret += '\n';
+          }
           return ret;
         case 'array':
           switch ((schema.items as any).type) {
             case 'object':
-              return '[]interface{}{\n' + recur(schema.items, level + 1) + '}';
+              return (
+                '[]interface{}{\n' +
+                recur(schema.items, level + 1) +
+                prefix.repeat(level) +
+                '}'
+              );
             case 'string':
-              return prefix.repeat(level) + '[]interface{}{""}';
+              return '[]interface{}{""}';
             case 'int':
             case 'int32':
             case 'number':
             case 'int64':
-              return prefix.repeat(level) + '[]interface{}{0}';
+              return '[]interface{}{0}';
             case 'boolean':
             case 'bool':
-              return prefix.repeat(level) + '[]interface{}{false}';
+              return '[]interface{}{false}';
           }
         case 'string':
-          return prefix.repeat(level) + '""';
+          return '""';
         case 'int':
         case 'int32':
         case 'number':
         case 'int64':
-          return prefix.repeat(level) + '0';
+          return '0';
         case 'boolean':
         case 'bool':
-          return prefix.repeat(level) + 'false';
+          return 'false';
         default:
           return schema.type;
       }

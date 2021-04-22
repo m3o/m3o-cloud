@@ -129,8 +129,8 @@
                         <mat-option value="go">Go</mat-option>
                       </mat-select>
                     </mat-form-field>
-                    <pre><code *ngIf="exampleLanguage == 'node'" language="'javascript'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'node')"></code>
-                      <code *ngIf="exampleLanguage == 'go'" language="'go'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'go')"></code></pre>
+                    <pre *ngIf="exampleLanguage == 'node'"><code  language="'javascript'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'node')"></code></pre>
+                    <pre *ngIf="exampleLanguage == 'go'"><code  language="'go'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'go')"></code></pre>
                   </mat-tab>
                 </mat-tab-group>
               </div>
