@@ -91,22 +91,9 @@ import { UsageService } from './usage.service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BalanceService } from './balance.service';
 import { PaymentsComponent } from './payments/payments.component';
-import {NgxStripeModule} from 'ngx-stripe';
+import { NgxStripeModule } from 'ngx-stripe';
 
 document.defaultView['hljs'] = hljs;
-
-/**
- * Import specific languages to avoid importing everything
- * The following will lazy load highlight.js core script (~9.6KB) + the selected languages bundle (each lang. ~1kb)
- */
-export function getHighlightLanguages() {
-  return {
-    typescript: () => import('highlight.js/lib/languages/typescript'),
-    css: () => import('highlight.js/lib/languages/css'),
-    xml: () => import('highlight.js/lib/languages/xml'),
-    bash: () => import('highlight.js/lib/languages/bash'),
-  };
-}
 
 @NgModule({
   declarations: [
@@ -181,7 +168,7 @@ export function getHighlightLanguages() {
     MarkdownModule.forRoot(),
     HighlightModule,
     NgxChartsModule,
-    NgxStripeModule.forRoot('pk_test_wuI8wlKwKBUZ9iHnYlQPa8BH')
+    NgxStripeModule.forRoot('pk_test_wuI8wlKwKBUZ9iHnYlQPa8BH'),
   ],
   providers: [
     CookieService,
@@ -197,9 +184,12 @@ export function getHighlightLanguages() {
         lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
         languages: {
           typescript: () => import('highlight.js/lib/languages/typescript'),
+          javascript: () => import('highlight.js/lib/languages/javascript'),
           css: () => import('highlight.js/lib/languages/css'),
           xml: () => import('highlight.js/lib/languages/xml'),
-          json: () => import('highlight.js/lib/languages/json')
+          json: () => import('highlight.js/lib/languages/json'),
+          go: () => import('highlight.js/lib/languages/go'),
+          shell: () => import('highlight.js/lib/languages/shell'),
         },
       },
     },

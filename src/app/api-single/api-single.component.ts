@@ -185,6 +185,8 @@ export class ApiSingleComponent implements OnInit {
         return this.exampleGo(path, request, response);
       case 'node':
         return this.exampleNode(path, request, response);
+      case 'curl':
+        return this.exampleCurl(path, request, response);
     }
     return '';
   }
@@ -209,6 +211,18 @@ new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
   .then((response) => {
     console.log(response);
 });`
+    );
+  }
+
+  exampleCurl(
+    path: string,
+    request: openapi.SchemaObject,
+    response: openapi.SchemaObject
+  ): string {
+    return (
+      `curl https://api.m3o.com/v1/groups/list -XPOST -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" -D '` +
+      this.schemaToJSON(request) +
+      `'`
     );
   }
 

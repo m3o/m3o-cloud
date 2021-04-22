@@ -127,10 +127,18 @@
                       <mat-select [(ngModel)]="exampleLanguage">
                         <mat-option value="node">Node.js</mat-option>
                         <mat-option value="go">Go</mat-option>
+                        <mat-option value="curl">cURL</mat-option>
                       </mat-select>
                     </mat-form-field>
-                    <pre *ngIf="exampleLanguage == 'node'"><code  language="'javascript'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'node')"></code></pre>
-                    <pre *ngIf="exampleLanguage == 'go'"><code  language="'go'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'go')"></code></pre>
+                    <pre
+                      *ngIf="exampleLanguage == 'node'"
+                    ><code  language="'javascript'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'node')"></code></pre>
+                    <pre
+                      *ngIf="exampleLanguage == 'go'"
+                    ><code  language="'go'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'go')"></code></pre>
+                    <pre
+                      *ngIf="exampleLanguage == 'curl'"
+                    ><code language="'shell'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'curl')"></code></pre>
                   </mat-tab>
                 </mat-tab-group>
               </div>
