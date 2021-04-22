@@ -89,6 +89,9 @@ import { PropertyListerComponent } from './property-lister/property-lister.compo
 import { UsageComponent } from './usage/usage.component';
 import { UsageService } from './usage.service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BalanceService } from './balance.service';
+import { PaymentsComponent } from './payments/payments.component';
+import {NgxStripeModule} from 'ngx-stripe';
 
 document.defaultView['hljs'] = hljs;
 
@@ -139,6 +142,7 @@ export function getHighlightLanguages() {
     ApiEndpointsComponent,
     PropertyListerComponent,
     UsageComponent,
+    PaymentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -177,6 +181,7 @@ export function getHighlightLanguages() {
     MarkdownModule.forRoot(),
     HighlightModule,
     NgxChartsModule,
+    NgxStripeModule.forRoot('pk_test_wuI8wlKwKBUZ9iHnYlQPa8BH')
   ],
   providers: [
     CookieService,
@@ -184,6 +189,7 @@ export function getHighlightLanguages() {
     V1ApiService,
     QuotaService,
     UsageService,
+    BalanceService,
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {

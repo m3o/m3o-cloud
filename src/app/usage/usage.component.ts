@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UsageService } from '../usage.service';
-import {APIUsage} from '../types';
+import { APIUsage } from '../types';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import * as types from '../types';
+import { BalanceService } from '../balance.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usage',
@@ -13,6 +15,7 @@ export class UsageComponent implements OnInit {
 
   public usage: Map<string, APIUsage>;
 
+  balance: string;
 
   multi: any[];
   view: any[] = [900, 500];
@@ -35,13 +38,14 @@ export class UsageComponent implements OnInit {
   };
 
   constructor(
-    public usageSvc: UsageService
+    public usageSvc: UsageService,
+    public balanceSvc: BalanceService,
+    private router: Router,
   ) {
   }
 
   ngOnInit(): void {
     this.listUsage();
-
   }
 
   listUsage(): void {
@@ -61,16 +65,6 @@ export class UsageComponent implements OnInit {
         // TODO
         console.log(e);
     });
-  }
-
-  getUsage(name) {
-    let ret;
-    this.multi.forEach(v => {
-      if (v.name === name) {
-        ret = v;
-      }
-    });
-    return ret;
   }
 
 }

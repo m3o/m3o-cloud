@@ -1,0 +1,26 @@
+<div style="margin: auto">
+    <mat-card>
+        <mat-card-title>Payments</mat-card-title>
+        <mat-card-content>
+            <mat-card>
+                <mat-card-title>Balance</mat-card-title>
+                <mat-card-subtitle>Current balance</mat-card-subtitle>
+                <mat-card-content>
+                    <div id="balance-value"><h1>{{ balance }}</h1></div>
+                </mat-card-content>
+
+            </mat-card>
+
+        </mat-card-content>
+        <mat-card-actions>
+            <mat-form-field style="width: 100%" appearance="outline">
+                <input
+                        matInput
+                        placeholder="Amount"
+                        [(ngModel)]="creditAmount"
+                />
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="stripeCheckout()">Add Credit</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
