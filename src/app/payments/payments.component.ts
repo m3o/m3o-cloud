@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { environment } from '../../environments/environment';
 
 import {BalanceService} from '../balance.service';
 import {
@@ -14,7 +14,7 @@ import {
 export class PaymentsComponent implements OnInit {
   balance: string;
   creditAmount: string;
-  stripePromise = loadStripe('pk_test_wuI8wlKwKBUZ9iHnYlQPa8BH');
+  stripePromise = loadStripe(environment.stripeKey);
 
   constructor(
     public balanceSvc: BalanceService,
@@ -25,7 +25,6 @@ export class PaymentsComponent implements OnInit {
   ngOnInit(): void {
     this.getBalance();
   }
-
 
   getBalance(): void {
     this.balanceSvc.getCurrentBalance()
@@ -39,7 +38,7 @@ export class PaymentsComponent implements OnInit {
 
   async stripeCheckout() {
     const stripe = await this.stripePromise;
-    const response = await this.balanceSvc.getStripeCheckoutSession(1000);
+    const response = await this.balanceSvc.getStripeCheckoutSession(Number.parseFloat( this.creditAmount ) * 100);
     const result = await stripe.redirectToCheckout({
       sessionId: response,
     });
