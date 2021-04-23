@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
     this.us
       .verify(this.email, this.password, this.verificationCode)
       .then(() => {
-        document.location.href = "/services";
+        document.location.href = "/";
       })
       .catch((e) => {
         this.notif.error(e.error.Detail);

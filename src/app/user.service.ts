@@ -173,7 +173,7 @@ export class UserService {
     return new Promise<void>((resolve, reject) => {
       return this.http
         .post<TokenResponse>(
-          environment.apiUrl + "/signup/SendVerificationEmail",
+          environment.apiUrl + "/onboarding/signup/SendVerificationEmail",
           {
             email: email,
           }
@@ -195,7 +195,7 @@ export class UserService {
   ): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       return this.http
-        .post(environment.apiUrl + "/signup/Verify", {
+        .post(environment.apiUrl + "/onboarding/signup/Verify", {
           email: email,
           token: verificationCode,
         })
@@ -203,7 +203,7 @@ export class UserService {
         .then((userResponse) => {
           return this.http
             .post<CompleteSignupResponse>(
-              environment.apiUrl + "/signup/CompleteSignup",
+              environment.apiUrl + "/onboarding/signup/CompleteSignup",
               {
                 email: email,
                 token: verificationCode,
