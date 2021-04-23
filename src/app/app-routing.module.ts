@@ -13,10 +13,11 @@ import { RegisterComponent } from './register/register.component';
 //import { StatusComponent } from './status/status.component';
 //import { StatusSingleComponent } from './status-single/status-single.component';
 import { ApisComponent } from './apis/apis.component';
-import { HomeComponent } from './home/home.component'
+import { HomeComponent } from './home/home.component';
 import { ApiSingleComponent } from './api-single/api-single.component';
-import {UsageComponent} from './usage/usage.component';
-import {PaymentsComponent} from './payments/payments.component';
+import { UsageComponent } from './usage/usage.component';
+import { PaymentsComponent } from './payments/payments.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
   //{
@@ -74,6 +75,10 @@ const routes: Routes = [
     component: ServiceComponent,
   },
   {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
+  },
+  {
     path: ':id',
     component: ApiSingleComponent,
   },
@@ -84,7 +89,7 @@ const routes: Routes = [
   {
     path: 'overview/billing',
     component: PaymentsComponent,
-  }
+  },
 ];
 
 @NgModule({

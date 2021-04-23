@@ -93,6 +93,7 @@ import { BalanceService } from './balance.service';
 import { PaymentsComponent } from './payments/payments.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from '../environments/environment';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 document.defaultView['hljs'] = hljs;
 
@@ -131,6 +132,7 @@ document.defaultView['hljs'] = hljs;
     PropertyListerComponent,
     UsageComponent,
     PaymentsComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
