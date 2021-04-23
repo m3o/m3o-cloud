@@ -21,7 +21,7 @@ export class UsageService {
   listUsage(userID?: string): Promise<Map<string, types.APIUsage>> {
     return new Promise<Map<string, types.APIUsage>>((resolve, reject) => {
       return this.http
-        .post<ListUsageResponse>(environment.apiUrl + '/publicapiusage/Read',
+        .post<ListUsageResponse>(environment.apiUrl + '/usage/Read',
           {
             customer_id: userID,
           },
