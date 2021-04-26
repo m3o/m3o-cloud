@@ -1,17 +1,15 @@
-<div style="padding-left: 1.75em; margin: auto">
-  <div fxLayout="row" fxLayoutAlign="center center">
+<div style="margin: auto">
+  <div fxLayout="row">
     <div
-      style="margin: 2em 0"
+      style="margin: 1em 0"
       fxLayoutGap="2em"
       fxLayout.lt-sm="column"
       fxLayout="row"
     >
-      <div fxFlex="100%" style="text-align: center; padding-top: 1em">
-        <h1 class="mat-display-1">Discover APIs tailored to the Jamstack</h1>
+      <div fxFlex="100%" style="padding-top: 1em">
+        <h2><b>Discover APIs built for the Jamstack</b></h2>
         <h2 class="mat-headline">
-          Stop writing backends. Micro lets you call many APIs with the same
-          interface.<br />
-          All available in the same space: right here.
+          Explore, search and use APIs all in one place.
         </h2>
         <br />
         <mat-form-field style="width: 100%" appearance="outline">
@@ -27,7 +25,7 @@
     </div>
   </div>
 
-  <div style="margin: 2em 0; padding: 1px">
+  <div style="margin: 0em 0; padding: 1px">
     <div
       *ngIf="loading == false"
       fxLayoutAlign="space-between"
@@ -35,16 +33,19 @@
     >
       <div
         *ngFor="let service of services"
-        fxFlex="49%"
-        style="padding-top: 1em"
+        fxFlex="32%"
+        style="padding-top: 2em; display: table-cell;"
       >
-        <mat-card style="background: #fdfdfd">
+        <mat-card style="background: #fdfdfd; ">
           <mat-card-title
             ><a routerLink="/{{ service.service.name }}">{{
               service.service.name
             }}</a></mat-card-title
           >
           {{ readme(service) }}
+          <div style="color: #888; padding-top: 0.5em">
+            {{ service.service.endpoints.length }} endpoints
+          </div>
         </mat-card>
       </div>
     </div>

@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
   }
 
   readme(s: Service): string {
+    const length = 80
     if (!s.readme) {
       return '';
     }
@@ -58,8 +59,8 @@ export class HomeComponent implements OnInit {
         .slice(1)
         .filter((line) => !line.startsWith('#'))
         .join('\n')
-        .slice(0, 100);
+        .slice(0, length) + "...";
     }
-    return s.readme.slice(0, 100);
+    return s.readme.slice(0, length) + "...";
   }
 }

@@ -3,9 +3,9 @@
   ngStyle.lt-lg="width: 90%; height: 100%; margin: auto;"
   style="width: 80%; height: 100%; margin: auto"
 >
-  <mat-toolbar style="padding: 1em; padding-left: 0em; background-color: white">
+  <mat-toolbar style="padding: 1em; padding-left: 0em; padding-right: 0; background-color: white">
     <mat-toolbar-row
-      style="padding-bottom: 0; padding-left: 0.75em; padding-right: 0em"
+      style="padding-bottom: 0; padding-left: 0; padding-right: 0em"
     >
       <button mat-icon-button (click)="sidenav.toggle()" fxHide.gt-sm>
         <mat-icon>menu</mat-icon>&nbsp;&nbsp;&nbsp;
@@ -91,18 +91,18 @@
           <mat-divider></mat-divider>
           -->
           <button
-                  class="usage"
-                  id="usage"
-                  mat-menu-item
-                  routerLink="/overview/usage"
+            class="usage"
+            id="usage"
+            mat-menu-item
+            routerLink="/overview/usage"
           >
             Usage
           </button>
           <button
-                  class="payments"
-                  id="payments"
-                  mat-menu-item
-                  routerLink="/overview/billing"
+            class="payments"
+            id="payments"
+            mat-menu-item
+            routerLink="/overview/billing"
           >
             Billing
           </button>
