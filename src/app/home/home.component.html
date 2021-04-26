@@ -34,9 +34,12 @@
       <div
         *ngFor="let service of services"
         fxFlex="32%"
-        style="padding-top: 2em; display: table-cell;"
+        style="padding-top: 2em; display: table-cell"
       >
-        <mat-card style="background: #fdfdfd; ">
+        <mat-card
+          class="mat-elevation-z0"
+          style="padding: 1.5em; border: 1px solid #ddd"
+        >
           <mat-card-title
             ><a routerLink="/{{ service.service.name }}">{{
               service.service.name
@@ -44,7 +47,17 @@
           >
           {{ readme(service) }}
           <div style="color: #888; padding-top: 0.5em">
-            {{ service.service.endpoints.length }} endpoints
+            <span
+              *ngFor="let endpoint of service.service.endpoints.slice(0, 3)"
+            >
+              <a
+                style="color: #888"
+                href="{{ service.service.name }}#{{
+                  endpoint.name.split('.')[1]
+                }}"
+                >{{ endpoint.name.split('.')[1] }}&nbsp;
+              </a>
+            </span><span *ngIf="service.service.endpoints.length > 3">and more</span>
           </div>
         </mat-card>
       </div>

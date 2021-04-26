@@ -56,6 +56,7 @@ export class ApiSingleComponent implements OnInit {
   selected = 0;
   tabValueChange = new Subject<number>();
   user: types.Account;
+  fragment: string;
 
   constructor(
     private ses: ServiceService,
@@ -68,6 +69,9 @@ export class ApiSingleComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.us.user;
+    this.activeRoute.fragment.subscribe((fragment) => {
+      this.fragment = fragment;
+    });
     this.activeRoute.params.subscribe((p) => {
       if (this.intervalId) {
         clearInterval(this.intervalId);
@@ -86,7 +90,9 @@ export class ApiSingleComponent implements OnInit {
     this.ex.search(this.serviceName).then((servs) => {
       this.service = servs.filter((s) => s.service.name == this.serviceName)[0];
       this.openAPI = JSON.parse(this.service.openAPIJSON);
-      console.log(this.openAPI);
+      setTimeout(() => {
+        document.querySelector('#' + this.fragment).scrollIntoView();
+      }, 300);
     });
   }
 

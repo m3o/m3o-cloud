@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
   }
 
   readme(s: Service): string {
-    const length = 80
+    const length = 50
     if (!s.readme) {
       return '';
     }

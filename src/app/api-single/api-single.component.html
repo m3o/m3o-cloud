@@ -1,6 +1,6 @@
 <div>
   <mat-spinner
-    [diameter]="70"
+    [diameter]="35"
     style="margin: auto"
     *ngIf="!service"
   ></mat-spinner>
@@ -74,7 +74,11 @@
               </div>
               <div *ngFor="let path of openAPI.paths | keyvalue">
                 <h2>
-                  <span class="endpoint">{{ lastPart(path.key) }}</span>
+                  <a
+                    id="{{ lastPart(path.key) }}"
+                    href="/{{ service.service.name }}#{{ lastPart(path.key) }}"
+                    ><span class="endpoint">{{ lastPart(path.key) }}</span></a
+                  >
                 </h2>
                 <div class="endpoint-description">
                   {{ pathToRequestSchema(path.key).description }}

@@ -76,3 +76,7 @@ app-property-lister {
 .endpoint-description {
   padding-top: 1em;
 }
+
+h2 a {
+  color: black;
+}
