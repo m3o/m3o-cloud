@@ -91,7 +91,6 @@ import { UsageService } from './usage.service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BalanceService } from './balance.service';
 import { PaymentsComponent } from './payments/payments.component';
-import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from '../environments/environment';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
@@ -171,7 +170,6 @@ document.defaultView['hljs'] = hljs;
     MarkdownModule.forRoot(),
     HighlightModule,
     NgxChartsModule,
-    NgxStripeModule.forRoot(environment.stripeKey),
   ],
   providers: [
     CookieService,

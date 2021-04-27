@@ -10,30 +10,51 @@
             <h1>{{ balance }}</h1>
           </div>
         </mat-card-content>
-      </mat-card>
-      <br />
-      <mat-card>
-        <mat-card-title>Add funds</mat-card-title>
-        <mat-card-content
-          >Add funds to your account ($5 minimum).</mat-card-content
-        >
+    </mat-card>
+    <mat-card>
+        <mat-card-title>Payment methods</mat-card-title>
 
-        <mat-form-field>
-          <mat-label>Amount</mat-label>
-          <input
-            matInput
-            [(ngModel)]="creditAmount"
-            type="number"
-            min="5"
-            step="5"
-          />
-          <span matPrefix>$&nbsp;</span>
-          <span matSuffix>.00</span>
-        </mat-form-field>&nbsp;
-        <button mat-raised-button color="primary" (click)="stripeCheckout()">
-          Add Credit
-        </button>
-      </mat-card>
-    </mat-card-content>
-  </mat-card>
+        <mat-card-content>
+            <mat-card-subtitle *ngIf="this.cards.length == 0">No saved cards</mat-card-subtitle>
+            <mat-list *ngIf="this.cards.length > 0">
+                <mat-list-item *ngFor="let card of this.cards" >
+                    <h2 mat-line>**** **** **** {{ card.last_four }}</h2>
+                    <mat-icon mat-list-icon>credit_card</mat-icon>
+                    <button mat-raised-button (click)="deleteCard(card)">Delete</button>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="stripeCheckout()">Add Card</button>
+        </mat-card-actions>
+    </mat-card><mat-card>
+        <mat-card-title>Add Funds</mat-card-title>
+        <mat-card-content>Add funds to your account ($5 minimum).
+        </mat-card-content>
+        <mat-card-actions>
+            <mat-form-field style="margin: 5px">
+                <mat-label>Amount</mat-label>
+                <input
+                        matInput
+                        [(ngModel)]="creditAmount"
+                        type="number"
+                        min="5"
+                        step="5"
+                />
+                <span matPrefix>$&nbsp;</span>
+                <span matSuffix>.00</span>
+            </mat-form-field>
+            <mat-form-field style="margin: 5px">
+                <span matPrefix style="margin-right: 5px"><mat-icon>credit_card</mat-icon></span>
+                <mat-label>Card</mat-label>
+                <mat-select [formControl]="cardForm" [(ngModel)]="card" #selectedCard>
+                    <mat-option *ngFor="let card of cards" [value]="card">**** **** **** {{card.last_four}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="chargeCard()" [disabled]="!creditAmount || creditAmount < 5 || selectedCard.empty" >Add Funds</button>
+            <p *ngIf="successMessage">{{ successMessage }}</p>
+        </mat-card-actions>
+    </mat-card>
+
+>>>>>>> Stashed changes
 </div>
