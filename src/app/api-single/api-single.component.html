@@ -1,0 +1,205 @@
+<div>
+  <mat-spinner
+    [diameter]="35"
+    style="margin: auto"
+    *ngIf="!service"
+  ></mat-spinner>
+</div>
+<div *ngIf="service" style="margin: auto">
+  <mat-card style="margin-top: 0em; padding: 0em" class="mat-card-flat">
+    <div fxLayout="row" fxLayouAlign="space-between">
+      <!-- <mat-icon style="color: green; vertical-align: middle;"
+          >fiber_manual_record</mat-icon
+        >-->
+      <div fxFlex="70%">
+        <h2 style="display: inline-block; margin-right: 1em">
+          {{ serviceName | title }}
+        </h2>
+        <span style="color: #666">{{ firstReadmeLine() }}</span>
+      </div>
+      <div style="text-align: right" fxFlex="30%">
+        <button
+          mat-raised-button
+          style="cursor: pointer"
+          routerLink="/settings/keys"
+          *ngIf="us.user?.name"
+          color="primary"
+        >
+          Get Token
+        </button>
+        <!-- <span class="infoblurb" title="Serving 36.4 requests per second"
+          >36.4 rps</span
+        >
+        <span class="infoblurb" title="3.4 billion total requests"
+          >3.4B tq</span
+        > -->
+      </div>
+    </div>
+
+    <mat-tab-group
+      animationDuration="0ms"
+      [selectedIndex]="selected"
+      (selectedIndexChange)="tabChange($event)"
+    >
+      <mat-tab
+        style="padding-top: 1em"
+        label="API"
+        *ngIf="service.service.endpoints"
+      >
+        <br />
+        <div
+          fxLayout="row wrap"
+          style="padding-bottom: 1em; padding-right: 1px"
+          fxLayoutAlign="space-between"
+        >
+          <div
+            fxFlexOrder.lt-md="2"
+            fxFlexOrder="1"
+            fxFlex="70%"
+            fxFlex.lt-md="100%"
+            style="padding: 1px"
+          >
+            <mat-card class="mat-elevation-z0 outline" mat-flat-card>
+              <div *ngIf="us.user?.scopes?.includes('admin')">
+                <button
+                  *ngIf="!specEditing"
+                  (click)="editSpec()"
+                  mat-raised-button
+                >
+                  Edit spec
+                </button>
+                <div *ngIf="specEditing">
+                  <ngx-monaco-editor
+                    style="height: 25em; border: 1px solid #eee; padding: 10px"
+                    [options]="jsOptions"
+                    [(ngModel)]="service.openAPIJSON"
+                  ></ngx-monaco-editor>
+                  <br />
+                  <button
+                    (click)="saveSpec()"
+                    color="primary"
+                    mat-raised-button
+                  >
+                    Save
+                  </button>
+                  &nbsp;
+                  <button (click)="editSpec()" mat-raised-button>Cancel</button>
+                </div>
+                <br /><br />
+              </div>
+              <div *ngFor="let path of openAPI.paths | keyvalue">
+                <h2>
+                  <a
+                    id="{{ lastPart(path.key) }}"
+                    href="/{{ service.service.name }}#{{ lastPart(path.key) }}"
+                    ><span class="endpoint">{{ lastPart(path.key) }}</span></a
+                  >
+                </h2>
+                <div class="endpoint-description">
+                  {{ pathToRequestSchema(path.key).description }}
+                </div>
+                <br />
+                <mat-tab-group class="endpointtab" animationDuration="0ms">
+                  <mat-tab label="Request">
+                    <div>
+                      <table class="params">
+                        <div
+                          app-property-lister
+                          [schema]="pathToRequestSchema(path.key)"
+                        ></div>
+                      </table>
+                      <br />
+                      <h4 class="json-switcher" (click)="showJSON = !showJSON">
+                        <a>JSON Example</a>
+                      </h4>
+                      <br />
+                      <pre
+                        *ngIf="showJSON"
+                        class="json-example"
+                      ><code language="'javascript'" [highlight]="schemaToJSON(pathToRequestSchema(path.key))"></code></pre>
+                      <br />
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Response">
+                    <div>
+                      <table class="params">
+                        <div
+                          app-property-lister
+                          [schema]="pathToResponseSchema(path.key)"
+                        ></div>
+                      </table>
+                      <br />
+                      <h4 class="json-switcher" (click)="showJSON = !showJSON">
+                        <a>JSON Example</a>
+                      </h4>
+                      <br />
+                      <pre
+                        *ngIf="showJSON"
+                        class="json-example"
+                      ><code language="'javascript'" [highlight]="schemaToJSON(pathToResponseSchema(path.key))"></code></pre>
+                      <br />
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Usage">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Language</mat-label>
+                      <mat-select [(ngModel)]="exampleLanguage">
+                        <mat-option value="node">Node.js</mat-option>
+                        <mat-option value="go">Go</mat-option>
+                        <mat-option value="curl">cURL</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <pre
+                      *ngIf="exampleLanguage == 'node'"
+                    ><code  language="'javascript'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'node')"></code></pre>
+                    <pre
+                      *ngIf="exampleLanguage == 'go'"
+                    ><code  language="'go'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'go')"></code></pre>
+                    <pre
+                      *ngIf="exampleLanguage == 'curl'"
+                    ><code language="'shell'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'curl')"></code></pre>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </mat-card>
+          </div>
+          <div
+            fxFlexOrder="2"
+            fxFlexOrder.lt-md="1"
+            fxFlex.lt-md="100%"
+            class="right"
+            fxFlex="0 0 28%"
+          >
+            <h3>Readme</h3>
+            <markdown [data]="service.readme"></markdown>
+            <br />
+            <div style="border-bottom: 1px solid #ccc"></div>
+            <br />
+            <h3>Authors</h3>
+            <img
+              class="authorimg"
+              src="https://avatars.githubusercontent.com/u/17530?s=64&v=4"
+            />
+            <img
+              class="authorimg"
+              src="https://avatars.githubusercontent.com/u/1785178?s=64&v=4"
+            />
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab
+        style="padding-top: 1em"
+        label="Query"
+        *ngIf="us.user?.scopes?.includes('admin') && service.service.endpoints"
+      >
+        <br />
+        <app-api-endpoints
+          [serviceName]="service.service.name"
+          [endpointQuery]="endpointQuery"
+          [selectedVersion]="selectedVersion"
+        ></app-api-endpoints> </mat-tab
+      >-->
+    </mat-tab-group>
+  </mat-card>
+</div>

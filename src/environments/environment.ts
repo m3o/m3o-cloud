@@ -7,6 +7,8 @@ export const environment = {
   // apiUrl: "http://127.0.0.1:8080",
   apiUrl: "https://api.m3o.com",
   //backendUrl: "http://127.0.0.1:6060",
+  stripeKey: "pk_test_wuI8wlKwKBUZ9iHnYlQPa8BH",
+  namespace: "micro",
 };
 
 /*

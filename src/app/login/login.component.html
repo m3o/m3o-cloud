@@ -12,8 +12,8 @@
         <mat-label>Password</mat-label>
         <input matInput [(ngModel)]="password" type="password" />
       </mat-form-field>
-      <mat-form-field class="full" appearance="legacy">
-        <mat-label>Namespace (optional)</mat-label>
+      <mat-form-field style="display: none" class="full" appearance="legacy">
+        <mat-label>Namespace</mat-label>
         <input matInput [(ngModel)]="namespace" type="text" />
       </mat-form-field>
       <br /><br />
@@ -33,7 +33,7 @@
       <a href="#" routerLink="/register" style="text-decoration: underline"
         >Sign up</a
       >
-      if you don't have an account
+      if you don't have an account. <a routerLink="/forgot-password">Forgot password?</a>
     </div>
     <br />
   </div>

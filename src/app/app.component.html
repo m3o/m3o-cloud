@@ -3,9 +3,16 @@
   ngStyle.lt-lg="width: 90%; height: 100%; margin: auto;"
   style="width: 80%; height: 100%; margin: auto"
 >
-  <mat-toolbar style="padding: 1em; padding-left: 0em; background-color: white">
+  <mat-toolbar
+    style="
+      padding: 1em;
+      padding-left: 0em;
+      padding-right: 0;
+      background-color: white;
+    "
+  >
     <mat-toolbar-row
-      style="padding-bottom: 0; padding-left: 0.75em; padding-right: 0em"
+      style="padding-bottom: 0; padding-left: 0; padding-right: 0em"
     >
       <button mat-icon-button (click)="sidenav.toggle()" fxHide.gt-sm>
         <mat-icon>menu</mat-icon>&nbsp;&nbsp;&nbsp;
@@ -14,35 +21,37 @@
       <span class="menu-spacer"></span>
       <div style="padding-top: 4px" fxShow="true" fxHide.lt-md>
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-        <a *ngIf="user && user.name" routerLink="/services" mat-button
+
+        <!-- <a *ngIf="user && user.name" routerLink="/services" mat-button
           >Services</a
-        >
-        <a *ngIf="user && user.name" routerLink="/status" mat-button>Status</a>
-        <!--<a *ngIf="user && user.name" routerLink="/events" mat-button>Events</a> -->
-        <a *ngIf="user && user.name" routerLink="/apis" mat-button>APIs</a>
+        > -->
+        <!-- <a *ngIf="user && user.name" routerLink="/status" mat-button>Status</a> -->
+        <!-- <a *ngIf="user && user.name" routerLink="/events" mat-button>Events</a> -->
+        <!-- <a *ngIf="user && user.name" routerLink="/apis" mat-button>APIs</a> -->
         &nbsp;
-        <button mat-stroked-button color="primary" [matMenuTriggerFor]="new" aria-label="Example icon-button with a menu"
+        <!-- <button
+          mat-stroked-button
+          color="primary"
+          [matMenuTriggerFor]="new"
+          aria-label="Example icon-button with a menu"
           *ngIf="user && user.name"
           style="padding: 0; width: 40px; min-width: 40px"
         >
           <mat-icon>add</mat-icon>
         </button>
+      -->
 
         <mat-menu id="new" #new="matMenu">
-          <button
+          <!-- <button
             *ngIf="user && user.name"
             routerLink="/service/new"
             mat-menu-item
           >
             <mat-icon>folder_open</mat-icon>
             <span>New Service</span>
-          </button>
+          </button> -->
 
-          <button
-            *ngIf="user && user.name"
-            mat-menu-item
-            disabled
-           >
+          <button *ngIf="user && user.name" mat-menu-item disabled>
             <mat-icon>access_time</mat-icon>
             <span>New Namespace</span>
           </button>
@@ -69,16 +78,41 @@
             />
             <span style="font-weight: 700">{{ user.teamName }}</span>
           </button>
-          <span style="font-size: small; display: block; padding: 5px 15px 5px 15px; color: grey;">Namespaces</span>
+          <!-- <span
+            style="
+              font-size: small;
+              display: block;
+              padding: 5px 15px 5px 15px;
+              color: grey;
+            "
+            >Namespaces</span
+          > 
           <button
             class="namespace"
             id="namespace"
             mat-flat-button
-            style="font-weight: 800; cursor: arrow;"
+            style="font-weight: 800; cursor: arrow"
           >
             {{ us.namespace() }}
           </button>
           <mat-divider></mat-divider>
+          -->
+          <button
+            class="usage"
+            id="usage"
+            mat-menu-item
+            routerLink="/overview/usage"
+          >
+            Usage
+          </button>
+          <button
+            class="payments"
+            id="payments"
+            mat-menu-item
+            routerLink="/overview/billing"
+          >
+            Billing
+          </button>
           <button
             class="keys"
             id="keys"
@@ -120,9 +154,9 @@
             <mat-icon>keyboard_arrow_down</mat-icon>
           </button>
 
-          <!-- <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
-            <a routerLink="/login" color="accent" mat-raised-button>Login</a>
-          </ng-container> -->
+          <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
+            <a routerLink="/login" color="primary" mat-raised-button>Login</a>
+          </ng-container>
         </span>
 
         <span fxHide="false" fxHide.gt-sm>
@@ -163,6 +197,7 @@
             ><mat-icon style="margin-right: 0.15em">close</mat-icon>Close</a
           >
         </div>
+        <!--
         <div *ngIf="user && user.teamName && user.teamUrl">
           <a mat-list-item (click)="goToTeam()"
             ><img
@@ -195,10 +230,23 @@
         </div>
         <div *ngIf="user && user.name">
           <a mat-list-item (click)="sidenav.toggle()" routerLink="/apis"
-          >APIs</a
+            >APIs</a
           >
         </div>
+      -->
         <div *ngIf="user && user.name">
+          <a
+            routerLink="/overview/usage"
+            (click)="sidenav.toggle()"
+            mat-list-item
+            >Usage</a
+          >
+          <a
+            routerLink="/overview/billing"
+            (click)="sidenav.toggle()"
+            mat-list-item
+            >Billing</a
+          >
           <a
             routerLink="/settings/keys"
             (click)="sidenav.toggle()"
@@ -212,7 +260,6 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content style="background: white" fxFlexFill>
-      <simple-notifications></simple-notifications>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

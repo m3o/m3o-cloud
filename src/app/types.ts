@@ -146,3 +146,13 @@ export interface Quota {
   limit: number;
   reset_frequency: number;
 }
+
+export interface APIUsageRecord {
+  date: number;
+  requests: number;
+}
+
+export interface APIUsage {
+  api_name: string;
+  records: APIUsageRecord[];
+}

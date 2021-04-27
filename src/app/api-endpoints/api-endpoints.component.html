@@ -14,7 +14,7 @@
               border-top: 1px solid whitesmoke;
             "
             (click)="select(e)"
-            *ngFor="let e of service.endpoints"
+            *ngFor="let e of service.service.endpoints"
           >
             <span
               *ngIf="e.name == selectedEndpoint; else normal"
@@ -50,7 +50,7 @@
                 >POST </span
               >&nbsp;
               <span style="font-weight: bold">{{
-                formatEndpoint(service.name, endpoint.name)
+                formatEndpoint(service.service.name, endpoint.name)
               }}</span>
             </div>
             <br />
@@ -62,8 +62,8 @@
             <br />
             Headers<br /><br />
             <pre class="reqresp" style="padding: 1em; background: #f6f6f6">
-Content-Type: "application/json"
-Micro-Namespace: "{{ namespace() }}"</pre
+  Content-Type: "application/json"
+  Micro-Namespace: "{{ namespace() }}"</pre
             >
             <br />
             <mat-divider></mat-divider>
@@ -105,95 +105,95 @@ Micro-Namespace: "{{ namespace() }}"</pre
           </ng-template>
         </mat-tab>
         <!--
-        <mat-tab label="Form">
-          <ng-template matTabContent>
-            <br />
-
-            <mat-form-field
-              class="full"
-              style="width: 100%"
-              *ngFor="
-                let field of endpoint.requestValue | keyvalue;
-                trackBy: trackByFn
-              "
-              appearance="legacy"
-            >
-              <mat-label>{{ field.key | titlecase }}</mat-label>
-              <input
-                matInput
-                ngModelOptions="{standalone: true}"
-                placeholder="{{
-                  formatValue(endpoint.requestValue[field.key])
-                }}"
-                type="text"
-              />
-            </mat-form-field>
-
-            <button
-              mat-raised-button
-              style="font-weight: bold"
-              (click)="callEndpointForm(service, endpoint)"
-              color="primary"
-            >
-              Submit
-            </button>
-            <br />
-            <br />
-            <div style="background: white" *ngIf="endpoint.responseValue">
-              <ngx-table
-                [data]="endpoint.responseValue"
-                [configuration]="configuration"
-                [columns]="columns(endpoint)"
+          <mat-tab label="Form">
+            <ng-template matTabContent>
+              <br />
+  
+              <mat-form-field
+                class="full"
+                style="width: 100%"
+                *ngFor="
+                  let field of endpoint.requestValue | keyvalue;
+                  trackBy: trackByFn
+                "
+                appearance="legacy"
               >
-              </ngx-table>
-            </div>
-          </ng-template>
-        </mat-tab>
-
-        <mat-tab label="JSON">
-          <ng-template matTabContent>
-            <br />
-            <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap="1em">
-              <div fxFlex="calc(50% - 0.5em)">
-                Request<br /><br />
-                <textarea
-                  style="
-                    height: 25em;
-                    width: 95%;
-                    border: 1px solid whitesmoke;
-                    padding: 10px;
-                    color: #333333;
-                  "
-                  [(ngModel)]="endpoint.requestJSON"
-                ></textarea>
+                <mat-label>{{ field.key | titlecase }}</mat-label>
+                <input
+                  matInput
+                  ngModelOptions="{standalone: true}"
+                  placeholder="{{
+                    formatValue(endpoint.requestValue[field.key])
+                  }}"
+                  type="text"
+                />
+              </mat-form-field>
+  
+              <button
+                mat-raised-button
+                style="font-weight: bold"
+                (click)="callEndpointForm(service, endpoint)"
+                color="primary"
+              >
+                Submit
+              </button>
+              <br />
+              <br />
+              <div style="background: white" *ngIf="endpoint.responseValue">
+                <ngx-table
+                  [data]="endpoint.responseValue"
+                  [configuration]="configuration"
+                  [columns]="columns(endpoint)"
+                >
+                </ngx-table>
               </div>
-
-              <div fxFlex="calc(50% - 0.5em)">
-                Response<br /><br />
-                <textarea
-                  style="
-                    height: 25em;
-                    width: 95%;
-                    border: 1px solid whitesmoke;
-                    padding: 10px;
-                    color: #333333;
-                  "
-                  [(ngModel)]="endpoint.responseJSON"
-                ></textarea>
+            </ng-template>
+          </mat-tab>
+  
+          <mat-tab label="JSON">
+            <ng-template matTabContent>
+              <br />
+              <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap="1em">
+                <div fxFlex="calc(50% - 0.5em)">
+                  Request<br /><br />
+                  <textarea
+                    style="
+                      height: 25em;
+                      width: 95%;
+                      border: 1px solid whitesmoke;
+                      padding: 10px;
+                      color: #333333;
+                    "
+                    [(ngModel)]="endpoint.requestJSON"
+                  ></textarea>
+                </div>
+  
+                <div fxFlex="calc(50% - 0.5em)">
+                  Response<br /><br />
+                  <textarea
+                    style="
+                      height: 25em;
+                      width: 95%;
+                      border: 1px solid whitesmoke;
+                      padding: 10px;
+                      color: #333333;
+                    "
+                    [(ngModel)]="endpoint.responseJSON"
+                  ></textarea>
+                </div>
               </div>
-            </div>
-            <br />
-            <button
-              mat-raised-button
-              style="font-weight: bold"
-              (click)="callEndpoint(service, endpoint)"
-              color="primary"
-            >
-              Call
-            </button>
-          </ng-template>
-        </mat-tab>
--->
+              <br />
+              <button
+                mat-raised-button
+                style="font-weight: bold"
+                (click)="callEndpoint(service, endpoint)"
+                color="primary"
+              >
+                Call
+              </button>
+            </ng-template>
+          </mat-tab>
+  -->
         <mat-tab label="Embed">
           <ng-template matTabContent>
             <br />

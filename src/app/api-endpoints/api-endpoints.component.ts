@@ -1,10 +1,9 @@
-import { Component, OnInit, Input } from "@angular/core";
-import * as types from "../types";
-import { ServiceService } from "../service.service";
+import { Component, OnInit, Input } from '@angular/core';
+import * as types from '../types';
+import { ServiceService } from '../service.service';
 import { ToastrService } from 'ngx-toastr';
-import { RegistryService } from "../registry.service";
-import { Columns, Config, DefaultConfig } from "ngx-easy-table";
-import { keyValuesToMap } from "@angular/flex-layout/extended/typings/style/style-transforms";
+import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
+import { ExploreService, Service } from '../explore.service';
 
 var template = `<div id="content"></div>
 
@@ -27,25 +26,25 @@ var template = `<div id="content"></div>
 </script>`;
 
 @Component({
-  selector: "app-endpoint-list",
-  templateUrl: "./endpoint-list.component.html",
-  styleUrls: ["./endpoint-list.component.css"],
+  selector: 'app-api-endpoints',
+  templateUrl: './api-endpoints.component.html',
+  styleUrls: ['./api-endpoints.component.css'],
 })
-export class EndpointListComponent implements OnInit {
-  @Input() serviceName: string = "";
-  @Input() endpointQuery: string = "";
-  @Input() selectedVersion: string = "";
-  service: types.Service;
+export class ApiEndpointsComponent implements OnInit {
+  @Input() serviceName: string = '';
+  @Input() endpointQuery: string = '';
+  @Input() selectedVersion: string = '';
+  service: Service;
   request: any = {};
   endpoint: types.Endpoint = {} as any;
-  selectedEndpoint = "";
+  selectedEndpoint = '';
   embeddable = template;
 
   public configuration: Config;
 
   constructor(
     private ses: ServiceService,
-    private rs: RegistryService,
+    private ex: ExploreService,
     private notif: ToastrService
   ) {}
 
@@ -75,29 +74,32 @@ export class EndpointListComponent implements OnInit {
     }
     this.embeddable = template
       .replace(
-        "$endpointName",
-        this.selectedEndpoint.toLowerCase().replace(this.serviceName + ".", "")
+        '$endpointName',
+        this.selectedEndpoint.toLowerCase().replace(this.serviceName + '.', '')
       )
-      .replace("$serviceName", this.serviceName)
-      .replace("$namespace", this.ses.namespace())
+      .replace('$serviceName', this.serviceName)
+      .replace('$namespace', this.ses.namespace())
       .replace(
-        "$reqJSON",
+        '$reqJSON',
         this.endpoint.requestJSON
-          .split("\n")
+          .split('\n')
           .map((l, i) => {
             // dont indent first line
             if (i == 0) {
               return l;
             }
-            return "        " + l;
+            return '        ' + l;
           })
-          .join("\n")
+          .join('\n')
       );
   }
 
   regenJSONs() {
-    this.rs.get(this.serviceName).then((s) => {
-      s.endpoints.forEach((endpoint) => {
+    this.ex.search(this.serviceName).then((services) => {
+      let s = services.filter(
+        (serv) => serv.service.name == this.serviceName
+      )[0];
+      s.service.endpoints.forEach((endpoint) => {
         endpoint.requestJSON = this.valueToJson(endpoint.request, 1);
         endpoint.requestValue = JSON.parse(endpoint.requestJSON);
 
@@ -111,7 +113,7 @@ export class EndpointListComponent implements OnInit {
       });
       this.service = s;
       if (!this.selectedEndpoint) {
-        this.endpoint = this.service.endpoints[0];
+        this.endpoint = this.service.service.endpoints[0];
         this.selectedEndpoint = this.endpoint.name;
         this.regenEmbed();
       }
@@ -138,13 +140,13 @@ export class EndpointListComponent implements OnInit {
     });
   }
 
-  callEndpoint(service: types.Service, endpoint: types.Endpoint) {
+  callEndpoint(service: Service, endpoint: types.Endpoint) {
     this.ses
       .call({
         endpoint: endpoint.name,
-        service: service.name,
-        address: service.nodes[0].address,
-        method: "POST",
+        service: service.service.name,
+        address: service.service.nodes[0].address,
+        method: 'POST',
         request: endpoint.requestJSON,
       })
       .then((rsp) => {
@@ -152,9 +154,9 @@ export class EndpointListComponent implements OnInit {
       })
       .catch((e) => {
         try {
-          this.notif.error("Error calling service", e.error.Detail);
+          this.notif.error('Error calling service', e.error.Detail);
         } catch {
-          this.notif.error("Error calling service", e);
+          this.notif.error('Error calling service', e);
         }
       });
   }
@@ -170,13 +172,13 @@ export class EndpointListComponent implements OnInit {
     Object.keys(obj).forEach(
       (k) => !obj[k] && obj[k] !== undefined && delete obj[k]
     );
-    console.log(obj);
+
     this.ses
       .call({
         endpoint: endpoint.name,
         service: service.name,
         address: service.nodes[0].address,
-        method: "POST",
+        method: 'POST',
         request: JSON.stringify(obj),
       })
       .then((rsp) => {
@@ -188,7 +190,7 @@ export class EndpointListComponent implements OnInit {
         // we want to transform that to appear like it's
         // a list: [{'message':'hi'}] so it displays nicely
         if (
-          typeof endpoint.responseValue === "string" ||
+          typeof endpoint.responseValue === 'string' ||
           endpoint.responseValue instanceof String
         ) {
           var k = keys[0];
@@ -199,9 +201,9 @@ export class EndpointListComponent implements OnInit {
       })
       .catch((e) => {
         try {
-          this.notif.error("Error calling service", e.error.Detail);
+          this.notif.error('Error calling service', e.error.Detail);
         } catch {
-          this.notif.error("Error calling service", e);
+          this.notif.error('Error calling service', e);
         }
       });
   }
@@ -209,12 +211,12 @@ export class EndpointListComponent implements OnInit {
   deleteProtoCruft(value: Object): Object {
     // super hack to remove protocruft
     for (const key in value) {
-      if (key == "MessageState") {
-        delete value["MessageState"];
-      } else if (key == "int32") {
-        delete value["int32"];
-      } else if (key == "unknownFields") {
-        delete value["unknownFields"];
+      if (key == 'MessageState') {
+        delete value['MessageState'];
+      } else if (key == 'int32') {
+        delete value['int32'];
+      } else if (key == 'unknownFields') {
+        delete value['unknownFields'];
       }
     }
 
@@ -222,44 +224,44 @@ export class EndpointListComponent implements OnInit {
   }
 
   formatValue(value: unknown): any {
-    if (typeof value === "object") {
+    if (typeof value === 'object') {
       return JSON.stringify(this.deleteProtoCruft(value));
     }
     return value;
   }
 
   formatEndpoint(service: string, endpoint: string): string {
-    var parts = endpoint.split(".", -1);
+    var parts = endpoint.split('.', -1);
 
     if (parts[0].toLowerCase() === service) {
-      return "/" + service + "/" + parts[1];
+      return '/' + service + '/' + parts[1];
     }
 
-    return "/" + service + "/" + endpoint.replace(".", "/");
+    return '/' + service + '/' + endpoint.replace('.', '/');
   }
 
   formatName(name: string): string {
-    if (name === "") {
-      return "";
+    if (name === '') {
+      return '';
     }
 
-    name = name.replace(/([a-z0-9])([A-Z])/g, "$1 $2");
-    var newName = name.split(".", -1);
-    return newName.join(" | ");
+    name = name.replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+    var newName = name.split('.', -1);
+    return newName.join(' | ');
   }
 
   valueToString(input: types.Value, indentLevel: number): string {
-    if (!input) return "";
+    if (!input) return '';
 
-    if (input.name == "MessageState") {
-      return "";
-    } else if (input.name == "int32") {
-      return "";
-    } else if (input.name == "unknownFields") {
-      return "";
+    if (input.name == 'MessageState') {
+      return '';
+    } else if (input.name == 'int32') {
+      return '';
+    } else if (input.name == 'unknownFields') {
+      return '';
     }
 
-    const indent = Array(indentLevel).join("\t");
+    const indent = Array(indentLevel).join('\t');
     const fieldSeparator = `\n\t`;
 
     if (input.values) {
@@ -270,14 +272,14 @@ export class EndpointListComponent implements OnInit {
 
       if (indentLevel == 0) {
         if (vals.trim().length == 0) {
-          return "{}";
+          return '{}';
         }
-        return "{\n\t" + vals + "\n}";
+        return '{\n\t' + vals + '\n}';
       }
 
-      return `${indentLevel == 0 ? "" : indent}${
-        indentLevel == 0 ? "" : input.type
-      } ${indentLevel == 0 ? "" : input.name} {\n\t${vals}\n\t${indent}}`;
+      return `${indentLevel == 0 ? '' : indent}${
+        indentLevel == 0 ? '' : input.type
+      } ${indentLevel == 0 ? '' : input.name} {\n\t${vals}\n\t${indent}}`;
     } else if (indentLevel == 0) {
       return `{}`;
     }
@@ -289,25 +291,25 @@ export class EndpointListComponent implements OnInit {
   valueToJson(input: types.Value, indentLevel: number): string {
     const typeToDefault = (type: string): string => {
       switch (type) {
-        case "string":
+        case 'string':
           return '""';
-        case "int":
-        case "int32":
-        case "int64":
-          return "0";
-        case "bool":
-          return "false";
+        case 'int':
+        case 'int32':
+        case 'int64':
+          return '0';
+        case 'bool':
+          return 'false';
         default:
-          return "{}";
+          return '{}';
       }
     };
 
-    if (!input) return "";
+    if (!input) return '';
 
-    const indent = Array(indentLevel).join("    ");
+    const indent = Array(indentLevel).join('    ');
     const fieldSeparator = `,\n`;
     if (input.values) {
-      return `${indent}${indentLevel == 1 ? "{" : '"' + input.name + '": {'}
+      return `${indent}${indentLevel == 1 ? '{' : '"' + input.name + '": {'}
 ${input.values
   .map((field) => this.valueToJson(field, indentLevel + 1))
   .join(fieldSeparator)}
@@ -322,10 +324,10 @@ ${indent}}`;
   // code editor
   coptions = {
     automaticLayout: true,
-    theme: "vs-light",
+    theme: 'vs-light',
     folding: false,
     glyphMargin: false,
-    language: "json",
+    language: 'json',
     lineNumbers: false,
     lineDecorationsWidth: 0,
     lineNumbersMinChars: 0,
@@ -335,18 +337,18 @@ ${indent}}`;
       enabled: false,
     },
     scrollbar: {
-      vertical: "hidden",
-      horizontal: "hidden",
+      vertical: 'hidden',
+      horizontal: 'hidden',
     },
   };
 
   // code editor
   htmlOptions = {
     automaticLayout: true,
-    theme: "vs-light",
+    theme: 'vs-light',
     folding: false,
     glyphMargin: false,
-    language: "html",
+    language: 'html',
     lineNumbers: false,
     lineDecorationsWidth: 0,
     lineNumbersMinChars: 0,
@@ -356,8 +358,8 @@ ${indent}}`;
       enabled: false,
     },
     scrollbar: {
-      vertical: "hidden",
-      horizontal: "hidden",
+      vertical: 'hidden',
+      horizontal: 'hidden',
     },
   };
 

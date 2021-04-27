@@ -84,16 +84,18 @@ export class ServiceService {
       const endpointName = rpc.endpoint
         .replace(".", "")
         .replace(toTitleCase(rpc.service), "");
-
+      let headers = {
+        "micro-namespace": this.us.namespace(),
+      }
+      if (this.us.token().length > 10) {
+        headers["authorization"] = this.us.token()
+      }
       return this.http
         .post<string>(
           environment.apiUrl + "/" + rpc.service + "/" + endpointName,
           JSON.parse(rpc.request),
           {
-            headers: {
-              authorization: this.us.token(),
-              "micro-namespace": this.us.namespace(),
-            },
+            headers: headers,
           }
         )
         .toPromise()

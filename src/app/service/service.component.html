@@ -7,14 +7,9 @@
 </div>
 <div *ngIf="services" style="margin: auto">
   <mat-card style="margin-top: 0em; padding-top: 0em" class="mat-card-flat">
-    <mat-card-title
-      fxLayout="row"
-      style="align-items: center"
-    >
+    <mat-card-title fxLayout="row" style="align-items: center">
       <div>
-        <a routerLink="/services"
-          >Services&nbsp; | &nbsp;</a
-        >
+        <a routerLink="/services">Services&nbsp; | &nbsp;</a>
       </div>
       <div>
         <!-- <mat-icon style="color: green; vertical-align: middle;"
@@ -29,7 +24,11 @@
       [selectedIndex]="selected"
       (selectedIndexChange)="tabChange($event)"
     >
-      <mat-tab style="padding-top: 1em" label="Query" *ngIf="services[0].endpoints">
+      <mat-tab
+        style="padding-top: 1em"
+        label="Query"
+        *ngIf="services[0].endpoints"
+      >
         <br />
         <app-endpoint-list
           [serviceName]="services[0].name"

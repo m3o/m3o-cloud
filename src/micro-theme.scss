@@ -8,20 +8,20 @@
 
 // below defines your custom color to build a theme palette from
 $my-blue: (
-  50: #85d4d8,
-  100: #85d4d8,
-  200: #85d4d8,
-  300: #85d4d8,
-  400: #85d4d8,
-  500: #85d4d8,
-  600: #85d4d8,
-  700: #85d4d8,
-  800: #85d4d8,
-  900: #85d4d8,
-  A100: #85d4d8,
-  A200: #85d4d8,
-  A400: #85d4d8,
-  A700: #85d4d8,
+  50: #3898EC,
+  100: #3898EC,
+  200: #3898EC,
+  300: #3898EC,
+  400: #3898EC,
+  500: #3898EC,
+  600: #3898EC,
+  700: #3898EC,
+  800: #3898EC,
+  900: #3898EC,
+  A100: #3898EC,
+  A200: #3898EC,
+  A400: #3898EC,
+  A700: #3898EC,
   contrast: (
     50: white,
     100: white,
@@ -61,3 +61,7 @@ $candy-app-theme: mat-light-theme(
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($candy-app-theme);
+
+a {
+  color: #0366d6
+}

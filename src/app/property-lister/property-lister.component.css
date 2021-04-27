@@ -1,0 +1,14 @@
+app-property-lister {
+  display: contents;
+}
+
+.key {
+}
+
+.description {
+  color: #666;
+}
+
+td {
+  padding-right: 1em;
+}

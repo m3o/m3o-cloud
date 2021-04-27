@@ -139,9 +139,12 @@ body {
   font-family: "Public Sans", "Helvetica Neue", sans-serif;
 }
 
-@import "~highlight.js/styles/agate.css";
+@import "~highlight.js/styles/github-gist.css";
 
 a {
   color: #0c2e47;
   text-decoration: none;
 }
+
+@import '~ngx-toastr/toastr';
+  

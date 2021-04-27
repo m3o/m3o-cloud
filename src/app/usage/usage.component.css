@@ -1,0 +1,21 @@
+:host {
+    height: 100%;
+    width: 100%;
+}
+
+.ngxchart {
+    height: 100%;
+    width: 100%;
+    float: right;
+}
+
+.chartcard {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: visible !important;
+}
+
+#balance-value h1 {
+    font-size: x-large;
+}
+
