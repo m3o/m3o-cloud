@@ -129,7 +129,8 @@ export class UserService {
           token_expiry: 30 * 24 * 3600,
         })
         .toPromise()
-        .then((token) => {
+        .then((tresp) => {
+          const tok = tresp.token;
           // ugly param list, see: https://github.com/stevermeister/ngx-cookie-service/issues/86
           this.cookie.set(
             'micro_token',
