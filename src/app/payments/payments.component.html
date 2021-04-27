@@ -1,7 +1,6 @@
 <div style="margin: auto">
   <mat-card style="padding: 1px">
     <mat-card-title>Billing</mat-card-title>
-    <mat-card-content>
       <mat-card>
         <mat-card-title>Balance</mat-card-title>
         <mat-card-subtitle>Current balance</mat-card-subtitle>
@@ -27,7 +26,8 @@
         <mat-card-actions>
             <button mat-raised-button color="primary" (click)="stripeCheckout()">Add Card</button>
         </mat-card-actions>
-    </mat-card><mat-card>
+    </mat-card>
+    <mat-card>
         <mat-card-title>Add Funds</mat-card-title>
         <mat-card-content>Add funds to your account ($5 minimum).
         </mat-card-content>
@@ -55,6 +55,6 @@
             <p *ngIf="successMessage">{{ successMessage }}</p>
         </mat-card-actions>
     </mat-card>
+  </mat-card>
 
->>>>>>> Stashed changes
 </div>
