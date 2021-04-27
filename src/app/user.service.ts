@@ -26,6 +26,14 @@ interface TokenResponse {
   token: Token;
 }
 
+interface LoginResponse {
+  access_token: string;
+  refresh_token: string;
+  created: string;
+  expiry: string;
+  issuer: string;
+}
+
 interface CompleteSignupResponse {
   authToken: Token;
   namespace: string;
@@ -121,8 +129,7 @@ export class UserService {
           token_expiry: 30 * 24 * 3600,
         })
         .toPromise()
-        .then((userResponse) => {
-          const tok = userResponse.token;
+        .then((token) => {
           // ugly param list, see: https://github.com/stevermeister/ngx-cookie-service/issues/86
           this.cookie.set(
             'micro_token',
