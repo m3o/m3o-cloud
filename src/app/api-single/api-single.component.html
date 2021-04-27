@@ -52,7 +52,13 @@
           style="padding-bottom: 1em; padding-right: 1px"
           fxLayoutAlign="space-between"
         >
-          <div fxFlex="70%" style="padding: 1px">
+          <div
+            fxFlexOrder.lt-md="2"
+            fxFlexOrder="1"
+            fxFlex="70%"
+            fxFlex.lt-md="100%"
+            style="padding: 1px"
+          >
             <mat-card class="mat-elevation-z0 outline" mat-flat-card>
               <div *ngIf="us.user?.scopes?.includes('admin')">
                 <button
@@ -157,7 +163,13 @@
               </div>
             </mat-card>
           </div>
-          <div class="right" fxFlex="0 0 28%">
+          <div
+            fxFlexOrder="2"
+            fxFlexOrder.lt-md="1"
+            fxFlex.lt-md="100%"
+            class="right"
+            fxFlex="0 0 28%"
+          >
             <h3>Readme</h3>
             <markdown [data]="service.readme"></markdown>
             <br />

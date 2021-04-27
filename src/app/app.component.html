@@ -3,7 +3,14 @@
   ngStyle.lt-lg="width: 90%; height: 100%; margin: auto;"
   style="width: 80%; height: 100%; margin: auto"
 >
-  <mat-toolbar style="padding: 1em; padding-left: 0em; padding-right: 0; background-color: white">
+  <mat-toolbar
+    style="
+      padding: 1em;
+      padding-left: 0em;
+      padding-right: 0;
+      background-color: white;
+    "
+  >
     <mat-toolbar-row
       style="padding-bottom: 0; padding-left: 0; padding-right: 0em"
     >
@@ -228,6 +235,18 @@
         </div>
       -->
         <div *ngIf="user && user.name">
+          <a
+            routerLink="/overview/usage"
+            (click)="sidenav.toggle()"
+            mat-list-item
+            >Usage</a
+          >
+          <a
+            routerLink="/overview/billing"
+            (click)="sidenav.toggle()"
+            mat-list-item
+            >Billing</a
+          >
           <a
             routerLink="/settings/keys"
             (click)="sidenav.toggle()"

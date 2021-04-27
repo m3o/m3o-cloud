@@ -3,7 +3,6 @@
     <div
       style="margin: 1em 0"
       fxLayoutGap="2em"
-      fxLayout.lt-sm="column"
       fxLayout="row"
     >
       <div fxFlex="100%" style="padding-top: 1em">
@@ -34,6 +33,8 @@
       <div
         *ngFor="let service of services"
         fxFlex="32%"
+        fxFlex.lt-md="49%"
+        fxFlex.lt-sm="99%"
         style="padding-top: 2em; display: table-cell"
       >
         <mat-card
@@ -57,7 +58,7 @@
                 }}"
                 >{{ endpoint.name.split('.')[1] }}&nbsp;
               </a> </span
-            ><span *ngIf="service.service.endpoints.length > 3">and more</span>
+            ><span *ngIf="service.service.endpoints.length > 3">& more</span>
           </div>
         </mat-card>
       </div>
