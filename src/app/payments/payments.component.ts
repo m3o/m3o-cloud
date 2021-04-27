@@ -16,7 +16,6 @@ import {FormControl} from '@angular/forms';
 export class PaymentsComponent implements OnInit {
   balance: string;
   creditAmount: number;
-  existingCard: boolean;
   stripePromise = loadStripe(environment.stripeKey);
   cards: Card[] = [] as Card[];
   cardForm = new FormControl();
@@ -25,7 +24,6 @@ export class PaymentsComponent implements OnInit {
   constructor(
     public balanceSvc: BalanceService,
   ) {
-    this.existingCard = false;
   }
 
   ngOnInit(): void {
