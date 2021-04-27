@@ -1,33 +1,39 @@
 <div style="margin: auto">
-    <mat-card>
-        <mat-card-title>Billing</mat-card-title>
+  <mat-card style="padding: 1px">
+    <mat-card-title>Billing</mat-card-title>
+    <mat-card-content>
+      <mat-card>
+        <mat-card-title>Balance</mat-card-title>
+        <mat-card-subtitle>Current balance</mat-card-subtitle>
         <mat-card-content>
-            <mat-card>
-                <mat-card-title>Balance</mat-card-title>
-                <mat-card-subtitle>Current balance</mat-card-subtitle>
-                <mat-card-content>
-                    <div id="balance-value"><h1>{{ balance }}</h1></div>
-                </mat-card-content>
-            </mat-card>
+          <div id="balance-value">
+            <h1>{{ balance }}</h1>
+          </div>
         </mat-card-content>
-    </mat-card>
-    <mat-card>
+      </mat-card>
+      <br />
+      <mat-card>
         <mat-card-title>Add funds</mat-card-title>
-        <mat-card-content>Add funds to your account ($5 minimum).</mat-card-content>
-        <mat-card-actions>
-            <mat-form-field>
-                <mat-label>Amount</mat-label>
-                <input
-                        matInput
-                        [(ngModel)]="creditAmount"
-                        type="number"
-                        min="5"
-                        step="5"
-                />
-                <span matPrefix>$&nbsp;</span>
-                <span matSuffix>.00</span>
-            </mat-form-field>
-            <button mat-raised-button color="primary" (click)="stripeCheckout()">Add Credit</button>
-        </mat-card-actions>
-    </mat-card>
+        <mat-card-content
+          >Add funds to your account ($5 minimum).</mat-card-content
+        >
+
+        <mat-form-field>
+          <mat-label>Amount</mat-label>
+          <input
+            matInput
+            [(ngModel)]="creditAmount"
+            type="number"
+            min="5"
+            step="5"
+          />
+          <span matPrefix>$&nbsp;</span>
+          <span matSuffix>.00</span>
+        </mat-form-field>&nbsp;
+        <button mat-raised-button color="primary" (click)="stripeCheckout()">
+          Add Credit
+        </button>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
 </div>
