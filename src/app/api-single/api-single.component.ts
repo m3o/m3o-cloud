@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ExploreService, Service } from '../explore.service';
 import * as openapi from 'openapi3-ts';
 import { UserService } from '../user.service';
+import { V1ApiService } from '../v1api.service';
 
 const tabNamesToIndex = {
   '': 0,
@@ -57,6 +58,7 @@ export class ApiSingleComponent implements OnInit {
   tabValueChange = new Subject<number>();
   user: types.Account;
   fragment: string;
+  hasKeys = true;
 
   constructor(
     private ses: ServiceService,
@@ -64,10 +66,23 @@ export class ApiSingleComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private location: Location,
     private notif: ToastrService,
-    public us: UserService
+    public us: UserService,
+    private v1api: V1ApiService
   ) {}
 
+  hasAPIKeys(): void {
+    this.v1api
+      .listKeys()
+      .then((keys) => {
+        this.hasKeys = keys && keys.length > 0;
+      })
+      .catch((e) => {
+        this.hasKeys = false;
+      });
+  }
+
   ngOnInit() {
+    //this.hasAPIKeys();
     this.user = this.us.user;
     this.activeRoute.fragment.subscribe((fragment) => {
       this.fragment = fragment;
@@ -91,7 +106,11 @@ export class ApiSingleComponent implements OnInit {
       this.service = servs.filter((s) => s.service.name == this.serviceName)[0];
       this.openAPI = JSON.parse(this.service.openAPIJSON);
       setTimeout(() => {
-        document.querySelector('#' + this.fragment).scrollIntoView();
+        try {
+          document.querySelector('#' + this.fragment).scrollIntoView();
+        } catch (e) {
+          console.log(e);
+        }
       }, 300);
     });
   }
@@ -133,6 +152,12 @@ export class ApiSingleComponent implements OnInit {
         this.editSpec();
         this.loadAPI();
       });
+  }
+
+  firstReadmeLine(): string {
+    return this.service.readme.split('\n').filter((l) => {
+      return !l.startsWith('#') && l.length > 5;
+    })[0];
   }
 
   showJSON = false;

@@ -15,15 +15,24 @@
         <h2 style="display: inline-block; margin-right: 1em">
           {{ serviceName | title }}
         </h2>
-        <span style="color: #666">The only service you will ever need</span>
+        <span style="color: #666">{{ firstReadmeLine() }}</span>
       </div>
       <div style="text-align: right" fxFlex="30%">
-        <span class="infoblurb" title="Serving 36.4 requests per second"
+        <button
+          mat-raised-button
+          style="cursor: pointer"
+          routerLink="/settings/keys"
+          *ngIf="us.user?.name"
+          color="primary"
+        >
+          Get Token
+        </button>
+        <!-- <span class="infoblurb" title="Serving 36.4 requests per second"
           >36.4 rps</span
         >
         <span class="infoblurb" title="3.4 billion total requests"
           >3.4B tq</span
-        >
+        > -->
       </div>
     </div>
 
