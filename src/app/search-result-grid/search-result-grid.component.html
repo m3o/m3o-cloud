@@ -15,8 +15,26 @@
           service.service.name
         }}</a></mat-card-title
       >
-      {{ readme(service) }}
-      <div style="color: #888; padding-top: 0.5em">
+      <div
+        style="
+          height: 1.4em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        "
+      >
+        {{ readme(service) }}
+      </div>
+      <div
+        style="
+          color: #888;
+          padding-top: 0.5em;
+          height: 1.4em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        "
+      >
         <span *ngFor="let endpoint of service.service.endpoints.slice(0, 3)">
           <a
             style="color: #888"

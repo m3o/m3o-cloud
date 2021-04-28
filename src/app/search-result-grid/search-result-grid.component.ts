@@ -14,7 +14,7 @@ export class SearchResultGridComponent implements OnInit {
   ngOnInit(): void {}
 
   readme(s: Service): string {
-    const length = 50;
+    const length = 80;
     if (!s.readme) {
       return '';
     }
@@ -23,14 +23,12 @@ export class SearchResultGridComponent implements OnInit {
       lines.length > 1 &&
       lines[0].toLocaleLowerCase().startsWith('# ' + s.service.name)
     ) {
-      return (
-        lines
-          .slice(1)
-          .filter((line) => !line.startsWith('#'))
-          .join('\n')
-          .slice(0, length) + '...'
-      );
+      return lines
+        .slice(1)
+        .filter((line) => !line.startsWith('#'))
+        .join('\n')
+        .slice(0, length);
     }
-    return s.readme.slice(0, length) + '...';
+    return s.readme.slice(0, length);
   }
 }
