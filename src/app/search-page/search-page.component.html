@@ -2,10 +2,7 @@
   <div fxLayout="row">
     <div style="margin: 1em 0" fxLayoutGap="2em" fxLayout="row">
       <div fxFlex="100%" style="padding-top: 1em">
-        <h2><b>Discover APIs built for the Jamstack</b></h2>
-        <h2 class="mat-headline">
-          Explore, search and use APIs all in one place.
-        </h2>
+        <h2 class="mat-headline">Search APIs</h2>
         <br />
         <mat-form-field style="width: 100%" appearance="outline">
           <input
@@ -21,10 +18,7 @@
   </div>
 
   <div style="margin: 0em 0; padding: 1px">
-    <app-search-result-grid
-      *ngIf="loading == false"
-      [services]="services"
-    >
+    <app-search-result-grid *ngIf="loading == false" [services]="services">
     </app-search-result-grid>
   </div>
   <div *ngIf="loading" style="text-align: center">Loading...</div>

@@ -18,15 +18,6 @@
         <span style="color: #666">{{ firstReadmeLine() }}</span>
       </div>
       <div style="text-align: right" fxFlex="30%">
-        <button
-          mat-raised-button
-          style="cursor: pointer"
-          routerLink="/settings/keys"
-          *ngIf="us.user?.name"
-          color="primary"
-        >
-          Get Token
-        </button>
         <!-- <span class="infoblurb" title="Serving 36.4 requests per second"
           >36.4 rps</span
         >
@@ -170,6 +161,15 @@
             class="right"
             fxFlex="0 0 28%"
           >
+            <button
+              mat-raised-button
+              style="cursor: pointer"
+              routerLink="/settings/keys"
+              color="primary"
+            >
+              Get Token
+            </button>
+            <br /><br />
             <h3>Readme</h3>
             <markdown [data]="service.readme"></markdown>
             <br />
