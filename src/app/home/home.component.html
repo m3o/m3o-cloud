@@ -1,30 +1,32 @@
 <div style="padding-bottom: 2em; margin: auto">
-  <div fxLayout="row">
-    <div style="margin: 1em 0" fxLayoutGap="2em" fxLayout="row">
-      <div fxFlex="100%" style="padding-top: 1em">
-        <h2><b>Discover APIs built for the Jamstack</b></h2>
-        <h2 class="mat-headline">
-          Explore, search and use APIs all in one place.
-        </h2>
-        <br />
-        <mat-form-field style="width: 100%" appearance="outline">
-          <input
-            matInput
-            style="color: #444; border-color: #444"
-            placeholder="Search for APIs"
-            [(ngModel)]="search"
-            (keyup)="onKeySearch($event)"
-          />
-        </mat-form-field>
-      </div>
+  <div style="margin: 1em 0" fxLayoutGap="2em" fxLayout="row">
+    <div fxFlex="49%" fxFlex.lt-md="100%" style="padding-top: 1em">
+      <h2><b>Discover APIs built for the Jamstack</b></h2>
+      <h2 class="mat-headline">
+        Explore, search and use APIs all in one place.
+      </h2>
+      <br />
+      <mat-form-field style="width: 100%" appearance="outline">
+        <input
+          matInput
+          style="color: #444; border-color: #444"
+          placeholder="Search for APIs"
+          [(ngModel)]="search"
+          (keydown)="keyDownFunction($event)"
+        /><button
+          (click)="submit()"
+          mat-button
+          matSuffix
+          style="position: relative; top: -8px"
+        >
+          Search
+        </button>
+      </mat-form-field>
     </div>
   </div>
 
   <div style="margin: 0em 0; padding: 1px">
-    <app-search-result-grid
-      *ngIf="loading == false"
-      [services]="services"
-    >
+    <app-search-result-grid *ngIf="loading == false" [services]="services">
     </app-search-result-grid>
   </div>
   <div *ngIf="loading" style="text-align: center">Loading...</div>

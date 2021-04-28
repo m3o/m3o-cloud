@@ -80,7 +80,7 @@ const routes: Routes = [
     component: ForgotPasswordComponent,
   },
   {
-    path: 'search',
+    path: 'explore',
     component: SearchPageComponent,
   },
   {
