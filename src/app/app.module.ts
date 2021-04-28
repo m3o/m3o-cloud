@@ -93,6 +93,8 @@ import { BalanceService } from './balance.service';
 import { PaymentsComponent } from './payments/payments.component';
 import { environment } from '../environments/environment';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { SearchPageComponent } from './search-page/search-page.component';
+import { SearchResultGridComponent } from './search-result-grid/search-result-grid.component';
 
 document.defaultView['hljs'] = hljs;
 
@@ -132,6 +134,8 @@ document.defaultView['hljs'] = hljs;
     UsageComponent,
     PaymentsComponent,
     ForgotPasswordComponent,
+    SearchPageComponent,
+    SearchResultGridComponent,
   ],
   imports: [
     BrowserModule,

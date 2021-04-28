@@ -18,6 +18,7 @@ import { ApiSingleComponent } from './api-single/api-single.component';
 import { UsageComponent } from './usage/usage.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { SearchPageComponent } from './search-page/search-page.component';
 
 const routes: Routes = [
   //{
@@ -77,6 +78,10 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent,
+  },
+  {
+    path: 'search',
+    component: SearchPageComponent,
   },
   {
     path: ':id',

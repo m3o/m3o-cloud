@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { stubTrue } from 'lodash';
 import { ExploreService, Service } from '../explore.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-search-page',
+  templateUrl: './search-page.component.html',
+  styleUrls: ['./search-page.component.css'],
 })
-export class HomeComponent implements OnInit {
-  constructor(public exp: ExploreService, private router: Router) {}
+export class SearchPageComponent implements OnInit {
+  constructor(public exp: ExploreService, private route: ActivatedRoute, private router: Router) {}
 
   search: string;
   services: Service[];
@@ -17,10 +16,10 @@ export class HomeComponent implements OnInit {
   timeout: any = null;
   loading = true;
 
-  ngOnInit() {
-    this.exp.search().then((ss) => {
-      this.services = ss.filter((s) => s.readme);
-      this.loading = false;
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.search = params['q'];
+      this.searchResults();
     });
   }
 
@@ -28,11 +27,8 @@ export class HomeComponent implements OnInit {
     clearTimeout(this.timeout);
     var $this = this;
     this.timeout = setTimeout(function () {
-      $this.router.navigate(['/search'], {
-        queryParams: {
-          q: $this.search,
-        },
-      });
+      $this.router.navigate(['.'], { relativeTo: $this.route, queryParams: { q: $this.search }});
+      $this.executeListing(event.target.value);
     }, 1000);
   }
 
