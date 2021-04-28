@@ -8,7 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./search-page.component.css'],
 })
 export class SearchPageComponent implements OnInit {
-  constructor(public exp: ExploreService, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    public exp: ExploreService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   search: string;
   services: Service[];
@@ -23,13 +27,19 @@ export class SearchPageComponent implements OnInit {
     });
   }
 
-  onKeySearch(event: any) {
-    clearTimeout(this.timeout);
-    var $this = this;
-    this.timeout = setTimeout(function () {
-      $this.router.navigate(['.'], { relativeTo: $this.route, queryParams: { q: $this.search }});
-      $this.executeListing(event.target.value);
-    }, 1000);
+  keyDownFunction(event) {
+    if (event.keyCode === 13) {
+      this.submit();
+    }
+  }
+
+  submit() {
+    this.loading = true;
+    this.router.navigate(['/explore'], {
+      queryParams: {
+        q: this.search,
+      },
+    });
   }
 
   private executeListing(value: string) {

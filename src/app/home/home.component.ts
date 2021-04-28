@@ -24,27 +24,17 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onKeySearch(event: any) {
-    clearTimeout(this.timeout);
-    var $this = this;
-    this.timeout = setTimeout(function () {
-      $this.router.navigate(['/search'], {
-        queryParams: {
-          q: $this.search,
-        },
-      });
-    }, 1000);
+  keyDownFunction(event) {
+    if (event.keyCode === 13) {
+     this.submit()
+    }
   }
 
-  private executeListing(value: string) {
-    this.loading = true;
-    this.searchResults();
-  }
-
-  searchResults() {
-    this.exp.search(this.search).then((ss) => {
-      this.services = ss.filter((s) => s.readme);
-      this.loading = false;
+  submit() {
+    this.router.navigate(['/explore'], {
+      queryParams: {
+        q: this.search,
+      },
     });
   }
 }
