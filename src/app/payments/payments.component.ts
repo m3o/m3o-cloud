@@ -34,6 +34,9 @@ export class PaymentsComponent implements OnInit {
   getBalance(): void {
     this.balanceSvc.getCurrentBalance()
       .then( bal => {
+        if (!bal) {
+          bal = 0;
+        }
         // bal is a number representing 1/100ths of a cent
         this.balance = '$' + (bal / 10000).toFixed(2);
       }).catch(e => {

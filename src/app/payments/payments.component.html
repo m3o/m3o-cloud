@@ -6,7 +6,7 @@
         <mat-card-subtitle>Current balance</mat-card-subtitle>
         <mat-card-content>
           <div id="balance-value">
-            <h1>{{ balance }}</h1>
+            <h1>{{ balance ? balance : "$0" }}</h1>
           </div>
         </mat-card-content>
     </mat-card>
@@ -14,8 +14,8 @@
         <mat-card-title>Payment methods</mat-card-title>
 
         <mat-card-content>
-            <mat-card-subtitle *ngIf="this.cards.length == 0">No saved cards</mat-card-subtitle>
-            <mat-list *ngIf="this.cards.length > 0">
+            <mat-card-subtitle *ngIf="!this.cards || this.cards.length == 0">No saved cards</mat-card-subtitle>
+            <mat-list *ngIf="this.cards && this.cards.length > 0">
                 <mat-list-item *ngFor="let card of this.cards" >
                     <h2 mat-line>**** **** **** {{ card.last_four }}</h2>
                     <mat-icon mat-list-icon>credit_card</mat-icon>
