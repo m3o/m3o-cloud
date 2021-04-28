@@ -156,3 +156,8 @@ export interface APIUsage {
   api_name: string;
   records: APIUsageRecord[];
 }
+
+export interface Card {
+  last_four: string;
+  id: string;
+}

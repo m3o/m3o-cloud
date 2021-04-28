@@ -256,67 +256,58 @@ export class UserService {
     verificationCode: string
   ): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      return this.http
-        .post(environment.apiUrl + '/onboarding/signup/Verify', {
-          email: email,
-          token: verificationCode,
-        })
-        .toPromise()
-        .then((userResponse) => {
-          return this.http
-            .post<CompleteSignupResponse>(
-              environment.apiUrl + '/onboarding/signup/CompleteSignup',
-              {
-                email: email,
-                token: verificationCode,
-                secret: password,
-              }
-            )
-            .toPromise()
-            .then((resp) => {
-              var tok = resp.authToken;
-              this.cookie.set(
-                'micro_token',
-                tok.access_token,
-                30,
-                '/',
-                null,
-                null,
-                null
-              );
-              this.cookie.set(
-                'micro_refresh',
-                tok.refresh_token,
-                30,
-                '/',
-                null,
-                null,
-                null
-              );
-              this.cookie.set(
-                'micro_expiry',
-                tok.expiry,
-                30,
-                '/',
-                null,
-                null,
-                null
-              );
-              this.cookie.set(
-                'micro_namespace',
-                resp.namespace,
-                30,
-                '/',
-                null,
-                null,
-                null
-              );
-              resolve();
-            });
-        })
-        .catch((e) => {
-          reject(e);
-        });
+        return this.http
+          .post<CompleteSignupResponse>(
+            environment.apiUrl + '/onboarding/signup/CompleteSignup',
+            {
+              email: email,
+              token: verificationCode,
+              secret: password,
+            }
+          )
+          .toPromise()
+          .then((resp) => {
+            const tok = resp.authToken;
+            this.cookie.set(
+              'micro_token',
+              tok.access_token,
+              30,
+              '/',
+              null,
+              null,
+              null
+            );
+            this.cookie.set(
+              'micro_refresh',
+              tok.refresh_token,
+              30,
+              '/',
+              null,
+              null,
+              null
+            );
+            this.cookie.set(
+              'micro_expiry',
+              tok.expiry,
+              30,
+              '/',
+              null,
+              null,
+              null
+            );
+            this.cookie.set(
+              'micro_namespace',
+              resp.namespace,
+              30,
+              '/',
+              null,
+              null,
+              null
+            );
+            resolve();
+          }).catch((e) => {
+            reject(e);
+          });
     });
   }
 

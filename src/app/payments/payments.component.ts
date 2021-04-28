@@ -5,6 +5,8 @@ import {BalanceService} from '../balance.service';
 import {
   loadStripe,
 } from '@stripe/stripe-js';
+import {Card} from '../types';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-payments',
@@ -13,17 +15,20 @@ import {
 })
 export class PaymentsComponent implements OnInit {
   balance: string;
-  creditAmount: string;
+  creditAmount: number;
   stripePromise = loadStripe(environment.stripeKey);
+  cards: Card[] = [] as Card[];
+  cardForm = new FormControl();
+  successMessage: string;
 
   constructor(
     public balanceSvc: BalanceService,
   ) {
-
   }
 
   ngOnInit(): void {
     this.getBalance();
+    this.getCards();
   }
 
   getBalance(): void {
@@ -36,9 +41,18 @@ export class PaymentsComponent implements OnInit {
     });
   }
 
+  getCards(): void {
+    this.balanceSvc.getSavedCards()
+      .then(cards => {
+        this.cards = cards;
+      }).catch(e => {
+      console.log(e);
+    });
+  }
+
   async stripeCheckout() {
     const stripe = await this.stripePromise;
-    const response = await this.balanceSvc.getStripeCheckoutSession(Number.parseFloat( this.creditAmount ) * 100);
+    const response = await this.balanceSvc.getStripeCheckoutSession( this.creditAmount  * 100);
     const result = await stripe.redirectToCheckout({
       sessionId: response,
     });
@@ -48,6 +62,33 @@ export class PaymentsComponent implements OnInit {
     }
   }
 
+  async chargeCard() {
+    const card = this.cardForm.value as Card;
+    const amt = this.creditAmount;
+    this.creditAmount = null;
+    const clientSec = await this.balanceSvc.chargeCard(card.id, amt * 100);
 
+    if (clientSec && clientSec.length > 0) {
+      const stripe = await this.stripePromise;
+      const res = await stripe.confirmCardPayment(clientSec);
+      if (res.error) {
+        this.successMessage = res.error.message;
+        return;
+      }
+    }
+    setTimeout(() => {
+        this.getBalance();
+      }, 5000
+    );
+    this.successMessage = 'Successfully added $' + amt;
+  }
+
+  async deleteCard(card: Card) {
+    if (!confirm('Are you sure you want to delete card ending "' + card.last_four + '"')) {
+      return;
+    }
+    await this.balanceSvc.deleteCard(card.id);
+    this.getCards();
+  }
 
 }
