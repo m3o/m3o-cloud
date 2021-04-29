@@ -19,7 +19,7 @@
                 <mat-list-item *ngFor="let card of this.cards" >
                     <h2 mat-line>**** **** **** {{ card.last_four }}, expires {{ card.expires }}</h2>
                     <mat-icon mat-list-icon>credit_card</mat-icon>
-                    <button mat-raised-button (click)="deleteCard(card)">Delete</button>
+                    <button mat-raised-button color="warn" (click)="deleteCard(card)">Delete</button>
                 </mat-list-item>
             </mat-list>
         </mat-card-content>
@@ -64,7 +64,7 @@
                     <h3 mat-line>{{ payment.amount / 100 | number: '1.2-2' | currency : payment.currency.toUpper }}</h3>
                     <p mat-line>{{ payment.date * 1000 | date: 'HH:mm:ss, yyyy-MM-dd' }}</p>
                     <mat-icon mat-list-icon>paid</mat-icon>
-                    <button mat-raised-button (click)="viewReceipt(payment)">View receipt <mat-icon>open_in_new</mat-icon></button>
+                    <button mat-raised-button color="accent" (click)="viewReceipt(payment)">View receipt <mat-icon>open_in_new</mat-icon></button>
                 </mat-list-item>
             </mat-list>
         </mat-card-content>
