@@ -64,7 +64,7 @@
                     <h3 mat-line>{{ payment.amount / 100 | number: '1.2-2' | currency : payment.currency.toUpper }}</h3>
                     <p mat-line>{{ payment.date * 1000 | date: 'HH:mm:ss, yyyy-MM-dd' }}</p>
                     <mat-icon mat-list-icon>paid</mat-icon>
-                    <button mat-raised-button (click)="viewReceipt(payment)">View receipt</button>
+                    <button mat-raised-button (click)="viewReceipt(payment)">View receipt <mat-icon>open_in_new</mat-icon></button>
                 </mat-list-item>
             </mat-list>
         </mat-card-content>

@@ -107,7 +107,7 @@ export class PaymentsComponent implements OnInit {
   }
 
   async viewReceipt(payment: Payment) {
-    window.location.href = payment.receipt_url;
+    window.open(payment.receipt_url, '_blank');
   }
 
 }
