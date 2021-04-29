@@ -160,4 +160,13 @@ export interface APIUsage {
 export interface Card {
   last_four: string;
   id: string;
+  expires: string;
+}
+
+export interface Payment {
+  id: string;
+  amount: number;
+  currency: string;
+  date: number;
+  receipt_url: string;
 }

@@ -17,7 +17,7 @@
             <mat-card-subtitle *ngIf="!this.cards || this.cards.length == 0">No saved cards</mat-card-subtitle>
             <mat-list *ngIf="this.cards && this.cards.length > 0">
                 <mat-list-item *ngFor="let card of this.cards" >
-                    <h2 mat-line>**** **** **** {{ card.last_four }}</h2>
+                    <h2 mat-line>**** **** **** {{ card.last_four }}, expires {{ card.expires }}</h2>
                     <mat-icon mat-list-icon>credit_card</mat-icon>
                     <button mat-raised-button (click)="deleteCard(card)">Delete</button>
                 </mat-list-item>
@@ -48,12 +48,27 @@
                 <span matPrefix style="margin-right: 5px"><mat-icon>credit_card</mat-icon></span>
                 <mat-label>Card</mat-label>
                 <mat-select [formControl]="cardForm" #selectedCard>
-                    <mat-option *ngFor="let card of cards" [value]="card">**** **** **** {{card.last_four}}</mat-option>
+                    <mat-option *ngFor="let card of cards" [value]="card">**** {{card.last_four}}, expires {{ card.expires }}</mat-option>
                 </mat-select>
             </mat-form-field>
             <button mat-raised-button color="primary" (click)="chargeCard()" [disabled]="!creditAmount || creditAmount < 5 || selectedCard.empty" >Add Funds</button>
             <p *ngIf="successMessage">{{ successMessage }}</p>
         </mat-card-actions>
+    </mat-card>
+    <mat-card>
+        <mat-card-title>History</mat-card-title>
+        <mat-card-content>
+            <mat-card-subtitle *ngIf="!this.payments || this.payments.length == 0">No previous payments</mat-card-subtitle>
+            <mat-list *ngIf="this.payments && this.payments.length > 0">
+                <mat-list-item *ngFor="let payment of this.payments" >
+                    <h3 mat-line>{{ payment.amount / 100 | number: '1.2-2' | currency : payment.currency.toUpper }}</h3>
+                    <p mat-line>{{ payment.date * 1000 | date: 'HH:mm:ss, yyyy-MM-dd' }}</p>
+                    <mat-icon mat-list-icon>paid</mat-icon>
+                    <button mat-raised-button (click)="viewReceipt(payment)">View receipt <mat-icon>open_in_new</mat-icon></button>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+
     </mat-card>
   </mat-card>
 
