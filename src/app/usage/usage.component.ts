@@ -57,7 +57,7 @@ export class UsageComponent implements OnInit {
         Object.keys(us).forEach((k) => {
           const entry = {name: k, series: []};
           us[k].records.forEach((v, i, arr) => {
-            entry.series.push({name: new Date(v.date *1000).toDateString(), value: v.requests});
+            entry.series.push({name: new Date(v.date *1000), value: v.requests});
           });
           this.multi.push(entry);
         });
