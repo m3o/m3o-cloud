@@ -16,7 +16,7 @@ interface ListKeysResponse {
 }
 
 interface ListAPIsResponse {
-  names: string[];
+  apis: any[];
 }
 
 interface GenerateKeyResponse {
@@ -115,7 +115,7 @@ export class V1ApiService {
   listAPIs(): Promise<string[]> {
     return new Promise<string[]>((resolve, reject) => {
       return this.http
-        .post<ListAPIsResponse>(environment.apiUrl + '/v1/api/apis/list',
+        .post<ListAPIsResponse>(environment.apiUrl + '/publicapi/list',
           {},
           {
             headers: {
@@ -125,8 +125,8 @@ export class V1ApiService {
         .toPromise()
         .then((listResponse) => {
           const apis = [] as string[];
-          listResponse.names.forEach(value => {
-            apis.push(value);
+          listResponse.apis.forEach(value => {
+            apis.push(value.name);
           });
           resolve(apis);
         })
