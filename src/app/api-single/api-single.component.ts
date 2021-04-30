@@ -102,7 +102,7 @@ export class ApiSingleComponent implements OnInit {
   }
 
   loadAPI() {
-    this.ex.service(this.serviceName).then(serv) => {
+    this.ex.service(this.serviceName).then((serv) => {
       this.service = serv;
       this.openAPI = JSON.parse(this.service.openAPIJSON);
       setTimeout(() => {
