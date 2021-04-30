@@ -202,7 +202,7 @@
             class="right"
             fxFlex="0 0 28%"
           >
-            <button
+            <button *ngIf="us?.user.name"
               mat-raised-button
               style="cursor: pointer"
               routerLink="/settings/keys"
@@ -210,6 +210,14 @@
             >
               Get Token
             </button>
+            <button *ngIf="!us?.user.name"
+            mat-raised-button
+            style="cursor: pointer"
+            routerLink="/login"
+            color="primary"
+          >
+            Get Token
+          </button>
             <br /><br />
             <h3>Readme</h3>
             <markdown [data]="service.readme"></markdown>
