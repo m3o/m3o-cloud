@@ -24,6 +24,10 @@ export interface SearchResponse {
   services: Service[];
 }
 
+export interface ServiceResponse {
+  service: Service;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -72,6 +76,32 @@ export class ExploreService {
         .toPromise()
         .then((servs) => {
           resolve(servs.services as Service[]);
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  }
+
+  service(name: string): Promise<Service> {
+    return new Promise<Service>((resolve, reject) => {
+      return this.http
+        .post<ServiceResponse>(
+          environment.apiUrl + '/explore/Service',
+          {
+            name: name,
+          },
+          {
+            //headers: {
+            //authorization: this.us.token(),
+            //"micro-namespace": this.us.namespace(),
+            //'Micro-Namespace': 'micro',
+            //},
+          }
+        )
+        .toPromise()
+        .then((rsp) => {
+          resolve(rsp.service as Service);
         })
         .catch((e) => {
           reject(e);
