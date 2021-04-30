@@ -104,8 +104,8 @@ export class ApiSingleComponent implements OnInit {
   examples = {};
 
   loadAPI() {
-    this.ex.search(this.serviceName).then((servs) => {
-      this.service = servs.filter((s) => s.service.name == this.serviceName)[0];
+    this.ex.service(this.serviceName).then((serv) => {
+      this.service = serv;
       this.openAPI = JSON.parse(this.service.openAPIJSON);
       for (let key in this.openAPI.paths) {
         this.showJSON[key] = false;

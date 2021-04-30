@@ -22,8 +22,8 @@
       <mat-card-title>API Keys</mat-card-title>
 
       <mat-card-content ng>
-        <mat-card-subtitle *ngIf="this.keys.length == 0">No API keys</mat-card-subtitle>
-        <mat-list *ngIf="this.keys.length > 0">
+        <mat-card-subtitle *ngIf="!this.keys || this.keys.length == 0">No API keys</mat-card-subtitle>
+        <mat-list *ngIf="this.keys && this.keys.length > 0">
           <mat-list-item *ngFor="let key of this.keys" >
             <h2 mat-line>{{ key.description }}</h2>
             <p mat-line><span>Scopes: {{ key.scopes }}</span></p>
