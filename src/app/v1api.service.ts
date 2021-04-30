@@ -47,6 +47,9 @@ export class V1ApiService {
         .toPromise()
         .then((listResponse) => {
           const keys = [] as types.APIKey[];
+          if (!listResponse.api_keys) {
+            resolve(keys);
+          }
           listResponse.api_keys.forEach(value => {
             const k = {} as types.APIKey;
             k.description = value.description;
