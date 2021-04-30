@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   loading = true;
 
   ngOnInit() {
-    this.exp.search().then((ss) => {
+    this.exp.index().then((ss) => {
       this.services = ss.filter((s) => s.readme);
       this.loading = false;
     });
