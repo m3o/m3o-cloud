@@ -101,10 +101,17 @@ export class ApiSingleComponent implements OnInit {
     });
   }
 
+  examples = {};
+
   loadAPI() {
     this.ex.search(this.serviceName).then((servs) => {
       this.service = servs.filter((s) => s.service.name == this.serviceName)[0];
       this.openAPI = JSON.parse(this.service.openAPIJSON);
+      for (let key in this.openAPI.paths) {
+        this.showJSON[key] = false;
+      }
+      this.examples = JSON.parse(this.service.examplesJSON);
+
       setTimeout(() => {
         try {
           document.querySelector('#' + this.fragment).scrollIntoView();
@@ -113,6 +120,10 @@ export class ApiSingleComponent implements OnInit {
         }
       }, 300);
     });
+  }
+
+  stringify(a: any): string {
+    return JSON.stringify(a, null, ' ');
   }
 
   loadVersionData() {}
@@ -160,7 +171,7 @@ export class ApiSingleComponent implements OnInit {
     })[0];
   }
 
-  showJSON = false;
+  showJSON = {};
 
   schemaToJSON(schema: openapi.SchemaObject): string {
     let recur = function (schema: openapi.SchemaObject): Object {
