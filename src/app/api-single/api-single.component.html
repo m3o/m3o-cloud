@@ -109,7 +109,7 @@
                       <div *ngIf="showJSON[path.key]">
                         <pre
                           class="json-example"
-                        ><code language="'javascript'" [highlight]="schemaToJSON(pathToRequestSchema(path.key))"></code></pre>
+                        ><code class="example" language="'javascript'" [highlight]="schemaToJSON(pathToRequestSchema(path.key))"></code></pre>
                         <br />
                       </div>
                     </div>
@@ -133,7 +133,7 @@
                       <pre
                         *ngIf="showJSON[path.key]"
                         class="json-example"
-                      ><code language="'javascript'" [highlight]="schemaToJSON(pathToResponseSchema(path.key))"></code></pre>
+                      ><code class="example" language="'javascript'" [highlight]="schemaToJSON(pathToResponseSchema(path.key))"></code></pre>
                       <br />
                     </div>
                   </mat-tab>
@@ -148,13 +148,13 @@
                     </mat-form-field>
                     <pre
                       *ngIf="exampleLanguage == 'node'"
-                    ><code  language="'javascript'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'node')"></code></pre>
+                    ><code class="example" language="'javascript'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'node')"></code></pre>
                     <pre
                       *ngIf="exampleLanguage == 'go'"
-                    ><code  language="'go'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'go')"></code></pre>
+                    ><code class="example" language="'go'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'go')"></code></pre>
                     <pre
                       *ngIf="exampleLanguage == 'curl'"
-                    ><code language="'shell'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'curl')"></code></pre>
+                    ><code class="example" language="'shell'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'curl')"></code></pre>
                   </mat-tab>
                 </mat-tab-group>
                 <div *ngIf="examples[lastPart(path.key).toLowerCase()]">
@@ -182,10 +182,10 @@
                         {{ example.description }}
                       </p>
                       <h4>Request</h4>
-                      <pre><code language="'javascript'" [highlight]="stringify(example.request)"></code></pre>
+                      <pre><code class="example" language="'javascript'" [highlight]="stringify(example.request)"></code></pre>
                       <br />
                       <h4>Response</h4>
-                      <pre><code language="'javascript'" [highlight]="stringify(example.response)"></code></pre>
+                      <pre><code class="example" language="'javascript'" [highlight]="stringify(example.response)"></code></pre>
                       <br />
                     </div>
                   </div>
