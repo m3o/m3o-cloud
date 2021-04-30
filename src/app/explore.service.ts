@@ -24,6 +24,10 @@ export interface SearchResponse {
   services: Service[];
 }
 
+export interface ServiceResponse {
+  service: Service;
+}
+
 @Injectable({
   providedIn: 'root',
 })
