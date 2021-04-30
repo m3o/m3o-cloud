@@ -79,6 +79,32 @@ export class ExploreService {
     });
   }
 
+  service(name: string): Promise<Service> {
+    return new Promise<Service>((resolve, reject) => {
+      return this.http
+        .post<ServiceResponse>(
+          environment.apiUrl + '/explore/Service',
+          {
+            name: name,
+          },
+          {
+            //headers: {
+            //authorization: this.us.token(),
+            //"micro-namespace": this.us.namespace(),
+            //'Micro-Namespace': 'micro',
+            //},
+          }
+        )
+        .toPromise()
+        .then((rsp) => {
+          resolve(rsp.service as Service);
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  }
+
   saveMeta(
     serviceName: string,
     readme: string,
