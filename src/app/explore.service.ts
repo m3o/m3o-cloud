@@ -14,6 +14,7 @@ export interface Service {
   service: types.Service;
   readme: string;
   openAPIJSON: string;
+  examplesJSON: string;
 }
 
 export interface IndexResponse {

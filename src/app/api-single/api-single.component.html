@@ -89,7 +89,6 @@
                 <div class="endpoint-description">
                   {{ pathToRequestSchema(path.key).description }}
                 </div>
-                <br />
                 <mat-tab-group class="endpointtab" animationDuration="0ms">
                   <mat-tab label="Request">
                     <div>
@@ -99,16 +98,20 @@
                           [schema]="pathToRequestSchema(path.key)"
                         ></div>
                       </table>
-                      <br />
-                      <h4 class="json-switcher" (click)="showJSON = !showJSON">
-                        <a>JSON Example</a>
+
+                      <h4>
+                        <span *ngIf="!showJSON[path.key]">&#x25BA;</span
+                        ><span *ngIf="showJSON[path.key]">&#x25BC;</span
+                        ><a class="json-switcher" (click)="showJSON[path.key] = !showJSON[path.key]"
+                          > Full request example</a
+                        >
                       </h4>
-                      <br />
-                      <pre
-                        *ngIf="showJSON"
-                        class="json-example"
-                      ><code language="'javascript'" [highlight]="schemaToJSON(pathToRequestSchema(path.key))"></code></pre>
-                      <br />
+                      <div *ngIf="showJSON[path.key]">
+                        <pre
+                          class="json-example"
+                        ><code language="'javascript'" [highlight]="schemaToJSON(pathToRequestSchema(path.key))"></code></pre>
+                        <br />
+                      </div>
                     </div>
                   </mat-tab>
                   <mat-tab label="Response">
@@ -119,13 +122,16 @@
                           [schema]="pathToResponseSchema(path.key)"
                         ></div>
                       </table>
-                      <br />
-                      <h4 class="json-switcher" (click)="showJSON = !showJSON">
-                        <a>JSON Example</a>
+
+                      <h4>
+                        <span *ngIf="!showJSON[path.key]">&#x25BA;</span
+                        ><span *ngIf="showJSON[path.key]">&#x25BC;</span
+                        ><a class="json-switcher" (click)="showJSON[path.key] = !showJSON[path.key]"
+                          > Full response example</a
+                        >
                       </h4>
-                      <br />
                       <pre
-                        *ngIf="showJSON"
+                        *ngIf="showJSON[path.key]"
                         class="json-example"
                       ><code language="'javascript'" [highlight]="schemaToJSON(pathToResponseSchema(path.key))"></code></pre>
                       <br />
@@ -151,6 +157,41 @@
                     ><code language="'shell'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'curl')"></code></pre>
                   </mat-tab>
                 </mat-tab-group>
+                <div *ngIf="examples[lastPart(path.key).toLowerCase()]">
+                  <br />
+
+                  <h3>{{ lastPart(path.key) }} Examples</h3>
+                  <br />
+                  <div
+                    *ngFor="
+                      let example of examples[lastPart(path.key).toLowerCase()]
+                    "
+                  >
+                    <h3>
+                      <span *ngIf="!example.expanded">&#x25BA;</span
+                      ><span *ngIf="example.expanded">&#x25BC;</span>
+                      <a
+                        class="json-switcher"
+                        (click)="example.expanded = !example.expanded"
+                      >
+                        {{ example.title }}</a
+                      >
+                    </h3>
+                    <div style="padding-left: 1.5em" *ngIf="example.expanded">
+                      <p>
+                        {{ example.description }}
+                      </p>
+                      <h4>Request</h4>
+                      <pre><code language="'javascript'" [highlight]="stringify(example.request)"></code></pre>
+                      <br />
+                      <h4>Response</h4>
+                      <pre><code language="'javascript'" [highlight]="stringify(example.response)"></code></pre>
+                      <br />
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <br />
               </div>
             </mat-card>
           </div>
