@@ -28,6 +28,7 @@
   <div style="margin: 0em 0; padding: 1px">
     <app-search-result-grid *ngIf="loading == false" [services]="services">
     </app-search-result-grid>
+    <div><br><a routerLink="/explore">Browse all</a></div>
   </div>
   <div *ngIf="loading" style="text-align: center">Loading...</div>
 </div>
