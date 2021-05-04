@@ -35,11 +35,11 @@ export interface ServiceResponse {
 export class ExploreService {
   constructor(private us: UserService, private http: HttpClient) {}
 
-  index(): Promise<Service[]> {
+  index(limit: number): Promise<Service[]> {
     return new Promise<Service[]>((resolve, reject) => {
       return this.http
         .post<IndexResponse>(
-          environment.apiUrl + '/explore/Index', {},
+          environment.apiUrl + '/explore/Index', { limit: limit },
           {
             //headers: {
             //authorization: this.us.token(),
