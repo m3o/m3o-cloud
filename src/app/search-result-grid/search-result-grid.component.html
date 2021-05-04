@@ -11,8 +11,8 @@
       style="padding: 1.5em; border: 1px solid #ddd"
     >
       <mat-card-title
-        ><a routerLink="/{{ service.service.name }}">{{
-          service.service.name
+        ><a routerLink="/{{ service.detail.name }}">{{
+          service.detail.name
         }}</a></mat-card-title
       >
       <div
@@ -35,13 +35,13 @@
           text-overflow: ellipsis;
         "
       >
-        <span *ngFor="let endpoint of service.service.endpoints.slice(0, 3)">
+        <span *ngFor="let endpoint of service.detail.endpoints.slice(0, 3)">
           <a
             style="color: #888"
-            href="{{ service.service.name }}#{{ endpoint.name.split('.')[1] }}"
+            href="{{ service.detail.name }}#{{ endpoint.name.split('.')[1] }}"
             >{{ endpoint.name.split('.')[1] }}&nbsp;
           </a> </span
-        ><span *ngIf="service.service.endpoints.length > 3">& more</span>
+        ><span *ngIf="service.detail.endpoints.length > 3">& more</span>
       </div>
     </mat-card>
   </div>

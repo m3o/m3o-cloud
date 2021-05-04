@@ -14,7 +14,7 @@
               border-top: 1px solid whitesmoke;
             "
             (click)="select(e)"
-            *ngFor="let e of service.service.endpoints"
+            *ngFor="let e of service.detail.endpoints"
           >
             <span
               *ngIf="e.name == selectedEndpoint; else normal"
@@ -50,7 +50,7 @@
                 >POST </span
               >&nbsp;
               <span style="font-weight: bold">{{
-                formatEndpoint(service.service.name, endpoint.name)
+                formatEndpoint(service.detail.name, endpoint.name)
               }}</span>
             </div>
             <br />

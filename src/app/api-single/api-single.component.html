@@ -35,7 +35,7 @@
       <mat-tab
         style="padding-top: 1em"
         label="API"
-        *ngIf="service.service.endpoints"
+        *ngIf="service.detail.endpoints"
       >
         <br />
         <div
@@ -63,7 +63,7 @@
                   <ngx-monaco-editor
                     style="height: 25em; border: 1px solid #eee; padding: 10px"
                     [options]="jsOptions"
-                    [(ngModel)]="service.openAPIJSON"
+                    [(ngModel)]="service.api.open_api_json"
                   ></ngx-monaco-editor>
                   <br />
                   <button
@@ -82,7 +82,7 @@
                 <h2>
                   <a
                     id="{{ lastPart(path.key) }}"
-                    href="/{{ service.service.name }}#{{ lastPart(path.key) }}"
+                    href="/{{ service.detail.name }}#{{ lastPart(path.key) }}"
                     ><span class="endpoint">{{ lastPart(path.key) }}</span></a
                   >
                 </h2>
@@ -220,7 +220,7 @@
           </button>
             <br /><br />
             <h3>Readme</h3>
-            <markdown [data]="service.readme"></markdown>
+            <markdown [data]="service.api.description"></markdown>
             <br />
             <div style="border-bottom: 1px solid #ccc"></div>
             <br />
@@ -240,11 +240,11 @@
       <mat-tab
         style="padding-top: 1em"
         label="Query"
-        *ngIf="us.user?.scopes?.includes('admin') && service.service.endpoints"
+        *ngIf="us.user?.scopes?.includes('admin') && service.detail.endpoints"
       >
         <br />
         <app-api-endpoints
-          [serviceName]="service.service.name"
+          [serviceName]="service.detail.name"
           [endpointQuery]="endpointQuery"
           [selectedVersion]="selectedVersion"
         ></app-api-endpoints> </mat-tab

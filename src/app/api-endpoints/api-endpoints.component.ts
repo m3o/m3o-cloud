@@ -3,7 +3,7 @@ import * as types from '../types';
 import { ServiceService } from '../service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
-import { ExploreService, Service } from '../explore.service';
+import {ExploreService, API, ExploreAPI} from '../explore.service';
 
 var template = `<div id="content"></div>
 
@@ -34,7 +34,7 @@ export class ApiEndpointsComponent implements OnInit {
   @Input() serviceName: string = '';
   @Input() endpointQuery: string = '';
   @Input() selectedVersion: string = '';
-  service: Service;
+  service: ExploreAPI;
   request: any = {};
   endpoint: types.Endpoint = {} as any;
   selectedEndpoint = '';
@@ -97,9 +97,9 @@ export class ApiEndpointsComponent implements OnInit {
   regenJSONs() {
     this.ex.search(this.serviceName).then((services) => {
       let s = services.filter(
-        (serv) => serv.service.name == this.serviceName
+        (serv) => serv.detail.name == this.serviceName
       )[0];
-      s.service.endpoints.forEach((endpoint) => {
+      s.detail.endpoints.forEach((endpoint) => {
         endpoint.requestJSON = this.valueToJson(endpoint.request, 1);
         endpoint.requestValue = JSON.parse(endpoint.requestJSON);
 
@@ -113,7 +113,7 @@ export class ApiEndpointsComponent implements OnInit {
       });
       this.service = s;
       if (!this.selectedEndpoint) {
-        this.endpoint = this.service.service.endpoints[0];
+        this.endpoint = this.service.detail.endpoints[0];
         this.selectedEndpoint = this.endpoint.name;
         this.regenEmbed();
       }
@@ -140,12 +140,12 @@ export class ApiEndpointsComponent implements OnInit {
     });
   }
 
-  callEndpoint(service: Service, endpoint: types.Endpoint) {
+  callEndpoint(service: ExploreAPI, endpoint: types.Endpoint) {
     this.ses
       .call({
         endpoint: endpoint.name,
-        service: service.service.name,
-        address: service.service.nodes[0].address,
+        service: service.detail.name,
+        address: service.detail.nodes[0].address,
         method: 'POST',
         request: endpoint.requestJSON,
       })
