@@ -35,11 +35,14 @@ export interface APIResponse {
 export class ExploreService {
   constructor(private us: UserService, private http: HttpClient) {}
 
-  index(): Promise<ExploreAPI[]> {
+  index(limit?: number, offset?: number): Promise<ExploreAPI[]> {
     return new Promise<ExploreAPI[]>((resolve, reject) => {
       return this.http
         .post<IndexResponse>(
-          environment.apiUrl + '/publicapi/explore/Index', {},
+          environment.apiUrl + '/publicapi/explore/Index', {
+            limit: limit ? limit : 0,
+            offset: offset ? offset: 0
+          },
           {
           }
         )
