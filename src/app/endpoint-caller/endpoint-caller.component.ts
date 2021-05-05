@@ -3,7 +3,9 @@ import * as types from '../types';
 import { ServiceService } from '../service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
-import { ExploreService, Service } from '../explore.service';
+import { ExploreService, ExploreAPI } from '../explore.service';
+import { CookieService } from 'ngx-cookie-service';
+import { V1ApiService } from '../v1api.service';
 
 var template = `<div id="content"></div>
 
@@ -34,23 +36,39 @@ export class EndpointCallerComponent implements OnInit {
   @Input() serviceName: string = '';
   @Input() endpointQuery: string = '';
   @Input() selectedVersion: string = '';
-  service: Service;
+  service: ExploreAPI;
   request: any = {};
   endpoint: types.Endpoint = {} as any;
   selectedEndpoint = '';
   embeddable = template;
+  token = '';
 
   public configuration: Config;
 
   constructor(
     private ses: ServiceService,
     private ex: ExploreService,
-    private notif: ToastrService
+    private notif: ToastrService,
+    private cs: CookieService,
+    private v1api: V1ApiService
   ) {}
 
   ngOnInit() {
     this.regenJSONs();
     this.regenEmbed();
+    if (!this.cs.get('micro_api_token')) {
+      this.v1api
+        .createKey('Web Caller Token' + new Date(), ['*'])
+        .then((apiKey) => {
+          this.token = apiKey;
+          this.cs.set('micro_api_token', apiKey);
+        })
+        .catch((e) => {
+          console.log('ERROR' + JSON.stringify(e));
+        });
+    } else {
+      this.token = this.cs.get('micro_api_token');
+    }
   }
 
   public parse(s: string): any {
@@ -97,9 +115,9 @@ export class EndpointCallerComponent implements OnInit {
   regenJSONs() {
     this.ex.search(this.serviceName).then((services) => {
       let s = services.filter(
-        (serv) => serv.service.name == this.serviceName
+        (serv) => serv.detail.name == this.serviceName
       )[0];
-      s.service.endpoints.forEach((endpoint) => {
+      s.detail.endpoints.forEach((endpoint) => {
         endpoint.requestJSON = this.valueToJson(endpoint.request, 1);
         endpoint.requestValue = JSON.parse(endpoint.requestJSON);
 
@@ -113,7 +131,7 @@ export class EndpointCallerComponent implements OnInit {
       });
       this.service = s;
       if (!this.selectedEndpoint) {
-        this.endpoint = this.service.service.endpoints[0];
+        this.endpoint = this.service.detail.endpoints[0];
         this.selectedEndpoint = this.endpoint.name;
         this.regenEmbed();
       }
@@ -140,15 +158,18 @@ export class EndpointCallerComponent implements OnInit {
     });
   }
 
-  callEndpoint(service: Service, endpoint: types.Endpoint) {
-    this.ses
-      .call({
-        endpoint: endpoint.name,
-        service: service.service.name,
-        address: service.service.nodes[0].address,
-        method: 'POST',
-        request: endpoint.requestJSON,
-      })
+  callEndpoint(service: ExploreAPI, endpoint: types.Endpoint) {
+    this.v1api
+      .call(
+        {
+          endpoint: endpoint.name,
+          service: service.detail.name,
+          address: service.detail.nodes[0].address,
+          method: 'POST',
+          request: endpoint.requestJSON,
+        },
+        this.token
+      )
       .then((rsp) => {
         endpoint.responseJSON = rsp;
       })

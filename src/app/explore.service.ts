@@ -2,31 +2,31 @@ import { Injectable } from '@angular/core';
 import * as types from './types';
 import {
   HttpClient,
-  HttpEventType,
-  HttpDownloadProgressEvent,
 } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { UserService } from './user.service';
-import * as _ from 'lodash';
-import { Observable } from 'rxjs';
 
-export interface Service {
-  service: types.Service;
-  readme: string;
-  openAPIJSON: string;
-  examplesJSON: string;
+export interface API {
+  description: string;
+  open_api_json: string;
+  examples_json: string;
+}
+
+export interface ExploreAPI {
+  detail: types.Service;
+  api: API;
 }
 
 export interface IndexResponse {
-  services: Service[];
+  apis: ExploreAPI[];
 }
 
 export interface SearchResponse {
-  services: Service[];
+  apis: ExploreAPI[];
 }
 
-export interface ServiceResponse {
-  service: Service;
+export interface APIResponse {
+  api: ExploreAPI;
 }
 
 @Injectable({
@@ -35,22 +35,20 @@ export interface ServiceResponse {
 export class ExploreService {
   constructor(private us: UserService, private http: HttpClient) {}
 
-  index(limit: number): Promise<Service[]> {
-    return new Promise<Service[]>((resolve, reject) => {
+  index(limit?: number, offset?: number): Promise<ExploreAPI[]> {
+    return new Promise<ExploreAPI[]>((resolve, reject) => {
       return this.http
         .post<IndexResponse>(
-          environment.apiUrl + '/explore/Index', { limit: limit },
+          environment.apiUrl + '/publicapi/explore/Index', {
+            limit: limit ? limit : 0,
+            offset: offset ? offset : 0
+          },
           {
-            //headers: {
-            //authorization: this.us.token(),
-            //"micro-namespace": this.us.namespace(),
-            //'Micro-Namespace': 'micro',
-            //},
           }
         )
         .toPromise()
         .then((servs) => {
-          resolve(servs.services as Service[]);
+          resolve(servs.apis as ExploreAPI[]);
         })
         .catch((e) => {
           reject(e);
@@ -58,25 +56,20 @@ export class ExploreService {
     });
   }
 
-  search(searchTerm?: string): Promise<Service[]> {
-    return new Promise<Service[]>((resolve, reject) => {
+  search(searchTerm?: string): Promise<ExploreAPI[]> {
+    return new Promise<ExploreAPI[]>((resolve, reject) => {
       return this.http
         .post<SearchResponse>(
-          environment.apiUrl + '/explore/Search',
+          environment.apiUrl + '/publicapi/explore/Search',
           {
-            searchTerm: searchTerm,
+            search_term: searchTerm,
           },
           {
-            //headers: {
-            //authorization: this.us.token(),
-            //"micro-namespace": this.us.namespace(),
-            //'Micro-Namespace': 'micro',
-            //},
           }
         )
         .toPromise()
         .then((servs) => {
-          resolve(servs.services as Service[]);
+          resolve(servs.apis as ExploreAPI[]);
         })
         .catch((e) => {
           reject(e);
@@ -84,25 +77,20 @@ export class ExploreService {
     });
   }
 
-  service(name: string): Promise<Service> {
-    return new Promise<Service>((resolve, reject) => {
+  service(name: string): Promise<ExploreAPI> {
+    return new Promise<ExploreAPI>((resolve, reject) => {
       return this.http
-        .post<ServiceResponse>(
-          environment.apiUrl + '/explore/Service',
+        .post<APIResponse>(
+          environment.apiUrl + '/publicapi/explore/API',
           {
-            name: name,
+            name,
           },
           {
-            //headers: {
-            //authorization: this.us.token(),
-            //"micro-namespace": this.us.namespace(),
-            //'Micro-Namespace': 'micro',
-            //},
           }
         )
         .toPromise()
         .then((rsp) => {
-          resolve(rsp.service as Service);
+          resolve(rsp.api as ExploreAPI);
         })
         .catch((e) => {
           reject(e);
@@ -118,11 +106,11 @@ export class ExploreService {
     return new Promise<void>((resolve, reject) => {
       return this.http
         .post<SearchResponse>(
-          environment.apiUrl + '/explore/SaveMeta',
+          environment.apiUrl + '/publicapi/publish',
           {
-            readme: readme,
-            openAPIJSON: openAPIJSON,
-            serviceName: serviceName,
+            description: readme,
+            open_api_json: openAPIJSON,
+            name: serviceName,
           },
           {
             headers: {

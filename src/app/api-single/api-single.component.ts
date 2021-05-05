@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
-import { ExploreService, Service } from '../explore.service';
+import { ExploreService, ExploreAPI } from '../explore.service';
 import * as openapi from 'openapi3-ts';
 import { UserService } from '../user.service';
 import { V1ApiService } from '../v1api.service';
@@ -31,7 +31,7 @@ const tabIndexesToName = {
   encapsulation: ViewEncapsulation.None,
 })
 export class ApiSingleComponent implements OnInit {
-  service: Service;
+  service: ExploreAPI;
   logs: types.LogRecord[];
   stats: types.DebugSnapshot[] = [];
   traceSpans: types.Span[];
@@ -98,11 +98,13 @@ export class ApiSingleComponent implements OnInit {
   loadAPI() {
     this.ex.service(this.serviceName).then((serv) => {
       this.service = serv;
-      this.openAPI = JSON.parse(this.service.openAPIJSON);
+      this.openAPI = JSON.parse(this.service.api.open_api_json);
       for (let key in this.openAPI.paths) {
         this.showJSON[key] = false;
       }
-      this.examples = JSON.parse(this.service.examplesJSON);
+      if (this.service.api.examples_json) {
+        this.examples = JSON.parse(this.service.api.examples_json);
+      }
 
       setTimeout(() => {
         try {
@@ -147,9 +149,9 @@ export class ApiSingleComponent implements OnInit {
   saveSpec() {
     this.ex
       .saveMeta(
-        this.service.service.name,
-        this.service.readme,
-        this.service.openAPIJSON
+        this.service.detail.name,
+        this.service.api.description,
+        this.service.api.open_api_json
       )
       .then(() => {
         this.editSpec();
@@ -158,7 +160,7 @@ export class ApiSingleComponent implements OnInit {
   }
 
   firstReadmeLine(): string {
-    return this.service.readme.split('\n').filter((l) => {
+    return this.service.api.description.split('\n').filter((l) => {
       return !l.startsWith('#') && l.length > 5;
     })[0];
   }
@@ -361,7 +363,7 @@ func main() {
   }
 
   endpointOf(path: string): types.Endpoint {
-    let es = this.service.service.endpoints.filter((e) => {
+    let es = this.service.detail.endpoints.filter((e) => {
       return e.name.includes(this.lastPart(path));
     });
     if (es.length > 0) {

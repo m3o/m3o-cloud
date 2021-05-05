@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { stubTrue } from 'lodash';
-import { ExploreService, Service } from '../explore.service';
+import {ExploreService, API, ExploreAPI} from '../explore.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,14 +12,14 @@ export class HomeComponent implements OnInit {
   constructor(public exp: ExploreService, private router: Router) {}
 
   search: string;
-  services: Service[];
-  results: Service[];
+  services: ExploreAPI[];
+  results: ExploreAPI[];
   timeout: any = null;
   loading = true;
 
   ngOnInit() {
     this.exp.index(9).then((ss) => {
-      this.services = ss.filter((s) => s.readme);
+      this.services = ss.filter((s) => s.api.description);
       this.loading = false;
     });
   }
