@@ -102,8 +102,11 @@
                       <h4>
                         <span *ngIf="!showJSON[path.key]">&#x25BA;</span
                         ><span *ngIf="showJSON[path.key]">&#x25BC;</span
-                        ><a class="json-switcher" (click)="showJSON[path.key] = !showJSON[path.key]"
-                          > Full request example</a
+                        ><a
+                          class="json-switcher"
+                          (click)="showJSON[path.key] = !showJSON[path.key]"
+                        >
+                          Full request example</a
                         >
                       </h4>
                       <div *ngIf="showJSON[path.key]">
@@ -126,8 +129,11 @@
                       <h4>
                         <span *ngIf="!showJSON[path.key]">&#x25BA;</span
                         ><span *ngIf="showJSON[path.key]">&#x25BC;</span
-                        ><a class="json-switcher" (click)="showJSON[path.key] = !showJSON[path.key]"
-                          > Full response example</a
+                        ><a
+                          class="json-switcher"
+                          (click)="showJSON[path.key] = !showJSON[path.key]"
+                        >
+                          Full response example</a
                         >
                       </h4>
                       <pre
@@ -202,7 +208,8 @@
             class="right"
             fxFlex="0 0 28%"
           >
-            <button *ngIf="us?.user.name"
+            <button
+              *ngIf="us?.user.name"
               mat-raised-button
               style="cursor: pointer"
               routerLink="/settings/keys"
@@ -210,14 +217,15 @@
             >
               Get Token
             </button>
-            <button *ngIf="!us?.user.name"
-            mat-raised-button
-            style="cursor: pointer"
-            routerLink="/login"
-            color="primary"
-          >
-            Get Token
-          </button>
+            <button
+              *ngIf="!us?.user.name"
+              mat-raised-button
+              style="cursor: pointer"
+              routerLink="/login"
+              color="primary"
+            >
+              Get Token
+            </button>
             <br /><br />
             <h3>Readme</h3>
             <markdown [data]="service.api.description"></markdown>
@@ -236,19 +244,13 @@
           </div>
         </div>
       </mat-tab>
-
-      <mat-tab
-        style="padding-top: 1em"
-        label="Query"
-        *ngIf="us.user?.scopes?.includes('admin') && service.detail.endpoints"
-      >
-        <br />
-        <app-api-endpoints
+      <mat-tab *ngIf="this.serviceName" label="Query">
+        <app-endpoint-caller
           [serviceName]="service.detail.name"
           [endpointQuery]="endpointQuery"
           [selectedVersion]="selectedVersion"
-        ></app-api-endpoints> </mat-tab
-      >-->
+        ></app-endpoint-caller>
+      </mat-tab>
     </mat-tab-group>
   </mat-card>
 </div>

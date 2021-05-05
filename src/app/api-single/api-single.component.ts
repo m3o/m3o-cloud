@@ -13,20 +13,12 @@ import { V1ApiService } from '../v1api.service';
 
 const tabNamesToIndex = {
   '': 0,
-  logs: 1,
-  stats: 2,
-  nodes: 3,
-  traces: 4,
-  events: 5,
+  query: 1,
 };
 
 const tabIndexesToName = {
   0: '',
-  1: 'logs',
-  2: 'stats',
-  3: 'nodes',
-  4: 'traces',
-  5: 'events',
+  1: 'query',
 };
 
 @Component({

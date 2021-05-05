@@ -84,10 +84,6 @@ const routes: Routes = [
     component: SearchPageComponent,
   },
   {
-    path: ':id',
-    component: ApiSingleComponent,
-  },
-  {
     path: 'overview/usage',
     component: UsageComponent,
   },
@@ -95,6 +91,15 @@ const routes: Routes = [
     path: 'overview/billing',
     component: PaymentsComponent,
   },
+  {
+    path: ':id',
+    component: ApiSingleComponent,
+  },
+  {
+    path: ':id/:tab',
+    component: ApiSingleComponent,
+  },
+
 ];
 
 const routerOptions: ExtraOptions = {

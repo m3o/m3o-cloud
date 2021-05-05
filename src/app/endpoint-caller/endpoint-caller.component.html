@@ -1,0 +1,80 @@
+<ng-container *ngIf="service">
+  <div>
+    <div>
+      <mat-card
+        style="padding: 1px; padding-top: 1em; border: none; box-shadow: none"
+      >
+        <div fxLayoutGap="2em" fxLayout="row">
+          <mat-form-field fxFlex="49%" fxFlex.lt-md="100%" appearance="fill">
+            <mat-label>Endpoint</mat-label>
+            <mat-select
+              *ngIf="service.detail.endpoints"
+              [(ngModel)]="selectedEndpoint"
+            >
+              <mat-option
+                value="{{ e.name }}"
+                style="
+                  cursor: pointer;
+                  font-weight: normal;
+                  border-top: 1px solid whitesmoke;
+                "
+                (click)="select(e)"
+                *ngFor="let e of service.detail.endpoints"
+              >
+                <span
+                  *ngIf="e.name == selectedEndpoint; else normal"
+                  style="font-weight: bold"
+                  >{{ formatName(e.name) }}</span
+                >
+                <ng-template #normal
+                  ><span>{{ formatName(e.name) }}</span></ng-template
+                >
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <br />
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+          <div fxFlex="49%" fxFlex.lt-md="100%">
+            Request<br /><br />
+            <ngx-monaco-editor
+              style="
+                height: 25em;
+                overflow: hidden;
+                border: 1px solid #eee;
+                padding: 10px;
+              "
+              [options]="coptions"
+              [(ngModel)]="endpoint.requestJSON"
+              (ngModelChange)="regenEmbed()"
+            ></ngx-monaco-editor>
+            <br />
+          </div>
+          <div fxFlex="49%" fxFlex.lt-md="100%">
+            Response<br /><br />
+            <ngx-monaco-editor
+              style="
+                height: 25em;
+                overflow: hidden;
+                border: 1px solid #eee;
+                padding: 10px;
+              "
+              [options]="coptions"
+              [(ngModel)]="endpoint.responseJSON"
+              (ngModelChange)="regenEmbed()"
+            ></ngx-monaco-editor>
+          </div>
+        </div>
+        <button
+          mat-raised-button
+          style="font-weight: bold"
+          (click)="callEndpoint(service, endpoint)"
+          color="primary"
+        >
+          Call
+        </button>
+      </mat-card>
+    </div>
+    <br />
+  </div>
+</ng-container>
