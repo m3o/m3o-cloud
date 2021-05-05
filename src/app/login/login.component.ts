@@ -22,10 +22,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.us.refreshToken() != "") {
-      this.router.navigate(["/services"]);
+      this.router.navigate(["/"]);
       return;
     }
-    //this.namespace = this.us.namespace();
   }
 
   public githubLogin(event: any) {
