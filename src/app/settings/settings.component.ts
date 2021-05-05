@@ -126,7 +126,7 @@ export class CreateKeyDialogComponent {
     let selectedScopes = this.scopesForm.value as string[];
     if (!selectedScopes || selectedScopes.length === 0) {
       // select all
-      selectedScopes = this.scopes;
+      selectedScopes = ['*'] as string[];
     }
     this.v1api.createKey(this.description, selectedScopes).then(apiKey => {
       this.apiKey = apiKey;
