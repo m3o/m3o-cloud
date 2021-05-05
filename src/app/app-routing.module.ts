@@ -84,7 +84,7 @@ const routes: Routes = [
     component: SearchPageComponent,
   },
   {
-    path: ':id',
+    path: ':id/:tab',
     component: ApiSingleComponent,
   },
   {

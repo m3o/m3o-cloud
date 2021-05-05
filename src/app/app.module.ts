@@ -95,6 +95,7 @@ import { environment } from '../environments/environment';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { SearchResultGridComponent } from './search-result-grid/search-result-grid.component';
+import { EndpointCallerComponent } from './endpoint-caller/endpoint-caller.component';
 
 document.defaultView['hljs'] = hljs;
 
@@ -136,6 +137,7 @@ document.defaultView['hljs'] = hljs;
     ForgotPasswordComponent,
     SearchPageComponent,
     SearchResultGridComponent,
+    EndpointCallerComponent,
   ],
   imports: [
     BrowserModule,
