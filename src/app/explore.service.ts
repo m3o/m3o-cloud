@@ -41,7 +41,7 @@ export class ExploreService {
         .post<IndexResponse>(
           environment.apiUrl + '/publicapi/explore/Index', {
             limit: limit ? limit : 0,
-            offset: offset ? offset: 0
+            offset: offset ? offset : 0
           },
           {
           }
@@ -83,7 +83,7 @@ export class ExploreService {
         .post<APIResponse>(
           environment.apiUrl + '/publicapi/explore/API',
           {
-            name: name,
+            name,
           },
           {
           }
