@@ -1,33 +1,34 @@
 <div style="width: 100%">
   <div style="max-width: 400px; margin: 0 auto">
     <br />
-    <mat-card style="background: #fcfcfc">
-      <mat-card-title>Login</mat-card-title>
-      <mat-form-field class="full" appearance="legacy">
-        <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="email" type="email" />
-      </mat-form-field>
-      <br />
-      <mat-form-field class="full" appearance="legacy">
-        <mat-label>Password</mat-label>
-        <input matInput [(ngModel)]="password" type="password" />
-      </mat-form-field>
-      <mat-form-field style="display: none" class="full" appearance="legacy">
-        <mat-label>Namespace</mat-label>
-        <input matInput [(ngModel)]="namespace" type="text" />
-      </mat-form-field>
-      <br /><br />
-      <button
-        mat-raised-button
-        type="button"
-        style="font-weight: bold"
-        color="primary"
-        (click)="login()"
-      >
-        Login
-      </button>
-      &nbsp;&nbsp;&nbsp;
-    </mat-card>
+      <form (ngSubmit)="login()">
+        <mat-card style="background: #fcfcfc">
+        <mat-card-title>Login</mat-card-title>
+        <mat-form-field class="full" appearance="legacy">
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="email" type="email" name="emailInput"/>
+        </mat-form-field>
+        <br />
+        <mat-form-field class="full" appearance="legacy">
+          <mat-label>Password</mat-label>
+          <input matInput [(ngModel)]="password" type="password" name="passwordInput" />
+        </mat-form-field>
+        <mat-form-field style="display: none" class="full" appearance="legacy">
+          <mat-label>Namespace</mat-label>
+          <input matInput [(ngModel)]="namespace" type="text" name="namespaceInput"/>
+        </mat-form-field>
+        <br /><br />
+        <button
+          mat-raised-button
+          type="submit"
+          style="font-weight: bold"
+          color="primary"
+        >
+          Login
+        </button>
+        &nbsp;&nbsp;&nbsp;
+      </mat-card>
+    </form>
     <br />
     <div style="text-align: center">
       <a href="#" routerLink="/register" style="text-decoration: underline"
