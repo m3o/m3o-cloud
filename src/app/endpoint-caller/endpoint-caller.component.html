@@ -95,6 +95,7 @@
           </div>
         </div>
         <button
+          *ngIf="us.user?.name"
           mat-raised-button
           style="font-weight: bold"
           (click)="callEndpoint(service, endpoint)"
@@ -103,13 +104,13 @@
           Call
         </button>
         <button
-         *ngIf="us.user?.name"
+          *ngIf="!us.user?.name"
           mat-raised-button
           style="font-weight: bold"
-          routerLink="/signup"
+          routerLink="/register"
           color="primary"
         >
-          Sign up to Call endpoint
+          Sign up to call endpoint
         </button>
       </mat-card>
     </div>
