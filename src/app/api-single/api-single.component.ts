@@ -121,9 +121,7 @@ export class ApiSingleComponent implements OnInit {
       return '';
     }
 
-    name = name.replace(/([a-z0-9])([A-Z])/g, '$1 $2');
-    var newName = name.split('.', -1);
-    return newName[1];
+    return name.replace(/([a-z0-9])([A-Z])/g, '$1 $2');
   }
 
   stringify(a: any): string {
