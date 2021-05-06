@@ -63,7 +63,7 @@ export class EndpointCallerComponent implements OnInit {
     private notif: ToastrService,
     private cs: CookieService,
     private v1api: V1ApiService,
-    private us: UserService,
+    public us: UserService,
     private route: ActivatedRoute
   ) {}
 
