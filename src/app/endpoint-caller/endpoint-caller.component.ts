@@ -58,7 +58,7 @@ export class EndpointCallerComponent implements OnInit {
     this.regenEmbed();
     if (!this.cs.get('micro_api_token')) {
       this.v1api
-        .createKey('Web Caller Token' + new Date(), ['*'])
+        .createKey('Web Token', ['*'])
         .then((apiKey) => {
           this.token = apiKey;
           this.cs.set('micro_api_token', apiKey);
