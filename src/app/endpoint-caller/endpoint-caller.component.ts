@@ -7,6 +7,8 @@ import { ExploreService, ExploreAPI } from '../explore.service';
 import { CookieService } from 'ngx-cookie-service';
 import { V1ApiService } from '../v1api.service';
 import * as openapi from 'openapi3-ts';
+import { UserService } from '../user.service';
+import { ActivatedRoute } from '@angular/router';
 
 var template = `<div id="content"></div>
 
@@ -38,11 +40,20 @@ export class EndpointCallerComponent implements OnInit {
   @Input() endpointQuery: string = '';
   @Input() selectedVersion: string = '';
   service: ExploreAPI;
-  request: any = {};
+
   endpoint: types.Endpoint = {} as any;
   selectedEndpoint = '';
   embeddable = template;
   token = '';
+
+  // all examples for all endpoints
+  examples = [];
+  // examples for the selected endpoint
+  endpointExamples = [];
+  selectedExampleTitle = 'default';
+
+  requestJSON = '';
+  responseJSON = '';
 
   public configuration: Config;
 
@@ -51,10 +62,31 @@ export class EndpointCallerComponent implements OnInit {
     private ex: ExploreService,
     private notif: ToastrService,
     private cs: CookieService,
-    private v1api: V1ApiService
+    private v1api: V1ApiService,
+    private us: UserService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.selectedEndpoint = this.route.snapshot.queryParamMap.get('endpoint');
+    this.route.queryParamMap.subscribe((queryParams) => {
+      // hack
+      this.selectedEndpoint =
+        this.jsUcfirst(this.serviceName) +
+        '.' +
+        this.jsUcfirst(queryParams.get('endpoint'));
+    });
+    if (this.route.snapshot.queryParamMap.get('example')) {
+      this.selectedExampleTitle = this.route.snapshot.queryParamMap.get(
+        'example'
+      );
+    }
+    this.route.queryParamMap.subscribe((queryParams) => {
+      if (queryParams.get('example')) {
+        this.selectedExampleTitle = queryParams.get('example');
+      }
+    });
+
     this.regenJSONs();
     this.regenEmbed();
     if (!this.cs.get('micro_api_token')) {
@@ -114,22 +146,23 @@ export class EndpointCallerComponent implements OnInit {
   }
 
   regenJSONs() {
-    let that = this;
     this.ex.search(this.serviceName).then((services) => {
       let s = services.filter(
         (serv) => serv.detail.name == this.serviceName
       )[0];
       var openAPI: openapi.OpenAPIObject = JSON.parse(s.api.open_api_json);
+      if (s.api.examples_json) {
+        this.examples = JSON.parse(s.api.examples_json);
+      }
+
       s.detail.endpoints.forEach((endpoint) => {
         let schema: openapi.SchemaObject = {};
-
         for (let key in openAPI.paths) {
           if (key.includes(endpoint.name.split('.')[1])) {
-            schema = that.pathToRequestSchema(key, openAPI);
+            schema = this.pathToRequestSchema(key, openAPI);
           }
         }
-        endpoint.requestJSON = that.schemaToJSON(schema);
-        console.log(endpoint.requestJSON);
+        endpoint.requestJSON = this.schemaToJSON(schema);
         endpoint.requestValue = JSON.parse(endpoint.requestJSON);
 
         // delete the cruft fro the value;
@@ -146,7 +179,49 @@ export class EndpointCallerComponent implements OnInit {
         this.selectedEndpoint = this.endpoint.name;
         this.regenEmbed();
       }
+      this.selectExample();
     });
+  }
+
+  lastPart(s: string): string {
+    let ss = s.split('/');
+    return ss[ss.length - 1];
+  }
+
+  endpointChange(ob) {
+    setTimeout(this.selectExample, 200);
+  }
+
+  selectEndpoint() {
+    this.requestJSON = this.service.detail.endpoints.find((v) => {
+      return (v.name = this.selectedEndpoint);
+    }).requestJSON;
+    this.selectExample();
+  }
+
+  selectExample() {
+    this.endpointExamples = this.examples[
+      this.selectedEndpoint.split('.')[1].toLowerCase()
+    ];
+
+    if (!this.selectedExampleTitle) {
+      return;
+    }
+
+    if (this.selectedExampleTitle == 'default') {
+      this.requestJSON = this.service.detail.endpoints.find((v) => {
+        return (v.name = this.selectedEndpoint);
+      }).requestJSON;
+      return;
+    }
+
+    this.requestJSON = JSON.stringify(
+      this.endpointExamples.filter((v) => {
+        return v.title == this.selectedExampleTitle;
+      })[0].request,
+      null,
+      ' '
+    );
   }
 
   jsUcfirst(string: string): string {

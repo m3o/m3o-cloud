@@ -83,7 +83,9 @@
                   <a
                     id="{{ lastPart(path.key) }}"
                     href="/{{ service.detail.name }}#{{ lastPart(path.key) }}"
-                    ><span class="endpoint">{{ formatName(lastPart(path.key)) }}</span></a
+                    ><span class="endpoint">{{
+                      formatName(lastPart(path.key))
+                    }}</span></a
                   >
                 </h2>
                 <div class="endpoint-description">
@@ -184,6 +186,15 @@
                       >
                     </h3>
                     <div style="padding-left: 1.5em" *ngIf="example.expanded">
+                      <a
+                        [routerLink]="['/' + this.serviceName + '/query']"
+                        [queryParams]="{
+                          endpoint: lastPart(path.key).toLowerCase(),
+                          example: example.title
+                        }"
+                        (click)="tabChange(1)"
+                        >Query</a
+                      >
                       <p>
                         {{ example.description }}
                       </p>
