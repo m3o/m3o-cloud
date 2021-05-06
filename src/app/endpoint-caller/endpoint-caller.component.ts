@@ -6,6 +6,7 @@ import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
 import { ExploreService, ExploreAPI } from '../explore.service';
 import { CookieService } from 'ngx-cookie-service';
 import { V1ApiService } from '../v1api.service';
+import * as openapi from 'openapi3-ts';
 
 var template = `<div id="content"></div>
 
@@ -113,12 +114,22 @@ export class EndpointCallerComponent implements OnInit {
   }
 
   regenJSONs() {
+    let that = this;
     this.ex.search(this.serviceName).then((services) => {
       let s = services.filter(
         (serv) => serv.detail.name == this.serviceName
       )[0];
+      var openAPI: openapi.OpenAPIObject = JSON.parse(s.api.open_api_json);
       s.detail.endpoints.forEach((endpoint) => {
-        endpoint.requestJSON = this.valueToJson(endpoint.request, 1);
+        let schema: openapi.SchemaObject = {};
+
+        for (let key in openAPI.paths) {
+          if (key.includes(endpoint.name.split('.')[1])) {
+            schema = that.pathToRequestSchema(key, openAPI);
+          }
+        }
+        endpoint.requestJSON = that.schemaToJSON(schema);
+        console.log(endpoint.requestJSON);
         endpoint.requestValue = JSON.parse(endpoint.requestJSON);
 
         // delete the cruft fro the value;
@@ -136,6 +147,35 @@ export class EndpointCallerComponent implements OnInit {
         this.regenEmbed();
       }
     });
+  }
+
+  jsUcfirst(string: string): string {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  pathToRequestSchema(
+    path: string,
+    api: openapi.OpenAPIObject
+  ): openapi.SchemaObject {
+    let paths = path.split('/');
+    let endpointName = paths[paths.length - 1];
+    let serviceName = this.jsUcfirst(this.serviceName);
+
+    if (
+      api &&
+      api.components.schemas &&
+      api.components.schemas[endpointName + 'Request']
+    ) {
+      return api.components.schemas[endpointName + 'Request'];
+    } else if (
+      // this is just a quick hack to support the helloworld example
+      api &&
+      api.components.schemas &&
+      api.components.schemas['Request']
+    ) {
+      return api.components.schemas['Request'];
+    }
+    return {};
   }
 
   apiURL(): string {
@@ -308,38 +348,47 @@ export class EndpointCallerComponent implements OnInit {
     return `${indent}${input.name} ${input.type}`;
   }
 
-  // This is admittedly a horrible temporary implementation
-  valueToJson(input: types.Value, indentLevel: number): string {
-    const typeToDefault = (type: string): string => {
-      switch (type) {
+  schemaToJSON(schema: openapi.SchemaObject): string {
+    let recur = function (schema: openapi.SchemaObject): Object {
+      switch (schema.type as string) {
+        case 'object':
+          let ret = {};
+          for (let key in schema.properties) {
+            ret[key] = recur(schema.properties[key]);
+          }
+          return ret;
+        case 'array':
+          switch ((schema.items as any).type) {
+            case 'object':
+              return [recur(schema.items)];
+            case 'string':
+              return [''];
+            case 'int':
+            case 'int32':
+            case 'int64':
+              return [0];
+            case 'bool':
+              return [false];
+          }
         case 'string':
-          return '""';
+          return '';
         case 'int':
         case 'int32':
         case 'int64':
-          return '0';
+          return 0;
         case 'bool':
-          return 'false';
+          return false;
+        // typescript types below
+        case 'number':
+          return 0;
+        case 'boolean':
+          return false;
         default:
-          return '{}';
+          return schema.type;
       }
+      return '';
     };
-
-    if (!input) return '';
-
-    const indent = Array(indentLevel).join('    ');
-    const fieldSeparator = `,\n`;
-    if (input.values) {
-      return `${indent}${indentLevel == 1 ? '{' : '"' + input.name + '": {'}
-${input.values
-  .map((field) => this.valueToJson(field, indentLevel + 1))
-  .join(fieldSeparator)}
-${indent}}`;
-    } else if (indentLevel == 1) {
-      return `{}`;
-    }
-
-    return `${indent}"${input.name}": ${typeToDefault(input.type)}`;
+    return JSON.stringify(recur(schema), null, 2);
   }
 
   // code editor
