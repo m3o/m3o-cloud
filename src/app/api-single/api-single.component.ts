@@ -116,6 +116,16 @@ export class ApiSingleComponent implements OnInit {
     });
   }
 
+  formatName(name: string): string {
+    if (name === '') {
+      return '';
+    }
+
+    name = name.replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+    var newName = name.split('.', -1);
+    return newName[1];
+  }
+
   stringify(a: any): string {
     return JSON.stringify(a, null, ' ');
   }
