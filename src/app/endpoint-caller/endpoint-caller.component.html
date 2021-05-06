@@ -103,7 +103,7 @@
           Call
         </button>
         <button
-         *ngIf="us.user?.name"
+          *ngIf="!us.user?.name"
           mat-raised-button
           style="font-weight: bold"
           routerLink="/signup"
