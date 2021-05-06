@@ -10,6 +10,7 @@
             <mat-select
               *ngIf="service.detail.endpoints"
               [(ngModel)]="selectedEndpoint"
+              (ngModelChange)="selectEndpoint()"
             >
               <mat-option
                 value="{{ e.name }}"
@@ -32,6 +33,34 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <mat-form-field
+            *ngIf="endpointExamples"
+            fxFlex="49%"
+            fxFlex.lt-md="100%"
+            appearance="fill"
+          >
+            <mat-label>Example</mat-label>
+            <mat-select
+              [(ngModel)]="selectedExampleTitle"
+              (ngModelChange)="selectExample()"
+            >
+              <mat-option value="default">Default</mat-option>
+              <mat-option
+                value="{{ e.title }}"
+                style="
+                  cursor: pointer;
+                  font-weight: normal;
+                  border-top: 1px solid whitesmoke;
+                "
+                *ngFor="let e of endpointExamples"
+              >
+                <span style="font-weight: bold">{{ e.title }}</span>
+                <ng-template #normal
+                  ><span>{{ e.title }}</span></ng-template
+                >
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
         <br />
         <div fxLayout="row wrap" fxLayoutAlign="space-between">
@@ -45,7 +74,7 @@
                 padding: 10px;
               "
               [options]="coptions"
-              [(ngModel)]="endpoint.requestJSON"
+              [(ngModel)]="requestJSON"
               (ngModelChange)="regenEmbed()"
             ></ngx-monaco-editor>
             <br />
@@ -60,7 +89,7 @@
                 padding: 10px;
               "
               [options]="coptions"
-              [(ngModel)]="endpoint.responseJSON"
+              [(ngModel)]="responseJSON"
               (ngModelChange)="regenEmbed()"
             ></ngx-monaco-editor>
           </div>
@@ -72,6 +101,15 @@
           color="primary"
         >
           Call
+        </button>
+        <button
+         *ngIf="us.user?.name"
+          mat-raised-button
+          style="font-weight: bold"
+          routerLink="/signup"
+          color="primary"
+        >
+          Sign up to Call endpoint
         </button>
       </mat-card>
     </div>
