@@ -170,3 +170,11 @@ export interface Payment {
   date: number;
   receipt_url: string;
 }
+
+export interface Adjustment {
+  id: string;
+  created: number;
+  delta: number;
+  reference: string;
+  meta: any;
+}

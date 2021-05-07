@@ -5,7 +5,7 @@ import {BalanceService} from '../balance.service';
 import {
   loadStripe,
 } from '@stripe/stripe-js';
-import {Card, Payment} from '../types';
+import {Adjustment, Card, Payment} from '../types';
 import {FormControl} from '@angular/forms';
 
 @Component({
@@ -20,7 +20,7 @@ export class PaymentsComponent implements OnInit {
   cards: Card[] = [] as Card[];
   cardForm = new FormControl();
   successMessage: string;
-  payments: Payment[] = [] as Payment[];
+  adjustments: Adjustment[] = [] as Adjustment[];
 
   constructor(
     public balanceSvc: BalanceService,
@@ -56,9 +56,9 @@ export class PaymentsComponent implements OnInit {
   }
 
   getPayments(): void {
-    this.balanceSvc.getPayemnts()
-      .then(payments => {
-        this.payments = payments;
+    this.balanceSvc.getAdjustments()
+      .then(adjustments => {
+        this.adjustments = adjustments;
       }).catch(e => {
         console.log(e);
     });
@@ -106,8 +106,8 @@ export class PaymentsComponent implements OnInit {
     this.getCards();
   }
 
-  async viewReceipt(payment: Payment) {
-    window.open(payment.receipt_url, '_blank');
+  async viewReceipt(adjustment: Adjustment) {
+    window.open(adjustment.meta.receipt_url, '_blank');
   }
 
 }
