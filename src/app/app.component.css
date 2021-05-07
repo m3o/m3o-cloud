@@ -20,3 +20,7 @@ mat-sidenav-content {
 *:focus {
   outline: 0;
 }
+
+a {
+  color: 444;
+}
