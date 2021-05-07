@@ -235,10 +235,14 @@
         </div>
       -->
         <div *ngIf="!(user && user.name)">
-          <a routerLink="/login"  (click)="sidenav.toggle()"mat-list-item>Log in</a>
+          <a routerLink="/login" (click)="sidenav.toggle()" mat-list-item
+            >Log in</a
+          >
         </div>
         <div *ngIf="!(user && user.name)">
-          <a routerLink="/register"  (click)="sidenav.toggle()" mat-list-item>Register</a>
+          <a routerLink="/register" (click)="sidenav.toggle()" mat-list-item
+            >Register</a
+          >
         </div>
         <div *ngIf="user && user.name">
           <a
@@ -266,7 +270,30 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content style="background: white" fxFlexFill>
-      <router-outlet></router-outlet>
+      <div style="height: calc(100vh - 104px); background: white">
+        <router-outlet></router-outlet>
+      </div>
+      <div>
+        <mat-divider></mat-divider>
+        <br />
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+          <div fxFlex="64%" fxFlex.lt-md="49%" fxFlex.lt-sm="99%">
+            Copyright Micro Services Network Ltd 2021.
+          </div>
+          <div fxFlex="32%" fxFlex.lt-md="49%" fxFlex.lt-sm="99%">
+            <div>
+              <a href="https://slack.m3o.com">Join our Slack</a>
+            </div>
+            <div>
+              <a href="https://github.com/micro">Company Github</a>
+            </div>
+            <div>
+              <a href="https://blog.m3o.com">Blog</a>
+            </div>
+          </div>
+        </div>
+        <br />
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
