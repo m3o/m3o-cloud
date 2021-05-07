@@ -234,6 +234,12 @@
           >
         </div>
       -->
+        <div *ngIf="!(user && user.name)">
+          <a routerLink="/login"  (click)="sidenav.toggle()"mat-list-item>Log in</a>
+        </div>
+        <div *ngIf="!(user && user.name)">
+          <a routerLink="/register"  (click)="sidenav.toggle()" mat-list-item>Register</a>
+        </div>
         <div *ngIf="user && user.name">
           <a
             routerLink="/overview/usage"
