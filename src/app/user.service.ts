@@ -70,9 +70,9 @@ export class UserService {
     // todo We are nulling out the name here because that's what we use
     // for user existence checks.
     this.user.name = '';
-    this.cookie.set('micro_token', '', 30, null, null, null, null);
-    this.cookie.set('micro_refresh', '', 30, null, null, null, null);
-    this.cookie.set('micro_expiry', '', 30, null, null, null, null);
+    this.cookie.set('micro_token', '', 30, '/', null, null, null);
+    this.cookie.set('micro_refresh', '', 30, '/', null, null, null);
+    this.cookie.set('micro_expiry', '', 30, '/', null, null, null);
     document.location.href = '/login';
   }
 
