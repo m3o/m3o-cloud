@@ -29,6 +29,7 @@ export class SearchResultGridComponent implements OnInit {
         .join('\n')
         .slice(0, length);
     }
-    return s.api.description.slice(0, length);
+
+    return lines[0].slice(0, length);
   }
 }
