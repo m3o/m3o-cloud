@@ -35,7 +35,7 @@
           text-overflow: ellipsis;
         "
       >
-        <span *ngFor="let endpoint of service.detail.endpoints.slice(0, 3); let i == index;">
+        <span *ngFor="let endpoint of service.detail.endpoints.slice(0, 3); let i = index;">
           <a
             style="color: #888"
             href="{{ service.detail.name }}#{{ endpoint.name.split('.')[1] }}"
