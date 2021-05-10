@@ -40,7 +40,7 @@
             style="color: #888"
             href="{{ service.detail.name }}#{{ endpoint.name.split('.')[1] }}"
             >{{ formatName(endpoint.name.split('.')[1]) }}&nbsp;
-            <span *ngIf="service.detail.endpoints.length > 1 && i < (service.detail.endpoints.length - 1) && < i < 2 ">&bull;&nbsp;</span>
+            <span *ngIf="service.detail.endpoints.length > 1 && i < (service.detail.endpoints.length - 1) && i < 2 ">&bull;&nbsp;</span>
           </a> </span
         ><span *ngIf="service.detail.endpoints.length > 3"> & more</span>
       </div>
