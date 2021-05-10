@@ -156,9 +156,9 @@ export class EndpointCallerComponent implements OnInit {
 
     let e = this.service.detail.endpoints.filter((v) => {
       return v.name == this.selectedEndpoint;
-  })[0];
+    })[0];
     this.requestJSON = e.requestJSON;
-    //this.selectExample();
+    this.selectExample();
   }
 
   selectExample() {
@@ -172,7 +172,7 @@ export class EndpointCallerComponent implements OnInit {
 
     if (this.selectedExampleTitle == 'default' || !this.endpointExamples) {
       this.requestJSON = this.service.detail.endpoints.find((v) => {
-        return (v.name = this.selectedEndpoint);
+        return (v.name == this.selectedEndpoint);
       }).requestJSON;
       return;
     }

@@ -25,7 +25,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <!-- 
+
           <mat-form-field
             *ngIf="endpointExamples"
             fxFlex="49%"
@@ -47,14 +47,11 @@
                 "
                 *ngFor="let e of endpointExamples"
               >
-                <span style="font-weight: bold">{{ e.title }}</span>
-                <ng-template #normal
-                  ><span>{{ e.title }}</span></ng-template
-                >
+                <span>{{ e.title }}</span>
               </mat-option>
             </mat-select>
           </mat-form-field>
-        --></div>
+        </div>
         <br />
         <div fxLayout="row wrap" fxLayoutAlign="space-between">
           <div fxFlex="49%" fxFlex.lt-md="100%">
