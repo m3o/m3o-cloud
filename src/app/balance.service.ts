@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
-import {Adjustment, Card, Payment} from './types';
+import {Adjustment, Card} from './types';
 
 interface CurrentBalanceResponse {
   current_balance: number;

@@ -5,7 +5,7 @@ import {BalanceService} from '../balance.service';
 import {
   loadStripe,
 } from '@stripe/stripe-js';
-import {Adjustment, Card, Payment} from '../types';
+import {Adjustment, Card} from '../types';
 import {FormControl} from '@angular/forms';
 
 @Component({

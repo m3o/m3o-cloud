@@ -163,14 +163,6 @@ export interface Card {
   expires: string;
 }
 
-export interface Payment {
-  id: string;
-  amount: number;
-  currency: string;
-  date: number;
-  receipt_url: string;
-}
-
 export interface Adjustment {
   id: string;
   created: number;
