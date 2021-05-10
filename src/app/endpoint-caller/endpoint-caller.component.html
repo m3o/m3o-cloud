@@ -8,31 +8,23 @@
           <mat-form-field fxFlex="49%" fxFlex.lt-md="100%" appearance="fill">
             <mat-label>Endpoint</mat-label>
             <mat-select
-              *ngIf="service.detail.endpoints"
               [(ngModel)]="selectedEndpoint"
               (ngModelChange)="selectEndpoint()"
             >
               <mat-option
-                value="{{ e.name }}"
+                [value]="e.name"
                 style="
                   cursor: pointer;
                   font-weight: normal;
                   border-top: 1px solid whitesmoke;
                 "
-                (click)="select(e)"
                 *ngFor="let e of service.detail.endpoints"
               >
-                <span
-                  *ngIf="e.name == selectedEndpoint; else normal"
-                  style="font-weight: bold"
-                  >{{ formatName(e.name) }}</span
-                >
-                <ng-template #normal
-                  ><span>{{ formatName(e.name) }}</span></ng-template
-                >
+                <span>{{ formatName(e.name) }}</span>
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <!-- 
           <mat-form-field
             *ngIf="endpointExamples"
             fxFlex="49%"
@@ -61,7 +53,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-        </div>
+        --></div>
         <br />
         <div fxLayout="row wrap" fxLayoutAlign="space-between">
           <div fxFlex="49%" fxFlex.lt-md="100%">
@@ -75,7 +67,6 @@
               "
               [options]="coptions"
               [(ngModel)]="requestJSON"
-              (ngModelChange)="regenEmbed()"
             ></ngx-monaco-editor>
             <br />
           </div>
@@ -90,7 +81,6 @@
               "
               [options]="coptions"
               [(ngModel)]="responseJSON"
-              (ngModelChange)="regenEmbed()"
             ></ngx-monaco-editor>
           </div>
         </div>
@@ -98,7 +88,7 @@
           *ngIf="us.user?.name"
           mat-raised-button
           style="font-weight: bold"
-          (click)="callEndpoint(service, endpoint)"
+          (click)="callEndpoint()"
           color="primary"
         >
           Call
