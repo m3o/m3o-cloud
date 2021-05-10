@@ -58,13 +58,13 @@
     <mat-card>
         <mat-card-title>History</mat-card-title>
         <mat-card-content>
-            <mat-card-subtitle *ngIf="!this.payments || this.payments.length == 0">No previous payments</mat-card-subtitle>
-            <mat-list *ngIf="this.payments && this.payments.length > 0">
-                <mat-list-item *ngFor="let payment of this.payments" >
-                    <h3 mat-line>{{ payment.amount / 100 | number: '1.2-2' | currency : payment.currency.toUpper }}</h3>
-                    <p mat-line>{{ payment.date * 1000 | date: 'HH:mm:ss, yyyy-MM-dd' }}</p>
+            <mat-card-subtitle *ngIf="!this.adjustments || this.adjustments.length == 0">No previous payments</mat-card-subtitle>
+            <mat-list *ngIf="this.adjustments && this.adjustments.length > 0">
+                <mat-list-item *ngFor="let adjustment of this.adjustments" >
+                    <h3 mat-line>{{ adjustment.delta / 10000 | number: '1.2-2' | currency : 'USD' }} {{ adjustment.reference }}</h3>
+                    <p mat-line>{{ adjustment.created * 1000 | date: 'HH:mm:ss, yyyy-MM-dd' }}</p>
                     <mat-icon mat-list-icon>paid</mat-icon>
-                    <button mat-raised-button color="accent" (click)="viewReceipt(payment)">View receipt <mat-icon>open_in_new</mat-icon></button>
+                    <button *ngIf="adjustment.meta && adjustment.meta.receipt_url" mat-raised-button color="accent" (click)="viewReceipt(adjustment)">View receipt <mat-icon>open_in_new</mat-icon></button>
                 </mat-list-item>
             </mat-list>
         </mat-card-content>

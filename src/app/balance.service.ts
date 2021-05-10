@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
-import {Card, Payment} from './types';
+import {Adjustment, Card} from './types';
 
 interface CurrentBalanceResponse {
   current_balance: number;
@@ -20,8 +20,8 @@ interface ChargeCardResponse {
   client_secret: string;
 }
 
-interface ListPaymentsResponse {
-  payments: Payment[];
+interface ListAdjustmentsResponse {
+  adjustments: Adjustment[];
 }
 
 @Injectable()
@@ -150,10 +150,10 @@ export class BalanceService {
     });
   }
 
-  getPayemnts(): Promise<Payment[]> {
-    return new Promise<Payment[]>((resolve, reject) => {
+  getAdjustments(): Promise<Adjustment[]> {
+    return new Promise<Adjustment[]>((resolve, reject) => {
       return this.http
-        .post<ListPaymentsResponse>(environment.apiUrl + '/stripe/ListPayments',
+        .post<ListAdjustmentsResponse>(environment.apiUrl + '/balance/ListAdjustments',
           {
           },
           {
@@ -164,14 +164,13 @@ export class BalanceService {
           })
         .toPromise()
         .then((listRsp) => {
-          resolve(listRsp.payments);
+          resolve(listRsp.adjustments);
         })
         .catch((e) => {
           reject(e);
         });
     });
   }
-
 
   token(): string {
     return 'Bearer ' + this.cookie.get('micro_token');
