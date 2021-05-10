@@ -13,26 +13,19 @@
               (ngModelChange)="selectEndpoint()"
             >
               <mat-option
-                value="{{ e.name }}"
+                [value]="e.name"
                 style="
                   cursor: pointer;
                   font-weight: normal;
                   border-top: 1px solid whitesmoke;
                 "
-                (click)="select(e)"
                 *ngFor="let e of service.detail.endpoints"
               >
-                <span
-                  *ngIf="e.name == selectedEndpoint; else normal"
-                  style="font-weight: bold"
-                  >{{ formatName(e.name) }}</span
-                >
-                <ng-template #normal
-                  ><span>{{ formatName(e.name) }}</span></ng-template
-                >
+                <span>{{ formatName(e.name) }}</span>
               </mat-option>
             </mat-select>
           </mat-form-field>
+
           <mat-form-field
             *ngIf="endpointExamples"
             fxFlex="49%"
@@ -54,10 +47,7 @@
                 "
                 *ngFor="let e of endpointExamples"
               >
-                <span style="font-weight: bold">{{ e.title }}</span>
-                <ng-template #normal
-                  ><span>{{ e.title }}</span></ng-template
-                >
+                <span>{{ e.title }}</span>
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -75,7 +65,6 @@
               "
               [options]="coptions"
               [(ngModel)]="requestJSON"
-              (ngModelChange)="regenEmbed()"
             ></ngx-monaco-editor>
             <br />
           </div>
@@ -90,7 +79,6 @@
               "
               [options]="coptions"
               [(ngModel)]="responseJSON"
-              (ngModelChange)="regenEmbed()"
             ></ngx-monaco-editor>
           </div>
         </div>
@@ -98,7 +86,7 @@
           *ngIf="us.user?.name"
           mat-raised-button
           style="font-weight: bold"
-          (click)="callEndpoint(service, endpoint)"
+          (click)="callEndpoint()"
           color="primary"
         >
           Call

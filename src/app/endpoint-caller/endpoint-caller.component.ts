@@ -41,7 +41,6 @@ export class EndpointCallerComponent implements OnInit {
   @Input() selectedVersion: string = '';
   service: ExploreAPI;
 
-  endpoint: types.Endpoint = {} as any;
   selectedEndpoint = '';
   embeddable = template;
   token = '';
@@ -71,10 +70,12 @@ export class EndpointCallerComponent implements OnInit {
     this.selectedEndpoint = this.route.snapshot.queryParamMap.get('endpoint');
     this.route.queryParamMap.subscribe((queryParams) => {
       // hack
-      this.selectedEndpoint =
-        this.jsUcfirst(this.serviceName) +
-        '.' +
-        this.jsUcfirst(queryParams.get('endpoint'));
+      if (queryParams.get('endpoint')) {
+        this.selectedEndpoint =
+          this.jsUcfirst(this.serviceName) +
+          '.' +
+          this.jsUcfirst(queryParams.get('endpoint'));
+      }
     });
     if (this.route.snapshot.queryParamMap.get('example')) {
       this.selectedExampleTitle = this.route.snapshot.queryParamMap.get(
@@ -88,7 +89,6 @@ export class EndpointCallerComponent implements OnInit {
     });
 
     this.regenJSONs();
-    this.regenEmbed();
     if (!this.cs.get('micro_api_token')) {
       this.v1api
         .createKey('Web Token', ['*'])
@@ -106,43 +106,6 @@ export class EndpointCallerComponent implements OnInit {
 
   public parse(s: string): any {
     return JSON.parse(s);
-  }
-
-  select(e: types.Endpoint) {
-    this.endpoint = e;
-    this.selectedEndpoint = e.name;
-    this.regenEmbed();
-  }
-
-  ngOnCange() {
-    this.regenJSONs();
-    this.regenEmbed();
-  }
-
-  regenEmbed() {
-    if (!this.endpoint || !this.endpoint.requestJSON) {
-      return;
-    }
-    this.embeddable = template
-      .replace(
-        '$endpointName',
-        this.selectedEndpoint.toLowerCase().replace(this.serviceName + '.', '')
-      )
-      .replace('$serviceName', this.serviceName)
-      .replace('$namespace', this.ses.namespace())
-      .replace(
-        '$reqJSON',
-        this.endpoint.requestJSON
-          .split('\n')
-          .map((l, i) => {
-            // dont indent first line
-            if (i == 0) {
-              return l;
-            }
-            return '        ' + l;
-          })
-          .join('\n')
-      );
   }
 
   regenJSONs() {
@@ -175,9 +138,7 @@ export class EndpointCallerComponent implements OnInit {
       });
       this.service = s;
       if (!this.selectedEndpoint) {
-        this.endpoint = this.service.detail.endpoints[0];
-        this.selectedEndpoint = this.endpoint.name;
-        this.regenEmbed();
+        this.selectedEndpoint = this.service.detail.endpoints[0].name;
       }
       this.selectExample();
     });
@@ -188,14 +149,15 @@ export class EndpointCallerComponent implements OnInit {
     return ss[ss.length - 1];
   }
 
-  endpointChange(ob) {
-    setTimeout(this.selectExample, 200);
-  }
-
   selectEndpoint() {
-    this.requestJSON = this.service.detail.endpoints.find((v) => {
-      return (v.name = this.selectedEndpoint);
-    }).requestJSON;
+    if (!this.service) {
+      return;
+    }
+
+    let e = this.service.detail.endpoints.filter((v) => {
+      return v.name == this.selectedEndpoint;
+    })[0];
+    this.requestJSON = e.requestJSON;
     this.selectExample();
   }
 
@@ -208,9 +170,9 @@ export class EndpointCallerComponent implements OnInit {
       return;
     }
 
-    if (this.selectedExampleTitle == 'default') {
+    if (this.selectedExampleTitle == 'default' || !this.endpointExamples) {
       this.requestJSON = this.service.detail.endpoints.find((v) => {
-        return (v.name = this.selectedEndpoint);
+        return (v.name == this.selectedEndpoint);
       }).requestJSON;
       return;
     }
@@ -273,20 +235,20 @@ export class EndpointCallerComponent implements OnInit {
     });
   }
 
-  callEndpoint(service: ExploreAPI, endpoint: types.Endpoint) {
+  callEndpoint() {
     this.v1api
       .call(
         {
-          endpoint: endpoint.name,
-          service: service.detail.name,
-          address: service.detail.nodes[0].address,
+          endpoint: this.selectedEndpoint,
+          service: this.service.detail.name,
+          address: this.service.detail.nodes[0].address,
           method: 'POST',
-          request: endpoint.requestJSON,
+          request: this.requestJSON,
         },
         this.token
       )
       .then((rsp) => {
-        endpoint.responseJSON = rsp;
+        this.responseJSON = rsp;
       })
       .catch((e) => {
         try {

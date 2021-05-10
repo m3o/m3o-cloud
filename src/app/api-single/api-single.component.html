@@ -101,7 +101,7 @@
                         ></div>
                       </table>
 
-                      <h4>
+                      <!-- <h4>
                         <span *ngIf="!showJSON[path.key]">&#x25BA;</span
                         ><span *ngIf="showJSON[path.key]">&#x25BC;</span
                         ><a
@@ -110,7 +110,7 @@
                         >
                           Full request example</a
                         >
-                      </h4>
+                      </h4> -->
                       <div *ngIf="showJSON[path.key]">
                         <pre
                           class="json-example"
@@ -128,7 +128,7 @@
                         ></div>
                       </table>
 
-                      <h4>
+                      <!-- <h4>
                         <span *ngIf="!showJSON[path.key]">&#x25BA;</span
                         ><span *ngIf="showJSON[path.key]">&#x25BC;</span
                         ><a
@@ -137,7 +137,7 @@
                         >
                           Full response example</a
                         >
-                      </h4>
+                      </h4> -->
                       <pre
                         *ngIf="showJSON[path.key]"
                         class="json-example"
@@ -186,15 +186,6 @@
                       >
                     </h3>
                     <div style="padding-left: 1.5em" *ngIf="example.expanded">
-                      <a
-                        [routerLink]="['/' + this.serviceName + '/query']"
-                        [queryParams]="{
-                          endpoint: lastPart(path.key).toLowerCase(),
-                          example: example.title
-                        }"
-                        (click)="tabChange(1)"
-                        >Query</a
-                      >
                       <p>
                         {{ example.description }}
                       </p>
@@ -204,6 +195,15 @@
                       <h4>Response</h4>
                       <pre><code class="example" language="'javascript'" [highlight]="stringify(example.response)"></code></pre>
                       <br />
+                      <button mat-raised-button
+                        [routerLink]="['/' + this.serviceName + '/query']"
+                        [queryParams]="{
+                          endpoint: lastPart(path.key).toLowerCase(),
+                          example: example.title
+                        }"
+                        (click)="tabChange(1)"
+                        >Call</button
+                      >
                     </div>
                   </div>
                 </div>
