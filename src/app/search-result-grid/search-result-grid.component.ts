@@ -13,6 +13,14 @@ export class SearchResultGridComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  formatName(name: string): string {
+    if (name === '') {
+      return '';
+    }
+
+    return name.replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+  }
+
   readme(s: ExploreAPI): string {
     const length = 80;
     if (!s.api.description) {
