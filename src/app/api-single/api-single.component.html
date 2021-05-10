@@ -186,15 +186,6 @@
                       >
                     </h3>
                     <div style="padding-left: 1.5em" *ngIf="example.expanded">
-                      <a
-                        [routerLink]="['/' + this.serviceName + '/query']"
-                        [queryParams]="{
-                          endpoint: lastPart(path.key).toLowerCase(),
-                          example: example.title
-                        }"
-                        (click)="tabChange(1)"
-                        >Query</a
-                      >
                       <p>
                         {{ example.description }}
                       </p>
@@ -204,6 +195,15 @@
                       <h4>Response</h4>
                       <pre><code class="example" language="'javascript'" [highlight]="stringify(example.response)"></code></pre>
                       <br />
+                      <button mat-raised-button
+                        [routerLink]="['/' + this.serviceName + '/query']"
+                        [queryParams]="{
+                          endpoint: lastPart(path.key).toLowerCase(),
+                          example: example.title
+                        }"
+                        (click)="tabChange(1)"
+                        >Call</button
+                      >
                     </div>
                   </div>
                 </div>

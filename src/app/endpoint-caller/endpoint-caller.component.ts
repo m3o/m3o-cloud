@@ -150,16 +150,14 @@ export class EndpointCallerComponent implements OnInit {
   }
 
   selectEndpoint() {
-    console.log("jh")
     if (!this.service) {
       return;
     }
-    console.log("whaa")
-    console.log(this.service.detail.endpoints, "hii")
+
     let e = this.service.detail.endpoints.filter((v) => {
-      return (v.name = this.selectedEndpoint);
-    })[0]
-    console.log(e)
+      return v.name == this.selectedEndpoint;
+  })[0];
+    this.requestJSON = e.requestJSON;
     //this.selectExample();
   }
 

@@ -8,6 +8,7 @@
           <mat-form-field fxFlex="49%" fxFlex.lt-md="100%" appearance="fill">
             <mat-label>Endpoint</mat-label>
             <mat-select
+              *ngIf="service.detail.endpoints"
               [(ngModel)]="selectedEndpoint"
               (ngModelChange)="selectEndpoint()"
             >
