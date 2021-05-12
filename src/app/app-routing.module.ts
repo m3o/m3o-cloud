@@ -21,10 +21,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { SearchPageComponent } from './search-page/search-page.component';
 
 const routes: Routes = [
-  //{
-  //  path: 'status',
-  //  component: StatusComponent,
-  //},
   {
     path: 'not-invited',
     component: NotInvitedComponent,
@@ -39,16 +35,6 @@ const routes: Routes = [
     component: NewServiceComponent,
     canActivate: [AuthGuard],
   },
-  //{
-  //  path: 'status/:id/:version',
-  //  component: StatusSingleComponent,
-  //  canActivate: [AuthGuard],
-  //},
-  //{
-  //  path: 'status/:id/:version/:tab',
-  //  component: StatusSingleComponent,
-  //  canActivate: [AuthGuard],
-  //},
   {
     path: 'service/:id',
     component: ServiceComponent,
@@ -59,11 +45,6 @@ const routes: Routes = [
     component: SettingsComponent,
     canActivate: [AuthGuard],
   },
-  //{
-  //  path: 'events',
-  //  component: EventsComponent,
-  //  canActivate: [AuthGuard],
-  //},
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
@@ -86,10 +67,12 @@ const routes: Routes = [
   {
     path: 'overview/usage',
     component: UsageComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'overview/billing',
     component: PaymentsComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: ':id',

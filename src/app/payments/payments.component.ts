@@ -3,10 +3,11 @@ import { environment } from '../../environments/environment';
 
 import {BalanceService} from '../balance.service';
 import {
-  loadStripe,
+  loadStripe, Stripe
 } from '@stripe/stripe-js';
 import {Adjustment, Card} from '../types';
 import {FormControl} from '@angular/forms';
+import {UserService} from '../user.service';
 
 @Component({
   selector: 'app-payments',
@@ -16,15 +17,21 @@ import {FormControl} from '@angular/forms';
 export class PaymentsComponent implements OnInit {
   balance: string;
   creditAmount: number;
-  stripePromise = loadStripe(environment.stripeKey);
   cards: Card[] = [] as Card[];
   cardForm = new FormControl();
   successMessage: string;
   adjustments: Adjustment[] = [] as Adjustment[];
+  stripePromise: Promise<Stripe>;
 
   constructor(
     public balanceSvc: BalanceService,
+    private us: UserService,
   ) {
+    if (this.us.user.name.endsWith('@m3o.com')) {
+      this.stripePromise = loadStripe(environment.testStripeKey);
+    } else {
+      this.stripePromise = loadStripe(environment.stripeKey);
+    }
   }
 
   ngOnInit(): void {
