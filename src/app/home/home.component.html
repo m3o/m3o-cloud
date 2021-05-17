@@ -2,7 +2,7 @@
   <div style="margin: 1em 0" fxLayoutGap="2em" fxLayout="row">
     <div fxFlex="49%" fxFlex.lt-md="100%" style="padding-top: 1em">
       <h2><b>Discover APIs built for the cloud</b></h2>
-      <h2 class="mat-headline">
+      <h2 class="mat-headline" style="font-size: 2em; font-weight: 700">
         Explore, search and use APIs all in one place.
       </h2>
       <br />
@@ -28,7 +28,61 @@
   <div style="margin: 0em 0; padding: 1px">
     <app-search-result-grid *ngIf="loading == false" [services]="services">
     </app-search-result-grid>
-    <div><br><a routerLink="/explore">Browse all</a></div>
+    <div><br /><a routerLink="/explore">Browse all &rarr;</a></div>
   </div>
   <div *ngIf="loading" style="text-align: center">Loading...</div>
+
+  <br />
+  <br />
+  <div style="text-align: center">
+    <h2 class="mat-headline" style="font-size: 2em">
+      <span style="font-weight: 400">A better way to access APIs</span>
+    </h2>
+  </div>
+  <br />
+
+  <div style="margin: 1em 0" fxLayoutAlign="space-between" fxLayout="row wrap">
+    <div
+      fxFlex="32%"
+      fxFlex.lt-md="100%"
+      style="border: 1px solid #ccc; border-radius: 7px; padding: 1em"
+    >
+      <div style="text-align: center">
+        <br />
+        <span style="color: #666">from</span>
+        <h2 style="font-size: 1.5em; font-weight: 700">$ 0.00001</h2>
+        <span style="color: #666">per requests</span>
+      </div>
+    </div>
+
+    <div fxFlex="66%" fxFlex.lt-md="100%">
+      <div fxLayoutAlign="space-between" fxLayout="row wrap">
+        <div fxFlex="49%" fxFlex.lt-md="100%" style="margin-bottom: 2em;">
+          <h2 class="mat-headline">Simple</h2>
+          <p>
+            Use one Micro account to fulfill or your API needs. No more signing
+            up and configuring yet another token.
+          </p>
+        </div>
+
+        <div fxFlex="49%" fxFlex.lt-md="100%" style="margin-bottom: 2em;">
+          <h2 class="mat-headline">Fast</h2>
+          <p>
+            Using a new API is simple - no need to learn yet another
+            documentation, it's all the same Micro UI.
+          </p>
+        </div>
+        <div fxFlex="49%" fxFlex.lt-md="100%" style="margin-bottom: 2em;">
+          <h2 class="mat-headline">Affordable</h2>
+          <p>
+            We buy API calls in bulk so we can give you a good price. We pass
+            most of the savings on to you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br />
+  <br />
 </div>
