@@ -33,11 +33,14 @@
   <div *ngIf="loading" style="text-align: center">Loading...</div>
 
   <br />
-  <br />
-  <div style="text-align: center">
-    <h2 class="mat-headline" style="font-size: 2em">
-      <span style="font-weight: 400">A better way to access APIs</span>
-    </h2>
+  <div style="margin: 1em 0" fxLayoutAlign="space-between" fxLayout="row wrap">
+    <div fxFlex="32%" fxFlex.lt-md="100%"></div>
+    <div fxFlex="32%" fxFlex.lt-md="100%">
+      <h2 class="mat-headline" style="font-size: 2em">
+        <span style="font-weight: 400">A better way to access APIs</span>
+      </h2>
+    </div>
+    <div fxFlex="32%" fxFlex.lt-md="100%"></div>
   </div>
   <br />
 
@@ -57,7 +60,7 @@
 
     <div fxFlex="66%" fxFlex.lt-md="100%">
       <div fxLayoutAlign="space-between" fxLayout="row wrap">
-        <div fxFlex="49%" fxFlex.lt-md="100%" style="margin-bottom: 2em;">
+        <div fxFlex="49%" fxFlex.lt-md="100%" style="margin-bottom: 2em">
           <h2 class="mat-headline">Simple</h2>
           <p>
             Use one Micro account to fulfill or your API needs. No more signing
@@ -65,14 +68,14 @@
           </p>
         </div>
 
-        <div fxFlex="49%" fxFlex.lt-md="100%" style="margin-bottom: 2em;">
+        <div fxFlex="49%" fxFlex.lt-md="100%" style="margin-bottom: 2em">
           <h2 class="mat-headline">Fast</h2>
           <p>
             Using a new API is simple - no need to learn yet another
             documentation, it's all the same Micro UI.
           </p>
         </div>
-        <div fxFlex="49%" fxFlex.lt-md="100%" style="margin-bottom: 2em;">
+        <div fxFlex="49%" fxFlex.lt-md="100%" style="margin-bottom: 2em">
           <h2 class="mat-headline">Affordable</h2>
           <p>
             We buy API calls in bulk so we can give you a good price. We pass
