@@ -264,7 +264,7 @@ new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
     response: openapi.SchemaObject
   ): string {
     return (
-      `curl "https://api.m3o.com/v1/groups/list" -XPOST -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" -D '` +
+      `curl "https://api.m3o.com/v1/` +this.serviceName+`/`+this.lastPart(path)+`" -XPOST -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" -D '` +
       this.schemaToJSON(request) +
       `'`
     );

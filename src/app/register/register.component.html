@@ -3,24 +3,30 @@
     <br />
     <mat-card style="background: #fcfcfc">
       <mat-card-title>Signup</mat-card-title>
-      <mat-card-subtitle>Create a new account and start building services</mat-card-subtitle>
+      <mat-card-subtitle
+        >Create a new account and start building services</mat-card-subtitle
+      >
       <mat-form-field class="full" appearance="legacy">
         <mat-label>Email</mat-label>
         <input matInput [(ngModel)]="email" type="email" />
       </mat-form-field>
-      <br/>
+      <br />
       <button
-              mat-raised-button
-              type="button"
-              color="primary"
-              (click)="sendVerificationEmail()"
+        mat-raised-button
+        type="button"
+        [disabled]="loading"
+        color="primary"
+        (click)="sendVerificationEmail()"
       >
-        {{ !verifySent ? "Register" : "Resend Code" }}
+        {{ !verifySent ? 'Register' : 'Resend Code' }}
       </button>
-      <br/>
+      <br />
       <div *ngIf="verifySent">
         <br />
-        <p>An email has been sent to you with a verification code, please check your email.</p>
+        <p>
+          An email has been sent to you with a verification code, please check
+          your email.
+        </p>
         <mat-form-field class="full" appearance="legacy">
           <mat-label>Verification code</mat-label>
           <input
@@ -29,13 +35,14 @@
             type="verification code"
           />
         </mat-form-field>
-        <br/>
+        <br />
         <mat-form-field class="full" appearance="legacy">
           <mat-label>Password</mat-label>
           <input matInput [(ngModel)]="password" type="password" />
         </mat-form-field>
         <br />
         <button
+          [disabled]="loading"
           mat-raised-button
           type="button"
           color="primary"
@@ -48,8 +55,10 @@
     </mat-card>
     <br />
     <div style="text-align: center">
-      <a href="#" routerLink="/login" style="text-decoration: underline;">Log in</a> if you already have an
-      account
+      <a href="#" routerLink="/login" style="text-decoration: underline"
+        >Log in</a
+      >
+      if you already have an account
     </div>
   </div>
 </div>
