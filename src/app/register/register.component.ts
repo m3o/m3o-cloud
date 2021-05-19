@@ -14,21 +14,20 @@ export class RegisterComponent implements OnInit {
   password: string = "";
   verifySent = false;
   verificationCode: string = "";
+  loading = false;
 
   constructor(
     private us: UserService,
     private router: Router,
     private notif: ToastrService
   ) {
-    if (this.us.refreshToken() != "") {
-      this.router.navigate(["/services"]);
-      return;
-    }
+
   }
 
   ngOnInit() {}
 
   sendVerificationEmail() {
+    this.loading = true
     this.us
       .sendVerification(this.email)
       .then(() => {
@@ -36,10 +35,13 @@ export class RegisterComponent implements OnInit {
       })
       .catch((e) => {
         this.notif.error(e.error.Detail);
+      }).finally(() => {
+        this.loading = false
       });
   }
 
   verify() {
+    this.loading = true
     this.us
       .verify(this.email, this.password, this.verificationCode)
       .then(() => {
@@ -47,6 +49,8 @@ export class RegisterComponent implements OnInit {
       })
       .catch((e) => {
         this.notif.error(e.error.Detail);
-      });
+      }).finally(() => {
+        this.loading = false
+      });;
   }
 }

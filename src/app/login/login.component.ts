@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   email: string = "";
   password: string = "";
   namespace: string = "micro";
+  loading = false
 
   constructor(
     private us: UserService,
@@ -21,10 +22,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.us.refreshToken() != "") {
-      this.router.navigate(["/"]);
-      return;
-    }
+ 
   }
 
   public githubLogin(event: any) {
@@ -34,6 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
+    this.loading = true
     this.us
       .login(this.email, this.password, this.namespace)
       .then(() => {
@@ -42,6 +41,8 @@ export class LoginComponent implements OnInit {
       .catch((e) => {
         console.log(e);
         this.notif.error(e.error.Detail);
+      }).finally(() => {
+        this.loading = false
       });
     return false;
   }
