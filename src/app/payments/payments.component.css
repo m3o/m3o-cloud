@@ -1,3 +1,7 @@
 #balance-value h1 {
     font-size: x-large;
 }
+
+mat-card {
+    margin-bottom: 1em
+}
