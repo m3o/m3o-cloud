@@ -12,7 +12,7 @@
     >
       <mat-card-title
         ><a routerLink="/{{ service.detail.name }}">
-           <span *ngIf="service.api.icon !== undefined && service.api.icon.length > 0" ng-bind-html="{{ service.icon }} &nbsp;"></span>
+           <span *ngIf="service.api.icon !== undefined && service.api.icon.length > 0" [innerHtml]="service.icon &nbsp;"></span>
            {{  service.detail.name }}
         </a></mat-card-title
       >
