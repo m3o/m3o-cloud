@@ -11,9 +11,10 @@
       style="padding: 1.5em; border: 1px solid #ddd"
     >
       <mat-card-title
-        ><a routerLink="/{{ service.detail.name }}">{{
-          service.detail.name
-        }}</a></mat-card-title
+        ><a routerLink="/{{ service.detail.name }}">
+           <span *ngIf="service.api.icon !== undefined && service.api.icon.length > 0" [innerHtml]="service.api.icon +'&nbsp;'"></span>
+           {{  service.detail.name }}
+        </a></mat-card-title
       >
       <div
         style="
