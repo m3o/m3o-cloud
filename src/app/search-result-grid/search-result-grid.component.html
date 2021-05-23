@@ -11,7 +11,7 @@
       style="padding: 1.5em; border: 1px solid #ddd"
     >
       <mat-card-title
-        ><a routerLink="/{{ service.detail.name }}">{{
+        ><a routerLink="/{{ service.detail.name }}"><span *ngIf="service.icon.length > 0">{{ service.icon }}&nbsp;</span>{{
           service.detail.name
         }}</a></mat-card-title
       >

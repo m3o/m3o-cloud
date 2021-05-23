@@ -10,6 +10,7 @@ export interface API {
   description: string;
   open_api_json: string;
   examples_json: string;
+  icon: string;
 }
 
 export interface ExploreAPI {
