@@ -14,8 +14,9 @@
         ><a routerLink="/{{ service.detail.name }}">
            <span *ngIf="service.api.icon !== undefined && service.api.icon.length > 0" [innerHtml]="service.api.icon +'&nbsp;'"></span>
            {{  service.detail.name }}
-        </a></mat-card-title
-      >
+        </a>
+        <mat-card *ngIf="service.api.category !== undefined" class="category">{{service.api.category}}</mat-card>
+      </mat-card-title>
       <div
         style="
           height: 1.4em;
