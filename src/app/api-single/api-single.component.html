@@ -13,6 +13,7 @@
         >-->
       <div fxFlex="70%">
         <h2 style="display: inline-block; margin-right: 1em">
+          <span *ngIf="service.api.icon !== undefined && service.api.icon.length > 0" [innerHtml]="service.api.icon +'&nbsp;'"></span>
           {{ serviceName | title }}
         </h2>
         <span style="color: #666">{{ firstReadmeLine() }}</span>
@@ -24,6 +25,7 @@
         <span class="infoblurb" title="3.4 billion total requests"
           >3.4B tq</span
         > -->
+        <mat-card *ngIf="service.api.category !== undefined" class="category mat-card-flat">{{service.api.category}}</mat-card>
       </div>
     </div>
 

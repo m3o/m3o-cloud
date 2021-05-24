@@ -87,3 +87,10 @@ h2 a {
   padding: 15px;
   font-family: monospace;
 }
+.category {
+  float: right;
+  font-size: 0.8em;
+  padding: 5px;
+  background: #C8CACB;
+  color: #ffffff;
+}

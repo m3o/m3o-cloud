@@ -25,10 +25,22 @@
     </div>
   </div>
 
+  <br />
+  <div style="margin: 1em 0" fxLayoutAlign="space-between" fxLayout="row wrap">
+    <div fxFlex="32%" fxFlex.lt-md="100%"></div>
+    <div fxFlex="32%" fxFlex.lt-md="100%">
+      <h2 class="mat-headline" style="font-size: 2em; text-align: center;">
+        <span style="font-weight: 400">APIs for everyday use</span>
+      </h2>
+    </div>
+    <div fxFlex="32%" fxFlex.lt-md="100%"></div>
+  </div>
+
+  <br />
   <div style="margin: 0em 0; padding: 1px">
     <app-search-result-grid *ngIf="loading == false" [services]="services">
     </app-search-result-grid>
-    <div><br /><a routerLink="/explore">Explore all &rarr;</a></div>
+    <div><a routerLink="/explore">Explore all &rarr;</a></div>
   </div>
   <div *ngIf="loading" style="text-align: center">Loading...</div>
 
@@ -36,7 +48,7 @@
   <div style="margin: 1em 0" fxLayoutAlign="space-between" fxLayout="row wrap">
     <div fxFlex="32%" fxFlex.lt-md="100%"></div>
     <div fxFlex="32%" fxFlex.lt-md="100%">
-      <h2 class="mat-headline" style="font-size: 2em">
+      <h2 class="mat-headline" style="font-size: 2em; text-align: center;">
         <span style="font-weight: 400">Developer Friendly UX</span>
       </h2>
     </div>
@@ -86,7 +98,7 @@
           <h2 class="mat-headline">No Bullshit</h2>
           <p>
             Don't get lost in a sea of infinite cloud billing. We cut through 
-            the bullshit and show you exactly what you use.
+            the cruft and show you exactly what you use.
           </p>
         </div>
       </div>
