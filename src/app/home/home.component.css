@@ -18,9 +18,9 @@
   overflow: hidden;
   word-wrap: break-word;
 }
-.mat-header-row {
+.mat-header-cell {
   font-size: 1.2em;
 }
-.mat-row {
+.mat-cell {
   font-size: 1em;
 }
