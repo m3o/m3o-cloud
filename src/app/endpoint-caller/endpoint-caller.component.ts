@@ -125,7 +125,7 @@ export class EndpointCallerComponent implements OnInit {
           }
         }
         endpoint.requestJSON = this.schemaToJSON(schema);
-        console.log(endpoint, 'hi', endpoint.name, schema);
+
         if (endpoint.requestJSON !== undefined) {
           endpoint.requestValue = JSON.parse(endpoint.requestJSON);
         } else {
