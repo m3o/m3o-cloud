@@ -78,9 +78,8 @@ export class EndpointCallerComponent implements OnInit {
       }
     });
     if (this.route.snapshot.queryParamMap.get('example')) {
-      this.selectedExampleTitle = this.route.snapshot.queryParamMap.get(
-        'example'
-      );
+      this.selectedExampleTitle =
+        this.route.snapshot.queryParamMap.get('example');
     }
     this.route.queryParamMap.subscribe((queryParams) => {
       if (queryParams.get('example')) {
@@ -126,12 +125,15 @@ export class EndpointCallerComponent implements OnInit {
           }
         }
         endpoint.requestJSON = this.schemaToJSON(schema);
-        endpoint.requestValue = JSON.parse(endpoint.requestJSON);
+        console.log(endpoint, 'hi', endpoint.name, schema);
+        if (endpoint.requestJSON !== undefined) {
+          endpoint.requestValue = JSON.parse(endpoint.requestJSON);
+        } else {
+          endpoint.requestValue = {};
+        }
 
         // delete the cruft fro the value;
-        endpoint.requestValue = this.deleteProtoCruft(
-          JSON.parse(endpoint.requestJSON)
-        );
+        endpoint.requestValue = this.deleteProtoCruft(endpoint.requestValue);
 
         // rebuild the request JSON value
         endpoint.requestJSON = JSON.stringify(endpoint.requestValue, null, 4);
@@ -162,9 +164,8 @@ export class EndpointCallerComponent implements OnInit {
   }
 
   selectExample() {
-    this.endpointExamples = this.examples[
-      this.selectedEndpoint.split('.')[1].toLowerCase()
-    ];
+    this.endpointExamples =
+      this.examples[this.selectedEndpoint.split('.')[1].toLowerCase()];
 
     if (!this.selectedExampleTitle) {
       return;
@@ -172,7 +173,7 @@ export class EndpointCallerComponent implements OnInit {
 
     if (this.selectedExampleTitle == 'default' || !this.endpointExamples) {
       this.requestJSON = this.service.detail.endpoints.find((v) => {
-        return (v.name == this.selectedEndpoint);
+        return v.name == this.selectedEndpoint;
       }).requestJSON;
       return;
     }
