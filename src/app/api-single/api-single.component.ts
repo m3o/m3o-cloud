@@ -116,6 +116,17 @@ export class ApiSingleComponent implements OnInit {
     });
   }
 
+  displayPrice(pricing: Map<string, string>, name: string, key: string): string {
+    let ep = name + "." + lastPart(key);
+    let price = pricing[ep];
+    if (price == "") {
+      return "Free";
+    }
+    let p = +price;
+
+    return (p / 10000) + " per request";
+  }
+
   formatName(name: string): string {
     if (name === '') {
       return '';
