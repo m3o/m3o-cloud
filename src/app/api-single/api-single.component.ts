@@ -119,12 +119,12 @@ export class ApiSingleComponent implements OnInit {
   displayPrice(pricing: Map<string, string>, name: string, key: string): string {
     let ep = name + "." + this.lastPart(key);
     let price = pricing[ep];
-    if (price == "") {
+    if (price === "") {
       return "Free";
     }
-    let p = +price;
+    let p: number = Number(price);
 
-    return (p / 10000) + " per request";
+    return "$" + (p / 10000) + " per request";
   }
 
   formatName(name: string): string {
