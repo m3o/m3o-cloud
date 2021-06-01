@@ -206,7 +206,6 @@ export class UserService {
     newPassword: string
   ): Promise<void> {
     var headers = {
-      //"micro-namespace": this.us.namespace(),
       'Micro-Namespace': environment.namespace,
     };
     return new Promise<void>((resolve, reject) => {
@@ -217,7 +216,6 @@ export class UserService {
             email: email,
             token: token,
             password: newPassword,
-            namespace: environment.namespace,
           },
           { headers: headers }
         )
