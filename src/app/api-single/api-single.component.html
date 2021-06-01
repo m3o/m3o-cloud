@@ -89,6 +89,7 @@
                       formatName(lastPart(path.key))
                     }}</span></a
                   >
+                  <span style="float: right; font-size: small;">{{ displayPrice(service.api.pricing, service.detail.name, path.key) }}</span>
                 </h2>
                 <div class="endpoint-description">
                   {{ pathToRequestSchema(path.key).description }}

@@ -12,6 +12,7 @@ export interface API {
   examples_json: string;
   icon: string;
   category: string;
+  pricing: Map<string, string>;
 }
 
 export interface ExploreAPI {
