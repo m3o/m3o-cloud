@@ -125,7 +125,7 @@ export class ApiSingleComponent implements OnInit {
     let ep = ss[2] + "." + ss[3];
     let price = pricing[ep];
 
-    if (price === "") {
+    if (price === "" || price === undefined) {
       return "Free";
     }
 
