@@ -25,7 +25,12 @@
   <div style="margin: 0em 0; padding: 1px">
     <app-search-result-grid *ngIf="loading == false" [services]="services">
     </app-search-result-grid>
-    <p *ngIf="loading == false"><a href="https://forms.gle/RoYDNQk3myArHfZM9">Can't find what you're looking for? Let us know.</a></p>
+    <p *ngIf="!services">No results found</p>
+    <p *ngIf="loading == false">
+      <a href="https://forms.gle/RoYDNQk3myArHfZM9"
+        >Can't find what you're looking for? Let us know.</a
+      >
+    </p>
   </div>
   <div *ngIf="loading" style="text-align: center">Loading...</div>
 </div>

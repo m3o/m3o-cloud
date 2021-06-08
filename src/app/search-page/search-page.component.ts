@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ExploreService, API, ExploreAPI} from '../explore.service';
+import { ExploreService, API, ExploreAPI } from '../explore.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -48,9 +48,13 @@ export class SearchPageComponent implements OnInit {
   }
 
   searchResults() {
-    this.exp.search(this.search).then((ss) => {
-      this.services = ss.filter((s) => s.api.description);
-      this.loading = false;
-    });
+    this.exp
+      .search(this.search)
+      .then((ss) => {
+        this.services = ss.filter((s) => s.api.description);
+      })
+      .finally(() => {
+        this.loading = false;
+      });
   }
 }

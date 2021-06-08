@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { stubTrue } from 'lodash';
-import {ExploreService, API, ExploreAPI} from '../explore.service';
+import { ExploreService, API, ExploreAPI } from '../explore.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,15 +18,19 @@ export class HomeComponent implements OnInit {
   loading = true;
 
   ngOnInit() {
-    this.exp.index(6).then((ss) => {
-      this.services = ss.filter((s) => s.api.description);
-      this.loading = false;
-    });
+    this.exp
+      .index(6)
+      .then((ss) => {
+        this.services = ss.filter((s) => s.api.description);
+      })
+      .finally(() => {
+        this.loading = false;
+      });
   }
 
   keyDownFunction(event) {
     if (event.keyCode === 13) {
-     this.submit()
+      this.submit();
     }
   }
 
