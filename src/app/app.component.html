@@ -20,27 +20,28 @@
       <span id="logo" class="hover" routerLink="/">Micro</span>&nbsp;
       <sup style="font-size: 0.8em; color: #dd4814; padding: 5px; margin: 0">Beta</sup>
 
-      <span style="padding-left: 1em;">
-        <mat-form-field appearance="standard" style="width: 100%; padding: 0;">
-          <input
-            matInput
-            style="color: #444; font-size: 0.8em; line-height: 1.5em;"
-            placeholder="Search for APIs"
-            [(ngModel)]="search"
-            (keydown)="keyDownFunction($event)"
-          />&nbsp;<button
-            (click)="submit()"
-            mat-button
-            matSuffix
-            style="position: relative; top: -8px; background-color: whitesmoke;"
-          >
-            Search
-          </button>
-        </mat-form-field>
-      </span>
-
       <span class="menu-spacer"></span>
+
       <div style="padding-top: 4px" fxShow="true" fxHide.lt-md>
+        <span style="padding-left: 1em;">
+          <mat-form-field appearance="standard" style="width: 100%; padding: 0;">
+            <input
+              matInput
+              style="color: #444; font-size: 0.8em; line-height: 1.5em;"
+              placeholder="Search for APIs"
+              [(ngModel)]="search"
+              (keydown)="keyDownFunction($event)"
+            />&nbsp;<button
+              (click)="submit()"
+              mat-button
+              matSuffix
+              style="position: relative; top: -8px; background-color: whitesmoke;"
+            >
+              Search
+            </button>
+          </mat-form-field>
+        </span>
+
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
 
         <!-- <a *ngIf="user && user.name" routerLink="/services" mat-button
@@ -257,6 +258,11 @@
           >
         </div>
       -->
+        <div>
+          <a routerLink="/explore" (click)="sidenav.toggle()" mat-list-item>
+            Explore
+          </a>
+        </div>
         <div *ngIf="!(user && user.name)">
           <a routerLink="/login" (click)="sidenav.toggle()" mat-list-item
             >Log in</a
