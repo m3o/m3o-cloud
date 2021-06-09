@@ -20,7 +20,7 @@
       <span id="logo" class="hover" routerLink="/">Micro</span>&nbsp;
       <sup style="font-size: 0.8em; color: #dd4814; padding: 5px; margin: 0">Beta</sup>
 
-      <div fxShow="true" fxHide.lt-md style="font-size: 0.7em; padding-top: 10px;" *ngIf="this.router.url.split('?')[0] != '/explore'">
+      <div fxShow="true" fxHide.lt-md style="font-size: 0.7em; padding-top: 10px;" *ngIf="this.currentURL() != '/explore'">
         <mat-form-field style="width: 100%; padding-left: 2em;" appearance="outline">
           <input
             matInput

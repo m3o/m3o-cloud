@@ -27,6 +27,9 @@ export class AppComponent implements OnInit {
     window.location.replace('team url???');
   }
 
+  currentURL(): string {
+    return this.router.url.split('?')[0];
+  }
 
   keyDownFunction(event) {
     if (event.keyCode === 13) {
