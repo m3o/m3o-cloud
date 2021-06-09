@@ -40,4 +40,5 @@ export class AppComponent implements OnInit {
         q: this.search,
       },
     });
+  }
 }
