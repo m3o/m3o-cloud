@@ -19,6 +19,26 @@
       </button>
       <span id="logo" class="hover" routerLink="/">Micro</span>&nbsp;
       <sup style="font-size: 0.8em; color: #dd4814; padding: 5px; margin: 0">Beta</sup>
+
+      <span style="padding: 10px;">
+        <mat-form-field style="width: 100%; padding: 0;" appearance="outline">
+          <input
+            matInput
+            style="color: #444; border-color: #444"
+            placeholder="Search for APIs"
+            [(ngModel)]="search"
+            (keydown)="keyDownFunction($event)"
+          /><button
+            (click)="submit()"
+            mat-button
+            matSuffix
+            style="position: relative; top: -8px"
+          >
+            Search
+          </button>
+        </mat-form-field>
+      </span>
+
       <span class="menu-spacer"></span>
       <div style="padding-top: 4px" fxShow="true" fxHide.lt-md>
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
