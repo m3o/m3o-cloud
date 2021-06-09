@@ -20,19 +20,19 @@
       <span id="logo" class="hover" routerLink="/">Micro</span>&nbsp;
       <sup style="font-size: 0.8em; color: #dd4814; padding: 5px; margin: 0">Beta</sup>
 
-      <span style="padding: 10px;">
-        <mat-form-field style="width: 100%; padding: 0;" appearance="outline">
+      <span style="padding-left: 1em;" *ngIf=>
+        <mat-form-field appearance="standard" style="width: 100%; padding: 0;">
           <input
             matInput
-            style="color: #444; border-color: #444"
+            style="color: #444; font-size: 0.8em;"
             placeholder="Search for APIs"
             [(ngModel)]="search"
             (keydown)="keyDownFunction($event)"
-          /><button
+          />&nbsp;<button
             (click)="submit()"
             mat-button
             matSuffix
-            style="position: relative; top: -8px"
+            style="position: relative; top: -8px; background-color: whitesmoke;"
           >
             Search
           </button>
