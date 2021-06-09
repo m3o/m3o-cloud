@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UserService } from './user.service';
+import { Router } from '@angular/router';
 import * as types from './types';
 
 @Component({
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit {
   user: types.Account;
   search: string;
 
-  constructor(public us: UserService) {}
+  constructor(public us: UserService, private router: Router) {}
 
   ngOnInit() {
     this.user = this.us.user;
