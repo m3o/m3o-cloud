@@ -11,6 +11,7 @@ import * as types from './types';
 export class AppComponent implements OnInit {
   title = 'micro';
   user: types.Account;
+  search: string;
 
   constructor(public us: UserService) {}
 
@@ -24,4 +25,18 @@ export class AppComponent implements OnInit {
   goToTeam() {
     window.location.replace('team url???');
   }
+
+
+  keyDownFunction(event) {
+    if (event.keyCode === 13) {
+      this.submit();
+    }
+  }
+
+  submit() {
+    this.router.navigate(['/explore'], {
+      queryParams: {
+        q: this.search,
+      },
+    });
 }
