@@ -1,32 +1,35 @@
 <div style="padding-bottom: 2em; margin: auto">
-  <div style="margin: 1em 0" fxLayoutGap="2em" fxLayout="row">
-    <div fxFlex="49%" fxFlex.lt-md="100%" style="padding-top: 1em">
-      <h2><b>Discover public APIs built for developers</b></h2>
-      <h2 class="mat-headline" style="font-size: 2em; font-weight: 700">
-        Explore, search and use APIs all in one place.
-      </h2>
-      <br />
-      <mat-form-field style="width: 100%" appearance="outline">
-        <input
-          matInput
-          style="color: #444; border-color: #444"
-          placeholder="Search for APIs"
-          [(ngModel)]="search"
-          (keydown)="keyDownFunction($event)"
-        /><button
-          (click)="submit()"
-          mat-button
-          matSuffix
-          style="position: relative; top: -8px"
-        >
-          Search
-        </button>
-      </mat-form-field>
+  <div style="margin: 1em 0" fxLayoutAlign="space-between" fxLayout="row wrap">
+    <div fxFlex="100%" fxFlex.lt-md="100%" style="margin-top: 2em">
+      <div fxLayoutAlign="space-between" fxLayout="row wrap">
+        <div fxFlex="49%" fxFlex.lt-md="100%" style="padding-top: 1em">
+          <h2 class="mat-headline" style="font-size: 3.5em; font-weight: 700; line-height: 1em;">
+            Programming<br>The Real World
+          </h2>
+          <h2>
+            Micro is a new kind of cloud platform. One that focuses on the needs of developers. 
+            We provide backend services consumable as simpler APIs for faster development of products and services.
+          </h2>
+          <div><br>👇 Learn More</div>
+        </div>
+        <br>&nbsp;
+        <div fxFlex="49%" fxFlex.lt-md="100%" style="padding-top: 1em; border: 1px solid; border-radius: 5px; text-align: center;">
+          <h2 class="mat-headline" style="font-size: 1.5em; font-weight: 700; line-height: 1em; padding-top: 1em;">
+            Start using Micro now
+          </h2>
+          <p><a routerLink="/register">Signup</a> for a free account today</p>
+          <p> Get $5 credit to get started.</p>
+          <br>
+          <p><a routerLink="/explore">Explore</a> our cloud services</p>
+          <p>Build apps at lightning speed!</p>
+          <br />
+        </div>
+      </div>
     </div>
   </div>
 
   <br />
-  <div style="margin: 1em 0" fxLayoutAlign="space-between" fxLayout="row wrap">
+  <div style="margin: 10em 0 0 0" fxLayoutAlign="space-between" fxLayout="row wrap">
     <div fxFlex="32%" fxFlex.lt-md="100%"></div>
     <div fxFlex="32%" fxFlex.lt-md="100%">
       <h2 class="mat-headline" style="font-size: 2em; text-align: center;">
@@ -41,8 +44,6 @@
     <app-search-result-grid *ngIf="loading == false" [services]="services">
     </app-search-result-grid>
     <div><a routerLink="/explore">Explore all &rarr;</a></div>
-    <div><br><p>👇 Learn More</p>
-  </div>
   <div *ngIf="loading" style="text-align: center">Loading...</div>
 
   <br />
@@ -73,6 +74,8 @@
         <p>$1 for 10k requests<p>
       </div>
     </div>
+
+    <br>&nbsp;
 
     <div fxFlex="66%" fxFlex.lt-md="100%">
       <div fxLayoutAlign="space-between" fxLayout="row wrap">
@@ -157,7 +160,7 @@
           </p><br>
 	  <p>Micro (aka M3O) was built with this in mind. To help developers 10x without dealing with the likes 
           of AWS. If you're interested to learn more, register and try it out now.</p><br>
-          <a routerLink="/register" mat-raised-button color="primary">Signup</a>
+          <a routerLink="/register" mat-raised-button color="primary">Signup for Free</a>
         </div>
       </div>
     </div>

@@ -19,50 +19,39 @@
       </button>
       <span id="logo" class="hover" routerLink="/">Micro</span>&nbsp;
       <sup style="font-size: 0.8em; color: #dd4814; padding: 5px; margin: 0">Beta</sup>
-      <span class="menu-spacer"></span>
-      <div style="padding-top: 4px" fxShow="true" fxHide.lt-md>
-        <!-- The following menu items will be hidden on both SM and XS screen sizes -->
 
-        <!-- <a *ngIf="user && user.name" routerLink="/services" mat-button
-          >Services</a
-        > -->
-        <!-- <a *ngIf="user && user.name" routerLink="/status" mat-button>Status</a> -->
-        <!-- <a *ngIf="user && user.name" routerLink="/events" mat-button>Events</a> -->
-        <!-- <a *ngIf="user && user.name" routerLink="/apis" mat-button>APIs</a> -->
-        <span *ngIf="!us.loggedIn() || !user || !user.name" style="vertical-align: bottom; font-size: 0.9em;">
-          <a routerLink="/register">Signup</a> now and get $5 free credit to start
-        </span>
-
-        &nbsp;
-        <!-- <button
-          mat-stroked-button
-          color="primary"
-          [matMenuTriggerFor]="new"
-          aria-label="Example icon-button with a menu"
-          *ngIf="user && user.name"
-          style="padding: 0; width: 40px; min-width: 40px"
-        >
-          <mat-icon>add</mat-icon>
-        </button>
-      -->
-
-        <mat-menu id="new" #new="matMenu">
-          <!-- <button
-            *ngIf="user && user.name"
-            routerLink="/service/new"
-            mat-menu-item
+      <div fxShow="true" fxHide.lt-md style="font-size: 0.7em; padding-top: 10px;" *ngIf="this.currentURL() != '/explore'">
+        <mat-form-field style="width: 100%; padding-left: 2em;" appearance="outline">
+          <input
+            matInput
+            style="color: #444; border-color: #444"
+            placeholder="Search for APIs"
+            [(ngModel)]="search"
+            (keydown)="keyDownFunction($event)"
+          /><button
+            (click)="submit()"
+            mat-button
+            matSuffix
+            mat-stroked-button
+            style="position: relative; top: -8px"
           >
-            <mat-icon>folder_open</mat-icon>
-            <span>New Service</span>
-          </button> -->
+            Search
+          </button>
+        </mat-form-field>
+      </div>
 
+      <span class="menu-spacer"></span>
+
+      <div style="padding-top: 4px" fxShow="true" fxHide.lt-md>
+
+        <mat-menu id="new" #new="matMenu" style="float: right">
           <button *ngIf="user && user.name" mat-menu-item disabled>
             <mat-icon>access_time</mat-icon>
             <span>New Namespace</span>
           </button>
         </mat-menu>
 
-        &nbsp;
+        &nbsp;<a routerLink="/explore">Explore</a>&nbsp;
 
         <mat-menu id="matmenu" #menu="matMenu">
           <button
@@ -83,25 +72,7 @@
             />
             <span style="font-weight: 700">{{ user.teamName }}</span>
           </button>
-          <!-- <span
-            style="
-              font-size: small;
-              display: block;
-              padding: 5px 15px 5px 15px;
-              color: grey;
-            "
-            >Namespaces</span
-          > 
-          <button
-            class="namespace"
-            id="namespace"
-            mat-flat-button
-            style="font-weight: 800; cursor: arrow"
-          >
-            {{ us.namespace() }}
-          </button>
-          <mat-divider></mat-divider>
-          -->
+
           <button
             class="usage"
             id="usage"
@@ -198,50 +169,25 @@
           {{ user.name }}
         </div>
         <div>
-          <a (click)="sidenav.toggle()" mat-list-item
-            ><mat-icon style="margin-right: 0.15em">close</mat-icon>Close</a
-          >
+          <mat-form-field style="padding-left: 1em;">
+            <input
+              matInput
+              style="color: #444; font-size: 0.8em; line-height: 0"
+              placeholder="Search for APIs"
+              [(ngModel)]="search"
+              (keydown)="keyDownFunction($event)"
+            />
+          </mat-form-field>
         </div>
-        <!--
-        <div *ngIf="user && user.teamName && user.teamUrl">
-          <a mat-list-item (click)="goToTeam()"
-            ><img
-              *ngIf="user.organizationAvatarUrl"
-              style="
-                vertical-align: middle;
-                margin-right: 0.5em;
-                border-radius: 3px;
-                height: 2em;
-                width: 2em;
-              "
-              src="{{ user.organizationAvatarUrl }}"
-            />{{ user.teamName }}</a
-          >
+
+        <div>
+          <a routerLink="/explore" (click)="sidenav.toggle()" mat-list-item>
+            Explore
+          </a>
         </div>
-        <div *ngIf="user && user.name">
-          <a mat-list-item (click)="sidenav.toggle()" routerLink="/service/new"
-            >New Service</a
-          >
-        </div>
-        <div *ngIf="user && user.name">
-          <a mat-list-item (click)="sidenav.toggle()" routerLink="/services"
-            >Services</a
-          >
-        </div>
-        <div *ngIf="user && user.name">
-          <a mat-list-item (click)="sidenav.toggle()" routerLink="/status"
-            >Status</a
-          >
-        </div>
-        <div *ngIf="user && user.name">
-          <a mat-list-item (click)="sidenav.toggle()" routerLink="/apis"
-            >APIs</a
-          >
-        </div>
-      -->
         <div *ngIf="!(user && user.name)">
           <a routerLink="/login" (click)="sidenav.toggle()" mat-list-item
-            >Log in</a
+            >Login</a
           >
         </div>
         <div *ngIf="!(user && user.name)">
