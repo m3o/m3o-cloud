@@ -23,8 +23,10 @@
       <div fxShow="true" fxHide.lt-md style="font-size: 0.7em; padding-top: 10px;" *ngIf="this.currentURL() != '/explore'">
         <mat-form-field style="width: 100%; padding-left: 2em;" appearance="outline">
           <input
+            appearance="standard"
+            autocomplete=off
             matInput
-            style="color: #444; border-color: #444"
+            style="color: #444;"
             placeholder="Search for APIs"
             [(ngModel)]="search"
             (keydown)="keyDownFunction($event)"
@@ -51,7 +53,7 @@
           </button>
         </mat-menu>
 
-        &nbsp;<a routerLink="/explore">Explore</a>&nbsp;
+        &nbsp;<a routerLink="/explore" style="color: #444; font-size: 0.8em; margin-right: 1em;">Explore</a>&nbsp;
 
         <mat-menu id="matmenu" #menu="matMenu">
           <button
@@ -149,7 +151,7 @@
   </mat-toolbar>
 
   <mat-sidenav-container>
-    <mat-sidenav style="width: 66%" #sidenav>
+    <mat-sidenav style="width: 66%" #sidenav autoFocus=false>
       <mat-nav-list>
         <div
           *ngIf="user && user.teamName"
@@ -172,6 +174,7 @@
           <mat-form-field style="padding-left: 1em;">
             <input
               matInput
+              autocomplete=off
               style="color: #444; font-size: 0.8em; line-height: 0"
               placeholder="Search for APIs"
               [(ngModel)]="search"
