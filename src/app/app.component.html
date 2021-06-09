@@ -20,61 +20,22 @@
       <span id="logo" class="hover" routerLink="/">Micro</span>&nbsp;
       <sup style="font-size: 0.8em; color: #dd4814; padding: 5px; margin: 0">Beta</sup>
 
+      <mat-form-field appearance="standard" style="padding-left: 1em;">
+        <input
+          matInput
+          style="color: #444; font-size: 0.8em; line-height: 1.5em;"
+          placeholder="Search for APIs"
+          [(ngModel)]="search"
+          (keydown)="keyDownFunction($event)"
+        />&nbsp;
+        <mat-icon (click)="submit()">search</mat-icon>
+      </mat-form-field>
+
       <span class="menu-spacer"></span>
 
       <div style="padding-top: 4px" fxShow="true" fxHide.lt-md>
-        <span style="padding-left: 1em;">
-          <mat-form-field appearance="standard" style="width: 100%; padding: 0;">
-            <input
-              matInput
-              style="color: #444; font-size: 0.8em; line-height: 1.5em;"
-              placeholder="Search for APIs"
-              [(ngModel)]="search"
-              (keydown)="keyDownFunction($event)"
-            />&nbsp;<button
-              (click)="submit()"
-              mat-button
-              matSuffix
-              style="position: relative; top: -8px; background-color: whitesmoke;"
-            >
-              Search
-            </button>
-          </mat-form-field>
-        </span>
-
-        <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-
-        <!-- <a *ngIf="user && user.name" routerLink="/services" mat-button
-          >Services</a
-        > -->
-        <!-- <a *ngIf="user && user.name" routerLink="/status" mat-button>Status</a> -->
-        <!-- <a *ngIf="user && user.name" routerLink="/events" mat-button>Events</a> -->
-        <!-- <a *ngIf="user && user.name" routerLink="/apis" mat-button>APIs</a> -->
-        <a routerLink="/explore">Explore</a>
-
-        &nbsp;
-        <!-- <button
-          mat-stroked-button
-          color="primary"
-          [matMenuTriggerFor]="new"
-          aria-label="Example icon-button with a menu"
-          *ngIf="user && user.name"
-          style="padding: 0; width: 40px; min-width: 40px"
-        >
-          <mat-icon>add</mat-icon>
-        </button>
-      -->
 
         <mat-menu id="new" #new="matMenu">
-          <!-- <button
-            *ngIf="user && user.name"
-            routerLink="/service/new"
-            mat-menu-item
-          >
-            <mat-icon>folder_open</mat-icon>
-            <span>New Service</span>
-          </button> -->
-
           <button *ngIf="user && user.name" mat-menu-item disabled>
             <mat-icon>access_time</mat-icon>
             <span>New Namespace</span>
@@ -177,6 +138,10 @@
             {{ user.name }}
             <mat-icon>keyboard_arrow_down</mat-icon>
           </button>
+
+          <a routerLink="/explore">Explore</a>
+
+          &nbsp;
 
           <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
             <a routerLink="/login" color="secondary" mat-raised-button>Login</a>
