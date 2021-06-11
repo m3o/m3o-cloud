@@ -29,25 +29,12 @@ export class SearchPageComponent implements OnInit {
 
   keyDownFunction(event) {
     if (event.keyCode === 13) {
-      this.submit();
+      this.searchResults()
     }
   }
 
-  submit() {
-    this.loading = true;
-    this.router.navigate(['/explore'], {
-      queryParams: {
-        q: this.search,
-      },
-    });
-  }
-
-  private executeListing(value: string) {
-    this.loading = true;
-    this.searchResults();
-  }
-
   searchResults() {
+    this.loading = true;
     this.exp
       .search(this.search)
       .then((ss) => {
