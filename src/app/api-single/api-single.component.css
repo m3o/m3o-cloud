@@ -95,3 +95,10 @@ h2 a {
   background: #C8CACB;
   color: #ffffff;
 }
+.mat-card .stream {
+  float: right;
+  font-size: 0.8em;
+  padding: 5px;
+  background: #3898ec;
+  color: #ffffff;
+}

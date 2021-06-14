@@ -123,6 +123,7 @@
                     </div>
                   </mat-tab>
                   <mat-tab label="Response">
+                    <mat-card *ngIf="pathIsResponseStream(path.value)" class="mat-card-flat stream">stream</mat-card>
                     <div>
                       <table class="params">
                         <div

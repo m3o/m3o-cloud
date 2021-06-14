@@ -428,6 +428,16 @@ func main() {
 
   code: string = '{}';
 
+  pathIsResponseStream(path: openapi.PathItemObject): boolean {
+    if (path === undefined || path.post === undefined || path.post.responses === undefined) {
+      return false;
+    }
+    if (path.post.responses["stream"] != undefined) {
+      return true;
+    }
+    return false;
+  }
+
   pathToRequestSchema(path: string): openapi.SchemaObject {
     let paths = path.split('/');
     let endpointName = paths[paths.length - 1];
