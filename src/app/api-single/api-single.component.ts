@@ -306,10 +306,27 @@ new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
     request: openapi.SchemaObject,
     response: openapi.SchemaObject
   ): string {
+    if (stream != true) {
+      return (
+        `curl "https://api.m3o.com/v1/` +this.serviceName+`/`+this.lastPart(path)+`" \\
+-XPOST -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" \\
+-D '` + this.schemaToJSON(request) +
+        `'`
+      );
+    }
+
     return (
-      `curl "https://api.m3o.com/v1/` +this.serviceName+`/`+this.lastPart(path)+`" -XPOST -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" -D '` +
-      this.schemaToJSON(request) +
-      `'`
+        `curl "https://api.m3o.com/v1/` +this.serviceName+`/`+this.lastPart(path)+`" \\
+--include \\
+--no-buffer \\
+--header "Connection: Upgrade" \\
+--header "Upgrade: websocket" \\
+--header "Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ==" \\
+--header "Sec-WebSocket-Version: 13" \\
+-XPOST -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" \\
+-H 'Content-Type: application/json' 
+-D '` + this.schemaToJSON(request) +
+        `'`
     );
   }
 
