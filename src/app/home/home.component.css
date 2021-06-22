@@ -23,3 +23,8 @@
 .mat-cell {
   font-size: 1em;
 }
+.images img {
+  height: 50px;
+  width: auto;
+  padding-right: 25px;
+}
