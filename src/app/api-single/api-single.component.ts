@@ -233,33 +233,37 @@ export class ApiSingleComponent implements OnInit {
       }
       return '';
     };
-    return JSON.stringify(recur(schema), null, 2);
+    return JSON.stringify(recur(schema), null, 4);
   }
 
   example(
     path: string,
+    stream: boolean,
     request: openapi.SchemaObject,
     response: openapi.SchemaObject,
     language: string
   ): string {
     switch (language) {
       case 'go':
-        return this.exampleGo(path, request, response);
+        return this.exampleGo(path, stream, request, response);
       case 'node':
-        return this.exampleNode(path, request, response);
+        return this.exampleNode(path, stream, request, response);
       case 'curl':
-        return this.exampleCurl(path, request, response);
+        return this.exampleCurl(path, stream, request, response);
     }
     return '';
   }
 
   exampleNode(
     path: string,
+    stream: boolean,
     request: openapi.SchemaObject,
     response: openapi.SchemaObject
   ): string {
-    return (
-      `// npm install --save @m3o/m3o-node 
+
+    if (stream != true) {
+      return (
+        `// npm install --save @m3o/m3o-node 
 const m3o = require('@m3o/m3o-node');
 
 new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
@@ -273,55 +277,136 @@ new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
   .then((response) => {
     console.log(response);
 });`
+)
+    }
+
+    return (
+      `// npm install --save @m3o/m3o-node
+const m3o = require('@m3o/m3o-node');
+
+new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
+  .stream('` +
+      this.serviceName +
+      `', '` +
+      this.lastPart(path) +
+      `', ` +
+      this.schemaToJSON(request) +
+      `)
+  .then(stream => {
+    stream.recv(msg => { console.log(msg) };
+  })
+);`
+
     );
   }
 
   exampleCurl(
     path: string,
+    stream: boolean,
     request: openapi.SchemaObject,
     response: openapi.SchemaObject
   ): string {
+    if (stream != true) {
+      return (
+        `curl "https://api.m3o.com/v1/` +this.serviceName+`/`+this.lastPart(path)+`" \\
+-XPOST -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" \\
+-D '` + this.schemaToJSON(request) +
+        `'`
+      );
+    }
+
     return (
-      `curl "https://api.m3o.com/v1/` +this.serviceName+`/`+this.lastPart(path)+`" -XPOST -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" -D '` +
-      this.schemaToJSON(request) +
-      `'`
+        `curl "https://api.m3o.com/v1/` +this.serviceName+`/`+this.lastPart(path)+`" \\
+--include \\
+--no-buffer \\
+--header "Connection: Upgrade" \\
+--header "Upgrade: websocket" \\
+--header "Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ==" \\
+--header "Sec-WebSocket-Version: 13" \\
+-XPOST -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" \\
+-H 'Content-Type: application/json' 
+-D '` + this.schemaToJSON(request) +
+        `'`
     );
   }
 
   exampleGo(
     path: string,
+    stream: boolean,
     request: openapi.SchemaObject,
     response: openapi.SchemaObject
   ): string {
-    return (
-      `package main
+
+    if (stream != true) {
+      return (
+        `package main
 
 import (
-  "fmt"
-  "github.com/m3o/m3o-go/client"
+	"fmt"
+
+	"github.com/m3o/m3o-go/client"
 )
     
 func main() {
-  c := client.NewClient(&client.Options{
-    Token: "INSERT_YOUR_TOKEN_HERE",
-  })
+	c := client.NewClient(&client.Options{
+		Token: "INSERT_YOUR_TOKEN_HERE",
+	})
 
-  req := ` +
+	req := ` +
       this.schemaToGoMap(request) +
       `
-  var rsp map[string]interface{}
+	var rsp map[string]interface{}
 
-  if err := c.Call("` +
+	if err := c.Call("` +
+		this.serviceName +
+	`", "` +
+		this.lastPart(path) +
+	`", req, &rsp); err != nil {
+		fmt.Println(err)
+		return
+	}
+}`
+      );
+    }
+
+    return (
+        `package main
+
+import (
+	"fmt"
+
+	"github.com/m3o/m3o-go/client"
+)
+    
+func main() {
+	c := client.NewClient(&client.Options{
+		Token: "INSERT_YOUR_TOKEN_HERE",
+	})
+
+	req := ` +
+      this.schemaToGoMap(request) +
+      `
+	stream, err := c.Stream("` +
       this.serviceName +
       `", "` +
       this.lastPart(path) +
-      `", req, &rsp); err != nil {
-    fmt.Println(err)
-    return
-  }
+      `", req)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	for {
+		var rsp map[string]interface{}
+		if err := stream.Recv(&rsp); err != nil {
+			return
+		}
+		fmt.Println(rsp)
+	}
 }`
     );
   }
+
   exampleLanguage = 'node';
 
   // this is an unfinished method to convert
@@ -335,7 +420,7 @@ func main() {
 
           for (let key in schema.properties) {
             ret +=
-              prefix.repeat(level + 1) +
+              prefix.repeat(level + 8) +
               '"' +
               key +
               '"' +
@@ -343,7 +428,7 @@ func main() {
               recur(schema.properties[key], level + 1) +
               ',\n';
           }
-          ret += prefix.repeat(level) + '}';
+          ret += prefix.repeat(level + 4) + '}';
           if (level > 1) {
             ret += ',\n';
           } else {
@@ -385,7 +470,8 @@ func main() {
       }
       return '';
     };
-    return recur(schema, 1);
+
+    return recur(schema, 0);
   }
 
   endpointOf(path: string): types.Endpoint {
@@ -427,6 +513,16 @@ func main() {
   }
 
   code: string = '{}';
+
+  pathIsResponseStream(path: openapi.PathItemObject): boolean {
+    if (path === undefined || path.post === undefined || path.post.responses === undefined) {
+      return false;
+    }
+    if (path.post.responses["stream"] != undefined) {
+      return true;
+    }
+    return false;
+  }
 
   pathToRequestSchema(path: string): openapi.SchemaObject {
     let paths = path.split('/');
