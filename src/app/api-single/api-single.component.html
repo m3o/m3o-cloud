@@ -160,13 +160,16 @@
                     </mat-form-field>
                     <pre
                       *ngIf="exampleLanguage == 'node'"
-                    ><code class="example" language="'javascript'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'node')"></code></pre>
+                    ><code class="example" language="'javascript'" 
+			[highlight]="example(path.key, pathIsResponseStream(path.value), pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'node')"></code></pre>
                     <pre
                       *ngIf="exampleLanguage == 'go'"
-                    ><code class="example" language="'go'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'go')"></code></pre>
+                    ><code class="example" language="'go'" 
+			[highlight]="example(path.key, pathIsResponseStream(path.value), pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'go')"></code></pre>
                     <pre
                       *ngIf="exampleLanguage == 'curl'"
-                    ><code class="example" language="'shell'" [highlight]="example(path.key, pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'curl')"></code></pre>
+                    ><code class="example" language="'shell'" 
+			[highlight]="example(path.key, pathIsResponseStream(path.value), pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'curl')"></code></pre>
                   </mat-tab>
                 </mat-tab-group>
                 <div *ngIf="examples[lastPart(path.key).toLowerCase()]">
