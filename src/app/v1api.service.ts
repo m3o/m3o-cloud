@@ -111,12 +111,12 @@ export class V1ApiService {
   }
 
   // revokeKey deletes the given key
-  revokeKey(key: types.APIKey): Promise<void> {
+  revokeKey(key: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       return this.http
         .post<void>(
           environment.apiUrl + '/v1/api/keys/revoke',
-          { id: key.id },
+          { id: key },
           {
             headers: {
               'Micro-Namespace': 'micro',
