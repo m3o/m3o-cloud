@@ -6,6 +6,7 @@ import { environment } from '../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { V1ApiService } from './v1api.service';
 
 interface ReadUserResponse {
   user: types.Account;
@@ -48,7 +49,8 @@ export class UserService {
     private http: HttpClient,
     private cookie: CookieService,
     private notif: ToastrService,
-    private router: Router
+    private router: Router,
+    private v1api: V1ApiService
   ) {
     this.get()
       .then((user) => {
@@ -73,6 +75,7 @@ export class UserService {
     this.cookie.set('micro_token', '', 30, '/', null, null, null);
     this.cookie.set('micro_refresh', '', 30, '/', null, null, null);
     this.cookie.set('micro_expiry', '', 30, '/', null, null, null);
+    this.v1api.revokeKey(this.cookie.get('micro_api_token'));
     this.cookie.set('micro_api_token', '', 30, '/', null, null, null);
     document.location.href = '/login';
   }
@@ -255,58 +258,59 @@ export class UserService {
     verificationCode: string
   ): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-        return this.http
-          .post<CompleteSignupResponse>(
-            environment.apiUrl + '/onboarding/signup/CompleteSignup',
-            {
-              email: email,
-              token: verificationCode,
-              secret: password,
-            }
-          )
-          .toPromise()
-          .then((resp) => {
-            const tok = resp.authToken;
-            this.cookie.set(
-              'micro_token',
-              tok.access_token,
-              30,
-              '/',
-              null,
-              null,
-              null
-            );
-            this.cookie.set(
-              'micro_refresh',
-              tok.refresh_token,
-              30,
-              '/',
-              null,
-              null,
-              null
-            );
-            this.cookie.set(
-              'micro_expiry',
-              tok.expiry,
-              30,
-              '/',
-              null,
-              null,
-              null
-            );
-            this.cookie.set(
-              'micro_namespace',
-              resp.namespace,
-              30,
-              '/',
-              null,
-              null,
-              null
-            );
-            resolve();
-          }).catch((e) => {
-            reject(e);
-          });
+      return this.http
+        .post<CompleteSignupResponse>(
+          environment.apiUrl + '/onboarding/signup/CompleteSignup',
+          {
+            email: email,
+            token: verificationCode,
+            secret: password,
+          }
+        )
+        .toPromise()
+        .then((resp) => {
+          const tok = resp.authToken;
+          this.cookie.set(
+            'micro_token',
+            tok.access_token,
+            30,
+            '/',
+            null,
+            null,
+            null
+          );
+          this.cookie.set(
+            'micro_refresh',
+            tok.refresh_token,
+            30,
+            '/',
+            null,
+            null,
+            null
+          );
+          this.cookie.set(
+            'micro_expiry',
+            tok.expiry,
+            30,
+            '/',
+            null,
+            null,
+            null
+          );
+          this.cookie.set(
+            'micro_namespace',
+            resp.namespace,
+            30,
+            '/',
+            null,
+            null,
+            null
+          );
+          resolve();
+        })
+        .catch((e) => {
+          reject(e);
+        });
     });
   }
 

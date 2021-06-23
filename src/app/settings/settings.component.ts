@@ -49,7 +49,7 @@ export class SettingsComponent implements OnInit {
       return;
     }
     this.v1api
-      .revokeKey(key)
+      .revokeKey(key.id)
       .then((v) => {
         this.listKeys();
       })
