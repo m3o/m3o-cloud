@@ -21,8 +21,6 @@ export class SettingsComponent implements OnInit {
   }
   public keys: types.APIKey[] = [] as types.APIKey[];
 
-  languages = ['bash'];
-
   ngOnInit() {
     this.listKeys();
   }
@@ -100,7 +98,6 @@ export class CreateKeyDialogComponent {
   public form: FormGroup;
   public scopes = [] as string[];
   public scopesForm = new FormControl();
-
 
   constructor(
     public dialogRef: MatDialogRef<CreateKeyDialogComponent>,
