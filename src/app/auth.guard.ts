@@ -27,6 +27,7 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     if (this.us.loggedIn()) {
+      this.us.refresh();
       return true;
     }
     return new Observable<boolean>(observer => {
