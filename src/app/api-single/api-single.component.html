@@ -183,12 +183,12 @@
                     "
                   >
                     <h3>
-                      <span *ngIf="!example.expanded">&#x25BA;</span
-                      ><span *ngIf="example.expanded">&#x25BC;</span>
                       <a
                         class="json-switcher"
                         (click)="example.expanded = !example.expanded"
                       >
+                        <span *ngIf="!example.expanded">&#x25BA;</span
+                        ><span *ngIf="example.expanded">&#x25BC;</span>
                         {{ example.title }}</a
                       >
                     </h3>

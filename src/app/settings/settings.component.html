@@ -7,17 +7,21 @@
     <br />
     <mat-card style="margin-bottom: 1em; margin: 0 auto; background: #fcfcfc">
       <mat-card-title>API Usage</mat-card-title>
-      <mat-card-subtitle
-        >To use an API key simply pass in a "Authorization: Bearer" header to the
-        Micro API.</mat-card-subtitle
-      >
-      <mat-card-content
-        ><div style="background: whitesmoke; border-radius: 5px; padding: 0.5em">
-          curl -H 'Authorization: Bearer $KEY' https://api.m3o.com/v1/&#123;service&#125;/&#123;endpoint&#125;
-        </div></mat-card-content
-      >
+      <mat-card>
+        <mat-card-content>
+          <p>To use an API key simply pass as the "Authorization" header in the HTTP request to the
+            Micro API. Note, we use the "Bearer" authentication scheme so you should prefix the API key with <code>Bearer </code></p><br/>
+          <div style="background: whitesmoke; border-radius: 5px; padding: 0.5em">
+            <code>curl -H 'Authorization: Bearer $KEY' https://api.m3o.com/v1/&#123;service&#125;/&#123;endpoint&#125;</code>
+          </div>
+          <br/>
+          <p>API keys should be kept secret; you should avoid embedding the API key in your frontend code, otherwise it can be reused by others
+            without your knowledge. An example of how to hide your key behind a Netlify (or Vercel) function can be found <a href="https://github.com/m3o/examples/tree/main/m3o-netlify-functions-example">here</a>.</p>
+          <br/>
+        </mat-card-content>
+
+      </mat-card>
     </mat-card>
-    <br/>
     <mat-card >
       <mat-card-title>API Keys</mat-card-title>
 
