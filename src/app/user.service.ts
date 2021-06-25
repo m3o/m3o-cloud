@@ -44,6 +44,7 @@ interface CompleteSignupResponse {
 export class UserService {
   public user: types.Account = {} as types.Account;
   public isUserLoggedIn = new Subject<boolean>();
+  private refreshing = false;
 
   constructor(
     private http: HttpClient,
@@ -65,7 +66,7 @@ export class UserService {
   }
 
   loggedIn(): boolean {
-    return this.user && this.user.name != undefined;
+    return this.user && this.user.name !== undefined;
   }
 
   logout() {
@@ -317,15 +318,17 @@ export class UserService {
   refresh(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       var expiry = parseInt(this.cookie.get('micro_expiry')) * 1000;
-      if (expiry - Date.now() > 60 * 1000) {
+      if (this.refreshing || expiry - Date.now() > 60 * 1000) {
         return resolve();
       }
+      this.refreshing = true;
       return this.http
         .post<TokenResponse>(environment.apiUrl + '/auth/Auth/Token', {
           refresh_token: this.cookie.get('micro_refresh'),
           options: {
             namespace: this.namespace(),
           },
+          token_expiry: 30 * 24 * 3600,
         })
         .toPromise()
         .then((tokenResponse) => {
@@ -358,9 +361,11 @@ export class UserService {
             null,
             null
           );
+          this.refreshing = false;
           resolve();
         })
         .catch((e) => {
+          this.refreshing = false;
           reject(e);
         });
     });
