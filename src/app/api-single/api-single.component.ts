@@ -131,7 +131,7 @@ export class ApiSingleComponent implements OnInit {
 
     let p: number = Number(price);
 
-    return "$" + (p / 10000) + " per request";
+    return "$" + (p / 1000000) + " per request";
   }
 
   formatName(name: string): string {

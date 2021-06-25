@@ -62,7 +62,7 @@
             <mat-card-subtitle *ngIf="!this.adjustments || this.adjustments.length == 0">No previous payments</mat-card-subtitle>
             <mat-list *ngIf="this.adjustments && this.adjustments.length > 0">
                 <mat-list-item *ngFor="let adjustment of this.adjustments" >
-                    <h3 mat-line>{{ adjustment.delta / 10000 | currency : 'USD' }} {{ adjustment.reference }}</h3>
+                    <h3 mat-line>{{ adjustment.delta / 1000000 | currency : 'USD' }} {{ adjustment.reference }}</h3>
                     <p mat-line>{{ adjustment.created * 1000 | date: 'HH:mm:ss, yyyy-MM-dd' }}</p>
                     <mat-icon mat-list-icon>paid</mat-icon>
                     <button *ngIf="adjustment.meta && adjustment.meta.receipt_url" mat-raised-button color="accent" (click)="viewReceipt(adjustment)">View receipt <mat-icon>open_in_new</mat-icon></button>
