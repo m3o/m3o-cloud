@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { UserService } from './user.service';
-import { Router } from '@angular/router';
 import * as types from './types';
+import { Router } from '@angular/router';
+import { TrackingService } from './tracking.service';
 
 @Component({
   selector: 'app-root',
@@ -14,13 +16,20 @@ export class AppComponent implements OnInit {
   user: types.Account;
   search: string;
 
-  constructor(public us: UserService, private router: Router) {}
+  constructor(
+    private cs: CookieService,
+    private us: UserService,
+    private router: Router,
+    private ts: TrackingService
+  ) {}
 
   ngOnInit() {
     this.user = this.us.user;
     this.us.isUserLoggedIn.subscribe(() => {
       this.user = this.us.user;
     });
+
+    this.ts.trackFirstVisit()
   }
 
   goToTeam() {

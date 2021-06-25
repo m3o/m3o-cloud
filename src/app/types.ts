@@ -127,6 +127,15 @@ export interface Event {
   service: EventService;
 }
 
+export interface Track {
+  id: string;
+  email?: string;
+  firstVisit?: number;
+  firstVerification?: number;
+  registration?: number;
+  referrer?: string;
+}
+
 export interface APIKey {
   id: string;
   description: string;

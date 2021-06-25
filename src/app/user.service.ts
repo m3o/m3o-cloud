@@ -253,6 +253,23 @@ export class UserService {
     });
   }
 
+  track(t: types.Track): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      return this.http
+        .post<TokenResponse>(
+          environment.apiUrl + '/onboarding/signup/Track',
+          t
+        )
+        .toPromise()
+        .then((userResponse) => {
+          resolve();
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  }
+
   verify(
     email: string,
     password: string,
