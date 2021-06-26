@@ -11,11 +11,11 @@
       style="padding: 1.5em; border: 1px solid #ddd"
     >
       <mat-card-title
-        ><a routerLink="/{{ service.api.name }}">
-           <span *ngIf="service.api.icon !== undefined && service.api.icon.length > 0" [innerHtml]="service.api.icon +'&nbsp;'"></span>
-           {{  service.api.name }}
+        ><a routerLink="/{{ service.name }}">
+           <span *ngIf="service.icon !== undefined && service.icon.length > 0" [innerHtml]="service.icon +'&nbsp;'"></span>
+           {{  service.name }}
         </a>
-        <mat-card *ngIf="service.api.category !== undefined" class="category mat-card-flat">{{service.api.category}}</mat-card>
+        <mat-card *ngIf="service.category !== undefined" class="category mat-card-flat">{{service.category}}</mat-card>
       </mat-card-title>
       <div
         style="
@@ -37,14 +37,14 @@
           text-overflow: ellipsis;
         "
       >
-        <span *ngFor="let endpoint of service.api.endpoints.slice(0, 3); let i = index;">
+        <span *ngFor="let endpoint of service.endpoints.slice(0, 3); let i = index;">
           <a
             style="color: #888"
-            href="{{ service.api.name }}#{{ endpoint.name.split('.')[1] }}"
+            href="{{ service.name }}#{{ endpoint.name.split('.')[1] }}"
             >{{ formatName(endpoint.name.split('.')[1]) }}&nbsp;
-            <span *ngIf="service.api.endpoints.length > 1 && i < (service.api.endpoints.length - 1) && i < 2 ">&bull;&nbsp;</span>
+            <span *ngIf="service.endpoints.length > 1 && i < (service.endpoints.length - 1) && i < 2 ">&bull;&nbsp;</span>
           </a> </span
-        ><span *ngIf="service.api.endpoints.length > 3"> & more</span>
+        ><span *ngIf="service.endpoints.length > 3"> & more</span>
       </div>
     </mat-card>
   </div>
