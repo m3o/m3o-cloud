@@ -6,7 +6,8 @@ import {
 import { environment } from '../environments/environment';
 import { UserService } from './user.service';
 
-export interface API {
+export interface PublicAPI {
+  name: string;
   description: string;
   open_api_json: string;
   examples_json: string;
@@ -16,8 +17,25 @@ export interface API {
 }
 
 export interface ExploreAPI {
-  detail: types.Service;
-  api: API;
+  name: string;
+  description: string;
+  category: string;
+  icon: string;
+  endpoints: Endpoint[];
+}
+
+export interface API {
+	api: PublicAPI;
+	summary: ExploreAPI;
+}
+
+export interface Endpoint {
+  name: string;
+  // internally defined
+  requestJSON: string;
+  responseJSON: string;
+  requestValue: any;
+  responseValue: any;
 }
 
 export interface IndexResponse {
@@ -29,7 +47,8 @@ export interface SearchResponse {
 }
 
 export interface APIResponse {
-  api: ExploreAPI;
+	api: PublicAPI;
+	summary: ExploreAPI;
 }
 
 @Injectable({
@@ -42,7 +61,7 @@ export class ExploreService {
     return new Promise<ExploreAPI[]>((resolve, reject) => {
       return this.http
         .post<IndexResponse>(
-          environment.apiUrl + '/publicapi/explore/Index', {
+          environment.apiUrl + '/explore/explore/Index', {
             limit: limit ? limit : 0,
             offset: offset ? offset : 0
           },
@@ -63,7 +82,7 @@ export class ExploreService {
     return new Promise<ExploreAPI[]>((resolve, reject) => {
       return this.http
         .post<SearchResponse>(
-          environment.apiUrl + '/publicapi/explore/Search',
+          environment.apiUrl + '/explore/explore/Search',
           {
             search_term: searchTerm,
           },
@@ -80,11 +99,11 @@ export class ExploreService {
     });
   }
 
-  service(name: string): Promise<ExploreAPI> {
-    return new Promise<ExploreAPI>((resolve, reject) => {
+  service(name: string): Promise<API> {
+    return new Promise<API>((resolve, reject) => {
       return this.http
         .post<APIResponse>(
-          environment.apiUrl + '/publicapi/explore/API',
+          environment.apiUrl + '/explore/explore/API',
           {
             name,
           },
@@ -93,7 +112,7 @@ export class ExploreService {
         )
         .toPromise()
         .then((rsp) => {
-          resolve(rsp.api as ExploreAPI);
+          resolve(rsp as API);
         })
         .catch((e) => {
           reject(e);
@@ -109,7 +128,7 @@ export class ExploreService {
     return new Promise<void>((resolve, reject) => {
       return this.http
         .post<SearchResponse>(
-          environment.apiUrl + '/publicapi/publish',
+          environment.apiUrl + '/explore/publish',
           {
             description: readme,
             open_api_json: openAPIJSON,

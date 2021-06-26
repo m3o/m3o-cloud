@@ -8,7 +8,7 @@
           <mat-form-field fxFlex="49%" fxFlex.lt-md="100%" appearance="fill">
             <mat-label>Endpoint</mat-label>
             <mat-select
-              *ngIf="service.detail.endpoints"
+              *ngIf="service.summary.endpoints"
               [(ngModel)]="selectedEndpoint"
               (ngModelChange)="selectEndpoint()"
             >
@@ -19,7 +19,7 @@
                   font-weight: normal;
                   border-top: 1px solid whitesmoke;
                 "
-                *ngFor="let e of service.detail.endpoints"
+                *ngFor="let e of service.summary.endpoints"
               >
                 <span>{{ formatName(e.name) }}</span>
               </mat-option>

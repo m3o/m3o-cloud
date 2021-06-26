@@ -38,7 +38,7 @@ export class SearchPageComponent implements OnInit {
     this.exp
       .search(this.search)
       .then((ss) => {
-        this.services = ss.filter((s) => s.api.description);
+        this.services = ss.filter((s) => s.description);
       })
       .finally(() => {
         this.loading = false;

@@ -84,7 +84,6 @@ import hljs from 'highlight.js';
 import { ApisComponent } from './apis/apis.component';
 import { QuotaService } from './quota.service';
 import { ApiSingleComponent } from './api-single/api-single.component';
-import { ApiEndpointsComponent } from './api-endpoints/api-endpoints.component';
 import { PropertyListerComponent } from './property-lister/property-lister.component';
 import { UsageComponent } from './usage/usage.component';
 import { UsageService } from './usage.service';
@@ -130,7 +129,6 @@ document.defaultView['hljs'] = hljs;
     DialogOverviewExampleDialog,
     ApisComponent,
     ApiSingleComponent,
-    ApiEndpointsComponent,
     PropertyListerComponent,
     UsageComponent,
     PaymentsComponent,

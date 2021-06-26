@@ -23,13 +23,13 @@ export class SearchResultGridComponent implements OnInit {
 
   readme(s: ExploreAPI): string {
     const length = 80;
-    if (!s.api.description) {
+    if (!s.description) {
       return '';
     }
-    var lines = s.api.description.split('\n');
+    var lines = s.description.split('\n');
     if (
       lines.length > 1 &&
-      lines[0].toLocaleLowerCase().startsWith('# ' + s.detail.name)
+      lines[0].toLocaleLowerCase().startsWith('# ' + s.name)
     ) {
       return lines
         .slice(1)

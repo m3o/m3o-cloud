@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     this.exp
       .index(6)
       .then((ss) => {
-        this.services = ss.filter((s) => s.api.description);
+        this.services = ss.filter((s) => s.description);
       })
       .finally(() => {
         this.loading = false;
