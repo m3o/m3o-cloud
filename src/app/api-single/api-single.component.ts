@@ -175,7 +175,7 @@ export class ApiSingleComponent implements OnInit {
   saveSpec() {
     this.ex
       .saveMeta(
-        this.service.detail.name,
+        this.service.api.name,
         this.service.api.description,
         this.service.api.open_api_json
       )
@@ -476,7 +476,7 @@ func main() {
   }
 
   endpointOf(path: string): types.Endpoint {
-    let es = this.service.detail.endpoints.filter((e) => {
+    let es = this.service.summary.endpoints.filter((e) => {
       return e.name.includes(this.lastPart(path));
     });
     if (es.length > 0) {

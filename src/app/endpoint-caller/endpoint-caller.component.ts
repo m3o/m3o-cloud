@@ -110,14 +110,14 @@ export class EndpointCallerComponent implements OnInit {
   regenJSONs() {
     this.ex.search(this.serviceName).then((services) => {
       let s = services.filter(
-        (serv) => serv.detail.name == this.serviceName
+        (serv) => serv.api.name == this.serviceName
       )[0];
       var openAPI: openapi.OpenAPIObject = JSON.parse(s.api.open_api_json);
       if (s.api.examples_json) {
         this.examples = JSON.parse(s.api.examples_json);
       }
 
-      s.detail.endpoints.forEach((endpoint) => {
+      s.api.endpoints.forEach((endpoint) => {
         let schema: openapi.SchemaObject = {};
         for (let key in openAPI.paths) {
           if (key.includes(endpoint.name.split('.')[1])) {
@@ -140,7 +140,7 @@ export class EndpointCallerComponent implements OnInit {
       });
       this.service = s;
       if (!this.selectedEndpoint) {
-        this.selectedEndpoint = this.service.detail.endpoints[0].name;
+        this.selectedEndpoint = this.service.api.endpoints[0].name;
       }
       this.selectExample();
     });
@@ -156,7 +156,7 @@ export class EndpointCallerComponent implements OnInit {
       return;
     }
 
-    let e = this.service.detail.endpoints.filter((v) => {
+    let e = this.service.api.endpoints.filter((v) => {
       return v.name == this.selectedEndpoint;
     })[0];
     this.requestJSON = e.requestJSON;
@@ -172,7 +172,7 @@ export class EndpointCallerComponent implements OnInit {
     }
 
     if (this.selectedExampleTitle == 'default' || !this.endpointExamples) {
-      this.requestJSON = this.service.detail.endpoints.find((v) => {
+      this.requestJSON = this.service.api.endpoints.find((v) => {
         return v.name == this.selectedEndpoint;
       }).requestJSON;
       return;
@@ -241,8 +241,7 @@ export class EndpointCallerComponent implements OnInit {
       .call(
         {
           endpoint: this.selectedEndpoint,
-          service: this.service.detail.name,
-          address: this.service.detail.nodes[0].address,
+          service: this.service.api.name,
           method: 'POST',
           request: this.requestJSON,
         },

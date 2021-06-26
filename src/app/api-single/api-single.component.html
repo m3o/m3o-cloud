@@ -37,7 +37,7 @@
       <mat-tab
         style="padding-top: 1em"
         label="API"
-        *ngIf="service.detail.endpoints"
+        *ngIf="service.summary.endpoints"
       >
         <br />
         <div
@@ -84,12 +84,12 @@
                 <h2>
                   <a
                     id="{{ lastPart(path.key) }}"
-                    href="/{{ service.detail.name }}#{{ lastPart(path.key) }}"
+                    href="/{{ service.api.name }}#{{ lastPart(path.key) }}"
                     ><span class="endpoint">{{
                       formatName(lastPart(path.key))
                     }}</span></a
                   >
-                  <span style="float: right; font-size: small;">{{ displayPrice(service.api.pricing, service.detail.name, path.key) }}</span>
+                  <span style="float: right; font-size: small;">{{ displayPrice(service.api.pricing, service.api.name, path.key) }}</span>
                 </h2>
                 <div class="endpoint-description">
                   {{ pathToRequestSchema(path.key).description }}
@@ -264,7 +264,7 @@
       </mat-tab>
       <mat-tab *ngIf="this.serviceName" label="Query">
         <app-endpoint-caller
-          [serviceName]="service.detail.name"
+          [serviceName]="service.api.name"
           [endpointQuery]="endpointQuery"
           [selectedVersion]="selectedVersion"
         ></app-endpoint-caller>

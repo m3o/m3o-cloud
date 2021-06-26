@@ -97,9 +97,9 @@ export class ApiEndpointsComponent implements OnInit {
   regenJSONs() {
     this.ex.search(this.serviceName).then((services) => {
       let s = services.filter(
-        (serv) => serv.detail.name == this.serviceName
+        (serv) => serv.api.name == this.serviceName
       )[0];
-      s.detail.endpoints.forEach((endpoint) => {
+      s.api.endpoints.forEach((endpoint) => {
         endpoint.requestJSON = this.valueToJson(endpoint.request, 1);
         endpoint.requestValue = JSON.parse(endpoint.requestJSON);
 
@@ -113,7 +113,7 @@ export class ApiEndpointsComponent implements OnInit {
       });
       this.service = s;
       if (!this.selectedEndpoint) {
-        this.endpoint = this.service.detail.endpoints[0];
+        this.endpoint = this.service.api.endpoints[0];
         this.selectedEndpoint = this.endpoint.name;
         this.regenEmbed();
       }
@@ -144,8 +144,7 @@ export class ApiEndpointsComponent implements OnInit {
     this.ses
       .call({
         endpoint: endpoint.name,
-        service: service.detail.name,
-        address: service.detail.nodes[0].address,
+        service: service.api.name,
         method: 'POST',
         request: endpoint.requestJSON,
       })

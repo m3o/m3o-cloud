@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 import { UserService } from './user.service';
 
 export interface API {
+  name: string;
   description: string;
   open_api_json: string;
   examples_json: string;
@@ -16,8 +17,15 @@ export interface API {
 }
 
 export interface ExploreAPI {
-  detail: types.Service;
-  api: API;
+  name: string;
+  description: string;
+  category: string;
+  icon: string;
+  endpoints: Endpoint[];
+}
+
+export interface Endpoint {
+  name: string;
 }
 
 export interface IndexResponse {

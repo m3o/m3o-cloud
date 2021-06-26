@@ -29,7 +29,7 @@ export class SearchResultGridComponent implements OnInit {
     var lines = s.api.description.split('\n');
     if (
       lines.length > 1 &&
-      lines[0].toLocaleLowerCase().startsWith('# ' + s.detail.name)
+      lines[0].toLocaleLowerCase().startsWith('# ' + s.api.name)
     ) {
       return lines
         .slice(1)
