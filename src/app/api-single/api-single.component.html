@@ -263,11 +263,13 @@
         </div>
       </mat-tab>
       <mat-tab *ngIf="this.serviceName" label="Query">
-        <app-endpoint-caller
-          [serviceName]="service.api.name"
-          [endpointQuery]="endpointQuery"
-          [selectedVersion]="selectedVersion"
-        ></app-endpoint-caller>
+        <ng-template matTabContent>
+          <app-endpoint-caller
+            [serviceName]="service.api.name"
+            [endpointQuery]="endpointQuery"
+            [selectedVersion]="selectedVersion"
+          ></app-endpoint-caller>
+        </ng-template>
       </mat-tab>
     </mat-tab-group>
   </mat-card>
