@@ -3,7 +3,7 @@ import * as types from '../types';
 import { ServiceService } from '../service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
-import { ExploreService, ExploreAPI } from '../explore.service';
+import { ExploreService, ExploreAPI, API } from '../explore.service';
 import { CookieService } from 'ngx-cookie-service';
 import { V1ApiService } from '../v1api.service';
 import * as openapi from 'openapi3-ts';
@@ -39,7 +39,7 @@ export class EndpointCallerComponent implements OnInit {
   @Input() serviceName: string = '';
   @Input() endpointQuery: string = '';
   @Input() selectedVersion: string = '';
-  service: ExploreAPI;
+  service: API;
 
   selectedEndpoint = '';
   embeddable = template;
@@ -108,16 +108,13 @@ export class EndpointCallerComponent implements OnInit {
   }
 
   regenJSONs() {
-    this.ex.search(this.serviceName).then((services) => {
-      let s = services.filter(
-        (serv) => serv.api.name == this.serviceName
-      )[0];
+    this.ex.service(this.serviceName).then((s) => {
       var openAPI: openapi.OpenAPIObject = JSON.parse(s.api.open_api_json);
       if (s.api.examples_json) {
         this.examples = JSON.parse(s.api.examples_json);
       }
 
-      s.api.endpoints.forEach((endpoint) => {
+      s.summary.endpoints.forEach((endpoint) => {
         let schema: openapi.SchemaObject = {};
         for (let key in openAPI.paths) {
           if (key.includes(endpoint.name.split('.')[1])) {
@@ -140,7 +137,7 @@ export class EndpointCallerComponent implements OnInit {
       });
       this.service = s;
       if (!this.selectedEndpoint) {
-        this.selectedEndpoint = this.service.api.endpoints[0].name;
+        this.selectedEndpoint = this.service.summary.endpoints[0].name;
       }
       this.selectExample();
     });
@@ -156,7 +153,7 @@ export class EndpointCallerComponent implements OnInit {
       return;
     }
 
-    let e = this.service.api.endpoints.filter((v) => {
+    let e = this.service.summary.endpoints.filter((v) => {
       return v.name == this.selectedEndpoint;
     })[0];
     this.requestJSON = e.requestJSON;
@@ -172,7 +169,7 @@ export class EndpointCallerComponent implements OnInit {
     }
 
     if (this.selectedExampleTitle == 'default' || !this.endpointExamples) {
-      this.requestJSON = this.service.api.endpoints.find((v) => {
+      this.requestJSON = this.service.summary.endpoints.find((v) => {
         return v.name == this.selectedEndpoint;
       }).requestJSON;
       return;

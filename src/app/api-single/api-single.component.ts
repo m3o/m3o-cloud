@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
-import { ExploreService, ExploreAPI } from '../explore.service';
+import { ExploreService, ExploreAPI, API } from '../explore.service';
 import * as openapi from 'openapi3-ts';
 import { UserService } from '../user.service';
 import { V1ApiService } from '../v1api.service';
@@ -31,7 +31,7 @@ const tabIndexesToName = {
   encapsulation: ViewEncapsulation.None,
 })
 export class ApiSingleComponent implements OnInit {
-  service: ExploreAPI;
+  service: API;
   logs: types.LogRecord[];
   stats: types.DebugSnapshot[] = [];
   traceSpans: types.Span[];
@@ -473,16 +473,6 @@ func main() {
     };
 
     return recur(schema, 0);
-  }
-
-  endpointOf(path: string): types.Endpoint {
-    let es = this.service.summary.endpoints.filter((e) => {
-      return e.name.includes(this.lastPart(path));
-    });
-    if (es.length > 0) {
-      return es[0];
-    }
-    return {} as types.Endpoint;
   }
 
   lastPart(s: string): string {

@@ -6,7 +6,7 @@ import {
 import { environment } from '../environments/environment';
 import { UserService } from './user.service';
 
-export interface API {
+export interface PublicAPI {
   name: string;
   description: string;
   open_api_json: string;
@@ -24,8 +24,18 @@ export interface ExploreAPI {
   endpoints: Endpoint[];
 }
 
+export interface API {
+	api: PublicAPI;
+	summary: ExploreAPI;
+}
+
 export interface Endpoint {
   name: string;
+  // internally defined
+  requestJSON: string;
+  responseJSON: string;
+  requestValue: any;
+  responseValue: any;
 }
 
 export interface IndexResponse {
@@ -37,7 +47,8 @@ export interface SearchResponse {
 }
 
 export interface APIResponse {
-  api: ExploreAPI;
+	api: PublicAPI;
+	summary: ExploreAPI;
 }
 
 @Injectable({
@@ -88,8 +99,8 @@ export class ExploreService {
     });
   }
 
-  service(name: string): Promise<ExploreAPI> {
-    return new Promise<ExploreAPI>((resolve, reject) => {
+  service(name: string): Promise<API> {
+    return new Promise<API>((resolve, reject) => {
       return this.http
         .post<APIResponse>(
           environment.apiUrl + '/publicapi/explore/API',
@@ -101,7 +112,7 @@ export class ExploreService {
         )
         .toPromise()
         .then((rsp) => {
-          resolve(rsp.api as ExploreAPI);
+          resolve(rsp as API);
         })
         .catch((e) => {
           reject(e);
