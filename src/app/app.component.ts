@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private cs: CookieService,
-    private us: UserService,
+    public us: UserService,
     private router: Router,
     private ts: TrackingService
   ) {}

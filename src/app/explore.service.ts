@@ -61,7 +61,7 @@ export class ExploreService {
     return new Promise<ExploreAPI[]>((resolve, reject) => {
       return this.http
         .post<IndexResponse>(
-          environment.apiUrl + '/publicapi/explore/Index', {
+          environment.apiUrl + '/explore/explore/Index', {
             limit: limit ? limit : 0,
             offset: offset ? offset : 0
           },
@@ -82,7 +82,7 @@ export class ExploreService {
     return new Promise<ExploreAPI[]>((resolve, reject) => {
       return this.http
         .post<SearchResponse>(
-          environment.apiUrl + '/publicapi/explore/Search',
+          environment.apiUrl + '/explore/explore/Search',
           {
             search_term: searchTerm,
           },
@@ -103,7 +103,7 @@ export class ExploreService {
     return new Promise<API>((resolve, reject) => {
       return this.http
         .post<APIResponse>(
-          environment.apiUrl + '/publicapi/explore/API',
+          environment.apiUrl + '/explore/explore/API',
           {
             name,
           },
@@ -128,7 +128,7 @@ export class ExploreService {
     return new Promise<void>((resolve, reject) => {
       return this.http
         .post<SearchResponse>(
-          environment.apiUrl + '/publicapi/publish',
+          environment.apiUrl + '/explore/publish',
           {
             description: readme,
             open_api_json: openAPIJSON,
