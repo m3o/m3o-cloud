@@ -37,6 +37,7 @@ export class ApiSingleComponent implements OnInit {
   traceSpans: types.Span[];
   events: types.Event[];
   openAPI: openapi.OpenAPIObject = {} as any;
+  postman: any;
 
   selectedVersion = '';
   serviceName: string;
@@ -99,6 +100,7 @@ export class ApiSingleComponent implements OnInit {
     this.ex.service(this.serviceName).then((serv) => {
       this.service = serv;
       this.openAPI = JSON.parse(this.service.api.open_api_json);
+      this.postman = JSON.parse(this.service.api.postman_json);
       for (let key in this.openAPI.paths) {
         this.showJSON[key] = false;
       }
@@ -557,6 +559,32 @@ func main() {
       return this.openAPI.components.schemas['Response'];
     }
     return {};
+  }
+
+  downloadPostman() {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.postman)));
+    element.setAttribute('download', this.serviceName + '.json');
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  }
+
+  downloadOpenAPI() {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.openAPI)));
+    element.setAttribute('download', this.serviceName + '.json');
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
   }
 }
 

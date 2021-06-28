@@ -156,6 +156,8 @@
                         <mat-option value="node">Node.js</mat-option>
                         <mat-option value="go">Go</mat-option>
                         <mat-option value="curl">cURL</mat-option>
+                        <mat-option value="postman">Postman</mat-option>
+                        <mat-option value="openapi">OpenAPI</mat-option>
                       </mat-select>
                     </mat-form-field>
                     <pre
@@ -170,6 +172,26 @@
                       *ngIf="exampleLanguage == 'curl'"
                     ><code class="example" language="'shell'" 
 			[highlight]="example(path.key, pathIsResponseStream(path.value), pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'curl')"></code></pre>
+                    <div *ngIf="exampleLanguage == 'postman'">
+                      <p>Download a Postman collection JSON for importing to the Postman client<br/></p>
+                      <form (ngSubmit)="downloadPostman()">
+                        <button
+                        mat-raised-button
+                        color="primary"
+                        type="submit"
+                      >Download Postman JSON</button>
+                      </form>
+                    </div>
+                    <div *ngIf="exampleLanguage == 'openapi'">
+                      <p>Download the OpenAPI json for this API for importing to your favourite client<br/></p>
+                      <form (ngSubmit)="downloadOpenAPI()">
+                        <button
+                                mat-raised-button
+                                color="primary"
+                                type="submit"
+                        >Download OpenAPI JSON</button>
+                      </form>
+                    </div>
                   </mat-tab>
                 </mat-tab-group>
                 <div *ngIf="examples[lastPart(path.key).toLowerCase()]">
