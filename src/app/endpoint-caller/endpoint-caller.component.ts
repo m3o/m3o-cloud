@@ -90,7 +90,7 @@ export class EndpointCallerComponent implements OnInit {
     this.regenJSONs();
     if (!this.cs.get('micro_api_token')) {
       this.v1api
-        .createKey('Web Token', ['*'])
+        .createKey(this.us.getDeviceName() + " Token", ['*'])
         .then((apiKey) => {
           this.token = apiKey;
           this.cs.set('micro_api_token', apiKey);

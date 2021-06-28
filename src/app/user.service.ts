@@ -256,10 +256,7 @@ export class UserService {
   track(t: types.Track): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       return this.http
-        .post<TokenResponse>(
-          environment.apiUrl + '/onboarding/signup/Track',
-          t
-        )
+        .post<TokenResponse>(environment.apiUrl + '/onboarding/signup/Track', t)
         .toPromise()
         .then((userResponse) => {
           resolve();
@@ -386,5 +383,28 @@ export class UserService {
           reject(e);
         });
     });
+  }
+
+  public getDeviceName(): string {
+    let device = 'Web';
+    const ua = {
+      Linux: /Linux/i,
+      Android: /Android/i,
+      BlackBerry: /BlackBerry/i,
+      Bluebird: /EF500/i,
+      'Chrome OS': /CrOS/i,
+      Datalogic: /DL-AXIS/i,
+      Honeywell: /CT50/i,
+      iPad: /iPad/i,
+      iPhone: /iPhone/i,
+      iPod: /iPod/i,
+      macOS: /Macintosh/i,
+      Windows: /IEMobile|Windows/i,
+      Zebra: /TC70|TC55/i,
+    };
+    Object.keys(ua).map(
+      (v) => navigator.userAgent.match(ua[v]) && (device = v)
+    );
+    return device;
   }
 }
