@@ -173,7 +173,7 @@
                     ><code class="example" language="'shell'" 
 			[highlight]="example(path.key, pathIsResponseStream(path.value), pathToRequestSchema(path.key), pathToResponseSchema(path.key), 'curl')"></code></pre>
                     <div *ngIf="exampleLanguage == 'postman'">
-                      <p>Download a Postman collection JSON for importing to the Postman client<br/></p>
+                      <p>Download a Postman collection JSON for <a target="_blank" href="https://learning.postman.com/docs/getting-started/importing-and-exporting-data">importing to the Postman client</a><br/></p>
                       <form (ngSubmit)="downloadPostman()">
                         <button
                         mat-raised-button
