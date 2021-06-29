@@ -76,7 +76,7 @@ export class UserService {
     this.cookie.set('micro_token', '', 30, '/', null, null, null);
     this.cookie.set('micro_refresh', '', 30, '/', null, null, null);
     this.cookie.set('micro_expiry', '', 30, '/', null, null, null);
-    this.v1api.revokeKey(this.cookie.get('micro_api_token'));
+    this.v1api.revokeKey(this.cookie.get('micro_api_token_id'));
     this.cookie.set('micro_api_token', '', 30, '/', null, null, null);
     document.location.href = '/login';
   }

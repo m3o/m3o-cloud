@@ -90,10 +90,11 @@ export class EndpointCallerComponent implements OnInit {
     this.regenJSONs();
     if (!this.cs.get('micro_api_token')) {
       this.v1api
-        .createKey(this.us.getDeviceName() + " Token", ['*'])
-        .then((apiKey) => {
-          this.token = apiKey;
-          this.cs.set('micro_api_token', apiKey);
+        .createKey(this.us.getDeviceName() + ' Token', ['*'])
+        .then((rsp) => {
+          this.token = rsp.api_key;
+          this.cs.set('micro_api_token', rsp.api_key);
+          this.cs.set('micro_api_token_id', rsp.api_key_id);
         })
         .catch((e) => {
           console.log('ERROR' + JSON.stringify(e));
