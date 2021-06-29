@@ -148,9 +148,13 @@ export class EndpointCallerComponent implements OnInit {
     this.selectExample();
   }
 
+  lowercaseFirstLetter(string) {
+    return string.charAt(0).toLowerCase() + string.slice(1);
+  }
+
   selectExample() {
     this.endpointExamples =
-      this.examples[this.selectedEndpoint.split('.')[1].toLowerCase()];
+      this.examples[this.lowercaseFirstLetter(this.selectedEndpoint.split('.')[1])];
 
     if (!this.selectedExampleTitle) {
       return;

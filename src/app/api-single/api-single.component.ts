@@ -480,6 +480,11 @@ func main() {
     return ss[ss.length - 1];
   }
 
+  public lowercaseFirstLetter(string) {
+    return string.charAt(0).toLowerCase() + string.slice(1);
+  }
+  
+
   versionSelected(service: types.Service) {
     if (this.selectedVersion == service.version) {
       this.selectedVersion = '';
