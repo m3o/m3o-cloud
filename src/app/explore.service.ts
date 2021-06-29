@@ -14,6 +14,7 @@ export interface PublicAPI {
   icon: string;
   category: string;
   pricing: Map<string, string>;
+  postman_json: string;
 }
 
 export interface ExploreAPI {
