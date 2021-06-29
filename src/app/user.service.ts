@@ -76,9 +76,51 @@ export class UserService {
     this.cookie.set('micro_token', '', 30, '/', null, null, null);
     this.cookie.set('micro_refresh', '', 30, '/', null, null, null);
     this.cookie.set('micro_expiry', '', 30, '/', null, null, null);
-    this.v1api.revokeKey(this.cookie.get('micro_api_token_id'));
-    this.cookie.set('micro_api_token', '', 30, '/', null, null, null);
+    this.revokeV1ApiToken();
     document.location.href = '/login';
+  }
+
+  // mint new v1 api token if not exist
+  // and saves it in a cookie
+  v1ApiToken(): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      if (!this.cookie.get('micro_api_token')) {
+        this.v1api
+          .createKey(this.getDeviceName() + ' Token', ['*'])
+          .then((rsp) => {
+            this.cookie.set(
+              'micro_api_token',
+              rsp.api_key,
+              30,
+              '/',
+              null,
+              null,
+              null
+            );
+            this.cookie.set(
+              'micro_api_token_id',
+              rsp.api_key_id,
+              30,
+              '/',
+              null,
+              null,
+              null
+            );
+            resolve(rsp.api_key);
+          })
+          .catch((e) => {
+            reject(e);
+          });
+      } else {
+        resolve(this.cookie.get('micro_api_token'));
+      }
+    });
+  }
+
+  // revoke v1 api token and delete it from the cookie
+  revokeV1ApiToken(): Promise<void> {
+    this.cookie.set('micro_api_token', '', 30, '/', null, null, null);
+    return this.v1api.revokeKey(this.cookie.get('micro_api_token_id'));
   }
 
   // gets current user

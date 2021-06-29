@@ -88,20 +88,7 @@ export class EndpointCallerComponent implements OnInit {
     });
 
     this.regenJSONs();
-    if (!this.cs.get('micro_api_token')) {
-      this.v1api
-        .createKey(this.us.getDeviceName() + ' Token', ['*'])
-        .then((rsp) => {
-          this.token = rsp.api_key;
-          this.cs.set('micro_api_token', rsp.api_key);
-          this.cs.set('micro_api_token_id', rsp.api_key_id);
-        })
-        .catch((e) => {
-          console.log('ERROR' + JSON.stringify(e));
-        });
-    } else {
-      this.token = this.cs.get('micro_api_token');
-    }
+    this.us.v1ApiToken();
   }
 
   public parse(s: string): any {
@@ -235,21 +222,46 @@ export class EndpointCallerComponent implements OnInit {
   }
 
   callEndpoint() {
-    this.v1api
-      .call(
-        {
-          endpoint: this.selectedEndpoint,
-          service: this.service.api.name,
-          method: 'POST',
-          request: this.requestJSON,
-        },
-        this.token
-      )
-      .then((rsp) => {
-        this.responseJSON = rsp;
+    this.us
+      .v1ApiToken()
+      .then((tok) => {
+        return this.v1api
+          .call(
+            {
+              endpoint: this.selectedEndpoint,
+              service: this.service.api.name,
+              method: 'POST',
+              request: this.requestJSON,
+            },
+            tok
+          )
+          .then((rsp) => {
+            this.responseJSON = rsp;
+          });
       })
       .catch((e) => {
         try {
+          if (e.error.Code == 401) {
+            // try to get a new token if the current one is
+            // not up to scratch
+            return this.us.revokeV1ApiToken().then(() => {
+              this.us.v1ApiToken().then((tok) => {
+                return this.v1api
+                  .call(
+                    {
+                      endpoint: this.selectedEndpoint,
+                      service: this.service.api.name,
+                      method: 'POST',
+                      request: this.requestJSON,
+                    },
+                    tok
+                  )
+                  .then((rsp) => {
+                    this.responseJSON = rsp;
+                  });
+              });
+            });
+          }
           this.notif.error('Error calling service', e.error.Detail);
         } catch {
           this.notif.error('Error calling service', e);

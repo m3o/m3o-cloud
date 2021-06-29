@@ -2,24 +2,27 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { UserService } from '../user.service';
 import { V1ApiService } from '../v1api.service';
 import * as types from '../types';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormArray, FormBuilder, FormGroup, FormControl} from '@angular/forms';
-
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { FormArray, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  styleUrls: ['./settings.component.css'],
 })
 export class SettingsComponent implements OnInit {
-
   constructor(
     public us: UserService,
     private v1api: V1ApiService,
     public dialog: MatDialog
-  ) {
-  }
+  ) {}
   public keys: types.APIKey[] = [] as types.APIKey[];
+
+  languages = ['bash'];
 
   ngOnInit() {
     this.listKeys();
@@ -41,7 +44,6 @@ export class SettingsComponent implements OnInit {
       });
   }
 
-
   revokeKey(key: types.APIKey) {
     if (!confirm('Are you sure you want to delete "' + key.description + '"')) {
       return;
@@ -58,11 +60,10 @@ export class SettingsComponent implements OnInit {
 
   createKeyDialog() {
     const dialogRef = this.dialog.open(CreateKeyDialogComponent, {
-      data: {
-      }
+      data: {},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.listKeys();
     });
   }
@@ -73,25 +74,21 @@ export interface DialogData {
   scopes: string[];
 }
 
-
 export interface Input {
   description: string;
   scopes: string;
 }
-
 
 export interface ScopeCheckbox {
   name: string;
   checked: boolean;
 }
 
-
 @Component({
   selector: 'app-create-key-dialog',
   templateUrl: './createkey.component.html',
 })
 export class CreateKeyDialogComponent {
-
   public description = '';
   public errorMsg = '';
   public apiKey = '';
@@ -102,12 +99,11 @@ export class CreateKeyDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<CreateKeyDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private v1api: V1ApiService,
+    private v1api: V1ApiService
   ) {
-    this.v1api.listAPIs().then((value => {
+    this.v1api.listAPIs().then((value) => {
       this.scopes = value;
-      })
-    );
+    });
   }
 
   onNoClick(): void {
@@ -125,13 +121,15 @@ export class CreateKeyDialogComponent {
       // select all
       selectedScopes = ['*'] as string[];
     }
-    this.v1api.createKey(this.description, selectedScopes).then(apiKey => {
-      this.apiKey = apiKey;
-    }).catch((e) => {
-      this.errorMsg = 'There was an error creating the key. Please try again later.';
-      console.log('ERROR' + JSON.stringify(e));
-    });
-
+    this.v1api
+      .createKey(this.description, selectedScopes)
+      .then((apiKey) => {
+        this.apiKey = apiKey.api_key;
+      })
+      .catch((e) => {
+        this.errorMsg =
+          'There was an error creating the key. Please try again later.';
+        console.log('ERROR' + JSON.stringify(e));
+      });
   }
-
 }
