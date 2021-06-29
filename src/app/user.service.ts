@@ -86,7 +86,7 @@ export class UserService {
     return new Promise<string>((resolve, reject) => {
       if (!this.cookie.get('micro_api_token')) {
         this.v1api
-          .createKey(this.getDeviceName() + ' Token', ['*'])
+          .createKey(this.getDeviceName() + ' Web Token', ['*'])
           .then((rsp) => {
             this.cookie.set(
               'micro_api_token',
