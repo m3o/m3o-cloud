@@ -88,19 +88,7 @@ export class EndpointCallerComponent implements OnInit {
     });
 
     this.regenJSONs();
-    if (!this.cs.get('micro_api_token')) {
-      this.v1api
-        .createKey('Web Token', ['*'])
-        .then((apiKey) => {
-          this.token = apiKey;
-          this.cs.set('micro_api_token', apiKey);
-        })
-        .catch((e) => {
-          console.log('ERROR' + JSON.stringify(e));
-        });
-    } else {
-      this.token = this.cs.get('micro_api_token');
-    }
+    this.us.v1ApiToken();
   }
 
   public parse(s: string): any {
@@ -160,9 +148,13 @@ export class EndpointCallerComponent implements OnInit {
     this.selectExample();
   }
 
+  lowercaseFirstLetter(string) {
+    return string.charAt(0).toLowerCase() + string.slice(1);
+  }
+
   selectExample() {
     this.endpointExamples =
-      this.examples[this.selectedEndpoint.split('.')[1].toLowerCase()];
+      this.examples[this.lowercaseFirstLetter(this.selectedEndpoint.split('.')[1])];
 
     if (!this.selectedExampleTitle) {
       return;
@@ -234,21 +226,46 @@ export class EndpointCallerComponent implements OnInit {
   }
 
   callEndpoint() {
-    this.v1api
-      .call(
-        {
-          endpoint: this.selectedEndpoint,
-          service: this.service.api.name,
-          method: 'POST',
-          request: this.requestJSON,
-        },
-        this.token
-      )
-      .then((rsp) => {
-        this.responseJSON = rsp;
+    this.us
+      .v1ApiToken()
+      .then((tok) => {
+        return this.v1api
+          .call(
+            {
+              endpoint: this.selectedEndpoint,
+              service: this.service.api.name,
+              method: 'POST',
+              request: this.requestJSON,
+            },
+            tok
+          )
+          .then((rsp) => {
+            this.responseJSON = rsp;
+          });
       })
       .catch((e) => {
         try {
+          if (e.error.Code == 401) {
+            // try to get a new token if the current one is
+            // not up to scratch
+            return this.us.revokeV1ApiToken().then(() => {
+              this.us.v1ApiToken().then((tok) => {
+                return this.v1api
+                  .call(
+                    {
+                      endpoint: this.selectedEndpoint,
+                      service: this.service.api.name,
+                      method: 'POST',
+                      request: this.requestJSON,
+                    },
+                    tok
+                  )
+                  .then((rsp) => {
+                    this.responseJSON = rsp;
+                  });
+              });
+            });
+          }
           this.notif.error('Error calling service', e.error.Detail);
         } catch {
           this.notif.error('Error calling service', e);

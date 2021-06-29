@@ -5,7 +5,7 @@
     *ngIf="!service"
   ></mat-spinner>
 </div>
-<div *ngIf="service" style="margin: auto; margin-bottom: 50px;">
+<div *ngIf="service" style="margin: auto; margin-bottom: 50px">
   <mat-card style="margin-top: 0em; padding: 0em" class="mat-card-flat">
     <div fxLayout="row" fxLayouAlign="space-between">
       <!-- <mat-icon style="color: green; vertical-align: middle;"
@@ -13,8 +13,17 @@
         >-->
       <div fxFlex="70%">
         <h2 style="display: inline-block; margin-right: 1em">
-          <span *ngIf="service.api.icon !== undefined && service.api.icon.length > 0" [innerHtml]="service.api.icon +'&nbsp;'"></span>
-          {{ serviceName.length > 3 ? (serviceName | title) : (serviceName | uppercase) }}
+          <span
+            *ngIf="
+              service.api.icon !== undefined && service.api.icon.length > 0
+            "
+            [innerHtml]="service.api.icon + '&nbsp;'"
+          ></span>
+          {{
+            serviceName.length > 3
+              ? (serviceName | title)
+              : (serviceName | uppercase)
+          }}
         </h2>
         <span style="color: #666">{{ firstReadmeLine() }}</span>
       </div>
@@ -25,7 +34,11 @@
         <span class="infoblurb" title="3.4 billion total requests"
           >3.4B tq</span
         > -->
-        <mat-card *ngIf="service.api.category !== undefined" class="category mat-card-flat">{{service.api.category}}</mat-card>
+        <mat-card
+          *ngIf="service.api.category !== undefined"
+          class="category mat-card-flat"
+          >{{ service.api.category }}</mat-card
+        >
       </div>
     </div>
 
@@ -89,7 +102,13 @@
                       formatName(lastPart(path.key))
                     }}</span></a
                   >
-                  <span style="float: right; font-size: small;">{{ displayPrice(service.api.pricing, service.api.name, path.key) }}</span>
+                  <span style="float: right; font-size: small">{{
+                    displayPrice(
+                      service.api.pricing,
+                      service.api.name,
+                      path.key
+                    )
+                  }}</span>
                 </h2>
                 <div class="endpoint-description">
                   {{ pathToRequestSchema(path.key).description }}
@@ -123,7 +142,11 @@
                     </div>
                   </mat-tab>
                   <mat-tab label="Response">
-                    <mat-card *ngIf="pathIsResponseStream(path.value)" class="mat-card-flat stream">stream</mat-card>
+                    <mat-card
+                      *ngIf="pathIsResponseStream(path.value)"
+                      class="mat-card-flat stream"
+                      >stream</mat-card
+                    >
                     <div>
                       <table class="params">
                         <div
@@ -194,14 +217,16 @@
                     </div>
                   </mat-tab>
                 </mat-tab-group>
-                <div *ngIf="examples[lastPart(path.key).toLowerCase()]">
+                <div *ngIf="examples[lowercaseFirstLetter(lastPart(path.key))]">
                   <br />
 
                   <h3>{{ lastPart(path.key) }} Examples</h3>
                   <br />
                   <div
                     *ngFor="
-                      let example of examples[lastPart(path.key).toLowerCase()]
+                      let example of examples[
+                        lowercaseFirstLetter(lastPart(path.key))
+                      ]
                     "
                   >
                     <h3>
@@ -214,7 +239,10 @@
                         {{ example.title }}</a
                       >
                     </h3>
-                    <div style="padding-left: 1.5em; padding-bottom: 1em;" *ngIf="example.expanded">
+                    <div
+                      style="padding-left: 1.5em; padding-bottom: 1em"
+                      *ngIf="example.expanded"
+                    >
                       <p>
                         {{ example.description }}
                       </p>
@@ -224,15 +252,17 @@
                       <h4>Response</h4>
                       <pre><code class="example" language="'javascript'" [highlight]="stringify(example.response)"></code></pre>
                       <br />
-                      <button mat-raised-button
+                      <button
+                        mat-raised-button
                         [routerLink]="['/' + this.serviceName + '/query']"
                         [queryParams]="{
-                          endpoint: lastPart(path.key).toLowerCase(),
+                          endpoint: lowercaseFirstLetter(lastPart(path.key)),
                           example: example.title
                         }"
                         (click)="tabChange(1)"
-                        >Call</button
                       >
+                        Call
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -281,6 +311,12 @@
               class="authorimg"
               src="https://avatars.githubusercontent.com/u/1785178?s=64&v=4"
             />
+            <br /><br />
+            <div style="border-bottom: 1px solid #ccc"></div>
+            <br />
+            <h3>Feedback</h3>
+            <a href="https://forms.gle/bumpycyzofNiVLQc8">Got a request?</a> Let us know 🙏
+            <br />
           </div>
         </div>
       </mat-tab>

@@ -21,6 +21,7 @@ interface ListAPIsResponse {
 
 interface GenerateKeyResponse {
   api_key: string;
+  api_key_id: string;
 }
 
 export interface Request {
@@ -33,10 +34,7 @@ export interface Request {
 
 @Injectable()
 export class V1ApiService {
-  constructor(
-    private http: HttpClient,
-    private cookie: CookieService,
-  ) {}
+  constructor(private http: HttpClient, private cookie: CookieService) {}
 
   call(rpc: Request, token: string): Promise<string> {
     function toTitleCase(str) {
@@ -135,8 +133,11 @@ export class V1ApiService {
   }
 
   // createKey generates a new key
-  createKey(description: string, scopes: string[]): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
+  createKey(
+    description: string,
+    scopes: string[]
+  ): Promise<GenerateKeyResponse> {
+    return new Promise<GenerateKeyResponse>((resolve, reject) => {
       return this.http
         .post<GenerateKeyResponse>(
           environment.apiUrl + '/v1/api/keys/generate',
@@ -150,7 +151,7 @@ export class V1ApiService {
         )
         .toPromise()
         .then((resp) => {
-          resolve(resp.api_key);
+          resolve(resp);
         })
         .catch((e) => {
           reject(e);
