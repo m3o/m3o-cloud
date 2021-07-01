@@ -105,7 +105,7 @@ export class EndpointCallerComponent implements OnInit {
       s.summary.endpoints.forEach((endpoint) => {
         let schema: openapi.SchemaObject = {};
         for (let key in openAPI.paths) {
-          if (key.includes(endpoint.name.split('.')[1])) {
+          if (key.endsWith("/" + endpoint.name.split('.')[1])) {
             schema = this.pathToRequestSchema(key, openAPI);
           }
         }
@@ -144,6 +144,7 @@ export class EndpointCallerComponent implements OnInit {
     let e = this.service.summary.endpoints.filter((v) => {
       return v.name == this.selectedEndpoint;
     })[0];
+console.log("setting", e);
     this.requestJSON = e.requestJSON;
     this.selectExample();
   }
