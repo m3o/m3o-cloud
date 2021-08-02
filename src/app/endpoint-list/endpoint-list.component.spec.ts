@@ -8,9 +8,8 @@ describe('EndpointListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EndpointListComponent ]
-    })
-    .compileComponents();
+      declarations: [EndpointListComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

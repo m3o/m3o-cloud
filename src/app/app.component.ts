@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     private cs: CookieService,
     public us: UserService,
     private router: Router,
-    private ts: TrackingService
+    private ts: TrackingService,
   ) {}
 
   ngOnInit() {
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
       this.user = this.us.user;
     });
 
-    this.ts.trackFirstVisit()
+    this.ts.trackFirstVisit();
   }
 
   goToTeam() {

@@ -12,7 +12,5 @@ import * as uuid from 'uuid';
 export class HeaderComponent implements OnInit {
   constructor(private cs: CookieService, private us: UserService) {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 }

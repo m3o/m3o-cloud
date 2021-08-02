@@ -8,9 +8,8 @@ describe('EndpointCallerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EndpointCallerComponent ]
-    })
-    .compileComponents();
+      declarations: [EndpointCallerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

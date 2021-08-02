@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Inject } from "@angular/core";
-import { UserService } from "../user.service";
+import { Component, OnInit, Input, Inject } from '@angular/core';
+import { UserService } from '../user.service';
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
-} from "@angular/material/dialog";
+} from '@angular/material/dialog';
 
 export interface DialogData {
   src: string;
@@ -14,13 +14,13 @@ export interface DialogData {
 }
 
 @Component({
-  selector: "app-snippet",
-  templateUrl: "./snippet.component.html",
-  styleUrls: ["./snippet.component.css"],
+  selector: 'app-snippet',
+  templateUrl: './snippet.component.html',
+  styleUrls: ['./snippet.component.css'],
 })
 export class SnippetComponent implements OnInit {
-  @Input() src: string = "";
-  @Input() fullsrc: string = "";
+  @Input() src: string = '';
+  @Input() fullsrc: string = '';
 
   constructor(public dialog: MatDialog, private us: UserService) {}
 
@@ -28,8 +28,8 @@ export class SnippetComponent implements OnInit {
 
   open() {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: "90%",
-      maxWidth: "750px",
+      width: '90%',
+      maxWidth: '750px',
       data: {
         src: this.src,
         fullsrc: this.fullsrc,
@@ -43,13 +43,13 @@ export class SnippetComponent implements OnInit {
 }
 
 @Component({
-  selector: "dialog-overview-example-dialog",
-  templateUrl: "./dialog-overview-example-dialog.html",
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: './dialog-overview-example-dialog.html',
 })
 export class DialogOverviewExampleDialog {
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) {}
 
   onNoClick(): void {
