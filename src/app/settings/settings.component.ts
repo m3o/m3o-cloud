@@ -18,7 +18,7 @@ export class SettingsComponent implements OnInit {
   constructor(
     public us: UserService,
     private v1api: V1ApiService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {}
   public keys: types.APIKey[] = [] as types.APIKey[];
 
@@ -99,7 +99,7 @@ export class CreateKeyDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<CreateKeyDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private v1api: V1ApiService
+    private v1api: V1ApiService,
   ) {
     this.v1api.listAPIs().then((value) => {
       this.scopes = value;

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as types from './types';
-import {
-  HttpClient,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { UserService } from './user.service';
 
@@ -26,8 +24,8 @@ export interface ExploreAPI {
 }
 
 export interface API {
-	api: PublicAPI;
-	summary: ExploreAPI;
+  api: PublicAPI;
+  summary: ExploreAPI;
 }
 
 export interface Endpoint {
@@ -48,8 +46,8 @@ export interface SearchResponse {
 }
 
 export interface APIResponse {
-	api: PublicAPI;
-	summary: ExploreAPI;
+  api: PublicAPI;
+  summary: ExploreAPI;
 }
 
 @Injectable({
@@ -62,12 +60,12 @@ export class ExploreService {
     return new Promise<ExploreAPI[]>((resolve, reject) => {
       return this.http
         .post<IndexResponse>(
-          environment.apiUrl + '/publicapi/explore/Index', {
-            limit: limit ? limit : 0,
-            offset: offset ? offset : 0
-          },
+          environment.apiUrl + '/publicapi/explore/Index',
           {
-          }
+            limit: limit ? limit : 0,
+            offset: offset ? offset : 0,
+          },
+          {},
         )
         .toPromise()
         .then((servs) => {
@@ -87,8 +85,7 @@ export class ExploreService {
           {
             search_term: searchTerm,
           },
-          {
-          }
+          {},
         )
         .toPromise()
         .then((servs) => {
@@ -108,8 +105,7 @@ export class ExploreService {
           {
             name,
           },
-          {
-          }
+          {},
         )
         .toPromise()
         .then((rsp) => {
@@ -124,7 +120,7 @@ export class ExploreService {
   saveMeta(
     serviceName: string,
     readme: string,
-    openAPIJSON: string
+    openAPIJSON: string,
   ): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       return this.http
@@ -141,7 +137,7 @@ export class ExploreService {
               'micro-namespace': this.us.namespace(),
               'Micro-Namespace': 'micro',
             },
-          }
+          },
         )
         .toPromise()
         .then((servs) => {

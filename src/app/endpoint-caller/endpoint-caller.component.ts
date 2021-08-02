@@ -63,7 +63,7 @@ export class EndpointCallerComponent implements OnInit {
     private cs: CookieService,
     private v1api: V1ApiService,
     public us: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
@@ -105,7 +105,7 @@ export class EndpointCallerComponent implements OnInit {
       s.summary.endpoints.forEach((endpoint) => {
         let schema: openapi.SchemaObject = {};
         for (let key in openAPI.paths) {
-          if (key.endsWith("/" + endpoint.name.split('.')[1])) {
+          if (key.endsWith('/' + endpoint.name.split('.')[1])) {
             schema = this.pathToRequestSchema(key, openAPI);
           }
         }
@@ -144,7 +144,7 @@ export class EndpointCallerComponent implements OnInit {
     let e = this.service.summary.endpoints.filter((v) => {
       return v.name == this.selectedEndpoint;
     })[0];
-console.log("setting", e);
+    console.log('setting', e);
     this.requestJSON = e.requestJSON;
     this.selectExample();
   }
@@ -155,7 +155,9 @@ console.log("setting", e);
 
   selectExample() {
     this.endpointExamples =
-      this.examples[this.lowercaseFirstLetter(this.selectedEndpoint.split('.')[1])];
+      this.examples[
+        this.lowercaseFirstLetter(this.selectedEndpoint.split('.')[1])
+      ];
 
     if (!this.selectedExampleTitle) {
       return;
@@ -173,7 +175,7 @@ console.log("setting", e);
         return v.title == this.selectedExampleTitle;
       })[0].request,
       null,
-      ' '
+      ' ',
     );
   }
 
@@ -183,7 +185,7 @@ console.log("setting", e);
 
   pathToRequestSchema(
     path: string,
-    api: openapi.OpenAPIObject
+    api: openapi.OpenAPIObject,
   ): openapi.SchemaObject {
     let paths = path.split('/');
     let endpointName = paths[paths.length - 1];
@@ -238,7 +240,7 @@ console.log("setting", e);
               method: 'POST',
               request: this.requestJSON,
             },
-            tok
+            tok,
           )
           .then((rsp) => {
             this.responseJSON = rsp;
@@ -259,7 +261,7 @@ console.log("setting", e);
                       method: 'POST',
                       request: this.requestJSON,
                     },
-                    tok
+                    tok,
                   )
                   .then((rsp) => {
                     this.responseJSON = rsp;
@@ -283,7 +285,7 @@ console.log("setting", e);
     // hack to not modify original
     var obj = JSON.parse(JSON.stringify(endpoint.requestValue));
     Object.keys(obj).forEach(
-      (k) => !obj[k] && obj[k] !== undefined && delete obj[k]
+      (k) => !obj[k] && obj[k] !== undefined && delete obj[k],
     );
 
     this.ses

@@ -16,7 +16,15 @@ export class TrackingService {
     if (!firstVerification) {
       let fverif = Math.floor(Date.now() / 1000);
       let id = this.cs.get('tr_id');
-      this.cs.set('first_verification', fverif + '', 365, '/', null, null, null);
+      this.cs.set(
+        'first_verification',
+        fverif + '',
+        365,
+        '/',
+        null,
+        null,
+        null,
+      );
       this.track({ id: id, firstVerification: fverif, email: email });
     }
   }

@@ -11,7 +11,7 @@ export class SearchPageComponent implements OnInit {
   constructor(
     public exp: ExploreService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {}
 
   search: string;
@@ -29,7 +29,7 @@ export class SearchPageComponent implements OnInit {
 
   keyDownFunction(event) {
     if (event.keyCode === 13) {
-      this.searchResults()
+      this.searchResults();
     }
   }
 

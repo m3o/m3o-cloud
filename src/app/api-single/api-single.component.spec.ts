@@ -8,9 +8,8 @@ describe('ApiSingleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApiSingleComponent ]
-    })
-    .compileComponents();
+      declarations: [ApiSingleComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

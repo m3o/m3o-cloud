@@ -59,7 +59,7 @@ export class V1ApiService {
           JSON.parse(rpc.request),
           {
             headers: headers,
-          }
+          },
         )
         .toPromise()
         .then((response) => {
@@ -83,7 +83,7 @@ export class V1ApiService {
               'Micro-Namespace': 'micro',
               authorization: this.token(),
             },
-          }
+          },
         )
         .toPromise()
         .then((listResponse) => {
@@ -120,7 +120,7 @@ export class V1ApiService {
               'Micro-Namespace': 'micro',
               authorization: this.token(),
             },
-          }
+          },
         )
         .toPromise()
         .then(() => {
@@ -135,7 +135,7 @@ export class V1ApiService {
   // createKey generates a new key
   createKey(
     description: string,
-    scopes: string[]
+    scopes: string[],
   ): Promise<GenerateKeyResponse> {
     return new Promise<GenerateKeyResponse>((resolve, reject) => {
       return this.http
@@ -147,7 +147,7 @@ export class V1ApiService {
               'Micro-Namespace': 'micro',
               authorization: this.token(),
             },
-          }
+          },
         )
         .toPromise()
         .then((resp) => {
@@ -171,7 +171,7 @@ export class V1ApiService {
               'Micro-Namespace': 'micro',
               authorization: this.token(),
             },
-          }
+          },
         )
         .toPromise()
         .then((listResponse) => {

@@ -3,17 +3,19 @@ import { UserService } from '../user.service';
 import { V1ApiService } from '../v1api.service';
 import { QuotaService } from '../quota.service';
 import * as types from '../types';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormArray, FormBuilder, FormGroup, FormControl} from '@angular/forms';
-
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { FormArray, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-apis',
   templateUrl: './apis.component.html',
-  styleUrls: ['./apis.component.css']
+  styleUrls: ['./apis.component.css'],
 })
 export class ApisComponent implements OnInit {
-
   public quotas: Map<string, types.Quota>;
   public quotaUsage: types.QuotaUsage[];
   public availableAPIs: string[];
@@ -22,9 +24,8 @@ export class ApisComponent implements OnInit {
     public us: UserService,
     private v1api: V1ApiService,
     private quota: QuotaService,
-    public dialog: MatDialog
-  ) {
-  }
+    public dialog: MatDialog,
+  ) {}
 
   ngOnInit() {
     this.listQuotas();
@@ -37,9 +38,10 @@ export class ApisComponent implements OnInit {
 
   listQuotas(): void {
     this.quotas = new Map<string, types.Quota>();
-    this.quota.listQuotas()
+    this.quota
+      .listQuotas()
       .then((qs) => {
-        qs.forEach(v => {
+        qs.forEach((v) => {
           this.quotas.set(v.id, v);
         });
       })
@@ -50,7 +52,8 @@ export class ApisComponent implements OnInit {
   }
 
   listQuotaUsage(): void {
-    this.quota.listUsage()
+    this.quota
+      .listUsage()
       .then((qs) => {
         this.quotaUsage = qs;
       })
@@ -59,7 +62,4 @@ export class ApisComponent implements OnInit {
         console.log(e);
       });
   }
-
-
 }
-

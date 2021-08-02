@@ -60,7 +60,7 @@ export class ApiSingleComponent implements OnInit {
     private location: Location,
     private notif: ToastrService,
     public us: UserService,
-    private v1api: V1ApiService
+    private v1api: V1ApiService,
   ) {}
 
   hasAPIKeys(): void {
@@ -118,22 +118,26 @@ export class ApiSingleComponent implements OnInit {
     });
   }
 
-  displayPrice(pricing: Map<string, string>, name: string, key: string): string {
+  displayPrice(
+    pricing: Map<string, string>,
+    name: string,
+    key: string,
+  ): string {
     if (pricing === undefined) {
-      return "Free";
+      return 'Free';
     }
 
-    let ss = key.split("/");
-    let ep = ss[2] + "." + ss[3];
+    let ss = key.split('/');
+    let ep = ss[2] + '.' + ss[3];
     let price = pricing[ep];
 
-    if (price === "" || price === undefined) {
-      return "Free";
+    if (price === '' || price === undefined) {
+      return 'Free';
     }
 
     let p: number = Number(price);
 
-    return "$" + (p / 1000000) + " per request";
+    return '$' + p / 1000000 + ' per request';
   }
 
   formatName(name: string): string {
@@ -179,7 +183,7 @@ export class ApiSingleComponent implements OnInit {
       .saveMeta(
         this.service.api.name,
         this.service.api.description,
-        this.service.api.open_api_json
+        this.service.api.open_api_json,
       )
       .then(() => {
         this.editSpec();
@@ -243,7 +247,7 @@ export class ApiSingleComponent implements OnInit {
     stream: boolean,
     request: openapi.SchemaObject,
     response: openapi.SchemaObject,
-    language: string
+    language: string,
   ): string {
     switch (language) {
       case 'go':
@@ -260,9 +264,8 @@ export class ApiSingleComponent implements OnInit {
     path: string,
     stream: boolean,
     request: openapi.SchemaObject,
-    response: openapi.SchemaObject
+    response: openapi.SchemaObject,
   ): string {
-
     if (stream != true) {
       return (
         `// npm install --save @m3o/m3o-node 
@@ -270,16 +273,16 @@ const m3o = require('@m3o/m3o-node');
 
 new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
   .call('` +
-      this.serviceName +
-      `', '` +
-      this.lastPart(path) +
-      `', ` +
-      this.schemaToJSON(request) +
-      `)
+        this.serviceName +
+        `', '` +
+        this.lastPart(path) +
+        `', ` +
+        this.schemaToJSON(request) +
+        `)
   .then((response) => {
     console.log(response);
 });`
-)
+      );
     }
 
     return (
@@ -298,7 +301,6 @@ new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
     stream.recv(msg => { console.log(msg) };
   })
 );`
-
     );
   }
 
@@ -306,20 +308,29 @@ new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
     path: string,
     stream: boolean,
     request: openapi.SchemaObject,
-    response: openapi.SchemaObject
+    response: openapi.SchemaObject,
   ): string {
     if (stream != true) {
       return (
-        `curl "https://api.m3o.com/v1/` +this.serviceName+`/`+this.lastPart(path)+`" \\
+        `curl "https://api.m3o.com/v1/` +
+        this.serviceName +
+        `/` +
+        this.lastPart(path) +
+        `" \\
 -H "Content-Type: application/json" \\
 -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" \\
--d '` + this.schemaToJSON(request) +
+-d '` +
+        this.schemaToJSON(request) +
         `'`
       );
     }
 
     return (
-        `curl "https://api.m3o.com/v1/` +this.serviceName+`/`+this.lastPart(path)+`" \\
+      `curl "https://api.m3o.com/v1/` +
+      this.serviceName +
+      `/` +
+      this.lastPart(path) +
+      `" \\
 --include \\
 --no-buffer \\
 --header "Connection: Upgrade" \\
@@ -328,8 +339,9 @@ new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
 --header "Sec-WebSocket-Version: 13" \\
 -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" \\
 -H 'Content-Type: application/json' \\
--d '` + this.schemaToJSON(request) +
-        `'`
+-d '` +
+      this.schemaToJSON(request) +
+      `'`
     );
   }
 
@@ -337,9 +349,8 @@ new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
     path: string,
     stream: boolean,
     request: openapi.SchemaObject,
-    response: openapi.SchemaObject
+    response: openapi.SchemaObject,
   ): string {
-
     if (stream != true) {
       return (
         `package main
@@ -356,15 +367,15 @@ func main() {
 	})
 
 	req := ` +
-      this.schemaToGoMap(request) +
-      `
+        this.schemaToGoMap(request) +
+        `
 	var rsp map[string]interface{}
 
 	if err := c.Call("` +
-		this.serviceName +
-	`", "` +
-		this.lastPart(path) +
-	`", req, &rsp); err != nil {
+        this.serviceName +
+        `", "` +
+        this.lastPart(path) +
+        `", req, &rsp); err != nil {
 		fmt.Println(err)
 		return
 	}
@@ -373,7 +384,7 @@ func main() {
     }
 
     return (
-        `package main
+      `package main
 
 import (
 	"fmt"
@@ -485,7 +496,6 @@ func main() {
   public lowercaseFirstLetter(string) {
     return string.charAt(0).toLowerCase() + string.slice(1);
   }
-  
 
   versionSelected(service: types.Service) {
     if (this.selectedVersion == service.version) {
@@ -499,7 +509,7 @@ func main() {
   tabChange($event: number) {
     this.selected = $event;
     this.location.replaceState(
-      '/' + this.serviceName + '/' + tabIndexesToName[this.selected]
+      '/' + this.serviceName + '/' + tabIndexesToName[this.selected],
     );
     this.tabValueChange.next(this.selected);
   }
@@ -513,10 +523,14 @@ func main() {
   code: string = '{}';
 
   pathIsResponseStream(path: openapi.PathItemObject): boolean {
-    if (path === undefined || path.post === undefined || path.post.responses === undefined) {
+    if (
+      path === undefined ||
+      path.post === undefined ||
+      path.post.responses === undefined
+    ) {
       return false;
     }
-    if (path.post.responses["stream"] != undefined) {
+    if (path.post.responses['stream'] != undefined) {
       return true;
     }
     return false;
@@ -568,7 +582,11 @@ func main() {
 
   downloadPostman() {
     var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.postman)));
+    element.setAttribute(
+      'href',
+      'data:text/plain;charset=utf-8,' +
+        encodeURIComponent(JSON.stringify(this.postman)),
+    );
     element.setAttribute('download', this.serviceName + '.json');
 
     element.style.display = 'none';
@@ -581,7 +599,11 @@ func main() {
 
   downloadOpenAPI() {
     var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.openAPI)));
+    element.setAttribute(
+      'href',
+      'data:text/plain;charset=utf-8,' +
+        encodeURIComponent(JSON.stringify(this.openAPI)),
+    );
     element.setAttribute('download', this.serviceName + '.json');
 
     element.style.display = 'none';

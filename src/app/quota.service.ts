@@ -9,7 +9,7 @@ interface ListUsageResponse {
 }
 
 interface ListQuotasResponse {
-  quotas: types.Quota      [];
+  quotas: types.Quota[];
 }
 
 interface GenerateKeyResponse {
@@ -18,26 +18,24 @@ interface GenerateKeyResponse {
 
 @Injectable()
 export class QuotaService {
-
-  constructor(
-    private http: HttpClient,
-    private cookie: CookieService,
-  ) {
-  }
+  constructor(private http: HttpClient, private cookie: CookieService) {}
 
   listUsage(userID?: string, namespace?: string): Promise<types.QuotaUsage[]> {
     return new Promise<types.QuotaUsage[]>((resolve, reject) => {
       return this.http
-        .post<ListUsageResponse>(environment.apiUrl + '/quota/ListUsage',
+        .post<ListUsageResponse>(
+          environment.apiUrl + '/quota/ListUsage',
           {
             user_id: userID,
             namespace,
           },
           {
             headers: {
-              'Micro-Namespace' : 'micro',
-              authorization: this.token()
-            }})
+              'Micro-Namespace': 'micro',
+              authorization: this.token(),
+            },
+          },
+        )
         .toPromise()
         .then((listResponse) => {
           resolve(listResponse.usages);
@@ -51,13 +49,16 @@ export class QuotaService {
   listQuotas(): Promise<types.Quota[]> {
     return new Promise<types.Quota[]>((resolve, reject) => {
       return this.http
-        .post<ListQuotasResponse>(environment.apiUrl + '/quota/list',
+        .post<ListQuotasResponse>(
+          environment.apiUrl + '/quota/list',
           {},
           {
             headers: {
-              'Micro-Namespace' : 'micro',
-              authorization: this.token()
-            }})
+              'Micro-Namespace': 'micro',
+              authorization: this.token(),
+            },
+          },
+        )
         .toPromise()
         .then((listResponse) => {
           resolve(listResponse.quotas);
@@ -71,5 +72,4 @@ export class QuotaService {
   token(): string {
     return 'Bearer ' + this.cookie.get('micro_token');
   }
-
 }

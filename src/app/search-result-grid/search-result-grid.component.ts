@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {ExploreService, API, ExploreAPI} from '../explore.service';
+import { ExploreService, API, ExploreAPI } from '../explore.service';
 
 @Component({
   selector: 'app-search-result-grid',
