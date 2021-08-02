@@ -1,8 +1,5 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "cli": {
-    "analytics": false
-  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -16,9 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": [
-              "highlight.js"
-            ],
+            "allowedCommonJsDependencies": ["highlight.js"],
             "outputPath": "dist/micro",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -40,7 +35,7 @@
               "src/micro-theme.scss",
               "node_modules/ngx-easy-table/style.css"
             ],
-            "scripts": ["node_modules/marked/lib/marked.js" ]
+            "scripts": ["node_modules/marked/lib/marked.js"]
           },
           "configurations": {
             "production": {
