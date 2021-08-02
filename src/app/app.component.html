@@ -56,7 +56,7 @@
         &nbsp;<a routerLink="/explore" style="color: #444; font-size: 0.8em; margin-right: 1em;">Explore</a>&nbsp;
 
           <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
-        &nbsp;<a routerLink="/register" style="color: #444; font-size: 0.8em; margin-right: 1em;">Signup</a>&nbsp;
+        &nbsp;<a routerLink="/login" style="color: #444; font-size: 0.8em; margin-right: 1em;">Login</a>&nbsp;
           </ng-container>
 
         <mat-menu id="matmenu" #menu="matMenu">
@@ -137,7 +137,7 @@
           </button>
 
           <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
-            <a routerLink="/register" color="primary" mat-raised-button>Register</a>
+            <a routerLink="/register" color="primary" mat-raised-button>Signup</a>
           </ng-container>
         </span>
 
