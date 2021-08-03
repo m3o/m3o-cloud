@@ -1,7 +1,44 @@
+.root {
+  position: relative;
+}
+
 button {
   background-color: var(--m3o-white);
   border: none;
   padding: 10px 15px;
   border-radius: 3px;
   cursor: pointer;
+  font-family: unset;
+  border: 1px solid var(--m3o-border-grey);
+}
+
+.menu {
+  position: absolute;
+  background-color: var(--m3o-white);
+  top: 50px;
+  border: 1px solid var(--m3o-border-grey);
+  width: 100%;
+  z-index: 2;
+}
+
+.menu /deep/ a,
+.menu /deep/ button {
+  display: block;
+  padding: calc(var(--m3o-spacing) / 2);
+  font-size: 14px;
+  color: var(--m3o-dark-grey-1);
+  transition: background-color 0.3s;
+}
+
+.menu /deep/ button {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  text-align: left;
+  font-family: unset;
+}
+
+.menu /deep/ a:hover,
+.menu /deep/ button:hover {
+  background-color: var(--m3o-grey-2);
 }

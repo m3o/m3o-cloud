@@ -1,6 +1,6 @@
-<div>
-  <button (click)="test()">Click me</button>
-  <div *ngIf="isOpen">
+<div class="root">
+  <button (click)="test()">{{ title }}</button>
+  <div *ngIf="isOpen" class="menu">
     <ng-content></ng-content>
   </div>
 </div>

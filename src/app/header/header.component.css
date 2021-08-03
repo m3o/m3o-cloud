@@ -1,6 +1,6 @@
 .top-bar,
 .root {
-  border-bottom: 1px solid var(--border-grey);
+  border-bottom: 1px solid var(--m3o-border-grey);
 }
 
 .logo {

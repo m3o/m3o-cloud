@@ -46,8 +46,15 @@
         <a routerLink="/login" class="login">Login</a>
         <a routerLink="/register" class="btn">Signup</a>
       </div>
-      <div *ngIf="userService.loggedIn()">
-        <app-dropdown> Hello </app-dropdown>
+      <div *ngIf="userService.loggedIn() && user && user.name">
+        <app-dropdown [title]="user.name">
+          <a routerLink="/overview/usage">Usage</a>
+          <a routerLink="/overview/billing">Billing</a>
+          <a routerLink="/settings/keys">Settings</a>
+          <button *ngIf="user && user.name" (click)="us.logout()">
+            Log out
+          </button>
+        </app-dropdown>
       </div>
     </div>
     <!-- <button (click)="sidenav.toggle()">
