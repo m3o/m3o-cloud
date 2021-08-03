@@ -32,7 +32,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginComponent } from './login/login.component';
 import { ServicesComponent } from './services/services.component';
 // import { StatusComponent } from './status/status.component';
-
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from './user.service';
 import { V1ApiService } from './v1api.service';
@@ -95,6 +94,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { SearchPageComponent } from './search-page/search-page.component';
 import { SearchResultGridComponent } from './search-result-grid/search-result-grid.component';
 import { EndpointCallerComponent } from './endpoint-caller/endpoint-caller.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 document.defaultView['hljs'] = hljs;
 
@@ -136,6 +136,7 @@ document.defaultView['hljs'] = hljs;
     SearchPageComponent,
     SearchResultGridComponent,
     EndpointCallerComponent,
+    DropdownComponent,
   ],
   imports: [
     BrowserModule,

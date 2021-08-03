@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '../user.service';
-import * as types from '../types';
-import * as uuid from 'uuid';
+import { Account } from '../types';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +9,15 @@ import * as uuid from 'uuid';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private cs: CookieService, private us: UserService) {}
+  user: Account;
 
-  ngOnInit() {}
+  constructor(private cs: CookieService, private userService: UserService) {}
+
+  ngOnInit() {
+    this.user = this.userService.user;
+
+    this.userService.isUserLoggedIn.subscribe(() => {
+      this.user = this.userService.user;
+    });
+  }
 }

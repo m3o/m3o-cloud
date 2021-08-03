@@ -1,0 +1,73 @@
+.top-bar,
+.root {
+  border-bottom: 1px solid var(--border-grey);
+}
+
+.logo {
+  display: block;
+}
+
+.logo svg {
+  width: 80px;
+  margin-left: -18px;
+}
+
+.logo svg path,
+.logo svg circle {
+  fill: #000;
+}
+
+.content {
+  display: flex;
+}
+
+nav {
+  display: flex;
+}
+
+nav ul,
+nav li {
+  height: 100%;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: left;
+  padding: 0 var(--m3o-spacing);
+  color: var(--m3o-dark-grey-1);
+  transition: background-color 0.3s;
+  font-size: 14px;
+}
+
+nav a:hover {
+  background-color: var(--m3o-grey-2);
+  color: var(--m3o-primary);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.login {
+  color: var(--m3o-dark-grey-1);
+  display: block;
+  margin-right: var(--m3o-spacing);
+  font-size: 14px;
+}
+
+.login:hover {
+  color: var(--m3o-secondary);
+}

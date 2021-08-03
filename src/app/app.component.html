@@ -1,8 +1,6 @@
-<div
-  ngStyle.lt-md="width: 95%; height: 100%; margin: auto;"
-  ngStyle.lt-lg="width: 90%; height: 100%; margin: auto;"
-  style="width: 80%; height: 100%; margin: auto"
->
+<app-header></app-header>
+
+<div class="container">
   <mat-toolbar
     style="
       padding: 1em;
@@ -15,18 +13,28 @@
       style="padding-bottom: 0; padding-left: 0; padding-right: 0em"
     >
       <button mat-icon-button (click)="sidenav.toggle()" fxHide.gt-sm>
-        <mat-icon>menu</mat-icon>&nbsp;&nbsp;&nbsp;
+        <mat-icon>menu</mat-icon>
       </button>
       <span id="logo" class="hover" routerLink="/">Micro</span>&nbsp;
-      <sup style="font-size: 0.8em; color: #dd4814; padding: 5px; margin: 0">Beta</sup>
+      <sup style="font-size: 0.8em; color: #dd4814; padding: 5px; margin: 0"
+        >Beta</sup
+      >
 
-      <div fxShow="true" fxHide.lt-md style="font-size: 0.7em; padding-top: 10px;" *ngIf="this.currentURL() != '/explore'">
-        <mat-form-field style="width: 100%; padding-left: 2em;" appearance="outline">
+      <div
+        fxShow="true"
+        fxHide.lt-md
+        style="font-size: 0.7em; padding-top: 10px"
+        *ngIf="this.currentURL() != '/explore'"
+      >
+        <mat-form-field
+          style="width: 100%; padding-left: 2em"
+          appearance="outline"
+        >
           <input
             appearance="standard"
-            autocomplete=off
+            autocomplete="off"
             matInput
-            style="color: #444;"
+            style="color: #444"
             placeholder="Search for APIs"
             [(ngModel)]="search"
             (keydown)="keyDownFunction($event)"
@@ -45,7 +53,6 @@
       <span class="menu-spacer"></span>
 
       <div style="padding-top: 4px" fxShow="true" fxHide.lt-md>
-
         <mat-menu id="new" #new="matMenu" style="float: right">
           <button *ngIf="user && user.name" mat-menu-item disabled>
             <mat-icon>access_time</mat-icon>
@@ -53,11 +60,19 @@
           </button>
         </mat-menu>
 
-        &nbsp;<a routerLink="/explore" style="color: #444; font-size: 0.8em; margin-right: 1em;">Explore</a>&nbsp;
+        &nbsp;<a
+          routerLink="/explore"
+          style="color: #444; font-size: 0.8em; margin-right: 1em"
+          >Explore</a
+        >&nbsp;
 
-          <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
-        &nbsp;<a routerLink="/login" style="color: #444; font-size: 0.8em; margin-right: 1em;">Login</a>&nbsp;
-          </ng-container>
+        <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
+          &nbsp;<a
+            routerLink="/login"
+            style="color: #444; font-size: 0.8em; margin-right: 1em"
+            >Login</a
+          >&nbsp;
+        </ng-container>
 
         <mat-menu id="matmenu" #menu="matMenu">
           <button
@@ -137,7 +152,9 @@
           </button>
 
           <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
-            <a routerLink="/register" color="primary" mat-raised-button>Signup</a>
+            <a routerLink="/register" color="primary" mat-raised-button
+              >Signup</a
+            >
           </ng-container>
         </span>
 
@@ -155,7 +172,7 @@
   </mat-toolbar>
 
   <mat-sidenav-container>
-    <mat-sidenav style="width: 66%" #sidenav autoFocus=false>
+    <mat-sidenav style="width: 66%" #sidenav autoFocus="false">
       <mat-nav-list>
         <div
           *ngIf="user && user.teamName"
@@ -175,10 +192,10 @@
           {{ user.name }}
         </div>
         <div>
-          <mat-form-field style="padding-left: 1em;">
+          <mat-form-field style="padding-left: 1em">
             <input
               matInput
-              autocomplete=off
+              autocomplete="off"
               style="color: #444; font-size: 0.8em; line-height: 0"
               placeholder="Search for APIs"
               [(ngModel)]="search"
@@ -236,25 +253,65 @@
         <br />
         <div fxLayout="row wrap" fxLayoutAlign="space-between">
           <div fxFlex="64%" fxFlex.lt-md="49%" fxFlex.lt-sm="99%">
-	    <h2 class="mat-headline" style="font-weight: bold; font-size: 1em; margin: 0">Learn more</h2>
-	    <p style="margin-bottom: 5px;"> Subscribe for the latest updates</p>
-	    <link href="https://cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+            <h2
+              class="mat-headline"
+              style="font-weight: bold; font-size: 1em; margin: 0"
+            >
+              Learn more
+            </h2>
+            <p style="margin-bottom: 5px">Subscribe for the latest updates</p>
+            <link
+              href="https://cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css"
+              rel="stylesheet"
+              type="text/css"
+            />
             <div id="mc_embed_signup">
-              <form action="https://micro.us18.list-manage.com/subscribe/post?u=fba1e1a1b23409d771c5653cd&amp;id=647d0b5377" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="" style="padding: 0;">
-	        <div id="mc_embed_signup_scroll" style="text-align: left;">
-		  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required="">
-		  <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-		  <div style="position: absolute; left: -5000px;" aria-hidden="true">
-		    <input type="text" name="b_fba1e1a1b23409d771c5653cd_647d0b5377" tabindex="-1" value="">
-		  </div>
-		  <div class="clear">
-		    <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-		  </div>
-	          <br>
-		</div>
+              <form
+                action="https://micro.us18.list-manage.com/subscribe/post?u=fba1e1a1b23409d771c5653cd&amp;id=647d0b5377"
+                method="post"
+                id="mc-embedded-subscribe-form"
+                name="mc-embedded-subscribe-form"
+                class="validate"
+                target="_blank"
+                novalidate=""
+                style="padding: 0"
+              >
+                <div id="mc_embed_signup_scroll" style="text-align: left">
+                  <input
+                    type="email"
+                    value=""
+                    name="EMAIL"
+                    class="email"
+                    id="mce-EMAIL"
+                    placeholder="email address"
+                    required=""
+                  />
+                  <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                  <div
+                    style="position: absolute; left: -5000px"
+                    aria-hidden="true"
+                  >
+                    <input
+                      type="text"
+                      name="b_fba1e1a1b23409d771c5653cd_647d0b5377"
+                      tabindex="-1"
+                      value=""
+                    />
+                  </div>
+                  <div class="clear">
+                    <input
+                      type="submit"
+                      value="Subscribe"
+                      name="subscribe"
+                      id="mc-embedded-subscribe"
+                      class="button"
+                    />
+                  </div>
+                  <br />
+                </div>
               </form>
             </div>
-	    <br>© 2021 Micro Services, Inc.<br>
+            <br />© 2021 Micro Services, Inc.<br />
           </div>
           <div fxFlex="32%" fxFlex.lt-md="49%" fxFlex.lt-sm="99%">
             <div fxLayout="row wrap" fxLayoutAlign="space-between">
@@ -274,7 +331,7 @@
               </div>
 
               <div fxFlex="49%" fxFlex.lt-sm="99%">
-               <div>
+                <div>
                   <a href="mailto:contact@m3o.com">Contact</a>
                 </div>
                 <div>

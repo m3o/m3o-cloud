@@ -1,3 +1,46 @@
+:root {
+  /* Colors */
+  --m3o-grey-1: #dedede;
+  --m3o-grey-2: #fbfbfb;
+  --m3o-dark-blue-1: #03045e;
+  --m3o-dark-grey-1: #323232;
+  --m3o-blue-1: #0077b6;
+  --m30-white: #fff;
+
+  /* Globals */
+  --border-grey: var(--m3o-grey-1);
+  --m3o-primary: var(--m3o-dark-blue-1);
+  --m3o-secondary: var(--m3o-blue-1);
+  --m3o-spacing: 20px;
+  --m3o-quick-transition: 0.125s;
+  --m3o-fast-transition: 0.3s;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1400px;
+  width: 90%;
+}
+
+.btn {
+  background-color: var(--m3o-primary);
+  color: var(--m30-white);
+  padding: calc(var(--m3o-spacing) / 2) var(--m3o-spacing);
+  display: block;
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+  transition: background-color var(--m3o-quick-transition);
+}
+
+.btn:hover {
+  background-color: var(--m3o-secondary);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
 .menu-spacer {
   flex: 1 1 auto;
 }
@@ -13,8 +56,8 @@ mat-sidenav-content {
 #logo {
   font-size: 1.5em;
   font-weight: 1000;
-  font-family: medium-content-sans-serif-font, "Lucida Grande",
-    "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+  font-family: medium-content-sans-serif-font, 'Lucida Grande',
+    'Lucida Sans Unicode', 'Lucida Sans', Geneva, Arial, sans-serif;
 }
 
 *:focus {

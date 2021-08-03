@@ -1,17 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, ExtraOptions } from '@angular/router';
-import { ServicesComponent } from './services/services.component';
 import { ServiceComponent } from './service/service.component';
 import { NewServiceComponent } from './new-service/new-service.component';
 import { AuthGuard } from './auth.guard';
-import { WelcomeComponent } from './welcome/welcome.component';
 import { NotInvitedComponent } from './not-invited/not-invited.component';
 import { SettingsComponent } from './settings/settings.component';
-//import { EventsComponent } from './events/events.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-//import { StatusComponent } from './status/status.component';
-//import { StatusSingleComponent } from './status-single/status-single.component';
 import { ApisComponent } from './apis/apis.component';
 import { HomeComponent } from './home/home.component';
 import { ApiSingleComponent } from './api-single/api-single.component';
