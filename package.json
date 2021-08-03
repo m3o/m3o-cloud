@@ -23,7 +23,7 @@
     "@angular/platform-browser-dynamic": "^11.2.9",
     "@angular/router": "~11.2.9",
     "@stripe/stripe-js": "^1.13.2",
-    "@swimlane/ngx-charts": "^17.0.1",
+    "@swimlane/ngx-charts": "^18.0.1",
     "@types/lodash": "^4.14.149",
     "chart.js": "^2.9.3",
     "d3": "^6.7.0",
