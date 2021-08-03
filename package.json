@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node dist/micro/server/main.js",
-    "build": "ng build --prod && npm run build:ssr",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
