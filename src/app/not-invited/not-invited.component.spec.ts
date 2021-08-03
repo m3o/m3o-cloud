@@ -8,9 +8,8 @@ describe('NotInvitedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotInvitedComponent ]
-    })
-    .compileComponents();
+      declarations: [NotInvitedComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

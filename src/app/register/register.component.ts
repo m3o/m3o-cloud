@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private notif: ToastrService,
     private cs: CookieService,
-    private ts: TrackingService
+    private ts: TrackingService,
   ) {}
 
   ngOnInit() {}

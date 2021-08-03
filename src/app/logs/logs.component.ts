@@ -1,15 +1,15 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
-import * as types from "../types";
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import * as types from '../types';
 
 @Component({
-  selector: "app-logs",
-  templateUrl: "./logs.component.html",
-  styleUrls: ["./logs.component.css"],
+  selector: 'app-logs',
+  templateUrl: './logs.component.html',
+  styleUrls: ['./logs.component.css'],
 })
 export class LogsComponent implements OnInit {
-  @ViewChild("scrollMe", { static: false })
+  @ViewChild('scrollMe', { static: false })
   private myScrollContainer: ElementRef;
-  @Input() log = "";
+  @Input() log = '';
 
   constructor() {}
 
@@ -24,7 +24,8 @@ export class LogsComponent implements OnInit {
 
   scrollToBottom(): void {
     try {
-      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      this.myScrollContainer.nativeElement.scrollTop =
+        this.myScrollContainer.nativeElement.scrollHeight;
     } catch (err) {}
   }
 }

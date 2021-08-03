@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "format:check": "prettier --config .prettierrc --check 'src/**/*.ts'",
+    "format:write": "prettier --config .prettierrc --write 'src/**/*.ts'"
   },
   "private": true,
   "dependencies": {
@@ -66,6 +68,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "~1.6.0",
+    "prettier": "^2.3.2",
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.3",

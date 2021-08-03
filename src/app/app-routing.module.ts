@@ -82,7 +82,6 @@ const routes: Routes = [
     path: ':id/:tab',
     component: ApiSingleComponent,
   },
-
 ];
 
 const routerOptions: ExtraOptions = {

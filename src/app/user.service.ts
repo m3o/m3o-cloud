@@ -51,7 +51,7 @@ export class UserService {
     private cookie: CookieService,
     private notif: ToastrService,
     private router: Router,
-    private v1api: V1ApiService
+    private v1api: V1ApiService,
   ) {
     this.get()
       .then((user) => {
@@ -95,7 +95,7 @@ export class UserService {
               '/',
               null,
               null,
-              null
+              null,
             );
             this.cookie.set(
               'micro_api_token_id',
@@ -104,7 +104,7 @@ export class UserService {
               '/',
               null,
               null,
-              null
+              null,
             );
             resolve(rsp.api_key);
           })
@@ -186,7 +186,7 @@ export class UserService {
             '/',
             null,
             null,
-            null
+            null,
           );
           this.cookie.set(
             'micro_refresh',
@@ -195,7 +195,7 @@ export class UserService {
             '/',
             null,
             null,
-            null
+            null,
           );
           this.cookie.set(
             'micro_expiry',
@@ -204,7 +204,7 @@ export class UserService {
             '/',
             null,
             null,
-            null
+            null,
           );
           this.cookie.set(
             'micro_namespace',
@@ -213,7 +213,7 @@ export class UserService {
             '/',
             null,
             null,
-            null
+            null,
           );
           resolve();
         })
@@ -235,7 +235,7 @@ export class UserService {
             headers: {
               'Micro-Namespace': environment.namespace,
             },
-          }
+          },
         )
         .toPromise()
         .then((userResponse) => {
@@ -250,7 +250,7 @@ export class UserService {
   resetPassword(
     email: string,
     token: string,
-    newPassword: string
+    newPassword: string,
   ): Promise<void> {
     var headers = {
       'Micro-Namespace': environment.namespace,
@@ -264,7 +264,7 @@ export class UserService {
             token: token,
             password: newPassword,
           },
-          { headers: headers }
+          { headers: headers },
         )
         .toPromise()
         .then((userResponse) => {
@@ -283,7 +283,7 @@ export class UserService {
           environment.apiUrl + '/onboarding/signup/SendVerificationEmail',
           {
             email: email,
-          }
+          },
         )
         .toPromise()
         .then((userResponse) => {
@@ -312,7 +312,7 @@ export class UserService {
   verify(
     email: string,
     password: string,
-    verificationCode: string
+    verificationCode: string,
   ): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       return this.http
@@ -322,7 +322,7 @@ export class UserService {
             email: email,
             token: verificationCode,
             secret: password,
-          }
+          },
         )
         .toPromise()
         .then((resp) => {
@@ -334,7 +334,7 @@ export class UserService {
             '/',
             null,
             null,
-            null
+            null,
           );
           this.cookie.set(
             'micro_refresh',
@@ -343,7 +343,7 @@ export class UserService {
             '/',
             null,
             null,
-            null
+            null,
           );
           this.cookie.set(
             'micro_expiry',
@@ -352,7 +352,7 @@ export class UserService {
             '/',
             null,
             null,
-            null
+            null,
           );
           this.cookie.set(
             'micro_namespace',
@@ -361,7 +361,7 @@ export class UserService {
             '/',
             null,
             null,
-            null
+            null,
           );
           resolve();
         })
@@ -397,7 +397,7 @@ export class UserService {
             '/',
             null,
             null,
-            null
+            null,
           );
           this.cookie.set(
             'micro_refresh',
@@ -406,7 +406,7 @@ export class UserService {
             '/',
             null,
             null,
-            null
+            null,
           );
           this.cookie.set(
             'micro_expiry',
@@ -415,7 +415,7 @@ export class UserService {
             '/',
             null,
             null,
-            null
+            null,
           );
           this.refreshing = false;
           resolve();
@@ -445,7 +445,7 @@ export class UserService {
       Zebra: /TC70|TC55/i,
     };
     Object.keys(ua).map(
-      (v) => navigator.userAgent.match(ua[v]) && (device = v)
+      (v) => navigator.userAgent.match(ua[v]) && (device = v),
     );
     return device;
   }

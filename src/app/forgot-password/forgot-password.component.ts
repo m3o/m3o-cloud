@@ -18,7 +18,7 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private us: UserService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit() {}
@@ -38,12 +38,16 @@ export class ForgotPasswordComponent implements OnInit {
     this.us
       .resetPassword(this.email, this.verificationCode, this.password)
       .then(() => {
-        this.router.navigateByUrl("/login")
+        this.router.navigateByUrl('/login');
       })
       .catch((e) => {
         this.toastr.error(e.error.Detail);
-      }).then(() => {
-        this.toastr.success("Please log in now.", "Successfully reset password");
+      })
+      .then(() => {
+        this.toastr.success(
+          'Please log in now.',
+          'Successfully reset password',
+        );
       });
   }
 }

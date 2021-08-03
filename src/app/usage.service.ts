@@ -10,27 +10,23 @@ interface ListUsageResponse {
 
 @Injectable()
 export class UsageService {
-
-  constructor(
-    private http: HttpClient,
-    private cookie: CookieService,
-  ) {
-  }
-
+  constructor(private http: HttpClient, private cookie: CookieService) {}
 
   listUsage(userID?: string): Promise<Map<string, types.APIUsage>> {
     return new Promise<Map<string, types.APIUsage>>((resolve, reject) => {
       return this.http
-        .post<ListUsageResponse>(environment.apiUrl + '/usage/Read',
+        .post<ListUsageResponse>(
+          environment.apiUrl + '/usage/Read',
           {
             customer_id: userID,
           },
           {
             headers: {
               'Micro-Namespace': 'micro',
-              authorization: this.token()
-            }
-          })
+              authorization: this.token(),
+            },
+          },
+        )
         .toPromise()
         .then((listResponse) => {
           resolve(listResponse.usage);
@@ -44,5 +40,4 @@ export class UsageService {
   token(): string {
     return 'Bearer ' + this.cookie.get('micro_token');
   }
-
 }

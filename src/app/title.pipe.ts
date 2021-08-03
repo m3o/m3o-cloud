@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 function toTitleCase(str) {
   return str.replace(/\w\S*/g, function (txt) {
@@ -7,7 +7,7 @@ function toTitleCase(str) {
 }
 
 @Pipe({
-  name: "title",
+  name: 'title',
 })
 export class TitlePipe implements PipeTransform {
   transform(value: any, ...args: any[]): any {

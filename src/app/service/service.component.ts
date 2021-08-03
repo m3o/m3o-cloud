@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { ServiceService } from "../service.service";
-import { RegistryService } from "../registry.service";
-import * as types from "../types";
-import { Location } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
-import { Subject } from "rxjs";
-import * as _ from "lodash";
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ServiceService } from '../service.service';
+import { RegistryService } from '../registry.service';
+import * as types from '../types';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 
 const tabNamesToIndex = {
-  "": 0,
+  '': 0,
   logs: 1,
   stats: 2,
   nodes: 3,
@@ -18,20 +18,20 @@ const tabNamesToIndex = {
 };
 
 const tabIndexesToName = {
-  0: "",
-  1: "logs",
-  2: "stats",
-  3: "nodes",
-  4: "traces",
-  5: "events",
+  0: '',
+  1: 'logs',
+  2: 'stats',
+  3: 'nodes',
+  4: 'traces',
+  5: 'events',
 };
 
 @Component({
-  selector: "app-service",
-  templateUrl: "./service.component.html",
+  selector: 'app-service',
+  templateUrl: './service.component.html',
   styleUrls: [
-    "./service.component.css",
-    "../../../node_modules/nvd3/build/nv.d3.css",
+    './service.component.css',
+    '../../../node_modules/nvd3/build/nv.d3.css',
   ],
   encapsulation: ViewEncapsulation.None,
 })
@@ -42,7 +42,7 @@ export class ServiceComponent implements OnInit {
   traceSpans: types.Span[];
   events: types.Event[];
 
-  selectedVersion = "";
+  selectedVersion = '';
   serviceName: string;
   endpointQuery: string;
   intervalId: any;
@@ -58,7 +58,7 @@ export class ServiceComponent implements OnInit {
     private rs: RegistryService,
     private activeRoute: ActivatedRoute,
     private location: Location,
-    private notif: ToastrService
+    private notif: ToastrService,
   ) {}
 
   ngOnInit() {
@@ -66,16 +66,16 @@ export class ServiceComponent implements OnInit {
       if (this.intervalId) {
         clearInterval(this.intervalId);
       }
-      this.serviceName = <string>p["id"];
+      this.serviceName = <string>p['id'];
       this.rs.list().then((servs) => {
         this.services = servs.filter((s) => s.name == this.serviceName);
         this.selectedVersion =
-          this.services.filter((s) => s.version == "latest").length > 0
-            ? "latest"
+          this.services.filter((s) => s.version == 'latest').length > 0
+            ? 'latest'
             : this.services[0].version;
       });
       this.loadVersionData();
-      const tab = <string>p["tab"];
+      const tab = <string>p['tab'];
       if (tab) {
         this.selected = tabNamesToIndex[tab];
       }
@@ -86,7 +86,7 @@ export class ServiceComponent implements OnInit {
 
   versionSelected(service: types.Service) {
     if (this.selectedVersion == service.version) {
-      this.selectedVersion = "";
+      this.selectedVersion = '';
       return;
     }
     this.selectedVersion = service.version;
@@ -96,7 +96,7 @@ export class ServiceComponent implements OnInit {
   tabChange($event: number) {
     this.selected = $event;
     this.location.replaceState(
-      "/service/" + this.serviceName + "/" + tabIndexesToName[this.selected]
+      '/service/' + this.serviceName + '/' + tabIndexesToName[this.selected],
     );
     this.tabValueChange.next(this.selected);
   }
@@ -107,5 +107,5 @@ export class ServiceComponent implements OnInit {
     }
   }
 
-  code: string = "{}";
+  code: string = '{}';
 }

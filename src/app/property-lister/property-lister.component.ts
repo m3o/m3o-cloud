@@ -24,6 +24,6 @@ export class PropertyListerComponent implements OnInit {
   }
 
   prefix(): string {
-    return "---".repeat(this.level) + " "
+    return '---'.repeat(this.level) + ' ';
   }
 }
