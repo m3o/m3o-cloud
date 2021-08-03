@@ -96,7 +96,7 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { SearchResultGridComponent } from './search-result-grid/search-result-grid.component';
 import { EndpointCallerComponent } from './endpoint-caller/endpoint-caller.component';
 
-document.defaultView['hljs'] = hljs;
+// document.defaultView['hljs'] = hljs;
 
 @NgModule({
   declarations: [
@@ -138,7 +138,7 @@ document.defaultView['hljs'] = hljs;
     EndpointCallerComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSidenavModule,
@@ -182,22 +182,22 @@ document.defaultView['hljs'] = hljs;
     QuotaService,
     UsageService,
     BalanceService,
-    {
-      provide: HIGHLIGHT_OPTIONS,
-      useValue: {
-        coreLibraryLoader: () => import('highlight.js/lib/core'),
-        lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
-        languages: {
-          typescript: () => import('highlight.js/lib/languages/typescript'),
-          javascript: () => import('highlight.js/lib/languages/javascript'),
-          css: () => import('highlight.js/lib/languages/css'),
-          xml: () => import('highlight.js/lib/languages/xml'),
-          json: () => import('highlight.js/lib/languages/json'),
-          go: () => import('highlight.js/lib/languages/go'),
-          shell: () => import('highlight.js/lib/languages/shell'),
-        },
-      },
-    },
+    //{
+    //  provide: HIGHLIGHT_OPTIONS,
+    //  useValue: {
+    //    coreLibraryLoader: () => import('highlight.js/lib/core'),
+    //    lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
+    //    languages: {
+    //      typescript: () => import('highlight.js/lib/languages/typescript'),
+    //      javascript: () => import('highlight.js/lib/languages/javascript'),
+    //      css: () => import('highlight.js/lib/languages/css'),
+    //      xml: () => import('highlight.js/lib/languages/xml'),
+    //      json: () => import('highlight.js/lib/languages/json'),
+    //      go: () => import('highlight.js/lib/languages/go'),
+    //      shell: () => import('highlight.js/lib/languages/shell'),
+    //    },
+    //  },
+    //},
   ],
   bootstrap: [AppComponent],
   entryComponents: [DialogOverviewExampleDialog, CreateKeyDialogComponent],

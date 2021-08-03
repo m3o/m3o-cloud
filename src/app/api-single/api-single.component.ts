@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, PLATFORM_ID, Inject } from '@angular/core';
 import { ServiceService } from '../service.service';
 import * as types from '../types';
 import { Location } from '@angular/common';
@@ -10,6 +10,8 @@ import { ExploreService, ExploreAPI, API } from '../explore.service';
 import * as openapi from 'openapi3-ts';
 import { UserService } from '../user.service';
 import { V1ApiService } from '../v1api.service';
+import { isPlatformBrowser }
+from '@angular/common';
 
 const tabNamesToIndex = {
   '': 0,
@@ -52,6 +54,7 @@ export class ApiSingleComponent implements OnInit {
   user: types.Account;
   fragment: string;
   hasKeys = true;
+  isBrowser = false;
 
   constructor(
     private ses: ServiceService,
@@ -61,7 +64,10 @@ export class ApiSingleComponent implements OnInit {
     private notif: ToastrService,
     public us: UserService,
     private v1api: V1ApiService,
-  ) {}
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   hasAPIKeys(): void {
     this.v1api
