@@ -5,7 +5,7 @@
 .mat-row,
 .mat-header-row {
   display: flex;
-  border-bottom: 1px solid rgb(204, 204, 204);
+  border-bottom: 1px solid var(--m3o-grey-1);
   align-items: center;
   min-height: 48px;
   padding: 0 24px;
@@ -23,10 +23,138 @@
 .mat-cell {
   font-size: 1em;
 }
+
 .images img {
   height: 50px;
   width: auto;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: var(--m3o-spacing);
+  padding-right: var(--m3o-spacing);
   margin-bottom: 10px;
+}
+
+.banner {
+  margin-top: var(--m3o-spacing);
+}
+
+.banner-title {
+  font-size: 3.5em;
+  font-weight: 700;
+  line-height: 1em;
+}
+
+.banner-info {
+  max-width: 500px;
+  margin: 0 0 0 auto;
+  padding-top: var(--m3o-spacing);
+  padding-bottom: var(--m3o-spacing);
+  border: 1px solid;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: var(--m3o-spacing);
+}
+
+.banner-info-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  line-height: 1em;
+  padding-top: 1em;
+}
+
+section {
+  margin-top: calc(var(--m3o-spacing) * 5);
+}
+
+section .loading {
+  text-align: center;
+}
+
+section h2 {
+  font-weight: bold;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: calc(var(--m3o-spacing) * 3);
+}
+
+.ux .left {
+  border: 1px solid var(--m3o-grey-1);
+  border-radius: 7px;
+  padding: 1em;
+  text-align: center;
+}
+
+.ux h2 {
+  margin-bottom: 0;
+}
+
+.ux h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.ux span {
+  color: #666;
+  display: block;
+}
+
+.ux .emoji {
+  display: block;
+  font-size: 1.4rem;
+}
+
+.ux .item {
+  text-align: left;
+  padding-top: var(--m3o-spacing);
+}
+
+.about {
+  margin-bottom: var(--m3o-spacing);
+}
+
+.about-footer {
+  margin-top: calc(var(--m3o-spacing) * 2);
+}
+
+.sell-section {
+  border-top: 1px solid var(--m3o-grey-1);
+  padding-top: calc(var(--m3o-spacing) * 2);
+}
+
+.sell-section h2,
+.sell-section p {
+  margin-bottom: var(--m3o-spacing);
+}
+
+@media (min-width: 768px) {
+  .banner-info {
+    margin-top: 0;
+  }
+
+  .ux {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: var(--m3o-spacing);
+  }
+
+  .ux .right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--m3o-spacing);
+  }
+
+  .ux .item {
+    padding-top: 0;
+    margin-bottom: var(--m3o-spacing);
+  }
+
+  .grid-equal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--m3o-spacing);
+  }
+
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: var(--m3o-spacing);
+  }
 }
