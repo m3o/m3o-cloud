@@ -1,3 +1,26 @@
+:root {
+  --m3o-spacing: 20px;
+  --m3o-grey-1: #dedede;
+}
+
+.container {
+  width: 90%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.m3o-mt {
+  margin-top: var(--m3o-spacing);
+}
+
+.m3o-mb {
+  margin-bottom: var(--m3o-spacing);
+}
+
+.text-center {
+  text-align: center;
+}
+
 .menu-spacer {
   flex: 1 1 auto;
 }
@@ -13,8 +36,8 @@ mat-sidenav-content {
 #logo {
   font-size: 1.5em;
   font-weight: 1000;
-  font-family: medium-content-sans-serif-font, "Lucida Grande",
-    "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+  font-family: medium-content-sans-serif-font, 'Lucida Grande',
+    'Lucida Sans Unicode', 'Lucida Sans', Geneva, Arial, sans-serif;
 }
 
 *:focus {

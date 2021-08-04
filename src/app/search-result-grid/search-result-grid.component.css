@@ -1,7 +1,51 @@
+.root {
+}
+
+.service-card {
+  border: 1px solid var(--m3o-grey-1);
+  padding: var(--m3o-spacing);
+  margin-bottom: var(--m3o-spacing);
+  box-shadow: none;
+}
+
 .category {
   float: right;
   font-size: 0.5em;
   padding: 5px;
-  background: #C8CACB;
+  background: #c8cacb;
   color: #ffffff;
+}
+
+.description {
+  height: 1.4em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.endpoints {
+  color: #888;
+  padding-top: 0.5em;
+  height: 1.4em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.endpoints a {
+  color: #888;
+}
+
+@media (min-width: 768px) {
+  .root {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--m3o-spacing);
+  }
+}
+
+@media (min-width: 1024px) {
+  .root {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
