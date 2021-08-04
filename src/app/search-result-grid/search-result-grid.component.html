@@ -1,48 +1,37 @@
-<div fxLayoutAlign="space-between" fxLayout="row wrap">
-  <div
-    *ngFor="let service of services"
-    fxFlex="32%"
-    fxFlex.lt-md="49%"
-    fxFlex.lt-sm="99%"
-    style="padding-bottom: 2em; display: table-cell"
-  >
-    <mat-card
-      class="mat-elevation-z0"
-      style="padding: 1.5em; border: 1px solid #ddd"
-    >
+<div class="root">
+  <div *ngFor="let service of services">
+    <mat-card class="service-card mat-elevation-z0">
       <mat-card-title
         ><a routerLink="/{{ service.name }}">
-           <span *ngIf="service.icon !== undefined && service.icon.length > 0" [innerHtml]="service.icon +'&nbsp;'"></span>
-           {{  service.name }}
+          <span
+            *ngIf="service.icon !== undefined && service.icon.length > 0"
+            [innerHtml]="service.icon + '&nbsp;'"
+          ></span>
+          {{ service.name }}
         </a>
-        <mat-card *ngIf="service.category !== undefined" class="category mat-card-flat">{{service.category}}</mat-card>
+        <mat-card
+          *ngIf="service.category !== undefined"
+          class="category mat-card-flat"
+          >{{ service.category }}</mat-card
+        >
       </mat-card-title>
-      <div
-        style="
-          height: 1.4em;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        "
-      >
+      <div class="description">
         {{ readme(service) }}
       </div>
-      <div
-        style="
-          color: #888;
-          padding-top: 0.5em;
-          height: 1.4em;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        "
-      >
-        <span *ngFor="let endpoint of service.endpoints.slice(0, 3); let i = index;">
-          <a
-            style="color: #888"
-            href="{{ service.name }}#{{ endpoint.name.split('.')[1] }}"
+      <div class="endpoints">
+        <span
+          *ngFor="let endpoint of service.endpoints.slice(0, 3); let i = index"
+        >
+          <a href="{{ service.name }}#{{ endpoint.name.split('.')[1] }}"
             >{{ formatName(endpoint.name.split('.')[1]) }}&nbsp;
-            <span *ngIf="service.endpoints.length > 1 && i < (service.endpoints.length - 1) && i < 2 ">&bull;&nbsp;</span>
+            <span
+              *ngIf="
+                service.endpoints.length > 1 &&
+                i < service.endpoints.length - 1 &&
+                i < 2
+              "
+              >&bull;&nbsp;</span
+            >
           </a> </span
         ><span *ngIf="service.endpoints.length > 3"> & more</span>
       </div>
