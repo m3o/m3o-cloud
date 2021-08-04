@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, PLATFORM_ID, Inject } from '@angular/core';
 import { ServiceService } from '../service.service';
 import * as types from '../types';
 import { Location } from '@angular/common';
@@ -10,6 +10,9 @@ import { ExploreService, ExploreAPI, API } from '../explore.service';
 import * as openapi from 'openapi3-ts';
 import { UserService } from '../user.service';
 import { V1ApiService } from '../v1api.service';
+import { isPlatformBrowser }
+from '@angular/common';
+import {Title, Meta} from "@angular/platform-browser";
 
 const tabNamesToIndex = {
   '': 0,
@@ -52,6 +55,7 @@ export class ApiSingleComponent implements OnInit {
   user: types.Account;
   fragment: string;
   hasKeys = true;
+  isBrowser = false;
 
   constructor(
     private ses: ServiceService,
@@ -61,7 +65,12 @@ export class ApiSingleComponent implements OnInit {
     private notif: ToastrService,
     public us: UserService,
     private v1api: V1ApiService,
-  ) {}
+    @Inject(PLATFORM_ID) platformId: Object,
+    private titleService: Title,
+    private metaService: Meta,
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   hasAPIKeys(): void {
     this.v1api
@@ -85,6 +94,8 @@ export class ApiSingleComponent implements OnInit {
         clearInterval(this.intervalId);
       }
       this.serviceName = <string>p['id'];
+      this.titleService.setTitle(this.serviceName + " api | Micro")
+
       this.loadAPI();
       this.loadVersionData();
       const tab = <string>p['tab'];
@@ -107,6 +118,7 @@ export class ApiSingleComponent implements OnInit {
       if (this.service.api.examples_json) {
         this.examples = JSON.parse(this.service.api.examples_json);
       }
+      this.metaService.addTag({name: "description", content: this.firstReadmeLine()})
 
       setTimeout(() => {
         try {
