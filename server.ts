@@ -43,6 +43,8 @@ export function app(): express.Express {
   // Serve static files from /browser
   server.get('*.*', express.static(distFolder, {
     maxAge: '1y',
+    // unless this option is set, not found files will fall through
+    // and tried to be rendered by server.get('*')
     fallthrough: false,
   }));
 
