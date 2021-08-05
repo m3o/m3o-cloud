@@ -3,6 +3,7 @@
   padding-top: var(--m3o-double-spacing);
   background-color: var(--m3o-primary);
   color: var(--footer-color);
+  border-top: 1px solid var(--footer-color);
 }
 
 a {
