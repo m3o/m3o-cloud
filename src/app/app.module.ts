@@ -95,6 +95,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { SearchPageComponent } from './search-page/search-page.component';
 import { SearchResultGridComponent } from './search-result-grid/search-result-grid.component';
 import { EndpointCallerComponent } from './endpoint-caller/endpoint-caller.component';
+import { HomeBannerComponent } from './home-banner/home-banner.component';
+import { FooterComponent } from './footer/footer.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -136,6 +138,8 @@ import { EndpointCallerComponent } from './endpoint-caller/endpoint-caller.compo
     SearchPageComponent,
     SearchResultGridComponent,
     EndpointCallerComponent,
+    HomeBannerComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

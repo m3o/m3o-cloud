@@ -1,83 +1,95 @@
-<div style="margin: auto">
-  <mat-card style="margin-top: 0em; padding-top: 0em" class="mat-card-flat">
-    <mat-card-title>
-      <a routerLink="/services">Services</a>
-      &nbsp;
-      <button
-        class="new-button"
-        routerLink="/service/new"
-        mat-raised-button
-        color="primary"
-        aria-label="Add new service"
-      ></button>
-    </mat-card-title>
-    <div fxLayout="row wrap" fxLayoutAlign="space-between">
-      <div
-        fxFlex="0 1 calc(33% - 1em)"
-        fxFlex.lt-md="0 1 calc(50% - 1em)"
-        fxFlex.lt-sm="0 1 100%"
-      >
-        <form class="example-form">
-          <mat-form-field appearance="outline" class="example-full-width" style="width: 100%;">
-            <input
-              name="query"
-              matInput
-              [(ngModel)]="query"
-              placeholder="Search"
-            />
-          </mat-form-field>
-        </form>
+<div class="container">
+  <div style="margin: auto">
+    <mat-card style="margin-top: 0em; padding-top: 0em" class="mat-card-flat">
+      <mat-card-title>
+        <a routerLink="/services">Services</a>
+        &nbsp;
+        <button
+          class="new-button"
+          routerLink="/service/new"
+          mat-raised-button
+          color="primary"
+          aria-label="Add new service"
+        ></button>
+      </mat-card-title>
+      <div fxLayout="row wrap" fxLayoutAlign="space-between">
+        <div
+          fxFlex="0 1 calc(33% - 1em)"
+          fxFlex.lt-md="0 1 calc(50% - 1em)"
+          fxFlex.lt-sm="0 1 100%"
+        >
+          <form class="example-form">
+            <mat-form-field
+              appearance="outline"
+              class="example-full-width"
+              style="width: 100%"
+            >
+              <input
+                name="query"
+                matInput
+                [(ngModel)]="query"
+                placeholder="Search"
+              />
+            </mat-form-field>
+          </form>
+        </div>
+        <app-snippet
+          style="
+            margin-bottom: 1em;
+            overflow: hidden;
+            height: 4em;
+            border-radius: 5px;
+            font-family: monospace;
+          "
+          fxFlex="0 1 calc(33% - 1em)"
+          fxFlex.lt-md="0 1 calc(50% - 1em)"
+          fxFlex.lt-sm="0 1 100%"
+          src="micro services"
+          fullsrc="micro services"
+        ></app-snippet>
       </div>
-      <app-snippet
-        style="
-          margin-bottom: 1em;
-          overflow: hidden;
-          height: 4em;
-          border-radius: 5px;
-          font-family: monospace;
-        "
-        fxFlex="0 1 calc(33% - 1em)"
-        fxFlex.lt-md="0 1 calc(50% - 1em)"
-        fxFlex.lt-sm="0 1 100%"
-        src="micro services"
-        fullsrc="micro services"
-      ></app-snippet>
-    </div>
 
-    <!-- <div>
+      <!-- <div>
       <mat-spinner
         [diameter]="70"
         style="margin: auto;"
         *ngIf="!services"
       ></mat-spinner>
     </div> -->
-    <mat-card *ngIf="!services" style="width: 300px;">
-      <mat-card-title>Get Started</mat-card-title>
-      <mat-card-subtitle>Create a new service in one click</mat-card-subtitle>
-      <button mat-stroked-button routerLink="/service/new" style="height: 300px; width: 300px;"><span style="font-size: 3em; padding: 20px;">+</span></button>
-    </mat-card>
-    <ng-container *ngIf="services">
-      <mat-card
-        routerLink="/service/{{ service.key }}"
-        class="mat-card"
-        *ngFor="let service of services | keyvalue | search: 'key':query"
-        style="cursor: pointer; margin-bottom: 1em; background: #fcfcfc"
-      >
-        <mat-card-title
-          style="display: flex; align-items: center; font-size: 1.25em"
+      <mat-card *ngIf="!services" style="width: 300px">
+        <mat-card-title>Get Started</mat-card-title>
+        <mat-card-subtitle>Create a new service in one click</mat-card-subtitle>
+        <button
+          mat-stroked-button
+          routerLink="/service/new"
+          style="height: 300px; width: 300px"
         >
-          &nbsp;<a href="#" routerLink="/service/{{ service.key }}">{{
-            service.key | title
-          }}</a
-          >&nbsp;&nbsp;
-        </mat-card-title>
-        <mat-card-subtitle>
-          <!-- &nbsp;<span *ngFor="let endpoint of service.value[0].endpoints; let last = last">
+          <span style="font-size: 3em; padding: 20px">+</span>
+        </button>
+      </mat-card>
+      <ng-container *ngIf="services">
+        <mat-card
+          routerLink="/service/{{ service.key }}"
+          class="mat-card"
+          *ngFor="let service of services | keyvalue | search: 'key':query"
+          style="cursor: pointer; margin-bottom: 1em; background: #fcfcfc"
+        >
+          <mat-card-title
+            style="display: flex; align-items: center; font-size: 1.25em"
+          >
+            &nbsp;<a href="#" routerLink="/service/{{ service.key }}">{{
+              service.key | title
+            }}</a
+            >&nbsp;&nbsp;
+          </mat-card-title>
+          <mat-card-subtitle>
+            <!-- &nbsp;<span *ngFor="let endpoint of service.value[0].endpoints; let last = last">
             {{ endpoint.name }}<span *ngIf="!last">, </span>
           </span> -->
-        </mat-card-subtitle>
-      </mat-card>
-      <br />&nbsp;
-    </ng-container>
-  </mat-card>
+          </mat-card-subtitle>
+        </mat-card>
+        <br />&nbsp;
+      </ng-container>
+    </mat-card>
+  </div>
 </div>

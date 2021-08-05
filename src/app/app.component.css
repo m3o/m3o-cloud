@@ -1,8 +1,26 @@
 :root {
   --m3o-spacing: 20px;
+  --m3o-double-spacing: calc(var(--m3o-spacing) * 2);
+  --m3o-half-spacing: calc(var(--m3o-spacing) / 2);
+
+  /* Colors */
   --m3o-grey-1: #dedede;
+  --m3o-white: #fff;
+  --m3o-dark-blue-1: #000131;
+  --m3o-dark-blue-2: #03045e;
+  --m3o-mint-green: #80ffdb;
+  --m3o-mint-green-dark: #3eb392;
+
+  /* Globals */
+  --m3o-header-height: 105px;
+  --m3o-primary: var(--m3o-dark-blue-1);
+  --m3o-secondary: var(--m3o-mint-green);
+  --m3o-secondary-dark: var(--m3o-mint-green-dark);
+  --m3o-border-grey: var(--m3o-grey-1);
+  --m3o-border: 1px solid var(--m3o-border-grey);
 }
 
+/* Helpers */
 .container {
   width: 90%;
   max-width: 1240px;
@@ -61,6 +79,17 @@
 
 .menu-spacer {
   flex: 1 1 auto;
+}
+
+.btn {
+}
+
+@media (min-width: 768px) {
+  .grid-equal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--m3o-spacing);
+  }
 }
 
 mat-sidenav-content {

@@ -1,0 +1,33 @@
+.root {
+  margin-top: var(--m3o-double-spacing);
+}
+
+.title {
+  font-size: 3.5em;
+  font-weight: 700;
+  line-height: 1em;
+}
+
+.banner-info {
+  max-width: 500px;
+  margin: 0 0 0 auto;
+  padding-top: var(--m3o-spacing);
+  padding-bottom: var(--m3o-spacing);
+  border: 1px solid;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: var(--m3o-spacing);
+}
+
+.banner-info-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  line-height: 1em;
+  padding-top: 1em;
+}
+
+@media (min-width: 768px) {
+  .banner-info {
+    margin-top: 0;
+  }
+}
