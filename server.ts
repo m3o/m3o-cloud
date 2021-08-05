@@ -50,7 +50,12 @@ export function app(): express.Express {
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
-    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] },  (err: Error, html: string) => {
+      if (!html) {
+        res.status(500);
+      }
+      res.send(html || err.message).end();
+    });
   });
 
   return server;
