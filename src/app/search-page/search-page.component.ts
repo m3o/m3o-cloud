@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ExploreService, API, ExploreAPI } from '../explore.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TransferState, makeStateKey } from '@angular/platform-browser';
+
+const STATE_KEY_SEARCH = makeStateKey('search');
 
 @Component({
   selector: 'app-search-page',
@@ -12,19 +15,28 @@ export class SearchPageComponent implements OnInit {
     public exp: ExploreService,
     private route: ActivatedRoute,
     private router: Router,
+    private state: TransferState
   ) {}
 
   search: string;
   services: ExploreAPI[];
   results: ExploreAPI[];
   timeout: any = null;
-  loading = true;
+  loading = false;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.search = params['q'];
-      this.searchResults();
-    });
+    let services: ExploreAPI[] = this.state.get(STATE_KEY_SEARCH, <any> []);
+    if (services.length == 0) {
+      this.loading = true
+      this.route.queryParams.subscribe((params) => {
+        this.search = params['q'];
+        this.searchResults().finally(() => {
+          this.state.set(STATE_KEY_SEARCH, <any> this.services)
+        });
+      });
+    } else {
+      this.services = services
+    }
   }
 
   keyDownFunction(event) {
@@ -33,9 +45,9 @@ export class SearchPageComponent implements OnInit {
     }
   }
 
-  searchResults() {
+  searchResults(): Promise<void> {
     this.loading = true;
-    this.exp
+    return this.exp
       .search(this.search)
       .then((ss) => {
         this.services = ss.filter((s) => s.description);
