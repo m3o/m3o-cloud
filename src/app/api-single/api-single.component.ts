@@ -13,6 +13,9 @@ import { V1ApiService } from '../v1api.service';
 import { isPlatformBrowser }
 from '@angular/common';
 import {Title, Meta} from "@angular/platform-browser";
+import { TransferState, makeStateKey } from '@angular/platform-browser';
+
+const STATE_KEY_API = makeStateKey('api');
 
 const tabNamesToIndex = {
   '': 0,
@@ -49,6 +52,7 @@ export class ApiSingleComponent implements OnInit {
   // refresh stats
   refresh = true;
   refreshLogs = true;
+  loading = false;
 
   selected = 0;
   tabValueChange = new Subject<number>();
@@ -68,6 +72,7 @@ export class ApiSingleComponent implements OnInit {
     @Inject(PLATFORM_ID) platformId: Object,
     private titleService: Title,
     private metaService: Meta,
+    private state: TransferState,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -108,7 +113,8 @@ export class ApiSingleComponent implements OnInit {
   examples = {};
 
   loadAPI() {
-    this.ex.service(this.serviceName).then((serv) => {
+    let processAPI = (serv: API) => {
+      this.state.set(STATE_KEY_API, <any> serv)
       this.service = serv;
       this.openAPI = JSON.parse(this.service.api.open_api_json);
       this.postman = JSON.parse(this.service.api.postman_json);
@@ -127,7 +133,18 @@ export class ApiSingleComponent implements OnInit {
           console.log(e);
         }
       }, 300);
-    });
+    }
+    let api: API = this.state.get(STATE_KEY_API, <any> null);
+
+    if (api == null) {
+      this.loading = true
+      this.ex.service(this.serviceName).then(serv => {
+        this.loading = false
+        processAPI(serv)
+      });
+    } else {
+      processAPI(api)
+    }
   }
 
   displayPrice(
