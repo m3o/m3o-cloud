@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -174,6 +174,7 @@ import { EndpointCallerComponent } from './endpoint-caller/endpoint-caller.compo
     MarkdownModule.forRoot(),
     HighlightModule,
     NgxChartsModule,
+    BrowserTransferStateModule
   ],
   providers: [
     CookieService,

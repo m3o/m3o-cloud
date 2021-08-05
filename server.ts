@@ -42,7 +42,10 @@ export function app(): express.Express {
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
   server.get('*.*', express.static(distFolder, {
-    maxAge: '1y'
+    maxAge: '1y',
+    // unless this option is set, not found files will fall through
+    // and tried to be rendered by server.get('*')
+    fallthrough: false,
   }));
 
   // All regular routes use the Universal engine
