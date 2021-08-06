@@ -30,7 +30,7 @@
     "@angular/platform-server": "~12.1.0",
     "@angular/router": "~12.1.0",
     "@nguniversal/express-engine": "^12.1.0",
-    "@stripe/stripe-js": "^1.13.2",
+    "@stripe/stripe-js": "^1.14.0",
     "@swimlane/ngx-charts": "^18.0.1",
     "@types/lodash": "^4.14.149",
     "chart.js": "^2.9.3",

@@ -47,8 +47,7 @@ export class SearchPageComponent implements OnInit {
 
   searchResults(): Promise<void> {
     this.loading = true;
-    return this.exp
-      .search(this.search)
+    return this.exp.search(this.search)
       .then((ss) => {
         this.services = ss.filter((s) => s.description);
       })

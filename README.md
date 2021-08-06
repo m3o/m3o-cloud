@@ -11,7 +11,7 @@ npm install && ng serve
 Or with server side rendering:
 
 ```
-ng run ssr:dev
+npm run dev:ssr
 ```
 
 Navigate to `http://localhost:4200/`.
