@@ -31,8 +31,9 @@
   margin-bottom: var(--m3o-spacing);
 }
 
-.alert.alert-red {
-  background-color: #e00000;
+.alert.alert-orange {
+  background-color: #fcd34d;
+  color: black;
 }
 
 .api-key {
