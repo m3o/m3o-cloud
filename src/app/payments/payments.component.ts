@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 import { BalanceService } from '../balance.service';
-import { loadStripe, Stripe } from '@stripe/stripe-js';
+import { loadStripe} from '@stripe/stripe-js/pure';
+import { Stripe } from '@stripe/stripe-js';
 import { Adjustment, Card } from '../types';
 import { FormControl } from '@angular/forms';
 import { UserService } from '../user.service';
