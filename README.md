@@ -1,7 +1,21 @@
 # Micro Cloud
 
-## FAQ
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
-### How to regenerate the sitemap?
+## How to run
 
-Go to any sitemap generator site and commit the output to src/sitemap.xml
+```
+npm install && ng serve
+```
+
+Or with server side rendering:
+
+```
+ng run ssr:dev
+```
+
+Navigate to `http://localhost:4200/`.
+
+## How to regenerate the sitemap?
+
+Go to any sitemap generator (example: https://www.xml-sitemaps.com/) site and commit the output to src/sitemap.xml
