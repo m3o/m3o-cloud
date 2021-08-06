@@ -1,34 +1,51 @@
 <h1 mat-dialog-title>Create new API key</h1>
 <div mat-dialog-content>
-    <mat-form-field style="width: 400px">
-        <mat-label>Description</mat-label>
-        <mat-hint>What's this key for?</mat-hint>
-        <input matInput [(ngModel)]="description" required>
-    </mat-form-field>
-    <br/>
-    <mat-form-field style="width: 100%">
-        <mat-label>Scopes</mat-label>
-        <mat-hint>Select scopes to restrict key or leave blank to allow access to all available APIs</mat-hint>
-        <mat-select [formControl]="scopesForm" multiple>
-            <mat-option *ngFor="let scope of scopes" [value]="scope">{{scope}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-
+  <mat-form-field style="width: 400px">
+    <mat-label>Description</mat-label>
+    <mat-hint>What's this key for?</mat-hint>
+    <input matInput [(ngModel)]="description" required />
+  </mat-form-field>
+  <br />
+  <mat-form-field style="width: 100%" class="m3o-mt">
+    <mat-label>Scopes</mat-label>
+    <mat-hint
+      >Select scopes to restrict key or leave blank to allow access to all
+      available APIs</mat-hint
+    >
+    <mat-select [formControl]="scopesForm" multiple>
+      <mat-option *ngFor="let scope of scopes" [value]="scope">{{
+        scope
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
 <div *ngIf="apiKey">
-    <p>Success! Please copy this to a safe place as this is the only time you will see it.</p>
-    <br/>
-    <p style="background: #eee;">{{ apiKey }}</p>
+  <p class="alert alert-red">
+    Please copy this to a safe place as this is the only time you will see it.
+  </p>
+  <p class="api-key">{{ apiKey }}</p>
+  <div class="api-key-copy">
+    <button mat-raised-button (click)="copyToClipboard()" class="m3o-mb">
+      Copy
+    </button>
+    <p [ngClass]="showCopiedText ? 'show' : ''">Copied!</p>
+  </div>
 </div>
 <div *ngIf="errorMsg">
-    <p style="background: #eee;">{{ errorMsg }}</p>`
+  <p style="background: #eee">{{ errorMsg }}</p>
+  `
 </div>
 <div mat-dialog-actions>
-    <button mat-raised-button *ngIf="!apiKey" (click)="onNoClick()">Cancel</button>
-    <button mat-raised-button
-            (click)="onCreateClick()"
-            cdkFocusInitial
-            color="primary"
-            [disabled]="!description"
-    >{{ apiKey == '' ? 'Create' : 'Close' }}</button>
+  <button mat-raised-button *ngIf="!apiKey" (click)="onNoClick()">
+    Cancel
+  </button>
+  <button
+    mat-raised-button
+    (click)="onCreateClick()"
+    cdkFocusInitial
+    color="primary"
+    [disabled]="!description"
+  >
+    {{ apiKey == '' ? 'Create' : 'Close' }}
+  </button>
 </div>
