@@ -21,6 +21,44 @@
   text-align: center;
 }
 
+.alert {
+  padding: var(--m3o-spacing);
+  margin-top: var(--m3o-spacing);
+  border-radius: 4px;
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+  margin-bottom: var(--m3o-spacing);
+}
+
+.alert.alert-orange {
+  background-color: #fcd34d;
+  color: black;
+}
+
+.api-key {
+  background-color: black;
+  padding: var(--m3o-spacing);
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  margin: var(--m3o-spacing) 0;
+}
+
+.api-key-copy {
+  display: flex;
+  align-items: center;
+}
+
+.api-key-copy p {
+  margin: 0 0 0 var(--m3o-spacing);
+  display: none;
+}
+
+.api-key-copy p.show {
+  display: block;
+}
+
 .menu-spacer {
   flex: 1 1 auto;
 }

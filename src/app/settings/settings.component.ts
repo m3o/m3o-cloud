@@ -95,6 +95,7 @@ export class CreateKeyDialogComponent {
   public form: FormGroup;
   public scopes = [] as string[];
   public scopesForm = new FormControl();
+  public showCopiedText = false;
 
   constructor(
     public dialogRef: MatDialogRef<CreateKeyDialogComponent>,
@@ -131,5 +132,19 @@ export class CreateKeyDialogComponent {
           'There was an error creating the key. Please try again later.';
         console.log('ERROR' + JSON.stringify(e));
       });
+  }
+
+  async copyToClipboard(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(this.apiKey);
+
+      this.showCopiedText = true;
+
+      setTimeout(() => {
+        this.showCopiedText = false;
+      }, 500);
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
