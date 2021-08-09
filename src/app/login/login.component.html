@@ -1,42 +1,8 @@
 <section class="h-screen">
   <div class="md:flex h-full">
-    <div class="md:w-1/2 lg:w-2/5 h-full">
-      <div class="left-content">
-        <h1>Login</h1>
-        <form (ngSubmit)="login()">
-          <div class="m3o-form-field m3o-mt">
-            <label for="email">Email*</label>
-            <input
-              type="text"
-              [(ngModel)]="email"
-              type="email"
-              name="email"
-              placeholder="e.g john@doe.com"
-            />
-          </div>
-          <div class="m3o-form-field m3o-mt">
-            <label for="password">Password*</label>
-            <input
-              type="text"
-              [(ngModel)]="password"
-              type="password"
-              name="password"
-            />
-          </div>
-          <input [(ngModel)]="namespace" type="hidden" name="namespaceInput" />
-          <button type="submit" class="m3o-btn" data-cy="submit">Submit</button>
-        </form>
-        <p class="sign-up">
-          Not registered yet? <a routerLink="/register">Create an account</a>
-        </p>
-        <p class="sign-up">
-          <a routerLink="/forgot-password">Forgotten your password?</a>
-        </p>
-      </div>
-    </div>
-    <div class="md:w-1/2 lg:w-3/5 bg-gray-800 h-full">
-      <div class="right-content">
-        <svg viewBox="0 0 375 375" version="1.2">
+    <div class="md:w-1/2 lg:w-2/5 h-full flex items-center justify-center">
+      <div class="left-content p-6 md:w-9/12">
+        <svg viewBox="0 0 375 375" version="1.2" class="w-20 mb-4 -ml-4">
           <defs>
             <g>
               <symbol overflow="visible" id="glyph0-1">
@@ -63,9 +29,99 @@
             </g>
           </g>
         </svg>
-        <h2>Micro</h2>
-        <p>Speed up your development by integrating with our API's</p>
-        <ul class="selling-points">
+        <h1 class="font-bold text-3xl mb-6">Login</h1>
+        <form (ngSubmit)="login()">
+          <div class="mb-6">
+            <label for="email" class="block mb-2 text-sm"
+              >Email <sup class="text-red-500">*</sup></label
+            >
+            <input
+              type="text"
+              [(ngModel)]="email"
+              type="email"
+              name="email"
+              placeholder="e.g john@doe.com"
+              class="
+                border border-gray-300
+                block
+                py-4
+                px-6
+                w-full
+                rounded-lg
+                text-sm
+                focus:border-gray-800
+                transition-colors
+              "
+            />
+          </div>
+          <div class="mb-6">
+            <label for="password" class="block mb-2 text-sm"
+              >Password <sup class="text-red-500">*</sup></label
+            >
+            <input
+              type="text"
+              [(ngModel)]="password"
+              type="password"
+              name="password"
+              class="
+                border border-gray-300
+                block
+                py-4
+                px-6
+                w-full
+                rounded-lg
+                text-sm
+                focus:border-gray-800
+                transition-colors
+              "
+            />
+          </div>
+          <input [(ngModel)]="namespace" type="hidden" name="namespaceInput" />
+          <button
+            type="submit"
+            data-cy="submit"
+            class="
+              w-full
+              px-6
+              py-4
+              rounded-full
+              mb-6
+              bg-green-300
+              text-gray-800 text-sm
+              font-bold
+              hover:bg-green-400
+              transition-colors
+            "
+          >
+            Submit
+          </button>
+        </form>
+        <p class="mb-4 text-gray-700">
+          Not registered yet?
+          <a routerLink="/register" class="text-green-400">Create an account</a>
+        </p>
+        <p class="sign-up">
+          <a routerLink="/forgot-password" class="text-green-400"
+            >Forgotten your password?</a
+          >
+        </p>
+      </div>
+    </div>
+    <div
+      class="
+        hidden
+        md:flex md:justify-center md:items-center md:w-1/2
+        lg:w-3/5
+        bg-gray-900
+        h-full
+      "
+    >
+      <div class="right-content text-white">
+        <h2 class="text-4xl mb-4 font-extrabold">Micro</h2>
+        <p class="text-gray-400 mb-6 text-md">
+          Speed up your development by integrating with our API's
+        </p>
+        <ul class="list-disc pl-4">
           <li>Quick and simple setup</li>
           <li>Great support</li>
           <li>Affordable with no hidden fees</li>
