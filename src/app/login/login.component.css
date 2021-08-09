@@ -1,8 +1,4 @@
-section {
-  /* background-color: red; */
-}
-
-h1 {
+/* h1 {
   font-weight: bold;
   font-size: 30px;
   margin-bottom: var(--m3o-spacing);
@@ -81,10 +77,6 @@ form button {
 }
 
 @media (min-width: 768px) {
-  section {
-    height: calc(100vh - var(--m3o-header-height));
-  }
-
   h1 {
     font-size: 44px;
   }
@@ -114,4 +106,4 @@ form button {
     color: var(--m3o-white);
     position: relative;
   }
-}
+} */

@@ -1,6 +1,6 @@
-<section>
-  <div class="login-container">
-    <div class="left">
+<section class="h-screen">
+  <div class="md:flex h-full">
+    <div class="md:w-1/2 lg:w-2/5 h-full">
       <div class="left-content">
         <h1>Login</h1>
         <form (ngSubmit)="login()">
@@ -24,7 +24,7 @@
             />
           </div>
           <input [(ngModel)]="namespace" type="hidden" name="namespaceInput" />
-          <button type="submit" class="m3o-btn">Submit</button>
+          <button type="submit" class="m3o-btn" data-cy="submit">Submit</button>
         </form>
         <p class="sign-up">
           Not registered yet? <a routerLink="/register">Create an account</a>
@@ -34,7 +34,7 @@
         </p>
       </div>
     </div>
-    <div class="right">
+    <div class="md:w-1/2 lg:w-3/5 bg-gray-800 h-full">
       <div class="right-content">
         <svg viewBox="0 0 375 375" version="1.2">
           <defs>

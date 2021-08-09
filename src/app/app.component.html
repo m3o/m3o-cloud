@@ -6,169 +6,174 @@
     background-color: white;
     border-bottom: 1px solid var(--m3o-border-grey);
   "
+  *ngIf="showHeaderFooter()"
 >
-  <div class="container">
-    <mat-toolbar-row
-      style="padding-bottom: 0; padding-left: 0; padding-right: 0em"
+  <mat-toolbar-row
+    style="padding-bottom: 0; padding-left: 0; padding-right: 0em"
+    class="container"
+  >
+    <button mat-icon-button (click)="sidenav.toggle()" fxHide.gt-sm>
+      <mat-icon>menu</mat-icon>&nbsp;&nbsp;&nbsp;
+    </button>
+    <span id="logo" class="hover" routerLink="/">Micro</span>&nbsp;
+    <sup style="font-size: 0.8em; color: #dd4814; padding: 5px; margin: 0"
+      >Beta</sup
     >
-      <button mat-icon-button (click)="sidenav.toggle()" fxHide.gt-sm>
-        <mat-icon>menu</mat-icon>&nbsp;&nbsp;&nbsp;
-      </button>
-      <span id="logo" class="hover" routerLink="/">Micro</span>&nbsp;
-      <sup style="font-size: 0.8em; color: #dd4814; padding: 5px; margin: 0"
-        >Beta</sup
-      >
 
-      <div
-        fxShow="true"
-        fxHide.lt-md
-        style="font-size: 0.7em; padding-top: 10px"
-        *ngIf="this.currentURL() != '/explore'"
+    <div
+      fxShow="true"
+      fxHide.lt-md
+      style="font-size: 0.7em; padding-top: 10px"
+      *ngIf="this.currentURL() != '/explore'"
+    >
+      <mat-form-field
+        style="width: 100%; padding-left: 2em"
+        appearance="outline"
       >
-        <mat-form-field
-          style="width: 100%; padding-left: 2em"
-          appearance="outline"
+        <input
+          appearance="standard"
+          autocomplete="off"
+          matInput
+          style="color: #444"
+          placeholder="Search for APIs"
+          [(ngModel)]="search"
+          (keydown)="keyDownFunction($event)"
+        /><button
+          (click)="submit()"
+          mat-button
+          matSuffix
+          mat-stroked-button
+          style="position: relative; top: -8px"
         >
-          <input
-            appearance="standard"
-            autocomplete="off"
-            matInput
-            style="color: #444"
-            placeholder="Search for APIs"
-            [(ngModel)]="search"
-            (keydown)="keyDownFunction($event)"
-          /><button
-            (click)="submit()"
-            mat-button
-            matSuffix
-            mat-stroked-button
-            style="position: relative; top: -8px"
-          >
-            Search
-          </button>
-        </mat-form-field>
-      </div>
+          Search
+        </button>
+      </mat-form-field>
+    </div>
 
-      <span class="menu-spacer"></span>
+    <span class="menu-spacer"></span>
 
-      <div style="padding-top: 4px" fxShow="true" fxHide.lt-md>
-        <mat-menu id="new" #new="matMenu" style="float: right">
-          <button *ngIf="user && user.name" mat-menu-item disabled>
-            <mat-icon>access_time</mat-icon>
-            <span>New Namespace</span>
-          </button>
-        </mat-menu>
+    <div style="padding-top: 4px" fxShow="true" fxHide.lt-md>
+      <mat-menu id="new" #new="matMenu" style="float: right">
+        <button *ngIf="user && user.name" mat-menu-item disabled>
+          <mat-icon>access_time</mat-icon>
+          <span>New Namespace</span>
+        </button>
+      </mat-menu>
 
+      &nbsp;<a
+        routerLink="/explore"
+        style="color: #444; font-size: 0.8em; margin-right: 1em"
+        >Explore</a
+      >&nbsp;
+
+      <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
         &nbsp;<a
-          routerLink="/explore"
+          routerLink="/login"
           style="color: #444; font-size: 0.8em; margin-right: 1em"
-          >Explore</a
+          data-cy="login"
+          >Login</a
         >&nbsp;
+      </ng-container>
+
+      <mat-menu id="matmenu" #menu="matMenu">
+        <button
+          mat-menu-item
+          (click)="goToTeam()"
+          *ngIf="user && user.teamName && user.teamUrl"
+        >
+          <img
+            *ngIf="user.organizationAvatarUrl"
+            style="
+              vertical-align: middle;
+              margin-right: 0.25em;
+              border-radius: 3px;
+              height: 2em;
+              width: 2em;
+            "
+            src="{{ user.organizationAvatarUrl }}"
+          />
+          <span style="font-weight: 700">{{ user.teamName }}</span>
+        </button>
+
+        <button
+          class="usage"
+          id="usage"
+          mat-menu-item
+          routerLink="/overview/usage"
+        >
+          Usage
+        </button>
+        <button
+          class="payments"
+          id="payments"
+          mat-menu-item
+          routerLink="/overview/billing"
+        >
+          Billing
+        </button>
+        <button
+          class="keys"
+          id="keys"
+          mat-menu-item
+          routerLink="/settings/keys"
+        >
+          API Keys
+        </button>
+        <button
+          class="logout"
+          id="logout"
+          *ngIf="user && user.name"
+          mat-menu-item
+          (click)="us.logout()"
+        >
+          Log out
+        </button>
+      </mat-menu>
+      <span fxHide="false" fxHide.lt-md>
+        <button
+          *ngIf="user && user.name"
+          mat-stroked-button
+          [matMenuTriggerFor]="menu"
+          class="dropdown-menu"
+          id="dropdown-menu"
+        >
+          <img
+            *ngIf="user.avatarUrl"
+            style="
+              vertical-align: middle;
+              margin-right: 0.25em;
+              border-radius: 3px;
+              height: 2em;
+              width: 2em;
+            "
+            src="{{ user.avatarUrl }}"
+          />
+          {{ user.name }}
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
 
         <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
-          &nbsp;<a
-            routerLink="/login"
-            style="color: #444; font-size: 0.8em; margin-right: 1em"
-            >Login</a
-          >&nbsp;
+          <a
+            routerLink="/register"
+            color="primary"
+            mat-raised-button
+            data-cy="sign-up"
+            >Signup</a
+          >
         </ng-container>
+      </span>
 
-        <mat-menu id="matmenu" #menu="matMenu">
-          <button
-            mat-menu-item
-            (click)="goToTeam()"
-            *ngIf="user && user.teamName && user.teamUrl"
-          >
-            <img
-              *ngIf="user.organizationAvatarUrl"
-              style="
-                vertical-align: middle;
-                margin-right: 0.25em;
-                border-radius: 3px;
-                height: 2em;
-                width: 2em;
-              "
-              src="{{ user.organizationAvatarUrl }}"
-            />
-            <span style="font-weight: 700">{{ user.teamName }}</span>
-          </button>
-
-          <button
-            class="usage"
-            id="usage"
-            mat-menu-item
-            routerLink="/overview/usage"
-          >
-            Usage
-          </button>
-          <button
-            class="payments"
-            id="payments"
-            mat-menu-item
-            routerLink="/overview/billing"
-          >
-            Billing
-          </button>
-          <button
-            class="keys"
-            id="keys"
-            mat-menu-item
-            routerLink="/settings/keys"
-          >
-            API Keys
-          </button>
-          <button
-            class="logout"
-            id="logout"
-            *ngIf="user && user.name"
-            mat-menu-item
-            (click)="us.logout()"
-          >
-            Log out
-          </button>
-        </mat-menu>
-        <span fxHide="false" fxHide.lt-md>
-          <button
-            *ngIf="user && user.name"
-            mat-stroked-button
-            [matMenuTriggerFor]="menu"
-            class="dropdown-menu"
-            id="dropdown-menu"
-          >
-            <img
-              *ngIf="user.avatarUrl"
-              style="
-                vertical-align: middle;
-                margin-right: 0.25em;
-                border-radius: 3px;
-                height: 2em;
-                width: 2em;
-              "
-              src="{{ user.avatarUrl }}"
-            />
-            {{ user.name }}
-            <mat-icon>keyboard_arrow_down</mat-icon>
-          </button>
-
-          <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
-            <a routerLink="/register" color="primary" mat-raised-button
-              >Signup</a
-            >
-          </ng-container>
-        </span>
-
-        <span fxHide="false" fxHide.gt-sm>
-          <button
-            style="padding-right: 0; margin-right: 0"
-            mat-button
-            [matMenuTriggerFor]="menu"
-          >
-            <mat-icon style="color: white">dehaze</mat-icon>
-          </button>
-        </span>
-      </div>
-    </mat-toolbar-row>
-  </div>
+      <span fxHide="false" fxHide.gt-sm>
+        <button
+          style="padding-right: 0; margin-right: 0"
+          mat-button
+          [matMenuTriggerFor]="menu"
+        >
+          <mat-icon style="color: white">dehaze</mat-icon>
+        </button>
+      </span>
+    </div>
+  </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -239,10 +244,8 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content style="background: white" fxFlexFill>
-    <div style="min-height: calc(100vh - 104px); background: white">
-      <router-outlet></router-outlet>
-    </div>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<app-footer></app-footer>
+<app-footer *ngIf="showHeaderFooter()"></app-footer>
