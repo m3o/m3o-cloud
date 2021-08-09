@@ -16,7 +16,7 @@ p {
 }
 
 a:hover {
-  color: var(--m3o-min-green);
+  color: var(--m3o-secondary);
 }
 
 .copyright {
