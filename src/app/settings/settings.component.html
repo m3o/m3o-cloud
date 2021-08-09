@@ -1,51 +1,72 @@
-<div style="margin: auto">
-  <mat-card style="margin-top: 0; padding: 1px" class="mat-card-flat">
-    <mat-card-title
-      >Settings</mat-card-title
-    >
-    <mat-card-subtitle>Your account settings</mat-card-subtitle>
-    <br />
-    <mat-card style="margin-bottom: 1em; margin: 0 auto; background: #fcfcfc">
-      <mat-card-title>API Usage</mat-card-title>
+<div class="container m3o-mt">
+  <div style="margin: auto">
+    <mat-card style="margin-top: 0; padding: 1px" class="mat-card-flat">
+      <mat-card-title>Settings</mat-card-title>
+      <mat-card-subtitle>Your account settings</mat-card-subtitle>
+      <br />
+      <mat-card style="margin-bottom: 1em; margin: 0 auto; background: #fcfcfc">
+        <mat-card-title>API Usage</mat-card-title>
+        <mat-card>
+          <mat-card-content>
+            <p>
+              To use an API key simply pass as the "Authorization" header in the
+              HTTP request to the Micro API. Note, we use the "Bearer"
+              authentication scheme so you should prefix the API key with
+              <code>Bearer </code>
+            </p>
+            <br />
+            <div
+              style="background: whitesmoke; border-radius: 5px; padding: 0.5em"
+            >
+              <code
+                >curl -H 'Authorization: Bearer $KEY'
+                https://api.m3o.com/v1/&#123;service&#125;/&#123;endpoint&#125;</code
+              >
+            </div>
+            <br />
+            <p>
+              API keys should be kept secret; you should avoid embedding the API
+              key in your frontend code, otherwise it can be reused by others
+              without your knowledge. An example of how to hide your key behind
+              a Netlify (or Vercel) function can be found
+              <a
+                href="https://github.com/m3o/examples/tree/main/m3o-netlify-functions-example"
+                >here</a
+              >.
+            </p>
+            <br />
+          </mat-card-content>
+        </mat-card>
+      </mat-card>
       <mat-card>
-        <mat-card-content>
-          <p>To use an API key simply pass as the "Authorization" header in the HTTP request to the
-            Micro API. Note, we use the "Bearer" authentication scheme so you should prefix the API key with <code>Bearer </code></p><br/>
-          <div style="background: whitesmoke; border-radius: 5px; padding: 0.5em">
-            <code>curl -H 'Authorization: Bearer $KEY' https://api.m3o.com/v1/&#123;service&#125;/&#123;endpoint&#125;</code>
-          </div>
-          <br/>
-          <p>API keys should be kept secret; you should avoid embedding the API key in your frontend code, otherwise it can be reused by others
-            without your knowledge. An example of how to hide your key behind a Netlify (or Vercel) function can be found <a href="https://github.com/m3o/examples/tree/main/m3o-netlify-functions-example">here</a>.</p>
-          <br/>
-        </mat-card-content>
+        <mat-card-title>API Keys</mat-card-title>
 
+        <mat-card-content ng>
+          <mat-card-subtitle *ngIf="!this.keys || this.keys.length == 0"
+            >No API keys</mat-card-subtitle
+          >
+          <mat-list *ngIf="this.keys && this.keys.length > 0">
+            <mat-list-item *ngFor="let key of this.keys">
+              <h2 mat-line>{{ key.description }}</h2>
+              <p mat-line>
+                <span>Scopes: {{ key.scopes }}</span>
+              </p>
+              <p mat-line>
+                <span>Created {{ key.createdTime * 1000 | dateAgo }}</span>
+              </p>
+              <mat-icon mat-list-icon>vpn_key</mat-icon>
+              <button mat-raised-button color="warn" (click)="revokeKey(key)">
+                Delete
+              </button>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button (click)="createKeyDialog()" color="primary">
+            Create
+          </button>
+        </mat-card-actions>
       </mat-card>
     </mat-card>
-    <mat-card >
-      <mat-card-title>API Keys</mat-card-title>
-
-      <mat-card-content ng>
-        <mat-card-subtitle *ngIf="!this.keys || this.keys.length == 0">No API keys</mat-card-subtitle>
-        <mat-list *ngIf="this.keys && this.keys.length > 0">
-          <mat-list-item *ngFor="let key of this.keys" >
-            <h2 mat-line>{{ key.description }}</h2>
-            <p mat-line><span>Scopes: {{ key.scopes }}</span></p>
-            <p mat-line><span>Created {{ key.createdTime * 1000 | dateAgo }}</span></p>
-            <mat-icon mat-list-icon>vpn_key</mat-icon>
-            <button mat-raised-button color="warn" (click)="revokeKey(key)">Delete</button>
-          </mat-list-item>
-        </mat-list>
-
-      </mat-card-content>
-      <mat-card-actions>
-        <button
-                mat-raised-button
-                (click)="createKeyDialog()"
-                color="primary"
-        >Create</button>
-      </mat-card-actions>
-    </mat-card>
-
-  </mat-card>
+  </div>
 </div>

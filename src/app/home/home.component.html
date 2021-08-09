@@ -1,38 +1,15 @@
-<div class="banner grid-equal">
-  <div>
-    <h2 class="mat-headline banner-title m3o-mt">
-      Programming<br />The Real World
-    </h2>
-    <h3>
-      Micro is a new cloud platform that focuses on developer experience.
-      Consume public APIs as simpler programmable building blocks for lightning
-      fast development of products and services.
-    </h3>
-    <div class="m3o-mt">
-      <a href="#everyday">👇 Learn More</a>
-    </div>
-  </div>
-  <div>
-    <div class="banner-info">
-      <h2 class="mat-headline banner-info-title">Start using Micro now</h2>
-      <p><a routerLink="/register">Signup</a> for a free account today</p>
-      <p>Get $5 credit to get started.</p>
-      <br />
-      <p><a routerLink="/explore">Explore</a> our public APIs</p>
-      <p>Build apps at lightning speed!</p>
-      <br />
-    </div>
-  </div>
-</div>
+<app-home-banner></app-home-banner>
 
 <section id="everyday" class="apis">
-  <h2 class="mat-headline">Public APIs for everyday use</h2>
-  <div *ngIf="loading" class="loading">Loading...</div>
-  <app-search-result-grid
-    *ngIf="loading == false"
-    [services]="services"
-  ></app-search-result-grid>
-  <a routerLink="/explore">Explore all &rarr;</a>
+  <div class="container">
+    <h2 class="mat-headline">Public APIs for everyday use</h2>
+    <div *ngIf="loading" class="loading">Loading...</div>
+    <app-search-result-grid
+      *ngIf="loading == false"
+      [services]="services"
+    ></app-search-result-grid>
+    <a routerLink="/explore">Explore all &rarr;</a>
+  </div>
 </section>
 
 <section>
@@ -64,132 +41,140 @@
 </section>
 
 <section>
-  <h2 class="mat-headline">Developer Friendly UX</h2>
-  <div class="ux">
-    <div class="left">
-      <span>from just</span>
-      <h3>$ 0.000001</h3>
-      <span>per request</span>
-      <span class="emoji">🤔</span>
-      <span>In plain english</span>
-      <p>$1 for 1 million requests</p>
-    </div>
-    <div class="right">
-      <div class="item">
-        <h4 class="mat-headline">Simple</h4>
-        <p>
-          Use one Micro account to fulfill all your API needs. No more signing
-          up and configuring yet another token.
-        </p>
+  <div class="container">
+    <h2 class="mat-headline">Developer Friendly UX</h2>
+    <div class="ux">
+      <div class="left">
+        <span>from just</span>
+        <h3>$ 0.000001</h3>
+        <span>per request</span>
+        <span class="emoji">🤔</span>
+        <span>In plain english</span>
+        <p>$1 for 1 million requests</p>
       </div>
-      <div class="item">
-        <h4 class="mat-headline">Fast</h4>
-        <p>
-          Using a new API is simple - no need to learn yet another
-          documentation, it's all the same Micro UX.
-        </p>
-      </div>
-      <div class="item">
-        <h4 class="mat-headline">Affordable</h4>
-        <p>
-          It's a simple pay as you go model and everything is priced per
-          request. Top up your account and start making calls.
-        </p>
-      </div>
-      <div class="item">
-        <h4 class="mat-headline">No Hidden Fees</h4>
-        <p>
-          Don't get lost in a sea of infinite cloud billing. We show you exactly
-          what you use and don't hide any of the costs.
-        </p>
+      <div class="right">
+        <div class="item">
+          <h4 class="mat-headline">Simple</h4>
+          <p>
+            Use one Micro account to fulfill all your API needs. No more signing
+            up and configuring yet another token.
+          </p>
+        </div>
+        <div class="item">
+          <h4 class="mat-headline">Fast</h4>
+          <p>
+            Using a new API is simple - no need to learn yet another
+            documentation, it's all the same Micro UX.
+          </p>
+        </div>
+        <div class="item">
+          <h4 class="mat-headline">Affordable</h4>
+          <p>
+            It's a simple pay as you go model and everything is priced per
+            request. Top up your account and start making calls.
+          </p>
+        </div>
+        <div class="item">
+          <h4 class="mat-headline">No Hidden Fees</h4>
+          <p>
+            Don't get lost in a sea of infinite cloud billing. We show you
+            exactly what you use and don't hide any of the costs.
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section>
-  <h2 class="mat-headline">Tired of AWS? Us too</h2>
-  <div class="grid-equal">
-    <div class="left">
-      <div class="mat-table">
-        <div class="mat-header-row">
-          <div class="mat-header-cell">Pain</div>
-          <div class="mat-header-cell">AWS</div>
-          <div class="mat-header-cell">M3O</div>
-        </div>
-        <div class="mat-row">
-          <div class="mat-cell">CloudFormation</div>
-          <div class="mat-cell">Yup..</div>
-          <div class="mat-cell">Nope</div>
-        </div>
-        <div class="mat-row">
-          <div class="mat-cell">CloudComplexity</div>
-          <div class="mat-cell">Oh yea</div>
-          <div class="mat-cell">Um no</div>
-        </div>
-        <div class="mat-row">
-          <div class="mat-cell">InfiniteBilling</div>
-          <div class="mat-cell">Haha yes!</div>
-          <div class="mat-cell">Hell no</div>
+  <div class="container">
+    <h2 class="mat-headline">Tired of AWS? Us too</h2>
+    <div class="grid-equal">
+      <div class="left">
+        <div class="mat-table">
+          <div class="mat-header-row">
+            <div class="mat-header-cell">Pain</div>
+            <div class="mat-header-cell">AWS</div>
+            <div class="mat-header-cell">M3O</div>
+          </div>
+          <div class="mat-row">
+            <div class="mat-cell">CloudFormation</div>
+            <div class="mat-cell">Yup..</div>
+            <div class="mat-cell">Nope</div>
+          </div>
+          <div class="mat-row">
+            <div class="mat-cell">CloudComplexity</div>
+            <div class="mat-cell">Oh yea</div>
+            <div class="mat-cell">Um no</div>
+          </div>
+          <div class="mat-row">
+            <div class="mat-cell">InfiniteBilling</div>
+            <div class="mat-cell">Haha yes!</div>
+            <div class="mat-cell">Hell no</div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="right">
-      <p>
-        Cloud complexity is at full throttle. What started as a promising way
-        for developers to rapidly build scalable web services has turned into
-        the anti pattern for the next generation. We need a faster, simpler and
-        more affordable way to leverage services in the Cloud.
-      </p>
-      <br />
-      <p>
-        Micro (aka M3O) was built with this in mind. To help developers 10x
-        without dealing with the likes of AWS. If you're interested to learn
-        more, register and try it out now.
-      </p>
-      <br />
-      <a routerLink="/register" mat-raised-button color="primary"
-        >Signup for Free</a
-      >
+      <div class="right">
+        <p>
+          Cloud complexity is at full throttle. What started as a promising way
+          for developers to rapidly build scalable web services has turned into
+          the anti pattern for the next generation. We need a faster, simpler
+          and more affordable way to leverage services in the Cloud.
+        </p>
+        <br />
+        <p>
+          Micro (aka M3O) was built with this in mind. To help developers 10x
+          without dealing with the likes of AWS. If you're interested to learn
+          more, register and try it out now.
+        </p>
+        <br />
+        <a routerLink="/register" mat-raised-button color="primary"
+          >Signup for Free</a
+        >
+      </div>
     </div>
   </div>
 </section>
 
 <section>
-  <h2 class="mat-headline">About Us</h2>
-  <div class="about">
-    <div class="col">
-      <p>
-        In 2013 a few of us met at a ride hailing startup in London called
-        Hailo. Back then we were competing against Uber and pushed hard to scale
-        our technology to compete. It's there we cut our teeth on AWS and the
-        cloud complexity we all had to endure just to ship a mobile app.
-      </p>
+  <div class="container">
+    <h2 class="mat-headline">About Us</h2>
+    <div class="about">
+      <div class="col">
+        <p>
+          In 2013 a few of us met at a ride hailing startup in London called
+          Hailo. Back then we were competing against Uber and pushed hard to
+          scale our technology to compete. It's there we cut our teeth on AWS
+          and the cloud complexity we all had to endure just to ship a mobile
+          app.
+        </p>
+      </div>
+      <div class="col">
+        <p>
+          In 2015, Micro started life as a distributed systems development
+          framework and became a popular open source project that still lives on
+          today. That however only solved one half of the problem. It's not just
+          the development of cloud services that's difficult, it's also how you
+          consume them.
+        </p>
+      </div>
+      <div class="col">
+        <p>
+          M3O is a new cloud platform. One that focuses entirely on the
+          developer experience. We do away with endless marketing spiel,
+          thousands of services and a sea of docs. Our hope, by just giving you
+          some useful APIs and examples, you'll be able to move 10x faster than
+          before.
+        </p>
+      </div>
     </div>
-    <div class="col">
-      <p>
-        In 2015, Micro started life as a distributed systems development
-        framework and became a popular open source project that still lives on
-        today. That however only solved one half of the problem. It's not just
-        the development of cloud services that's difficult, it's also how you
-        consume them.
+    <div class="about-footer text-center">
+      <p class="m3o-mt">
+        If you believe in what we're doing, please signup, kick the tyres and
+        send us some feedback.
       </p>
+      <p class="m3o-mt">Cheers, Micro Team</p>
     </div>
-    <div class="col">
-      <p>
-        M3O is a new cloud platform. One that focuses entirely on the developer
-        experience. We do away with endless marketing spiel, thousands of
-        services and a sea of docs. Our hope, by just giving you some useful
-        APIs and examples, you'll be able to move 10x faster than before.
-      </p>
-    </div>
-  </div>
-  <div class="about-footer text-center">
-    <p class="m3o-mt">
-      If you believe in what we're doing, please signup, kick the tyres and send
-      us some feedback.
-    </p>
-    <p class="m3o-mt">Cheers, Micro Team</p>
   </div>
 </section>
 <section class="sell-section text-center">

@@ -1,33 +1,33 @@
-<div style="margin: auto">
-    <mat-card style="padding: 1px;"  class="mat-card-flat">
-        <mat-card-title>Usage</mat-card-title>
-        <mat-card-subtitle>Your Micro API usage</mat-card-subtitle>
-        <mat-card class="chartcard">
+<div class="container">
+  <div style="margin: auto">
+    <mat-card style="padding: 1px" class="mat-card-flat">
+      <mat-card-title>Usage</mat-card-title>
+      <mat-card-subtitle>Your Micro API usage</mat-card-subtitle>
+      <mat-card class="chartcard">
         <mat-card-content>
-            <div *ngIf="multi && multi.length>0" class="chart-container">
+          <div *ngIf="multi && multi.length > 0" class="chart-container">
             <div class="ngxchart">
-                <ngx-charts-line-chart
-                        [view]="view"
-                        [scheme]="colorScheme"
-                        [legend]="legend"
-                        [legendTitle]="blank"
-                        [showXAxisLabel]="showXAxisLabel"
-                        [showYAxisLabel]="showYAxisLabel"
-                        [xAxis]="xAxis"
-                        [yAxis]="yAxis"
-                        [xAxisLabel]="xAxisLabel"
-                        [yAxisLabel]="yAxisLabel"
-                        [results]="multi"
-                >
-                </ngx-charts-line-chart>
+              <ngx-charts-line-chart
+                [view]="view"
+                [scheme]="colorScheme"
+                [legend]="legend"
+                [legendTitle]="blank"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxis]="xAxis"
+                [yAxis]="yAxis"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                [results]="multi"
+              >
+              </ngx-charts-line-chart>
             </div>
-            </div>
-            <div *ngIf="!multi || multi.length==0">
-                <p>No usage to show.</p>
-            </div>
+          </div>
+          <div *ngIf="!multi || multi.length == 0">
+            <p>No usage to show.</p>
+          </div>
         </mat-card-content>
-        </mat-card>
+      </mat-card>
     </mat-card>
-
-
+  </div>
 </div>

@@ -1,12 +1,13 @@
-<div class="container">
-  <mat-toolbar
-    style="
-      padding: 1em;
-      padding-left: 0em;
-      padding-right: 0;
-      background-color: white;
-    "
-  >
+<mat-toolbar
+  style="
+    padding: 1em;
+    padding-left: 0em;
+    padding-right: 0;
+    background-color: white;
+    border-bottom: 1px solid var(--m3o-border-grey);
+  "
+>
+  <div class="container">
     <mat-toolbar-row
       style="padding-bottom: 0; padding-left: 0; padding-right: 0em"
     >
@@ -167,188 +168,81 @@
         </span>
       </div>
     </mat-toolbar-row>
-  </mat-toolbar>
+  </div>
+</mat-toolbar>
 
-  <mat-sidenav-container>
-    <mat-sidenav style="width: 66%" #sidenav autoFocus="false">
-      <mat-nav-list>
-        <div
-          *ngIf="user && user.teamName"
-          style="margin-bottom: 1em; padding-left: 1em"
-        >
-          <img
-            *ngIf="user.avatarUrl"
-            style="
-              vertical-align: middle;
-              margin-right: 0.5em;
-              border-radius: 3px;
-              height: 2em;
-              width: 2em;
-            "
-            src="{{ user.avatarUrl }}"
-          />
-          {{ user.name }}
-        </div>
-        <div>
-          <mat-form-field style="padding-left: 1em">
-            <input
-              matInput
-              autocomplete="off"
-              style="color: #444; font-size: 0.8em; line-height: 0"
-              placeholder="Search for APIs"
-              [(ngModel)]="search"
-              (keydown)="keyDownFunction($event)"
-            />
-          </mat-form-field>
-        </div>
-
-        <div>
-          <a routerLink="/explore" (click)="sidenav.toggle()" mat-list-item>
-            Explore
-          </a>
-        </div>
-        <div *ngIf="!(user && user.name)">
-          <a routerLink="/login" (click)="sidenav.toggle()" mat-list-item
-            >Login</a
-          >
-        </div>
-        <div *ngIf="!(user && user.name)">
-          <a routerLink="/register" (click)="sidenav.toggle()" mat-list-item
-            >Register</a
-          >
-        </div>
-        <div *ngIf="user && user.name">
-          <a
-            routerLink="/overview/usage"
-            (click)="sidenav.toggle()"
-            mat-list-item
-            >Usage</a
-          >
-          <a
-            routerLink="/overview/billing"
-            (click)="sidenav.toggle()"
-            mat-list-item
-            >Billing</a
-          >
-          <a
-            routerLink="/settings/keys"
-            (click)="sidenav.toggle()"
-            mat-list-item
-            >Settings</a
-          >
-        </div>
-        <div *ngIf="user && user.name">
-          <a (click)="us.logout()" mat-list-item>Log out</a>
-        </div>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content style="background: white" fxFlexFill>
-      <div style="min-height: calc(100vh - 104px); background: white">
-        <router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav style="width: 66%" #sidenav autoFocus="false">
+    <mat-nav-list>
+      <div
+        *ngIf="user && user.teamName"
+        style="margin-bottom: 1em; padding-left: 1em"
+      >
+        <img
+          *ngIf="user.avatarUrl"
+          style="
+            vertical-align: middle;
+            margin-right: 0.5em;
+            border-radius: 3px;
+            height: 2em;
+            width: 2em;
+          "
+          src="{{ user.avatarUrl }}"
+        />
+        {{ user.name }}
       </div>
       <div>
-        <mat-divider></mat-divider>
-        <br />
-        <div fxLayout="row wrap" fxLayoutAlign="space-between">
-          <div fxFlex="64%" fxFlex.lt-md="49%" fxFlex.lt-sm="99%">
-            <h2
-              class="mat-headline"
-              style="font-weight: bold; font-size: 1em; margin: 0"
-            >
-              Learn more
-            </h2>
-            <p style="margin-bottom: 5px">Subscribe for the latest updates</p>
-            <link
-              href="https://cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css"
-              rel="stylesheet"
-              type="text/css"
-            />
-            <div id="mc_embed_signup">
-              <form
-                action="https://micro.us18.list-manage.com/subscribe/post?u=fba1e1a1b23409d771c5653cd&amp;id=647d0b5377"
-                method="post"
-                id="mc-embedded-subscribe-form"
-                name="mc-embedded-subscribe-form"
-                class="validate"
-                target="_blank"
-                novalidate=""
-                style="padding: 0"
-              >
-                <div id="mc_embed_signup_scroll" style="text-align: left">
-                  <input
-                    type="email"
-                    value=""
-                    name="EMAIL"
-                    class="email"
-                    id="mce-EMAIL"
-                    placeholder="email address"
-                    required=""
-                  />
-                  <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                  <div
-                    style="position: absolute; left: -5000px"
-                    aria-hidden="true"
-                  >
-                    <input
-                      type="text"
-                      name="b_fba1e1a1b23409d771c5653cd_647d0b5377"
-                      tabindex="-1"
-                      value=""
-                    />
-                  </div>
-                  <div class="clear">
-                    <input
-                      type="submit"
-                      value="Subscribe"
-                      name="subscribe"
-                      id="mc-embedded-subscribe"
-                      class="button"
-                    />
-                  </div>
-                  <br />
-                </div>
-              </form>
-            </div>
-            <br />© 2021 Micro Services, Inc.<br />
-          </div>
-          <div fxFlex="32%" fxFlex.lt-md="49%" fxFlex.lt-sm="99%">
-            <div fxLayout="row wrap" fxLayoutAlign="space-between">
-              <div fxFlex="49%" fxFlex.lt-sm="99%">
-                <div>
-                  <a href="https://blog.m3o.com">Blog</a>
-                </div>
-                <div>
-                  <a href="https://github.com/m3o">Github</a>
-                </div>
-                <div>
-                  <a href="https://forms.gle/9SQV6DdLNDzSRQ477">Partner</a>
-                </div>
-                <div>
-                  <a href="https://m3o.dev">Platform</a>
-                </div>
-              </div>
-
-              <div fxFlex="49%" fxFlex.lt-sm="99%">
-                <div>
-                  <a href="mailto:contact@m3o.com">Contact</a>
-                </div>
-                <div>
-                  <a href="https://discord.gg/TBR9bRjd6Z">Discord</a>
-                </div>
-                <div>
-                  <a href="https://www.linkedin.com/company/micro-services-inc"
-                    >LinkedIn</a
-                  >
-                </div>
-                <div>
-                  <a href="https://slack.m3o.com">Slack</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br />
+        <mat-form-field style="padding-left: 1em">
+          <input
+            matInput
+            autocomplete="off"
+            style="color: #444; font-size: 0.8em; line-height: 0"
+            placeholder="Search for APIs"
+            [(ngModel)]="search"
+            (keydown)="keyDownFunction($event)"
+          />
+        </mat-form-field>
       </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+
+      <div>
+        <a routerLink="/explore" (click)="sidenav.toggle()" mat-list-item>
+          Explore
+        </a>
+      </div>
+      <div *ngIf="!(user && user.name)">
+        <a routerLink="/login" (click)="sidenav.toggle()" mat-list-item
+          >Login</a
+        >
+      </div>
+      <div *ngIf="!(user && user.name)">
+        <a routerLink="/register" (click)="sidenav.toggle()" mat-list-item
+          >Register</a
+        >
+      </div>
+      <div *ngIf="user && user.name">
+        <a routerLink="/overview/usage" (click)="sidenav.toggle()" mat-list-item
+          >Usage</a
+        >
+        <a
+          routerLink="/overview/billing"
+          (click)="sidenav.toggle()"
+          mat-list-item
+          >Billing</a
+        >
+        <a routerLink="/settings/keys" (click)="sidenav.toggle()" mat-list-item
+          >Settings</a
+        >
+      </div>
+      <div *ngIf="user && user.name">
+        <a (click)="us.logout()" mat-list-item>Log out</a>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content style="background: white" fxFlexFill>
+    <div style="min-height: calc(100vh - 104px); background: white">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<app-footer></app-footer>

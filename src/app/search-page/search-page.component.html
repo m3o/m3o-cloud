@@ -1,36 +1,38 @@
-<div style="padding-bottom: 2em; margin: auto">
-  <div style="margin: 1em 0" fxLayoutGap="2em" fxLayout="row">
-    <div fxFlex="49%" fxFlex.lt-md="100%" style="padding-top: 1em">
-      <h2 class="mat-headline" style="font-weight: bold">Explore APIs</h2>
-      <br />
-      <mat-form-field style="width: 100%" appearance="outline">
-        <input
-          matInput
-          style="color: #444; border-color: #444"
-          placeholder="Search for APIs"
-          [(ngModel)]="search"
-          (keydown)="keyDownFunction($event)"
-        /><button
-          (click)="searchResults()"
-          mat-button
-          matSuffix
-          style="position: relative; top: -8px"
-        >
-          Search
-        </button>
-      </mat-form-field>
+<div class="container">
+  <div style="padding-bottom: 2em; margin: auto">
+    <div style="margin: 1em 0" fxLayoutGap="2em" fxLayout="row">
+      <div fxFlex="49%" fxFlex.lt-md="100%" style="padding-top: 1em">
+        <h2 class="mat-headline" style="font-weight: bold">Explore APIs</h2>
+        <br />
+        <mat-form-field style="width: 100%" appearance="outline">
+          <input
+            matInput
+            style="color: #444; border-color: #444"
+            placeholder="Search for APIs"
+            [(ngModel)]="search"
+            (keydown)="keyDownFunction($event)"
+          /><button
+            (click)="searchResults()"
+            mat-button
+            matSuffix
+            style="position: relative; top: -8px"
+          >
+            Search
+          </button>
+        </mat-form-field>
+      </div>
     </div>
-  </div>
 
-  <div style="margin: 0em 0; padding: 1px">
-    <app-search-result-grid *ngIf="loading == false" [services]="services">
-    </app-search-result-grid>
-    <p *ngIf="!services">No results found</p>
-    <p *ngIf="loading == false">
-      <a href="https://forms.gle/RoYDNQk3myArHfZM9"
-        >Can't find what you're looking for? Let us know.</a
-      >
-    </p>
+    <div style="margin: 0em 0; padding: 1px">
+      <app-search-result-grid *ngIf="loading == false" [services]="services">
+      </app-search-result-grid>
+      <p *ngIf="!services">No results found</p>
+      <p *ngIf="loading == false">
+        <a href="https://forms.gle/RoYDNQk3myArHfZM9"
+          >Can't find what you're looking for? Let us know.</a
+        >
+      </p>
+    </div>
+    <div *ngIf="loading" style="text-align: center">Loading...</div>
   </div>
-  <div *ngIf="loading" style="text-align: center">Loading...</div>
 </div>
