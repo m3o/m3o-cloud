@@ -26,7 +26,6 @@
 .endpoints {
   color: #888;
   padding-top: 0.5em;
-  height: 1.4em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
