@@ -93,19 +93,25 @@
         </button>
       </mat-menu>
 
-      &nbsp;<a
+      <a
         routerLink="/explore"
-        style="color: #444; font-size: 0.8em; margin-right: 1em"
+        class="text-gray-600 text-sm hover:text-green-400 transition-colors"
         >Explore</a
-      >&nbsp;
+      >
 
       <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
-        &nbsp;<a
+        <a
           routerLink="/login"
-          style="color: #444; font-size: 0.8em; margin-right: 1em"
           data-cy="login"
+          class="
+            text-gray-600 text-sm
+            inline-block
+            mx-4
+            hover:text-green-400
+            transition-colors
+          "
           >Login</a
-        >&nbsp;
+        >
       </ng-container>
 
       <mat-menu id="matmenu" #menu="matMenu">
@@ -188,10 +194,18 @@
         <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
           <a
             routerLink="/register"
-            color="primary"
-            mat-raised-button
+            class="
+              py-4
+              px-6
+              bg-green-300
+              text-sm
+              rounded-full
+              text-gray-800
+              hover:bg-green-400
+              transition-colors
+            "
             data-cy="sign-up"
-            >Signup</a
+            >Sign Up</a
           >
         </ng-container>
       </span>
