@@ -62,6 +62,7 @@ form button {
   margin-top: var(--m3o-spacing);
   font-weight: bold;
   font-size: 13px;
+  margin-bottom: 0;
 }
 
 .sign-up a {
