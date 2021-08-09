@@ -76,11 +76,12 @@
       </form>
     </div>
     <div class="md:grid md:grid-cols-2 md:pl-10 md:text-right">
-      <ul class="">
+      <ul>
         <li *ngFor="let external of externalLinks1">
           <a
             href="{{ external.link }}"
             class="hover:text-green-300 text-white transition-colors font-light"
+            target="_blank"
           >
             {{ external.name }}
           </a>
@@ -94,11 +95,12 @@
           </a>
         </li>
       </ul>
-      <ul class="">
+      <ul>
         <li *ngFor="let external of externalLinks2">
           <a
             href="{{ external.link }}"
             class="hover:text-green-300 text-white transition-colors font-light"
+            target="_blank"
           >
             {{ external.name }}
           </a>
