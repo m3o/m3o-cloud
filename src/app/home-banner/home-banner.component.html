@@ -1,34 +1,49 @@
-<section class="bg-green-300 py-6 md:py-12 m-4">
-  <div
-    class="
-      md:max-w-4xl
-      lg:max-w-7xl
-      md:grid md:grid-cols-2
-      ml-auto
-      mr-auto
-      w-11/12
-    "
-  >
+<section class="bg-gray-50 py-8 md:py-16 border-b border-gray-200 border-solid">
+  <div class="md:max-w-4xl lg:max-w-7xl text-center ml-auto mr-auto w-11/12">
     <div>
-      <h2 class="mat-headline title m3o-mt">Programming<br />The Real World</h2>
-      <h3>
+      <h1 class="font-extrabold text-6xl mb-6">
+        Programming
+        <span class="block mt-2 text-indigo-700">The Real World</span>
+      </h1>
+      <h2 class="text-gray-500 font-light text-lg max-w-xl mx-auto">
         Micro is a new cloud platform that focuses on developer experience.
         Consume public APIs as simpler programmable building blocks for
         lightning fast development of products and services.
-      </h3>
-      <div class="m3o-mt">
-        <a href="#everyday">👇 Learn More</a>
-      </div>
-    </div>
-    <div>
-      <div class="banner-info">
-        <h2 class="mat-headline banner-info-title">Start using Micro now</h2>
-        <p><a routerLink="/register">Signup</a> for a free account today</p>
-        <p>Get $5 credit to get started.</p>
-        <br />
-        <p><a routerLink="/explore">Explore</a> our public APIs</p>
-        <p>Build apps at lightning speed!</p>
-        <br />
+      </h2>
+      <div>
+        <a
+          routerLink="/explore"
+          class="
+            mt-6
+            py-4
+            px-6
+            inline-block
+            bg-indigo-600
+            hover:bg-indigo-700
+            text-white
+            rounded-md
+            font-bold
+            transition-transform
+          "
+          >Explore API's</a
+        >
+        <a
+          routerLink="/register"
+          class="
+            mt-6
+            py-4
+            px-6
+            ml-6
+            inline-block
+            text-indigo-600
+            hover:text-indigo-700
+            border-2 border-indigo-700 border-solid
+            rounded-md
+            font-bold
+            transition-transform
+          "
+          >Sign up</a
+        >
       </div>
     </div>
   </div>

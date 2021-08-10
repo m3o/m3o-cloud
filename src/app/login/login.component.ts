@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
-    this.loading = true;
-
     if (!this.email || !this.password) return;
+
+    this.loading = true;
 
     this.us
       .login(this.email, this.password, this.namespace)

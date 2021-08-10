@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit.emit(search)" class="relative">
+<form (ngSubmit)="onSubmit()" class="relative w-full">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -17,15 +17,17 @@
   <input
     type="text"
     name="search"
-    placeholder="Search for API"
-    [(ngModel)]="search"
+    placeholder="Search for an API"
+    [(ngModel)]="searchService.searchText"
     class="
       border border-gray-200
       pl-12
       p-4
       rounded-md
+      bg-gray-50
       text-sm
-      focus:ring-2 focus:ring-inset focus:ring-green-400 focus:w-40
+      focus:ring-2 focus:ring-inset focus:ring-indigo-400 focus:w-40
+      w-full
     "
   />
 </form>

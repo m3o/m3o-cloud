@@ -1,58 +1,30 @@
-<header class="flex items-center justify-between px-4">
+<header
+  class="
+    flex
+    items-center
+    justify-between
+    p-6
+    border-gray-200 border-solid border-b
+  "
+>
   <div class="flex items-center">
-    <a routerLink="/" class="relative">
-      <svg viewBox="0 0 375 375" version="1.2" class="w-20">
-        <defs>
-          <g>
-            <symbol overflow="visible" id="glyph0-1">
-              <path
-                d="M 57.859375 0 L 57.859375 -21.578125 C 57.859375 -24.242188 57.957031 -26.984375 58.15625 -29.796875 C 58.363281 -32.609375 58.582031 -34.972656 58.8125 -36.890625 C 59.039062 -38.804688 59.1875 -40.023438 59.25 -40.546875 L 58.90625 -40.546875 L 47.84375 0 L 32.796875 0 L 21.65625 -40.453125 L 21.3125 -40.453125 C 21.375 -39.929688 21.535156 -38.726562 21.796875 -36.84375 C 22.054688 -34.957031 22.300781 -32.609375 22.53125 -29.796875 C 22.757812 -26.984375 22.875 -24.242188 22.875 -21.578125 L 22.875 0 L 5.21875 0 L 5.21875 -59.859375 L 32.359375 -59.859375 L 41.40625 -25.3125 L 41.765625 -25.3125 L 50.71875 -59.859375 L 76.90625 -59.859375 L 76.90625 0 Z M 57.859375 0 "
-              />
-            </symbol>
-            <symbol overflow="visible" id="glyph0-2">
-              <path
-                d="M 38.546875 0 L 37.40625 -6.953125 C 35.613281 -4.460938 33.25 -2.503906 30.3125 -1.078125 C 27.382812 0.335938 24.296875 1.046875 21.046875 1.046875 C 15.710938 1.046875 11.710938 -0.429688 9.046875 -3.390625 C 6.378906 -6.347656 5.046875 -10.613281 5.046875 -16.1875 L 5.046875 -45.9375 L 22.359375 -45.9375 L 22.359375 -18.265625 C 22.359375 -16.296875 22.863281 -14.71875 23.875 -13.53125 C 24.894531 -12.34375 26.332031 -11.75 28.1875 -11.75 C 30.332031 -11.75 32.070312 -12.441406 33.40625 -13.828125 C 34.738281 -15.222656 35.40625 -16.9375 35.40625 -18.96875 L 35.40625 -45.9375 L 52.71875 -45.9375 L 52.71875 0 Z M 38.546875 0 "
-              />
-            </symbol>
-          </g>
-        </defs>
-        <g id="surface1">
-          <path
-            d="M 187.410156 300.90625 C 157.105469 300.90625 128.574219 289.113281 107.164062 267.65625 C 85.707031 246.246094 73.910156 217.710938 73.910156 187.410156 C 73.910156 157.105469 85.707031 128.574219 107.164062 107.164062 C 128.574219 85.707031 157.105469 73.910156 187.410156 73.910156 C 217.710938 73.910156 246.246094 85.707031 267.65625 107.164062 C 289.113281 128.621094 300.90625 157.105469 300.90625 187.410156 C 300.90625 217.710938 289.113281 246.246094 267.65625 267.65625 C 246.246094 289.113281 217.710938 300.90625 187.410156 300.90625 Z M 187.410156 80.714844 C 158.921875 80.714844 132.113281 91.828125 111.972656 111.972656 C 91.832031 132.113281 80.714844 158.921875 80.714844 187.410156 C 80.714844 215.898438 91.832031 242.707031 111.972656 262.847656 C 132.113281 282.988281 158.921875 294.101562 187.410156 294.101562 C 215.898438 294.101562 242.707031 282.988281 262.847656 262.847656 C 282.988281 242.707031 294.101562 215.898438 294.101562 187.410156 C 294.101562 158.921875 282.988281 132.113281 262.847656 111.972656 C 242.707031 91.828125 215.898438 80.714844 187.410156 80.714844 Z M 187.410156 80.714844 "
-          />
-          <g>
-            <use xlink:href="#glyph0-1" x="117.412423" y="215.309547" />
-          </g>
-          <g>
-            <use xlink:href="#glyph0-2" x="199.54037" y="215.309547" />
-          </g>
-        </g>
-      </svg>
-      <sup
-        class="
-          absolute
-          left-12
-          top-4
-          bg-green-300
-          text-xs
-          rounded-full
-          p-1
-          text-gray-900
-        "
-        >Beta</sup
-      >
+    <a routerLink="/" class="relative mr-6">
+      <span class="font-bold text-black text-2xl">Micro</span>
+      <sup class="text-indigo-500 text-sm font-light absolute">Beta</sup>
     </a>
-    <div class="ml-4 hidden md:block">
-      <app-search (onSubmit)="submit($event)"></app-search>
-    </div>
-  </div>
-  <nav class="flex items-center">
-    <div class="hidden md:block ml-6">
+    <div class="ml-6 hidden md:flex items-center">
+      <div class="md:w-96">
+        <app-search></app-search>
+      </div>
       <a
         routerLink="/explore"
-        class="font-medium text-gray-500 hover:text-gray-900"
+        class="font-medium text-black hover:text-indigo-600 block ml-6"
         >Explore API's</a
       >
+    </div>
+  </div>
+  <nav class="flex">
+    <div class="hidden md:flex ml-6 items-center">
       <app-logged-in-dropdown
         *ngIf="user && user.name"
       ></app-logged-in-dropdown>
@@ -60,10 +32,10 @@
         routerLink="/login"
         class="
           font-medium
-          text-green-400
-          hover:text-gray-900
+          text-black
+          hover:text-indigo-600
           ml-4
-          border border-green-300
+          border border-indigo-300
         "
         *ngIf="userIsNotLoggedIn()"
         >Log in</a
@@ -80,7 +52,7 @@
         justify-center
         text-gray-400
         hover:text-gray-500 hover:bg-gray-100
-        focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-400
+        focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-400
         md:hidden
       "
       aria-expanded="false"
@@ -109,15 +81,16 @@
         class="
           py-4
           px-6
-          bg-green-300
+          bg-indigo-600
           text-sm
-          rounded-full
-          text-gray-800
-          hover:bg-green-400
+          rounded-lg
+          text-white
+          hover:bg-indigo-700
           transition-colors
           hidden
           md:block
           ml-6
+          font-bold
         "
         data-cy="sign-up"
         >Sign Up</a

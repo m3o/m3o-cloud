@@ -47,7 +47,7 @@
               focus:outline-none
               focus:ring-2
               focus:ring-inset
-              focus:ring-green-500
+              focus:ring-indigo-500
             "
             (click)="onClose.emit()"
           >
@@ -70,6 +70,9 @@
             </svg>
           </button>
         </div>
+      </div>
+      <div class="w-full py-4">
+        <app-search></app-search>
       </div>
       <div>
         <nav class="grid gap-y-6">
@@ -136,8 +139,8 @@
             text-base
             font-medium
             text-black
-            bg-green-300
-            hover:bg-green-400
+            bg-indigo-300
+            hover:bg-indigo-400
           "
           (click)="userService.logout()"
         >
@@ -160,8 +163,8 @@
             text-base
             font-medium
             text-black
-            bg-green-300
-            hover:bg-green-400
+            bg-indigo-300
+            hover:bg-indigo-400
           "
         >
           Sign up
@@ -173,7 +176,7 @@
           Existing customer?
           <a
             routerLink="/login"
-            class="text-green-600 hover:text-green-500"
+            class="text-indigo-600 hover:text-indigo-500"
             (click)="onLogout()"
           >
             Sign in

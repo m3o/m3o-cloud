@@ -1,4 +1,7 @@
-import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  BrowserTransferStateModule,
+} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -79,14 +82,13 @@ import {
 } from './snippet/snippet.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TableModule } from 'ngx-easy-table';
-
-import hljs from 'highlight.js';
 import { ApisComponent } from './apis/apis.component';
 import { QuotaService } from './quota.service';
 import { ApiSingleComponent } from './api-single/api-single.component';
 import { PropertyListerComponent } from './property-lister/property-lister.component';
 import { UsageComponent } from './usage/usage.component';
 import { UsageService } from './usage.service';
+import { SearchService } from './search.service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BalanceService } from './balance.service';
 import { PaymentsComponent } from './payments/payments.component';
@@ -100,6 +102,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SearchComponent } from './search/search.component';
 import { LoggedInDropdownComponent } from './logged-in-dropdown/logged-in-dropdown.component';
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
+import { GlobalBannerComponent } from './global-banner/global-banner.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -146,6 +149,7 @@ import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
     SearchComponent,
     LoggedInDropdownComponent,
     MobileMenuComponent,
+    GlobalBannerComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -184,7 +188,7 @@ import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
     MarkdownModule.forRoot(),
     HighlightModule,
     NgxChartsModule,
-    BrowserTransferStateModule
+    BrowserTransferStateModule,
   ],
   providers: [
     CookieService,
@@ -193,6 +197,7 @@ import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
     QuotaService,
     UsageService,
     BalanceService,
+    SearchService,
     //{
     //  provide: HIGHLIGHT_OPTIONS,
     //  useValue: {

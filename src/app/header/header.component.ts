@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '../user.service';
 import * as types from '../types';
+import { SearchService } from '../search.service';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private cs: CookieService,
     public userService: UserService,
+    public searchService: SearchService,
     private router: Router,
   ) {
     this.user = this.userService.user;
@@ -26,14 +28,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {}
-
-  submit(searchText: string): void {
-    this.router.navigate(['/explore'], {
-      queryParams: {
-        q: searchText,
-      },
-    });
-  }
 
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
