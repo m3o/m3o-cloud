@@ -15,8 +15,6 @@ from '@angular/common';
 import {Title, Meta} from "@angular/platform-browser";
 import { TransferState, makeStateKey } from '@angular/platform-browser';
 
-const STATE_KEY_API = makeStateKey('api');
-
 const tabNamesToIndex = {
   '': 0,
   query: 1,
@@ -114,7 +112,7 @@ export class ApiSingleComponent implements OnInit {
 
   loadAPI() {
     let processAPI = (serv: API) => {
-      this.state.set(STATE_KEY_API, <any> serv)
+      this.state.set(makeStateKey('api' + this.serviceName), <any> serv)
       this.service = serv;
       this.openAPI = JSON.parse(this.service.api.open_api_json);
       this.postman = JSON.parse(this.service.api.postman_json);
@@ -134,7 +132,7 @@ export class ApiSingleComponent implements OnInit {
         }
       }, 300);
     }
-    let api: API = this.state.get(STATE_KEY_API, <any> null);
+    let api: API = this.state.get(makeStateKey('api' + this.serviceName), <any> null);
 
     if (api == null) {
       this.loading = true
