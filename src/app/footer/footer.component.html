@@ -1,22 +1,41 @@
-<footer class="root">
-  <div class="container root-container">
+<footer class="bg-gray-800 pt-8 md:pt-12 text-white">
+  <div
+    class="
+      md:max-w-4xl
+      lg:max-w-7xl
+      md:grid md:grid-cols-2
+      ml-auto
+      mr-auto
+      w-11/12
+    "
+  >
     <div class="left" id="mc_embed_signup">
-      <h5>Subscribe for the latest updates</h5>
+      <h5 class="font-bold mb-4">Subscribe for the latest updates</h5>
       <form
         action="https://micro.us18.list-manage.com/subscribe/post?u=fba1e1a1b23409d771c5653cd&amp;id=647d0b5377"
         method="post"
         id="mc-embedded-subscribe-form"
         name="mc-embedded-subscribe-form"
-        class="validate"
+        class="validate mb-4"
         target="_blank"
         novalidate=""
       >
-        <div id="mc_embed_signup_scroll" class="input-wrapper">
+        <div id="mc_embed_signup_scroll" class="md:flex md:items-center">
           <input
             type="email"
             value=""
             name="EMAIL"
-            class="email"
+            class="
+              w-full
+              border border-white
+              bg-transparent
+              text-white
+              p-4
+              rounded-full
+              text-sm
+              focus:border-green-300
+              placeholder-gray-500
+            "
             id="mce-EMAIL"
             placeholder="Email address"
             required=""
@@ -30,41 +49,86 @@
               value=""
             />
           </div>
-          <button type="submit" name="subscribe" id="mc-embedded-subscribe">
+          <button
+            type="submit"
+            name="subscribe"
+            id="mc-embedded-subscribe"
+            class="
+              w-full
+              pt-4
+              pb-4
+              pl-6
+              pr-6
+              bg-green-300
+              hover:bg-green-400
+              transition-colors
+              text-gray-800
+              md:w-56
+              mt-4
+              rounded-full
+              md:mt-0 md:ml-4
+              text-sm
+            "
+          >
             Subscribe
           </button>
         </div>
       </form>
     </div>
-    <div class="right grid-equal">
+    <div class="md:grid md:grid-cols-2 md:pl-10 md:text-right">
       <ul>
-        <li><a href="https://blog.m3o.com" target="_blank">Blog</a></li>
-        <li><a href="https://github.com/m3o" target="_blank">Github</a></li>
-        <li>
-          <a href="https://forms.gle/9SQV6DdLNDzSRQ477" target="_blank"
-            >Partner</a
+        <li *ngFor="let external of externalLinks1">
+          <a
+            href="{{ external.link }}"
+            class="hover:text-green-300 text-white transition-colors font-light"
+            target="_blank"
           >
-        </li>
-        <li><a href="https://m3o.dev" target="_blank">Platform</a></li>
-      </ul>
-      <ul>
-        <li><a href="mailto:contact@m3o.com">Contact</a></li>
-        <li>
-          <a href="https://discord.gg/TBR9bRjd6Z" target="_blank">Discord</a>
+            {{ external.name }}
+          </a>
         </li>
         <li>
           <a
-            href="https://www.linkedin.com/company/micro-services-inc"
-            target="_blank"
-            >LinkedIn</a
+            href="mailto:contact@m3o.com"
+            class="hover:text-green-300 text-white transition-colors font-light"
           >
+            Contact
+          </a>
         </li>
-        <li><a href="https://slack.m3o.com" target="_blank">Slack</a></li>
+      </ul>
+      <ul>
+        <li *ngFor="let external of externalLinks2">
+          <a
+            href="{{ external.link }}"
+            class="hover:text-green-300 text-white transition-colors font-light"
+            target="_blank"
+          >
+            {{ external.name }}
+          </a>
+        </li>
       </ul>
     </div>
   </div>
-  <div class="copyright">
-    <div class="container">
+  <div
+    class="
+      bg-gray-900
+      text-white text-sm
+      py-4
+      pb-4
+      border-t border-gray-600
+      mt-6
+      md:mt-10
+    "
+  >
+    <div
+      class="
+        md:max-w-4xl
+        lg:max-w-7xl
+        md:grid md:grid-cols-2
+        ml-auto
+        mr-auto
+        w-11/12
+      "
+    >
       <p>© {{ getYear() }} Micro Services, Inc.</p>
     </div>
   </div>

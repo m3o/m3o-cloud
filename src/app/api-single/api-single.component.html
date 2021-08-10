@@ -1,4 +1,4 @@
-<div class="container m3o-mt">
+<div class="md:max-w-4xl lg:max-w-7xl mx-auto w-11/12 mt-6">
   <div>
     <mat-spinner
       [diameter]="35"
@@ -322,20 +322,19 @@
               <br /><br />
               <h3>Readme</h3>
               <markdown [data]="service.api.description"></markdown>
-              <br />
-              <div style="border-bottom: 1px solid #ccc"></div>
-              <br />
-              <h3>Authors</h3>
-              <img
-                class="authorimg"
-                src="https://avatars.githubusercontent.com/u/17530?s=64&v=4"
-              />
-              <img
-                class="authorimg"
-                src="https://avatars.githubusercontent.com/u/1785178?s=64&v=4"
-              />
-              <br /><br />
-              <div style="border-bottom: 1px solid #ccc"></div>
+              <div
+                class="border-t border-b border-gray-300 border-solid pt-6 pb-6"
+              >
+                <h3>Authors</h3>
+                <img
+                  class="rounded-full w-12 inline-block mr-4"
+                  src="https://avatars.githubusercontent.com/u/17530?s=64&v=4"
+                />
+                <img
+                  class="rounded-full w-12 inline-block"
+                  src="https://avatars.githubusercontent.com/u/1785178?s=64&v=4"
+                />
+              </div>
               <br />
               <h3>Feedback</h3>
               <a href="https://forms.gle/bumpycyzofNiVLQc8">Got a request?</a>
