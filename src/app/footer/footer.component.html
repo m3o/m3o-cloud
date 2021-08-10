@@ -86,7 +86,9 @@
             {{ external.name }}
           </a>
         </li>
-        <li>
+      </ul>
+      <ul>
+         <li>
           <a
             href="mailto:contact@m3o.com"
             class="hover:text-green-300 text-white transition-colors font-light"
@@ -94,8 +96,6 @@
             Contact
           </a>
         </li>
-      </ul>
-      <ul>
         <li *ngFor="let external of externalLinks2">
           <a
             href="{{ external.link }}"

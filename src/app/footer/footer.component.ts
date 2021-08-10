@@ -23,13 +23,13 @@ export class FooterComponent implements OnInit {
       name: 'Partner',
       link: 'https://forms.gle/9SQV6DdLNDzSRQ477',
     },
-  ];
-
-  externalLinks2: ExternalLink[] = [
     {
       name: 'Platform',
       link: 'https://m3o.dev',
     },
+  ];
+
+  externalLinks2: ExternalLink[] = [
     {
       name: 'Discord',
       link: 'https://discord.gg/TBR9bRjd6Z',
