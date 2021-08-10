@@ -40,6 +40,10 @@ interface CompleteSignupResponse {
   namespace: string;
 }
 
+interface googleOauthURLResponse {
+  url: string;
+}
+
 @Injectable()
 export class UserService {
   public user: types.Account = {} as types.Account;
@@ -216,6 +220,56 @@ export class UserService {
             null,
           );
           resolve();
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  }
+
+  googleOauthURL(): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      return this.http
+        .post<googleOauthURLResponse>(
+          environment.apiUrl + '/onboarding1/signup/googleOauthURL',
+          {
+
+          },
+          {
+            headers: {
+              'Micro-Namespace': environment.namespace,
+            },
+          },
+        )
+        .toPromise()
+        .then((rsp) => {
+          resolve(rsp.url);
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  }
+
+  googleOauthCallback(code: string, state: string, errorReason: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      return this.http
+        .post<googleOauthURLResponse>(
+          environment.apiUrl + '/onboarding1/signup/GoogleOauthCallback',
+          {
+            code: code,
+            state: state,
+            error_reason: errorReason,
+          },
+          {
+            headers: {
+              'Micro-Namespace': environment.namespace,
+            },
+          },
+        )
+        .toPromise()
+        .then((rsp) => {
+          resolve(rsp.url);
         })
         .catch((e) => {
           reject(e);

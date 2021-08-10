@@ -97,6 +97,7 @@ import { SearchResultGridComponent } from './search-result-grid/search-result-gr
 import { EndpointCallerComponent } from './endpoint-caller/endpoint-caller.component';
 import { HomeBannerComponent } from './home-banner/home-banner.component';
 import { FooterComponent } from './footer/footer.component';
+import { GoogleLoginComponent } from './google-login/google-login.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -140,6 +141,7 @@ import { FooterComponent } from './footer/footer.component';
     EndpointCallerComponent,
     HomeBannerComponent,
     FooterComponent,
+    GoogleLoginComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

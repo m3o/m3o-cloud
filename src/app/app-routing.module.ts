@@ -19,8 +19,13 @@ import { UsageComponent } from './usage/usage.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { GoogleLoginComponent } from './google-login/google-login.component';
 
 const routes: Routes = [
+  {
+    path: 'google-login',
+    component: GoogleLoginComponent,
+  },
   {
     path: 'not-invited',
     component: NotInvitedComponent,
