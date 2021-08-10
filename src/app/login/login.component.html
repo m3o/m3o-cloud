@@ -1,88 +1,89 @@
-<section class="h-screen bg-gray-900">
-  <div class="md:flex h-full max-w-7xl mx-auto">
-    <div class="md:w-1/2 lg:w-3/5 h-full flex items-center justify-center">
-      <div class="p-8 md:w-9/12 bg-white rounded-md drop-shadow-md">
-        <h1 class="font-bold text-3xl mb-6">Login</h1>
-        <form (ngSubmit)="login()">
-          <div class="mb-6">
-            <label for="email" class="block mb-2 text-sm"
-              >Email <sup class="text-red-500">*</sup></label
-            >
-            <input
-              type="text"
-              [(ngModel)]="email"
-              type="email"
-              name="email"
-              placeholder="e.g john@doe.com"
-              autocomplete="email"
-              class="
-                border border-gray-300
-                block
-                py-4
-                px-6
-                w-full
-                rounded-lg
-                text-sm
-                focus:border-gray-800
-                transition-colors
-              "
-            />
-          </div>
-          <div class="mb-6">
-            <label for="password" class="block mb-2 text-sm"
-              >Password <sup class="text-red-500">*</sup></label
-            >
-            <input
-              type="text"
-              [(ngModel)]="password"
-              type="password"
-              name="password"
-              autocomplete="current-password"
-              class="
-                border border-gray-300
-                block
-                py-4
-                px-6
-                w-full
-                rounded-lg
-                text-sm
-                focus:border-gray-800
-                transition-colors
-              "
-            />
-          </div>
-          <input [(ngModel)]="namespace" type="hidden" name="namespaceInput" />
-          <button
-            type="submit"
-            data-cy="submit"
+<section class="h-screen bg-gray-100">
+  <div
+    class="md:flex h-full max-w-7xl mx-auto flex items-center justify-center"
+  >
+    <div class="p-8 bg-white rounded-md shadow-md w-11/12 max-w-lg">
+      <h1 class="font-bold text-3xl mb-6">Log in</h1>
+      <form (ngSubmit)="login()">
+        <div class="mb-6">
+          <label for="email" class="block mb-2 text-sm"
+            >Email <sup class="text-red-500">*</sup></label
+          >
+          <input
+            type="text"
+            [(ngModel)]="email"
+            autofocus
+            type="email"
+            name="email"
+            placeholder="e.g john@doe.com"
+            autocomplete="email"
             class="
-              w-full
-              px-6
+              border border-gray-300
+              block
               py-4
-              rounded-full
-              mb-6
-              bg-green-300
-              text-gray-800 text-sm
-              font-bold
-              hover:bg-green-400
+              px-6
+              w-full
+              rounded-lg
+              text-sm
+              focus:border-gray-800
               transition-colors
             "
+          />
+        </div>
+        <div class="mb-6">
+          <label for="password" class="block mb-2 text-sm"
+            >Password <sup class="text-red-500">*</sup></label
           >
-            Submit
-          </button>
-        </form>
-        <p class="mb-4 text-gray-700">
-          Not registered yet?
-          <a routerLink="/register" class="text-green-400">Create an account</a>
-        </p>
-        <p class="sign-up">
-          <a routerLink="/forgot-password" class="text-green-400"
-            >Forgotten your password?</a
-          >
-        </p>
-      </div>
+          <input
+            type="text"
+            [(ngModel)]="password"
+            type="password"
+            name="password"
+            autocomplete="current-password"
+            class="
+              border border-gray-300
+              block
+              py-4
+              px-6
+              w-full
+              rounded-lg
+              text-sm
+              focus:border-gray-800
+              transition-colors
+            "
+          />
+        </div>
+        <input [(ngModel)]="namespace" type="hidden" name="namespaceInput" />
+        <button
+          type="submit"
+          data-cy="submit"
+          class="
+            w-full
+            px-6
+            py-4
+            rounded-full
+            mb-6
+            bg-green-300
+            text-gray-800 text-sm
+            font-bold
+            hover:bg-green-400
+            transition-colors
+          "
+        >
+          Submit
+        </button>
+      </form>
+      <p class="mb-4 text-gray-700">
+        Not registered yet?
+        <a routerLink="/register" class="text-green-400">Create an account</a>
+      </p>
+      <p class="sign-up">
+        <a routerLink="/forgot-password" class="text-green-400"
+          >Forgotten your password?</a
+        >
+      </p>
     </div>
-    <div
+    <!-- <div
       class="
         hidden
         md:flex md:items-center md:w-1/2
@@ -103,60 +104,6 @@
           <li>Integrate to any API in minutes</li>
         </ul>
       </div>
-    </div>
+    </div> -->
   </div>
 </section>
-<!-- 
-<div style="width: 100%">
-  <div style="max-width: 400px; margin: 0 auto">
-    <br />
-    <form (ngSubmit)="login()">
-      <mat-card style="background: #fcfcfc">
-        <mat-card-title>Login</mat-card-title>
-        <mat-form-field class="full" appearance="legacy">
-          <mat-label>Email</mat-label>
-          <input matInput [(ngModel)]="email" type="email" name="emailInput" />
-        </mat-form-field>
-        <br />
-        <mat-form-field class="full" appearance="legacy">
-          <mat-label>Password</mat-label>
-          <input
-            matInput
-            [(ngModel)]="password"
-            type="password"
-            name="passwordInput"
-          />
-        </mat-form-field>
-        <mat-form-field style="display: none" class="full" appearance="legacy">
-          <mat-label>Namespace</mat-label>
-          <input
-            matInput
-            [(ngModel)]="namespace"
-            type="text"
-            name="namespaceInput"
-          />
-        </mat-form-field>
-        <br /><br />
-        <button
-          [disabled]="loading"
-          mat-raised-button
-          type="submit"
-          style="font-weight: bold"
-          color="primary"
-        >
-          Login
-        </button>
-        &nbsp;&nbsp;&nbsp;
-      </mat-card>
-    </form>
-    <br />
-    <div style="text-align: center">
-      <a href="#" routerLink="/register" style="text-decoration: underline"
-        >Sign up</a
-      >
-      if you don't have an account.
-      <a routerLink="/forgot-password">Forgot password?</a>
-    </div>
-    <br />
-  </div>
-</div> -->
