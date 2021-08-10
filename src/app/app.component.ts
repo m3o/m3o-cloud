@@ -53,4 +53,8 @@ export class AppComponent implements OnInit {
       },
     });
   }
+
+  showHeaderFooter(): boolean {
+    return this.router.url !== '/login';
+  }
 }

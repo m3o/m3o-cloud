@@ -34,6 +34,7 @@
     "@stripe/stripe-js": "^1.14.0",
     "@swimlane/ngx-charts": "^18.0.1",
     "@types/lodash": "^4.14.149",
+    "autoprefixer": "^10.3.1",
     "chart.js": "^2.9.3",
     "cypress": "^8.2.0",
     "d3": "^3.4.4",
@@ -55,8 +56,10 @@
     "ngx-toastr": "^13.2.1",
     "nvd3-fork": "^2.0.5",
     "openapi3-ts": "^2.0.1",
+    "postcss": "^8.3.6",
     "rxjs": "~6.6.7",
     "rxjs-compat": "^6.6.3",
+    "tailwindcss": "^2.2.7",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
   },
