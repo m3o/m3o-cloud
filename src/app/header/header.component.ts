@@ -7,7 +7,6 @@ import * as types from '../types';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
   user: types.Account;
@@ -16,13 +15,13 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private cs: CookieService,
-    public us: UserService,
+    public userService: UserService,
     private router: Router,
   ) {
-    this.user = this.us.user;
+    this.user = this.userService.user;
 
-    this.us.isUserLoggedIn.subscribe(() => {
-      this.user = this.us.user;
+    this.userService.isUserLoggedIn.subscribe(() => {
+      this.user = this.userService.user;
     });
   }
 
@@ -38,5 +37,9 @@ export class HeaderComponent implements OnInit {
 
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  userIsNotLoggedIn(): boolean {
+    return !this.userService.loggedIn() || !this.user || !this.user.name;
   }
 }

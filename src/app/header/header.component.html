@@ -42,7 +42,7 @@
         >Beta</sup
       >
     </a>
-    <div class="ml-4">
+    <div class="ml-4 hidden md:block">
       <app-search (onSubmit)="submit($event)"></app-search>
     </div>
   </div>
@@ -65,7 +65,7 @@
           ml-4
           border border-green-300
         "
-        *ngIf="!us.loggedIn() || !user || !user.name"
+        *ngIf="userIsNotLoggedIn()"
         >Log in</a
       >
     </div>
@@ -103,7 +103,7 @@
         />
       </svg>
     </button>
-    <ng-container *ngIf="!us.loggedIn() || !user || !user.name">
+    <ng-container *ngIf="userIsNotLoggedIn()">
       <a
         routerLink="/register"
         class="
@@ -128,4 +128,5 @@
 <app-mobile-menu
   *ngIf="mobileMenuOpen"
   (onClose)="toggleMobileMenu()"
+  [isLoggedIn]="!userIsNotLoggedIn()"
 ></app-mobile-menu>

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { UserService } from '../user.service';
 
 @Component({
@@ -6,9 +6,16 @@ import { UserService } from '../user.service';
   templateUrl: './mobile-menu.component.html',
 })
 export class MobileMenuComponent implements OnInit {
-  constructor(public userService: UserService) {}
-
   @Output() onClose = new EventEmitter<void>();
 
+  @Input() isLoggedIn = false;
+
+  constructor(public userService: UserService) {}
+
   ngOnInit(): void {}
+
+  onLogout() {
+    this.onClose.emit();
+    this.userService.logout();
+  }
 }
