@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     this.us
       .login(this.email, this.password, this.namespace)
       .then(() => {
-        document.location.href = '/';
+        document.location.href = '/explore';
       })
       .catch((e) => {
         console.log(e);
