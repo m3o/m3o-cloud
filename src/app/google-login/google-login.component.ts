@@ -25,6 +25,9 @@ export class GoogleLoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((queryParams) => {
+      if (!this.isBrowser) {
+        return;
+      }
       if (queryParams.get('code')) {
         this.code = queryParams.get('code');
       }
