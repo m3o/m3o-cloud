@@ -47,10 +47,6 @@ html {
   margin-bottom: var(--m3o-spacing);
 }
 
-.text-center {
-  text-align: center;
-}
-
 .alert {
   padding: var(--m3o-spacing);
   margin-top: var(--m3o-spacing);
@@ -93,50 +89,6 @@ html {
   flex: 1 1 auto;
 }
 
-/* Global components */
-.m3o-btn {
-  background-color: var(--m3o-primary);
-  padding: var(--m3o-spacing) var(--m3o-double-spacing);
-  border: none;
-  color: var(--m3o-white);
-  font-weight: bold;
-  font-family: unset;
-  cursor: pointer;
-  border-radius: 30px;
-}
-
-.m3o-btn:active {
-  transform: scale(0.95);
-}
-
-.m3o-form-field {
-}
-
-.m3o-form-field label {
-  display: block;
-  font-size: 14px;
-  font-weight: bold;
-  color: var(--m3o-primary);
-  margin-bottom: var(--m3o-half-spacing);
-}
-
-.m3o-form-field input {
-  width: 100%;
-  padding: var(--m3o-spacing);
-  border: var(--m3o-border);
-  border-radius: 5px;
-  font-family: unset;
-}
-
-.m3o-form-field input::placeholder {
-  color: var(--m3o-grey-1);
-}
-
-.m3o-form-field input:active,
-.m3o-form-field input:focus {
-  border-color: var(--m3o-primary);
-}
-
 @media (min-width: 768px) {
   .grid-equal {
     display: grid;
@@ -149,21 +101,6 @@ mat-sidenav-content {
   height: 100%;
 }
 
-.hover {
-  cursor: pointer;
-}
-
-#logo {
-  font-size: 1.5em;
-  font-weight: 1000;
-  font-family: medium-content-sans-serif-font, 'Lucida Grande',
-    'Lucida Sans Unicode', 'Lucida Sans', Geneva, Arial, sans-serif;
-}
-
 *:focus {
   outline: 0;
-}
-
-a {
-  color: 444;
 }

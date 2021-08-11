@@ -3,23 +3,6 @@
     <div style="margin: 1em 0" fxLayoutGap="2em" fxLayout="row">
       <div fxFlex="49%" fxFlex.lt-md="100%" style="padding-top: 1em">
         <h2 class="mat-headline" style="font-weight: bold">Explore APIs</h2>
-        <br />
-        <mat-form-field style="width: 100%" appearance="outline">
-          <input
-            matInput
-            style="color: #444; border-color: #444"
-            placeholder="Search for APIs"
-            [(ngModel)]="search"
-            (keydown)="keyDownFunction($event)"
-          /><button
-            (click)="searchResults()"
-            mat-button
-            matSuffix
-            style="position: relative; top: -8px"
-          >
-            Search
-          </button>
-        </mat-form-field>
       </div>
     </div>
 

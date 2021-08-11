@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.us.user;
+
     this.us.isUserLoggedIn.subscribe(() => {
       this.user = this.us.user;
     });
@@ -40,21 +41,11 @@ export class AppComponent implements OnInit {
     return this.router.url.split('?')[0];
   }
 
-  keyDownFunction(event) {
-    if (event.keyCode === 13) {
-      this.submit();
-    }
-  }
-
-  submit() {
+  submit(searchText: string): void {
     this.router.navigate(['/explore'], {
       queryParams: {
-        q: this.search,
+        q: searchText,
       },
     });
-  }
-
-  showHeaderFooter(): boolean {
-    return this.router.url !== '/login';
   }
 }

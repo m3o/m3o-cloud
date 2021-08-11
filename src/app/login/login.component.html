@@ -25,7 +25,7 @@
               w-full
               rounded-lg
               text-sm
-              focus:border-gray-800
+              focus:border-indigo-800
               transition-colors
             "
           />
@@ -48,7 +48,7 @@
               w-full
               rounded-lg
               text-sm
-              focus:border-gray-800
+              focus:border-indigo-800
               transition-colors
             "
           />
@@ -59,51 +59,53 @@
           data-cy="submit"
           class="
             w-full
-            px-6
-            py-4
-            rounded-full
+            px-4
+            py-6
+            rounded-lg
             mb-6
-            bg-green-300
-            text-gray-800 text-sm
+            bg-indigo-600
+            text-white
             font-bold
-            hover:bg-green-400
+            hover:bg-indigo-700
             transition-colors
+            flex
+            items-center
+            justify-center
           "
         >
+          <svg
+            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            *ngIf="loading"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
           Submit
         </button>
       </form>
       <p class="mb-4 text-gray-700">
         Not registered yet?
-        <a routerLink="/register" class="text-green-400">Create an account</a>
+        <a routerLink="/register" class="text-indigo-400">Create an account</a>
       </p>
       <p class="sign-up">
-        <a routerLink="/forgot-password" class="text-green-400"
+        <a routerLink="/forgot-password" class="text-indigo-400"
           >Forgotten your password?</a
         >
       </p>
     </div>
-    <!-- <div
-      class="
-        hidden
-        md:flex md:items-center md:w-1/2
-        lg:w-2/5
-        bg-gray-900
-        h-full
-      "
-    >
-      <div class="right-content text-white">
-        <h2 class="text-4xl mb-4 font-extrabold text-green-300">Why Micro?</h2>
-        <p class="text-gray-400 mb-6 text-md">
-          Speed up your development by integrating with our API's
-        </p>
-        <ul class="list-disc pl-4">
-          <li>Quick and simple setup</li>
-          <li>Great support</li>
-          <li>Affordable with no hidden fees</li>
-          <li>Integrate to any API in minutes</li>
-        </ul>
-      </div>
-    </div> -->
   </div>
 </section>

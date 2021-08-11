@@ -1,0 +1,89 @@
+<header
+  class="
+    flex
+    items-center
+    justify-between
+    p-6
+    border-gray-200 border-solid border-b
+  "
+>
+  <div class="flex items-center">
+    <a routerLink="/" class="relative mr-6">
+      <span class="font-bold text-black text-2xl">Micro</span>
+      <sup class="text-indigo-500 text-sm font-light absolute">Beta</sup>
+    </a>
+    <div class="ml-6 hidden md:flex items-center">
+      <div class="lg:w-96">
+        <app-search></app-search>
+      </div>
+      <a
+        routerLink="/explore"
+        class="font-medium text-black hover:text-indigo-600 block ml-6"
+        >Explore API's</a
+      >
+    </div>
+  </div>
+  <nav class="flex">
+    <div class="hidden md:flex ml-6 items-center">
+      <app-logged-in-dropdown
+        *ngIf="user && user.name"
+      ></app-logged-in-dropdown>
+      <a
+        routerLink="/login"
+        class="
+          font-medium
+          text-black
+          hover:text-indigo-600
+          ml-4
+          border border-indigo-300
+        "
+        *ngIf="userIsNotLoggedIn()"
+        >Log in</a
+      >
+    </div>
+    <button
+      type="button"
+      class="
+        bg-white
+        rounded-md
+        p-2
+        inline-flex
+        items-center
+        justify-center
+        text-gray-400
+        hover:text-gray-500 hover:bg-gray-100
+        focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-400
+        md:hidden
+      "
+      aria-expanded="false"
+      (click)="toggleMobileMenu()"
+    >
+      <span class="sr-only">Open main menu</span>
+      <svg
+        class="h-6 w-6"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"
+        />
+      </svg>
+    </button>
+    <ng-container *ngIf="userIsNotLoggedIn()">
+      <span class="hidden md:inline-block ml-6">
+        <app-link-button href="/register">Sign up</app-link-button>
+      </span>
+    </ng-container>
+  </nav>
+</header>
+<app-mobile-menu
+  *ngIf="mobileMenuOpen"
+  (onClose)="toggleMobileMenu()"
+  [isLoggedIn]="!userIsNotLoggedIn()"
+></app-mobile-menu>
