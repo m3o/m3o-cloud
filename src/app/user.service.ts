@@ -231,7 +231,7 @@ export class UserService {
     return new Promise<string>((resolve, reject) => {
       return this.http
         .post<googleOauthURLResponse>(
-          environment.apiUrl + '/onboarding1/signup/googleOauthURL',
+          environment.apiUrl + '/oauth/Oauth/GoogleURL',
           {},
           {
             headers: {
@@ -257,7 +257,7 @@ export class UserService {
     return new Promise<void>((resolve, reject) => {
       return this.http
         .post<CompleteSignupResponse>(
-          environment.apiUrl + '/onboarding1/signup/GoogleOauthCallback',
+          environment.apiUrl + '/oauth/Oauth/GoogleLogin',
           {
             code: code,
             state: state,
