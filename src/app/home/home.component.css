@@ -33,7 +33,7 @@
 }
 
 section {
-  margin-top: calc(var(--m3o-spacing) * 5);
+  /* margin-top: calc(var(--m3o-spacing) * 5); */
 }
 
 section .loading {

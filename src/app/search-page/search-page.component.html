@@ -1,21 +1,25 @@
-<div class="container">
-  <div style="padding-bottom: 2em; margin: auto">
-    <div style="margin: 1em 0" fxLayoutGap="2em" fxLayout="row">
-      <div fxFlex="49%" fxFlex.lt-md="100%" style="padding-top: 1em">
-        <h2 class="mat-headline" style="font-weight: bold">Explore APIs</h2>
-      </div>
+<div class="bg-gray-50 min-h-screen">
+  <div class="md:max-w-4xl lg:max-w-7xl ml-auto mr-auto w-11/12 py-8">
+    <h2 class="font-bold text-3xl mt-0 mb-8">Explore APIs</h2>
+    <app-search-result-grid
+      *ngIf="searchService.loadingResults == false"
+      [services]="searchService.results"
+    >
+    </app-search-result-grid>
+    <p
+      *ngIf="searchService.results.length === 0"
+      class="font-bold text-2xl md:text-4xl"
+    >
+      Sorry, no results found
+    </p>
+    <p *ngIf="searchService.loadingResults == false" class="mt-6">
+      Can't find what you're looking for?
+      <a href="https://forms.gle/RoYDNQk3myArHfZM9" class="text-indigo-600"
+        >Let us know.</a
+      >
+    </p>
+    <div *ngIf="searchService.loadingResults" style="text-align: center">
+      Loading...
     </div>
-
-    <div style="margin: 0em 0; padding: 1px">
-      <app-search-result-grid *ngIf="loading == false" [services]="services">
-      </app-search-result-grid>
-      <p *ngIf="!services">No results found</p>
-      <p *ngIf="loading == false">
-        <a href="https://forms.gle/RoYDNQk3myArHfZM9"
-          >Can't find what you're looking for? Let us know.</a
-        >
-      </p>
-    </div>
-    <div *ngIf="loading" style="text-align: center">Loading...</div>
   </div>
 </div>
