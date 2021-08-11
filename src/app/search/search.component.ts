@@ -12,10 +12,18 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
+    const [url] = this.router.url.split('?');
+
+    if (url === '/explore') {
+      this.searchService.fetchResults();
+    }
+
     this.router.navigate(['/explore'], {
       queryParams: {
         q: this.searchService.searchText,
       },
     });
+
+    return false;
   }
 }

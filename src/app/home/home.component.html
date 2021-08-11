@@ -1,14 +1,18 @@
 <app-home-banner></app-home-banner>
 
-<section id="everyday" class="apis">
-  <div class="container">
-    <h2 class="mat-headline">Public APIs for everyday use</h2>
+<section class="bg-gray-50 py-8 md:py-16 border-b border-gray-200 border-solid">
+  <div class="md:max-w-4xl lg:max-w-7xl ml-auto mr-auto w-11/12">
+    <h2 class="font-bold text-4xl">Public APIs for everyday use</h2>
     <div *ngIf="loading" class="loading">Loading...</div>
     <app-search-result-grid
       *ngIf="loading == false"
       [services]="services"
     ></app-search-result-grid>
-    <a routerLink="/explore">Explore all &rarr;</a>
+    <div class="flex mt-8">
+      <span class="mx-auto">
+        <app-link-button href="/explore">See all</app-link-button>
+      </span>
+    </div>
   </div>
 </section>
 
@@ -44,7 +48,7 @@
   </div>
 </section> -->
 
-<section>
+<section class="py-8 md:py-16">
   <div class="container">
     <h2 class="mat-headline">Developer Friendly UX</h2>
     <div class="ux">
@@ -90,7 +94,7 @@
   </div>
 </section>
 
-<section>
+<section class="py-8 md:py-16">
   <div class="container">
     <h2 class="mat-headline">Tired of AWS? Us too</h2>
     <div class="grid-equal">
@@ -140,7 +144,7 @@
   </div>
 </section>
 
-<section>
+<section class="py-8 md:py-16">
   <div class="container">
     <h2 class="mat-headline">About Us</h2>
     <div class="about">
@@ -181,7 +185,7 @@
     </div>
   </div>
 </section>
-<section class="sell-section text-center">
+<section class="sell-section text-center py-8 md:py-16">
   <h2 class="mat-headline">Publish your APIs</h2>
   <p>Got an API you want to offer on the Micro platform?</p>
   <p><a href="https://forms.gle/9SQV6DdLNDzSRQ477">Tell us more</a></p>
