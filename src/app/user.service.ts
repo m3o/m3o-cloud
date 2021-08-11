@@ -40,6 +40,10 @@ interface CompleteSignupResponse {
   namespace: string;
 }
 
+interface googleOauthURLResponse {
+  url: string;
+}
+
 @Injectable()
 export class UserService {
   public user: types.Account = {} as types.Account;
@@ -223,6 +227,69 @@ export class UserService {
     });
   }
 
+  googleOauthURL(): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      return this.http
+        .post<googleOauthURLResponse>(
+          environment.apiUrl + '/oauth/Oauth/GoogleURL',
+          {},
+          {
+            headers: {
+              'Micro-Namespace': environment.namespace,
+            },
+          },
+        )
+        .toPromise()
+        .then((rsp) => {
+          resolve(rsp.url);
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  }
+
+  googleOauthCallback(
+    code: string,
+    state: string,
+    errorReason: string,
+  ): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      return this.http
+        .post<CompleteSignupResponse>(
+          environment.apiUrl + '/oauth/Oauth/GoogleLogin',
+          {
+            code: code,
+            state: state,
+            error_reason: errorReason,
+          },
+          {
+            headers: {
+              'Micro-Namespace': environment.namespace,
+            },
+          },
+        )
+        .toPromise()
+        .then((resp) => {
+          const tok = resp.authToken;
+          this.saveToken(tok);
+          this.cookie.set(
+            'micro_namespace',
+            resp.namespace,
+            30,
+            '/',
+            null,
+            null,
+            null,
+          );
+          resolve();
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  }
+
   sendRecover(email: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       return this.http
@@ -327,33 +394,7 @@ export class UserService {
         .toPromise()
         .then((resp) => {
           const tok = resp.authToken;
-          this.cookie.set(
-            'micro_token',
-            tok.access_token,
-            30,
-            '/',
-            null,
-            null,
-            null,
-          );
-          this.cookie.set(
-            'micro_refresh',
-            tok.refresh_token,
-            30,
-            '/',
-            null,
-            null,
-            null,
-          );
-          this.cookie.set(
-            'micro_expiry',
-            tok.expiry,
-            30,
-            '/',
-            null,
-            null,
-            null,
-          );
+          this.saveToken(tok);
           this.cookie.set(
             'micro_namespace',
             resp.namespace,
@@ -369,6 +410,20 @@ export class UserService {
           reject(e);
         });
     });
+  }
+
+  saveToken(tok: Token): void {
+    this.cookie.set('micro_token', tok.access_token, 30, '/', null, null, null);
+    this.cookie.set(
+      'micro_refresh',
+      tok.refresh_token,
+      30,
+      '/',
+      null,
+      null,
+      null,
+    );
+    this.cookie.set('micro_expiry', tok.expiry, 30, '/', null, null, null);
   }
 
   refresh(): Promise<void> {
@@ -390,33 +445,7 @@ export class UserService {
         .then((tokenResponse) => {
           const tok = tokenResponse.token;
           // ugly param list, see: https://github.com/stevermeister/ngx-cookie-service/issues/86
-          this.cookie.set(
-            'micro_token',
-            tok.access_token,
-            30,
-            '/',
-            null,
-            null,
-            null,
-          );
-          this.cookie.set(
-            'micro_refresh',
-            tok.refresh_token,
-            30,
-            '/',
-            null,
-            null,
-            null,
-          );
-          this.cookie.set(
-            'micro_expiry',
-            tok.expiry,
-            30,
-            '/',
-            null,
-            null,
-            null,
-          );
+          this.saveToken(tok);
           this.refreshing = false;
           resolve();
         })

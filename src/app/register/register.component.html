@@ -21,6 +21,13 @@
         {{ !verifySent ? 'Register' : 'Resend Code' }}
       </button>
       <br />
+      <br />
+      <div style="text-align: center">
+        <button (click)="google()" mat-button>
+          <mat-icon svgIcon="logo"></mat-icon>
+          Sign in with Google
+        </button>
+      </div>
       <div *ngIf="verifySent">
         <br />
         <p>

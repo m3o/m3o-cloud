@@ -99,6 +99,7 @@ import { SearchResultGridComponent } from './search-result-grid/search-result-gr
 import { EndpointCallerComponent } from './endpoint-caller/endpoint-caller.component';
 import { HomeBannerComponent } from './home-banner/home-banner.component';
 import { FooterComponent } from './footer/footer.component';
+import { GoogleLoginComponent } from './google-login/google-login.component';
 import { SearchComponent } from './search/search.component';
 import { LoggedInDropdownComponent } from './logged-in-dropdown/logged-in-dropdown.component';
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
@@ -148,6 +149,7 @@ import { LinkButtonComponent } from './link-button/link-button.component';
     EndpointCallerComponent,
     HomeBannerComponent,
     FooterComponent,
+    GoogleLoginComponent,
     SearchComponent,
     LoggedInDropdownComponent,
     MobileMenuComponent,
