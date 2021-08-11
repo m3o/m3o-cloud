@@ -13,7 +13,7 @@
       <sup class="text-indigo-500 text-sm font-light absolute">Beta</sup>
     </a>
     <div class="ml-6 hidden md:flex items-center">
-      <div class="md:w-96">
+      <div class="lg:w-96">
         <app-search></app-search>
       </div>
       <a
@@ -76,25 +76,9 @@
       </svg>
     </button>
     <ng-container *ngIf="userIsNotLoggedIn()">
-      <a
-        routerLink="/register"
-        class="
-          py-4
-          px-6
-          bg-indigo-600
-          text-sm
-          rounded-lg
-          text-white
-          hover:bg-indigo-700
-          transition-colors
-          hidden
-          md:block
-          ml-6
-          font-bold
-        "
-        data-cy="sign-up"
-        >Sign Up</a
-      >
+      <span class="hidden md:inline-block ml-6">
+        <app-link-button href="/register">Sign up</app-link-button>
+      </span>
     </ng-container>
   </nav>
 </header>

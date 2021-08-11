@@ -1,13 +1,3 @@
-<!--
-    Mobile menu, show/hide based on mobile menu state.
-
-    Entering: "duration-200 ease-out"
-      From: "opacity-0 scale-95"
-      To: "opacity-100 scale-100"
-    Leaving: "duration-100 ease-in"
-      From: "opacity-100 scale-100"
-      To: "opacity-0 scale-95"
-  -->
 <div
   class="
     absolute
@@ -125,50 +115,12 @@
         <p class="mb-4 text-gray-600">
           {{ userService.user.name }}
         </p>
-        <button
-          class="
-            w-full
-            flex
-            items-center
-            justify-center
-            px-6
-            py-4
-            border border-transparent
-            rounded-md
-            shadow-sm
-            text-base
-            font-medium
-            text-black
-            bg-indigo-300
-            hover:bg-indigo-400
-          "
-          (click)="userService.logout()"
-        >
-          Log out
-        </button>
+        <app-button (click)="userService.logout()">Logout</app-button>
       </div>
       <div *ngIf="!isLoggedIn">
-        <a
-          routerLink="/register"
-          class="
-            w-full
-            flex
-            items-center
-            justify-center
-            px-6
-            py-4
-            border border-transparent
-            rounded-md
-            shadow-sm
-            text-base
-            font-medium
-            text-black
-            bg-indigo-300
-            hover:bg-indigo-400
-          "
+        <app-link-button href="/register" (click)="onClose.emit()"
+          >Sign up</app-link-button
         >
-          Sign up
-        </a>
         <p
           class="mt-6 text-center text-base font-medium text-gray-500"
           *ngIf="!isLoggedIn"

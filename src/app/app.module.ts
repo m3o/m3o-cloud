@@ -103,6 +103,8 @@ import { SearchComponent } from './search/search.component';
 import { LoggedInDropdownComponent } from './logged-in-dropdown/logged-in-dropdown.component';
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 import { GlobalBannerComponent } from './global-banner/global-banner.component';
+import { ButtonComponent } from './button/button.component';
+import { LinkButtonComponent } from './link-button/link-button.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -150,6 +152,8 @@ import { GlobalBannerComponent } from './global-banner/global-banner.component';
     LoggedInDropdownComponent,
     MobileMenuComponent,
     GlobalBannerComponent,
+    ButtonComponent,
+    LinkButtonComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

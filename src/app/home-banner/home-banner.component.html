@@ -1,49 +1,17 @@
 <section class="bg-gray-50 py-8 md:py-16 border-b border-gray-200 border-solid">
   <div class="md:max-w-4xl lg:max-w-7xl text-center ml-auto mr-auto w-11/12">
     <div>
-      <h1 class="font-extrabold text-6xl mb-6">
+      <h1 class="font-extrabold text-4xl md:text-6xl mb-6">
         Programming
         <span class="block mt-2 text-indigo-700">The Real World</span>
       </h1>
-      <h2 class="text-gray-500 font-light text-lg max-w-xl mx-auto">
+      <h2 class="text-gray-500 font-light text-md md:text-lg max-w-xl mx-auto">
         Micro is a new cloud platform that focuses on developer experience.
         Consume public APIs as simpler programmable building blocks for
         lightning fast development of products and services.
       </h2>
-      <div>
-        <a
-          routerLink="/explore"
-          class="
-            mt-6
-            py-4
-            px-6
-            inline-block
-            bg-indigo-600
-            hover:bg-indigo-700
-            text-white
-            rounded-md
-            font-bold
-            transition-transform
-          "
-          >Explore API's</a
-        >
-        <a
-          routerLink="/register"
-          class="
-            mt-6
-            py-4
-            px-6
-            ml-6
-            inline-block
-            text-indigo-600
-            hover:text-indigo-700
-            border-2 border-indigo-700 border-solid
-            rounded-md
-            font-bold
-            transition-transform
-          "
-          >Sign up</a
-        >
+      <div class="flex justify-center items-center mt-6">
+        <app-link-button href="/explore">Explore API's</app-link-button>
       </div>
     </div>
   </div>
