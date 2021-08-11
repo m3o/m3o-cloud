@@ -232,9 +232,7 @@ export class UserService {
       return this.http
         .post<googleOauthURLResponse>(
           environment.apiUrl + '/onboarding1/signup/googleOauthURL',
-          {
-
-          },
+          {},
           {
             headers: {
               'Micro-Namespace': environment.namespace,
@@ -251,10 +249,14 @@ export class UserService {
     });
   }
 
-  googleOauthCallback(code: string, state: string, errorReason: string): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
+  googleOauthCallback(
+    code: string,
+    state: string,
+    errorReason: string,
+  ): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
       return this.http
-        .post<googleOauthURLResponse>(
+        .post<CompleteSignupResponse>(
           environment.apiUrl + '/onboarding1/signup/GoogleOauthCallback',
           {
             code: code,
@@ -268,8 +270,19 @@ export class UserService {
           },
         )
         .toPromise()
-        .then((rsp) => {
-          resolve(rsp.url);
+        .then((resp) => {
+          const tok = resp.authToken;
+          this.saveToken(tok);
+          this.cookie.set(
+            'micro_namespace',
+            resp.namespace,
+            30,
+            '/',
+            null,
+            null,
+            null,
+          );
+          resolve();
         })
         .catch((e) => {
           reject(e);
@@ -381,33 +394,7 @@ export class UserService {
         .toPromise()
         .then((resp) => {
           const tok = resp.authToken;
-          this.cookie.set(
-            'micro_token',
-            tok.access_token,
-            30,
-            '/',
-            null,
-            null,
-            null,
-          );
-          this.cookie.set(
-            'micro_refresh',
-            tok.refresh_token,
-            30,
-            '/',
-            null,
-            null,
-            null,
-          );
-          this.cookie.set(
-            'micro_expiry',
-            tok.expiry,
-            30,
-            '/',
-            null,
-            null,
-            null,
-          );
+          this.saveToken(tok);
           this.cookie.set(
             'micro_namespace',
             resp.namespace,
@@ -423,6 +410,20 @@ export class UserService {
           reject(e);
         });
     });
+  }
+
+  saveToken(tok: Token): void {
+    this.cookie.set('micro_token', tok.access_token, 30, '/', null, null, null);
+    this.cookie.set(
+      'micro_refresh',
+      tok.refresh_token,
+      30,
+      '/',
+      null,
+      null,
+      null,
+    );
+    this.cookie.set('micro_expiry', tok.expiry, 30, '/', null, null, null);
   }
 
   refresh(): Promise<void> {
@@ -444,33 +445,7 @@ export class UserService {
         .then((tokenResponse) => {
           const tok = tokenResponse.token;
           // ugly param list, see: https://github.com/stevermeister/ngx-cookie-service/issues/86
-          this.cookie.set(
-            'micro_token',
-            tok.access_token,
-            30,
-            '/',
-            null,
-            null,
-            null,
-          );
-          this.cookie.set(
-            'micro_refresh',
-            tok.refresh_token,
-            30,
-            '/',
-            null,
-            null,
-            null,
-          );
-          this.cookie.set(
-            'micro_expiry',
-            tok.expiry,
-            30,
-            '/',
-            null,
-            null,
-            null,
-          );
+          this.saveToken(tok);
           this.refreshing = false;
           resolve();
         })

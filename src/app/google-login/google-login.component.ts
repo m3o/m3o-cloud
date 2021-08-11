@@ -41,7 +41,11 @@ export class GoogleLoginComponent implements OnInit {
       }
 
       if (this.code) {
-        this.us.googleOauthCallback(this.code, this.state, this.errorReason);
+        this.us
+          .googleOauthCallback(this.code, this.state, this.errorReason)
+          .then(() => {
+            document.location.href = '/';
+          });
       }
     });
   }
