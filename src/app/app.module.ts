@@ -107,6 +107,7 @@ import { GlobalBannerComponent } from './global-banner/global-banner.component';
 import { ButtonComponent } from './button/button.component';
 import { LinkButtonComponent } from './link-button/link-button.component';
 import { ContainerComponent } from './container/container.component';
+import { GithubLoginComponent } from './github-login/github-login.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -158,6 +159,7 @@ import { ContainerComponent } from './container/container.component';
     ButtonComponent,
     LinkButtonComponent,
     ContainerComponent,
+    GithubLoginComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
