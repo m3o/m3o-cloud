@@ -48,4 +48,16 @@ export class LoginComponent implements OnInit {
       });
     return false;
   }
+
+  public google() {
+    this.us.googleOauthURL().then((url) => {
+      document.location.href = url;
+    });
+  }
+
+  public github() {
+    this.us.githubOauthURL().then((url) => {
+      document.location.href = url;
+    });
+  }
 }
