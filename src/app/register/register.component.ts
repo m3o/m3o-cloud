@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private notif: ToastrService,
     private cs: CookieService,
-    private ts: TrackingService
+    private ts: TrackingService,
   ) {}
 
   ngOnInit() {}
@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
     this.us
       .verify(this.email, this.password, this.verificationCode)
       .then(() => {
-        this.ts.trackRegistration()
+        this.ts.trackRegistration();
         document.location.href = '/';
       })
       .catch((e) => {
@@ -61,7 +61,13 @@ export class RegisterComponent implements OnInit {
   }
 
   public google() {
-    this.us.googleOauthURL().then(url => {
+    this.us.googleOauthURL().then((url) => {
+      document.location.href = url;
+    });
+  }
+
+  public github() {
+    this.us.githubOauthURL().then(url => {
       document.location.href = url;
     })
   }

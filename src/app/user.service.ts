@@ -290,6 +290,69 @@ export class UserService {
     });
   }
 
+  githubOauthURL(): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      return this.http
+        .post<googleOauthURLResponse>(
+          environment.apiUrl + '/oauth/Oauth/GithubURL',
+          {},
+          {
+            headers: {
+              'Micro-Namespace': environment.namespace,
+            },
+          },
+        )
+        .toPromise()
+        .then((rsp) => {
+          resolve(rsp.url);
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  }
+
+  githubOauthCallback(
+    code: string,
+    state: string,
+    errorReason: string,
+  ): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      return this.http
+        .post<CompleteSignupResponse>(
+          environment.apiUrl + '/oauth/Oauth/GithubLogin',
+          {
+            code: code,
+            state: state,
+            error_reason: errorReason,
+          },
+          {
+            headers: {
+              'Micro-Namespace': environment.namespace,
+            },
+          },
+        )
+        .toPromise()
+        .then((resp) => {
+          const tok = resp.authToken;
+          this.saveToken(tok);
+          this.cookie.set(
+            'micro_namespace',
+            resp.namespace,
+            30,
+            '/',
+            null,
+            null,
+            null,
+          );
+          resolve();
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  }
+
   sendRecover(email: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       return this.http
