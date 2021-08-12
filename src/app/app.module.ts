@@ -107,6 +107,7 @@ import { GlobalBannerComponent } from './global-banner/global-banner.component';
 import { ButtonComponent } from './button/button.component';
 import { LinkButtonComponent } from './link-button/link-button.component';
 import { ContainerComponent } from './container/container.component';
+import { TextInputComponent } from './text-input/text-input.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -158,6 +159,7 @@ import { ContainerComponent } from './container/container.component';
     ButtonComponent,
     LinkButtonComponent,
     ContainerComponent,
+    TextInputComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

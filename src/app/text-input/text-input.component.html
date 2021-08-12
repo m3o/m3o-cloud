@@ -1,0 +1,27 @@
+<div>
+  <label for="email" class="block mb-2 text-sm"
+    >{{ label }} <sup class="text-red-500" *ngIf="required">*</sup></label
+  >
+  <input
+    #input
+    [type]="type"
+    ngModel
+    [autofocus]="autofocus"
+    type="email"
+    [placeholder]="placeholder"
+    [autocomplete]="autocomplete"
+    (input)="onChange($event.target.value)"
+    (blur)="onTouched()"
+    class="
+      border border-gray-300
+      block
+      py-4
+      px-6
+      w-full
+      rounded-lg
+      text-sm
+      focus:border-indigo-800
+      transition-colors
+    "
+  />
+</div>

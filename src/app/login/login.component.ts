@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
+    console.log(this.email);
     if (!this.email || !this.password) return;
 
     this.loading = true;
