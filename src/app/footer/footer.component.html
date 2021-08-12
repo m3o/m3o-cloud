@@ -7,152 +7,145 @@
     border-t border-solid border-gray-200
   "
 >
-  <div
-    class="
-      md:max-w-4xl
-      lg:max-w-7xl
-      md:grid md:grid-cols-2
-      ml-auto
-      mr-auto
-      w-11/12
-    "
-  >
-    <div class="left" id="mc_embed_signup">
-      <h5 class="font-bold mb-4">Subscribe for the latest updates</h5>
-      <form
-        action="https://micro.us18.list-manage.com/subscribe/post?u=fba1e1a1b23409d771c5653cd&amp;id=647d0b5377"
-        method="post"
-        id="mc-embedded-subscribe-form"
-        name="mc-embedded-subscribe-form"
-        class="validate mb-4"
-        target="_blank"
-        novalidate=""
-      >
-        <div id="mc_embed_signup_scroll" class="md:flex md:items-center">
-          <input
-            type="email"
-            value=""
-            name="EMAIL"
-            class="
-              w-full
-              border border-gray-200
-              bg-transparent
-              text-gray-800
-              p-4
-              rounded-lg
-              text-sm
-              focus:border-indigo-600
-              placeholder-gray-500
-            "
-            id="mce-EMAIL"
-            placeholder="Email address"
-            required=""
-          />
-          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-          <div style="position: absolute; left: -5000px" aria-hidden="true">
+  <app-container>
+    <div class="md:grid md:grid-cols-2">
+      <div class="left" id="mc_embed_signup">
+        <h5 class="font-bold mb-4">Subscribe for the latest updates</h5>
+        <form
+          action="https://micro.us18.list-manage.com/subscribe/post?u=fba1e1a1b23409d771c5653cd&amp;id=647d0b5377"
+          method="post"
+          id="mc-embedded-subscribe-form"
+          name="mc-embedded-subscribe-form"
+          class="validate mb-4"
+          target="_blank"
+          novalidate=""
+        >
+          <div id="mc_embed_signup_scroll" class="md:flex md:items-center">
             <input
-              type="text"
-              name="b_fba1e1a1b23409d771c5653cd_647d0b5377"
-              tabindex="-1"
+              type="email"
               value=""
+              name="EMAIL"
+              class="
+                w-full
+                border border-gray-200
+                bg-transparent
+                text-gray-800
+                p-4
+                rounded-lg
+                text-sm
+                focus:border-indigo-600
+                placeholder-gray-500
+              "
+              id="mce-EMAIL"
+              placeholder="Email address"
+              required=""
             />
+            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px" aria-hidden="true">
+              <input
+                type="text"
+                name="b_fba1e1a1b23409d771c5653cd_647d0b5377"
+                tabindex="-1"
+                value=""
+              />
+            </div>
+            <button
+              type="submit"
+              name="subscribe"
+              id="mc-embedded-subscribe"
+              class="
+                w-full
+                pt-4
+                pb-4
+                pl-6
+                pr-6
+                bg-indigo-600
+                hover:bg-indigo-700
+                transition-colors
+                text-white
+                md:w-56
+                mt-4
+                rounded-lg
+                md:mt-0 md:ml-4
+                text-sm
+                font-bold
+              "
+            >
+              Subscribe
+            </button>
           </div>
-          <button
-            type="submit"
-            name="subscribe"
-            id="mc-embedded-subscribe"
-            class="
-              w-full
-              pt-4
-              pb-4
-              pl-6
-              pr-6
-              bg-indigo-600
-              hover:bg-indigo-700
-              transition-colors
-              text-white
-              md:w-56
-              mt-4
-              rounded-lg
-              md:mt-0 md:ml-4
-              text-sm
-              font-bold
-            "
-          >
-            Subscribe
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
+      <div class="md:grid md:grid-cols-2 md:pl-10 md:text-right">
+        <ul>
+          <li *ngFor="let external of externalLinks1">
+            <a
+              href="{{ external.link }}"
+              class="
+                hover:text-indigo-600
+                text-gray-800
+                transition-colors
+                font-light
+              "
+              target="_blank"
+            >
+              {{ external.name }}
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a
+              href="mailto:contact@m3o.com"
+              class="
+                hover:text-indigo-600
+                text-gray-800
+                transition-colors
+                font-light
+              "
+            >
+              Contact
+            </a>
+          </li>
+          <li *ngFor="let external of externalLinks2">
+            <a
+              href="{{ external.link }}"
+              class="
+                hover:text-indigo-600
+                text-gray-800
+                transition-colors
+                font-light
+              "
+              target="_blank"
+            >
+              {{ external.name }}
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="md:grid md:grid-cols-2 md:pl-10 md:text-right">
-      <ul>
-        <li *ngFor="let external of externalLinks1">
-          <a
-            href="{{ external.link }}"
-            class="
-              hover:text-indigo-600
-              text-gray-800
-              transition-colors
-              font-light
-            "
-            target="_blank"
-          >
-            {{ external.name }}
-          </a>
-        </li>
-      </ul>
-      <ul>
-         <li>
-          <a
-            href="mailto:contact@m3o.com"
-            class="
-              hover:text-indigo-600
-              text-gray-800
-              transition-colors
-              font-light
-            "
-          >
-            Contact
-          </a>
-        </li>
-        <li *ngFor="let external of externalLinks2">
-          <a
-            href="{{ external.link }}"
-            class="
-              hover:text-indigo-600
-              text-gray-800
-              transition-colors
-              font-light
-            "
-            target="_blank"
-          >
-            {{ external.name }}
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div
-    class="
-      text-sm
-      py-4
-      pb-4
-      mt-6
-      md:mt-10
-      border-t border-solid border-gray-200
-    "
-  >
     <div
       class="
-        md:max-w-4xl
-        lg:max-w-7xl
-        md:grid md:grid-cols-2
-        ml-auto
-        mr-auto
-        w-11/12
+        text-sm
+        py-4
+        pb-4
+        mt-6
+        md:mt-10
+        border-t border-solid border-gray-200
       "
     >
-      <p>© {{ getYear() }} Micro Services, Inc.</p>
+      <div
+        class="
+          md:max-w-4xl
+          lg:max-w-7xl
+          md:grid md:grid-cols-2
+          ml-auto
+          mr-auto
+          w-11/12
+        "
+      >
+        <p>© {{ getYear() }} Micro Services, Inc.</p>
+      </div>
     </div>
-  </div>
+  </app-container>
 </footer>
