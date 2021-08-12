@@ -3,75 +3,104 @@
     <div class="p-8 bg-white rounded-md shadow-md w-11/12 max-w-lg">
       <h1 class="font-bold text-3xl mb-4">Sign up</h1>
       <p class="text-gray-600">Create a free account and get started now</p>
-    </div>
-  </div>
-  <div style="max-width: 400px; margin: 0 auto">
-    <br />
-    <mat-card style="background: #fcfcfc">
-      <mat-card-title>Signup</mat-card-title>
-      <mat-card-subtitle
-        >Create a free account and get started now</mat-card-subtitle
-      >
-      <mat-form-field class="full" appearance="legacy">
-        <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="email" type="email" />
-      </mat-form-field>
-      <br />
-      <button
-        mat-raised-button
-        type="button"
-        [disabled]="loading"
-        color="primary"
-        (click)="sendVerificationEmail()"
-      >
-        {{ !verifySent ? 'Register' : 'Resend Code' }}
-      </button>
-      <br />
-      <br />
-      <div style="text-align: center">
-        <button (click)="google()" mat-button>
-          <mat-icon svgIcon="logo"></mat-icon>
-          Sign in with Google
-        </button>
-      </div>
-      <div *ngIf="verifySent">
-        <br />
-        <p>
-          An email has been sent to you with a verification code, please check
-          your email.
-        </p>
-        <mat-form-field class="full" appearance="legacy">
-          <mat-label>Verification code</mat-label>
+      <ng-container *ngIf="!verifySent">
+        <div class="my-6 pb-8 border-b border-solid border-gray-200 relative">
+          <button
+            class="
+              w-full
+              py-2
+              flex
+              items-center
+              justify-center
+              font-light
+              text-white
+              bg-black
+              rounded-md
+            "
+            (click)="google()"
+          >
+            <mat-icon svgIcon="logo" class="mr-4"></mat-icon> Sign in with
+            Google
+          </button>
+          <p
+            class="
+              text-center
+              inline-block
+              bg-white
+              absolute
+              transform
+              -translate-x-1/2
+              left-1/2
+              -bottom-2.5
+              px-2
+              text-gray-400 text-sm
+            "
+          >
+            or sign up with your email
+          </p>
+        </div>
+        <form class="mt-6" (submit)="sendVerificationEmail()">
+          <app-text-input
+            name="email"
+            label="Email"
+            [(ngModel)]="email"
+            [required]="true"
+            autocomplete="email"
+            autofocus="true"
+            placeholder="e.g john@doe.com"
+            type="email"
+          ></app-text-input>
+          <app-button type="submit" class="w-full mt-6">Register</app-button>
+          <p class="text-center mt-6 text-gray-600">
+            <a routerLink="/login" class="underline text-indigo-600">Log in</a>
+            if you already have an account
+          </p>
+        </form>
+      </ng-container>
+      <ng-container *ngIf="verifySent">
+        <div class="mt-6">
+          <label for="email" class="block mb-2 text-sm"
+            >Verification Code <sup class="text-red-500">*</sup></label
+          >
           <input
-            matInput
+            type="text"
             [(ngModel)]="verificationCode"
-            type="verification code"
+            class="
+              border border-gray-300
+              block
+              py-4
+              px-6
+              w-full
+              rounded-lg
+              text-sm
+              focus:border-indigo-800
+              transition-colors
+            "
           />
-        </mat-form-field>
-        <br />
-        <mat-form-field class="full" appearance="legacy">
-          <mat-label>Password</mat-label>
-          <input matInput [(ngModel)]="password" type="password" />
-        </mat-form-field>
-        <br />
-        <button
-          [disabled]="loading"
-          mat-raised-button
-          type="button"
-          color="primary"
-          style="font-weight: bold"
-          (click)="verify()"
-        >
-          Register
-        </button>
-      </div>
-    </mat-card>
-    <br />
-    <div style="text-align: center">
-      <a href="#" routerLink="/login" style="text-decoration: underline"
-        >Log in</a
-      >
-      if you already have an account
+        </div>
+        <div class="my-6">
+          <label for="email" class="block mb-2 text-sm"
+            >Password <sup class="text-red-500">*</sup></label
+          >
+          <input
+            type="text"
+            [(ngModel)]="password"
+            class="
+              border border-gray-300
+              block
+              py-4
+              px-6
+              w-full
+              rounded-lg
+              text-sm
+              focus:border-indigo-800
+              transition-colors
+            "
+            type="password"
+          />
+        </div>
+        <app-button (click)="verify()">Register</app-button>
+      </ng-container>
     </div>
   </div>
 </div>
