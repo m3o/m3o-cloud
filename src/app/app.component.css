@@ -22,23 +22,6 @@
   --m3o-border: 1px solid var(--m3o-border-grey);
 }
 
-html {
-  box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-/* Helpers */
-.container {
-  width: 90%;
-  max-width: 1240px;
-  margin: 0 auto;
-}
-
 .m3o-mt {
   margin-top: var(--m3o-spacing);
 }

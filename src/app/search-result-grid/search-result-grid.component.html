@@ -1,72 +1,71 @@
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-  <div *ngFor="let service of services">
-    <div class="bg-white border shadow-sm p-6 rounded-md flex">
-      <div class="pr-4">
-        <span
-          *ngIf="service.icon !== undefined && service.icon.length > 0"
-          [innerHtml]="service.icon"
+<div class="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4">
+  <div
+    *ngFor="let service of services"
+    class="bg-white border shadow-sm p-6 rounded-md flex mb-6 md:mb-0"
+  >
+    <div class="pr-4">
+      <span
+        *ngIf="service.icon !== undefined && service.icon.length > 0"
+        [innerHtml]="service.icon"
+        class="
+          bg-gray-100
+          p-2
+          rounded-md
+          w-10
+          flex
+          items-center
+          justify-center
+          border border-gray-200 border-solid
+          text-sm
+        "
+      ></span>
+    </div>
+    <div class="w-4/5">
+      <p
+        *ngIf="service.category !== undefined"
+        class="text-gray-400 font-medium text-sm mb-1 capitalize"
+      >
+        {{ service.category }}
+      </p>
+      <h3 class="mt-0 text-2xl mb-2">
+        <a
+          routerLink="/{{ service.name }}"
           class="
-            bg-gray-100
-            p-2
-            rounded-md
-            w-10
-            flex
-            items-center
-            justify-center
-            border border-gray-200 border-solid
+            font-bold
+            text-indigo-600
+            hover:underline hover:text-indigo-700
           "
-        ></span>
-      </div>
-      <div class="w-4/5">
-        <p
-          *ngIf="service.category !== undefined"
-          class="text-gray-400 font-medium text-sm mb-1 capitalize"
+          [ngClass]="{
+            capitalize: service.name.length > 3,
+            uppercase: service.name.length <= 3
+          }"
         >
-          {{ service.category }}
-        </p>
-        <h3 class="mt-0 text-2xl mb-2">
+          {{ service.name }}
+        </a>
+      </h3>
+      <p class="truncate text-gray-600 mb-2">
+        {{ readme(service) }}
+      </p>
+      <div class="border-t border-solid border-gray-200 pt-4 mt-4">
+        <span
+          *ngFor="let endpoint of service.endpoints.slice(0, 3); let i = index"
+        >
           <a
-            routerLink="/{{ service.name }}"
-            class="
-              font-bold
-              text-indigo-600
-              hover:underline hover:text-indigo-700
-            "
-            [ngClass]="{
-              capitalize: service.name.length > 3,
-              uppercase: service.name.length <= 3
-            }"
-          >
-            {{ service.name }}
-          </a>
-        </h3>
-        <p class="truncate text-gray-600 mb-2">
-          {{ readme(service) }}
-        </p>
-        <div class="border-t border-solid border-gray-200 pt-4 mt-4">
-          <span
-            *ngFor="
-              let endpoint of service.endpoints.slice(0, 3);
-              let i = index
-            "
-          >
-            <a
-              href="{{ service.name }}#{{ endpoint.name.split('.')[1] }}"
-              class="text-indigo-600 hover:text-indigo-700 hover:underline"
-              >{{ formatName(endpoint.name.split('.')[1]) }}&nbsp;
-              <span
-                *ngIf="
-                  service.endpoints.length > 1 &&
-                  i < service.endpoints.length - 1 &&
-                  i < 2
-                "
-                >&bull;&nbsp;</span
-              >
-            </a> </span
-          ><span *ngIf="service.endpoints.length > 3" class="text-gray-300">
-            & more</span
-          >
-        </div>
+            href="{{ service.name }}#{{ endpoint.name.split('.')[1] }}"
+            class="text-indigo-600 hover:text-indigo-700 hover:underline"
+            >{{ formatName(endpoint.name.split('.')[1]) }}&nbsp;
+            <span
+              *ngIf="
+                service.endpoints.length > 1 &&
+                i < service.endpoints.length - 1 &&
+                i < 2
+              "
+              >&bull;&nbsp;</span
+            >
+          </a> </span
+        ><span *ngIf="service.endpoints.length > 3" class="text-gray-300">
+          & more</span
+        >
       </div>
     </div>
   </div>
