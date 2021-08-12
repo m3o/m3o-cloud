@@ -1,7 +1,7 @@
 <app-home-banner></app-home-banner>
 
 <section class="bg-gray-50 py-8 md:py-16 border-b border-gray-200 border-solid">
-  <div class="md:max-w-4xl lg:max-w-7xl ml-auto mr-auto w-11/12">
+  <app-container>
     <h2 class="font-bold text-4xl">Public APIs for everyday use</h2>
     <div *ngIf="loading" class="loading">Loading...</div>
     <app-search-result-grid
@@ -13,7 +13,7 @@
         <app-link-button href="/explore">See all</app-link-button>
       </span>
     </div>
-  </div>
+  </app-container>
 </section>
 
 <!-- <section>
@@ -49,7 +49,7 @@
 </section> -->
 
 <section class="py-8 md:py-16">
-  <div class="container">
+  <app-container>
     <h2 class="mat-headline">Developer Friendly UX</h2>
     <div class="ux">
       <div class="left">
@@ -91,11 +91,11 @@
         </div>
       </div>
     </div>
-  </div>
+  </app-container>
 </section>
 
 <section class="py-8 md:py-16">
-  <div class="container">
+  <app-container>
     <h2 class="mat-headline">Tired of AWS? Us too</h2>
     <div class="grid-equal">
       <div class="left">
@@ -141,11 +141,11 @@
         >
       </div>
     </div>
-  </div>
+  </app-container>
 </section>
 
 <section class="py-8 md:py-16">
-  <div class="container">
+  <app-container>
     <h2 class="mat-headline">About Us</h2>
     <div class="about">
       <div class="col">
@@ -183,7 +183,7 @@
       </p>
       <p class="m3o-mt">Cheers, Micro Team</p>
     </div>
-  </div>
+  </app-container>
 </section>
 <section class="sell-section text-center py-8 md:py-16">
   <h2 class="mat-headline">Publish your APIs</h2>

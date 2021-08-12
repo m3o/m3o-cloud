@@ -4,7 +4,6 @@ import { ExploreService, API, ExploreAPI } from '../explore.service';
 @Component({
   selector: 'app-search-result-grid',
   templateUrl: './search-result-grid.component.html',
-  styleUrls: ['./search-result-grid.component.css'],
 })
 export class SearchResultGridComponent implements OnInit {
   @Input() services: ExploreAPI[];

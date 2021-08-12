@@ -106,6 +106,7 @@ import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 import { GlobalBannerComponent } from './global-banner/global-banner.component';
 import { ButtonComponent } from './button/button.component';
 import { LinkButtonComponent } from './link-button/link-button.component';
+import { ContainerComponent } from './container/container.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -156,6 +157,7 @@ import { LinkButtonComponent } from './link-button/link-button.component';
     GlobalBannerComponent,
     ButtonComponent,
     LinkButtonComponent,
+    ContainerComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
