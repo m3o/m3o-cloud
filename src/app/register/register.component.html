@@ -28,6 +28,12 @@
           Sign in with Google
         </button>
       </div>
+      <div style="text-align: center">
+        <button (click)="github()" mat-button>
+          <mat-icon svgIcon="logo"></mat-icon>
+          Sign in with Github
+        </button>
+      </div>
       <div *ngIf="verifySent">
         <br />
         <p>
