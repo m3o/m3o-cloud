@@ -67,8 +67,8 @@ export class RegisterComponent implements OnInit {
   }
 
   public github() {
-    this.us.githubOauthURL().then(url => {
+    this.us.githubOauthURL().then((url) => {
       document.location.href = url;
-    })
+    });
   }
 }
