@@ -9,10 +9,13 @@ const STATE_KEY_HOME = makeStateKey('home');
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor(public exp: ExploreService, private router: Router, private state: TransferState) {}
+  constructor(
+    public exp: ExploreService,
+    private router: Router,
+    private state: TransferState,
+  ) {}
 
   search: string;
   services: ExploreAPI[];
@@ -21,34 +24,20 @@ export class HomeComponent implements OnInit {
   loading = false;
 
   ngOnInit() {
-    let services: ExploreAPI[] = this.state.get(STATE_KEY_HOME, <any> []);
+    let services: ExploreAPI[] = this.state.get(STATE_KEY_HOME, <any>[]);
     if (services.length == 0) {
-      this.loading = true
+      this.loading = true;
       this.exp
-      .index(6)
-      .then((ss) => {
-        this.services = ss.filter((s) => s.description);
-        this.state.set(STATE_KEY_HOME, <any> this.services)
-      })
-      .finally(() => {
-        this.loading = false;
-      });
+        .index(6)
+        .then((ss) => {
+          this.services = ss.filter((s) => s.description);
+          this.state.set(STATE_KEY_HOME, <any>this.services);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     } else {
-      this.services = services
+      this.services = services;
     }
-  }
-
-  keyDownFunction(event) {
-    if (event.keyCode === 13) {
-      this.submit();
-    }
-  }
-
-  submit() {
-    this.router.navigate(['/explore'], {
-      queryParams: {
-        q: this.search,
-      },
-    });
   }
 }
