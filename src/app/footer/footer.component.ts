@@ -31,6 +31,10 @@ export class FooterComponent implements OnInit {
 
   externalLinks2: ExternalLink[] = [
     {
+      name: 'Slack',
+      link: 'https://slack.m3o.com',
+    },
+    {
       name: 'Discord',
       link: 'https://discord.gg/TBR9bRjd6Z',
     },
@@ -39,8 +43,8 @@ export class FooterComponent implements OnInit {
       link: 'https://www.linkedin.com/company/micro-services-inc',
     },
     {
-      name: 'Slack',
-      link: 'https://slack.m3o.com',
+      name: 'Support',
+      link: 'mailto:support@m3o.com',
     },
   ];
 
