@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { stubTrue } from 'lodash';
 import { ExploreService, API, ExploreAPI } from '../explore.service';
 import { Router } from '@angular/router';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
