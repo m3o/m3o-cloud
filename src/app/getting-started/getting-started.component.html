@@ -1,0 +1,123 @@
+<div class="bg-gray-50 min-h-screen">
+  <div class="md:max-w-4xl lg:max-w-6xl ml-auto mr-auto w-11/12 py-8">
+    <mat-card>
+      <h2 class="font-bold text-3xl mt-0 mb-8">Getting started with Micro</h2>
+
+      <h3>Why use Micro?</h3>
+      <p>
+        Micro wants you to never have to deal with third parties again, such as
+        SMS providers or database hosts. All you need is a host for your backend
+        server code where you can call Micro from - and a Micro account.
+      </p>
+      <div *ngIf="!(user && user.name)">
+        <h3>Sign up</h3>
+        <p>
+          <a routerLink="/register">Sign up</a> or
+          <a routerLink="/login">log in</a> to Micro so you can get a token. You
+          can use password based log in or oauth. However, after logging in with
+          oauth, your password is no longer valid unless you reset it (for
+          security reasons).
+        </p>
+      </div>
+
+      <h3>Hello world!</h3>
+      <p>
+        No introduction can be complete without a hello world example. Here is
+        one in nodejs:
+      </p>
+
+      <pre
+        style="background: #eee; border-radius: 5px; border: 1px solid #eee"
+      ><code class="example" language="'javascript'" 
+        [highlight]="code"></code></pre>
+      <br />
+      <button
+        *ngIf="user && user.name && !revealed"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        (click)="reveal()"
+      >
+        Insert my actual token into the code
+      </button>
+      <button
+        *ngIf="user && user.name && revealed"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        (click)="hide()"
+      >
+        Hide token
+      </button>
+      <button
+        routerLink="/register"
+        *ngIf="!(user && user.name)"
+        mat-raised-button
+        color="primary"
+        type="submit"
+      >
+        Sign in to get a token
+      </button>
+
+      <br /><br />
+      <h3>Discover APIs</h3>
+      <p>
+        The explore page (<a routerLink="/explore">https://m3o.com/explore</a>)
+        contains all APIs present on Micro. The full text search includes
+        service name, endpoint names and the readme.
+      </p>
+
+      <h3>Getting a token</h3>
+      <p>
+        To call Micro APIs, you need tokens. We autogenerate a token after you
+        sign in that is saved as a cookie, so you can go to a Query page
+        (example:
+        <a routerLink="/helloworld/query">https://m3o.com/helloworld/query</a>)
+        and make calls straight away.
+      </p>
+
+      <p>
+        If you want to create new tokens, visit
+        <a routerLink="/settings/keys">https://m3o.com/settings/keys</a>.
+        Specify which APIs the given token can call or leave scopes blank to
+        create a token that can call any APIs.
+      </p>
+
+      <h3>How to use a Micro API</h3>
+      <p>
+        Micro currently only provides secret API tokens. That means you have to
+        use those tokens from a backend. There is currently no way to use it in
+        a Firebase-like fashion, where access control rules govern API calls.
+      </p>
+      <p>
+        After you familiarised yourself with an API by reading the API reference
+        (for example:
+        <a routerLink="/db" fragment="Read">https://m3o.com/db#Read</a>) you
+        probably want to start calling the API from your backend. Currently
+        there are a few generic Micro clients in different languages. By generic,
+        we mean a simple client that can call any service on m3o.com. Type
+        safe/annotated for specific APIs are not available yet but they are
+        under development.
+      </p>
+      <p>
+        Examples for clients in different languages can be seen under the usage
+        tab:
+        <a routerLink="/db" fragment="Read-usage"
+          >https://m3o.com/db#Read-usage</a
+        >.
+      </p>
+
+      <h3>Pricing</h3>
+      <p>
+        Most of the Micro APIs are free or very low cost. Third part APIs or
+        calls that do specific things like SMS tend to cost more.
+      </p>
+
+      <h3>Happy usage!</h3>
+      <p>
+        We wish you a productive time on m3o.com. You can get back to this page
+        by clicking on the Getting Started menu in the header.
+      </p>
+    </mat-card>
+  </div>
+</div>
