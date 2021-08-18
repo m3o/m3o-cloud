@@ -3,11 +3,12 @@
     <mat-card>
       <h2 class="font-bold text-3xl mt-0 mb-8">Getting started</h2>
 
-      <h3>Welcome!</h3>
       <p>
-        Micro wants you to never have to deal with third parties again, such as
-        SMS providers or database hosts. All you need is a host for your backend
-        server code where you can call Micro from - and a Micro account.
+        Welcome to Micro! We want to help you 10x your development experience by
+        providing one account to access a catalog of public APIs for everyday
+        use. We hope you'll never have to signup to another third party API
+        provider again. Follow this getting started guide to get familiar with
+        the platform.
       </p>
       <div *ngIf="!(user && user.name)">
         <h3>Sign up</h3>
@@ -94,9 +95,9 @@
         (for example:
         <a routerLink="/db" fragment="Read">https://m3o.com/db#Read</a>) you
         probably want to start calling the API from your backend. Currently
-        there are a few generic Micro clients in different languages. By generic,
-        we mean a simple client that can call any service on m3o.com. Type
-        safe/annotated for specific APIs are not available yet but they are
+        there are a few generic Micro clients in different languages. By
+        generic, we mean a simple client that can call any service on m3o.com.
+        Type safe/annotated for specific APIs are not available yet but they are
         under development.
       </p>
       <p>
