@@ -120,7 +120,7 @@
                   <div class="endpoint-description">
                     {{ pathToRequestSchema(path.key).description }}
                   </div>
-                  <mat-tab-group class="endpointtab" animationDuration="0ms">
+                  <mat-tab-group class="endpointtab" [selectedIndex]="tabSelectedIndex()" animationDuration="0ms">
                     <mat-tab label="Request">
                       <div>
                         <table class="params">

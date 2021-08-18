@@ -43,8 +43,12 @@ export class GithubLoginComponent implements OnInit {
       if (this.code) {
         this.us
           .githubOauthCallback(this.code, this.state, this.errorReason)
-          .then(() => {
-            document.location.href = '/';
+          .then((isSignup) => {
+            if (isSignup) {
+              document.location.href = '/getting-started';
+              return;
+            }
+            document.location.href = '/explore';
           });
       }
     });

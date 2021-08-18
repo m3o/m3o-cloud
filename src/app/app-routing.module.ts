@@ -21,8 +21,13 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { SearchPageComponent } from './search-page/search-page.component';
 import { GoogleLoginComponent } from './google-login/google-login.component';
 import { GithubLoginComponent } from './github-login/github-login.component';
+import { GettingStartedComponent } from './getting-started/getting-started.component';
 
 const routes: Routes = [
+  {
+    path: 'getting-started',
+    component: GettingStartedComponent,
+  },
   {
     path: 'github-login',
     component: GithubLoginComponent,

@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
       .verify(this.email, this.password, this.verificationCode)
       .then(() => {
         this.ts.trackRegistration();
-        document.location.href = '/';
+        document.location.href = '/getting-started';
       })
       .catch((e) => {
         this.notif.error(e.error.Detail);

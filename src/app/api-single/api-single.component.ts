@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewEncapsulation, PLATFORM_ID, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  PLATFORM_ID,
+  Inject,
+} from '@angular/core';
 import { ServiceService } from '../service.service';
 import * as types from '../types';
 import { Location } from '@angular/common';
@@ -10,9 +16,8 @@ import { ExploreService, ExploreAPI, API } from '../explore.service';
 import * as openapi from 'openapi3-ts';
 import { UserService } from '../user.service';
 import { V1ApiService } from '../v1api.service';
-import { isPlatformBrowser }
-from '@angular/common';
-import {Title, Meta} from "@angular/platform-browser";
+import { isPlatformBrowser } from '@angular/common';
+import { Title, Meta } from '@angular/platform-browser';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
 
 const tabNamesToIndex = {
@@ -91,13 +96,20 @@ export class ApiSingleComponent implements OnInit {
     this.user = this.us.user;
     this.activeRoute.fragment.subscribe((fragment) => {
       this.fragment = fragment;
+      if (this.fragment && this.fragment.includes('-nodejs')) {
+        this.exampleLanguage = 'node';
+      } else if (this.fragment && this.fragment.includes('-go')) {
+        this.exampleLanguage = 'go';
+      } else if (this.fragment && this.fragment.includes('-curl')) {
+        this.exampleLanguage = 'curl';
+      }
     });
     this.activeRoute.params.subscribe((p) => {
       if (this.intervalId) {
         clearInterval(this.intervalId);
       }
       this.serviceName = <string>p['id'];
-      this.titleService.setTitle(this.serviceName + " api | Micro")
+      this.titleService.setTitle(this.serviceName + ' api | Micro');
 
       this.loadAPI();
       this.loadVersionData();
@@ -110,9 +122,19 @@ export class ApiSingleComponent implements OnInit {
 
   examples = {};
 
+  tabSelectedIndex(): number {
+    if (!this.fragment) {
+      return 0;
+    } else if (this.fragment && this.fragment.includes('-response')) {
+      return 1;
+    } else if (this.fragment && this.fragment.includes('-usage')) {
+      return 2;
+    }
+  }
+
   loadAPI() {
     let processAPI = (serv: API) => {
-      this.state.set(makeStateKey('api' + this.serviceName), <any> serv)
+      this.state.set(makeStateKey('api' + this.serviceName), <any>serv);
       this.service = serv;
       this.openAPI = JSON.parse(this.service.api.open_api_json);
       this.postman = JSON.parse(this.service.api.postman_json);
@@ -122,26 +144,36 @@ export class ApiSingleComponent implements OnInit {
       if (this.service.api.examples_json) {
         this.examples = JSON.parse(this.service.api.examples_json);
       }
-      this.metaService.addTag({name: "description", content: this.firstReadmeLine()})
+      this.metaService.addTag({
+        name: 'description',
+        content: this.firstReadmeLine(),
+      });
 
-      setTimeout(() => {
-        try {
-          document.querySelector('#' + this.fragment).scrollIntoView();
-        } catch (e) {
-          console.log(e);
-        }
-      }, 300);
-    }
-    let api: API = this.state.get(makeStateKey('api' + this.serviceName), <any> null);
+      if (this.fragment) {
+        setTimeout(() => {
+          try {
+            document
+              .querySelector('#' + this.fragment.split('-')[0])
+              .scrollIntoView();
+          } catch (e) {
+            console.log(e);
+          }
+        }, 300);
+      }
+    };
+    let api: API = this.state.get(
+      makeStateKey('api' + this.serviceName),
+      <any>null,
+    );
 
     if (api == null) {
-      this.loading = true
-      this.ex.service(this.serviceName).then(serv => {
-        this.loading = false
-        processAPI(serv)
+      this.loading = true;
+      this.ex.service(this.serviceName).then((serv) => {
+        this.loading = false;
+        processAPI(serv);
       });
     } else {
-      processAPI(api)
+      processAPI(api);
     }
   }
 

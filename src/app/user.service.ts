@@ -35,9 +35,12 @@ interface LoginResponse {
   issuer: string;
 }
 
+// resonse type of both complete signup and oauth login
 interface CompleteSignupResponse {
   authToken: Token;
   namespace: string;
+  // this only applies to oauth login
+  is_signup: boolean;
 }
 
 interface googleOauthURLResponse {
@@ -253,8 +256,8 @@ export class UserService {
     code: string,
     state: string,
     errorReason: string,
-  ): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  ): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
       return this.http
         .post<CompleteSignupResponse>(
           environment.apiUrl + '/oauth/Oauth/GoogleLogin',
@@ -282,7 +285,7 @@ export class UserService {
             null,
             null,
           );
-          resolve();
+          resolve(resp.is_signup);
         })
         .catch((e) => {
           reject(e);
@@ -316,8 +319,8 @@ export class UserService {
     code: string,
     state: string,
     errorReason: string,
-  ): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  ): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
       return this.http
         .post<CompleteSignupResponse>(
           environment.apiUrl + '/oauth/Oauth/GithubLogin',
@@ -345,7 +348,7 @@ export class UserService {
             null,
             null,
           );
-          resolve();
+          resolve(resp.is_signup);
         })
         .catch((e) => {
           reject(e);
