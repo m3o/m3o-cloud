@@ -63,16 +63,23 @@
         >.
       </p>
 
-      <h3>Pricing</h3>
+      <h3>Billing</h3>
       <p>
-        The majority of Micro APIs are free or very low cost. Third party APIs or
-        calls that do specific things like SMS tend to cost more.
+        The majority of Micro APIs are free during the beta period. Third party APIs or
+        calls that perform specific functions such as SMS or email are charged for and 
+        billed per request.
+
+        Each account has a credit based balance. Any request made to a paid API will be 
+        debited from the balance in real time. When your balance is zero requests to paid 
+        APIs will return a blocked status. 
+
+        To check your balance and top-up your account head to the billing page at 
+        <a routerLink="/overview/billing">https://m3o.com/overview/billing</a>
       </p>
       
        <h3>Hello world!</h3>
       <p>
-        No introduction can be complete without a hello world example. Here is
-        one in nodejs:
+        Here's a simple nodejs example to call the helloworld API:
       </p>
 
       <pre
@@ -87,7 +94,7 @@
         type="submit"
         (click)="reveal()"
       >
-        Insert my actual token into the code
+        Click here to insert your token
       </button>
       <button
         *ngIf="user && user.name && revealed"
@@ -110,10 +117,10 @@
 
       <br /><br />
 
-      <h3>Happy usage!</h3>
+      <h3>Next Steps</h3>
       <p>
-        We wish you a productive time on m3o.com. You can get back to this page
-        by clicking on the Getting Started menu in the header.
+        You can come back to this page by clicking on Getting Started in the menu at any time. 
+        Otherwise feel free to ask questions or send feedback to <a routerLink="mailto:support@m3o.com">support@m3o.com</a>.
       </p>
     </mat-card>
   </div>
