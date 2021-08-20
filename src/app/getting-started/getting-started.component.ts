@@ -5,7 +5,6 @@ import * as types from '../types';
 @Component({
   selector: 'app-getting-started',
   templateUrl: './getting-started.component.html',
-  styleUrls: ['./getting-started.component.css'],
 })
 export class GettingStartedComponent implements OnInit {
   public user: types.Account;
@@ -43,7 +42,7 @@ new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE' })
   hide() {
     this.userService.v1ApiToken().then((token) => {
       this.code = this.code.replace(token, 'INSERT_YOUR_YOUR_M3O_TOKEN_HERE');
-      this.revealed = false
+      this.revealed = false;
     });
   }
 }

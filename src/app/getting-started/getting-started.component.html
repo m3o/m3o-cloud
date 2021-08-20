@@ -1,32 +1,43 @@
-<div class="bg-gray-50 min-h-screen">
-  <div class="md:max-w-4xl lg:max-w-6xl ml-auto mr-auto w-11/12 py-8">
-    <h2 class="font-bold text-3xl mt-0 mb-8">Getting Started</h2>
-
-      <p>
-        Welcome to Micro! Follow this getting started guide to get familiar with the platform.
+<div class="py-8 md:py-12 text-gray-700 font-light">
+  <app-container>
+    <div class="max-w-3xl">
+      <h2 class="font-black text-3xl md:text-6xl mt-0 mb-8 text-black">
+        Getting Started
+      </h2>
+      <p class="font-light text-xl">
+        Welcome to Micro! Follow this getting started guide to get familiar with
+        the platform.
       </p>
-    <mat-card>
-      <div *ngIf="!(user && user.name)">
-        <h3>Sign up</h3>
+      <div *ngIf="!(user && user.name)" class="my-8">
+        <h3 class="font-black text-xl md:text-2xl my-8">Sign up</h3>
         <p>
-          <a routerLink="/register">Sign up</a> or
-          <a routerLink="/login">log in</a> to Micro so you can get a token. You
-          can use password based log in or oauth.<br><br>Note: For security purposes, if you log in with
-          oauth, the password is no longer valid unless you reset it.
+          <a routerLink="/register" class="text-indigo-700 hover:underline"
+            >Sign up</a
+          >
+          or
+          <a routerLink="/login" class="text-indigo-700 hover:underline"
+            >log in</a
+          >
+          to Micro so you can get a token. You can use password based log in or
+          oauth.
+        </p>
+        <p class="mt-2 italic">
+          Note: For security purposes, if you log in with oauth, the password is
+          no longer valid unless you reset it.
         </p>
       </div>
-      
-       <h3>Try out Hello world!</h3>
-      <p>
-        Here's a simple nodejs example to call the helloworld API:
-      </p>
+      <div class="my-8">
+        <h3 class="font-black text-xl md:text-2xl my-8">
+          Try out Hello world!
+        </h3>
+        <p>Here's a simple nodejs example to call the helloworld API:</p>
+      </div>
 
-      <pre
-        style="background: #eee; border-radius: 5px; border: 1px solid #eee"
-      ><code class="example" language="'javascript'" 
-        [highlight]="code"></code></pre>
+      <pre class="rounded-md font-mono text-sm">
+        <code class="example" language="'javascript'" [highlight]="code"></code>
+      </pre>
       <br />
-      <button
+      <app-link-button
         *ngIf="user && user.name && !revealed"
         mat-raised-button
         color="primary"
@@ -34,8 +45,8 @@
         (click)="reveal()"
       >
         Click here to insert your personal token
-      </button>
-      <button
+      </app-link-button>
+      <app-link-button
         *ngIf="user && user.name && revealed"
         mat-raised-button
         color="primary"
@@ -43,75 +54,112 @@
         (click)="hide()"
       >
         Hide token
-      </button>
-      <button
-        routerLink="/register"
+      </app-link-button>
+      <app-link-button
+        href="/register"
         *ngIf="!(user && user.name)"
-        mat-raised-button
         color="primary"
         type="submit"
       >
         Sign in to access your personal token
-      </button>
+      </app-link-button>
 
-      <br /><br />
-      
-      <h3>Discover APIs</h3>
-      <p>
-        Browse all of our public APIs on the <a routerLink="/explore">Explore page</a>.
-      </p>
+      <div class="my-8">
+        <h3 class="font-black text-xl md:text-2xl my-8">Discover APIs</h3>
+        <p>
+          Browse all of our public APIs on the
+          <a routerLink="/explore" class="text-indigo-700 hover:underline"
+            >Explore page</a
+          >.
+        </p>
+      </div>
 
-      <h3>Generate an API token</h3>
-      <p>
-        To create a new access token, visit
-        <a routerLink="/settings/keys">API settings page</a>.
-        You can specify which APIs the token can call or leave scopes blank to
-        create a token that has access to all the APIs.
-      </p>
+      <div class="my-8">
+        <h3 class="font-black text-xl md:text-2xl my-8">
+          Generate an API token
+        </h3>
+        <p>
+          To create a new access token, visit
+          <a routerLink="/settings/keys" class="text-indigo-700 hover:underline"
+            >API settings page</a
+          >. You can specify which APIs the token can call or leave scopes blank
+          to create a token that has access to all the APIs.
+        </p>
+      </div>
 
-      <h3>Using an API</h3>
-      <p>
-        Micro APIs can be accessed via the url "https://api.m3o.com/v1/[service]/[endpoint]". 
-        All API calls require an API token provided via the "Authorization: Bearer" header. Our APIs 
-        provide a JSON based request/response format and also require a `Content-Type: application/json` 
-        header for each request.
-      </p>
-      
-      <p>
-        After familiarising yourself with an API by reading the API reference
-        (for example:
-        <a routerLink="/db" fragment="Read">https://m3o.com/db#Read</a>) you
-        probably want to start calling the API. Micro APIs can be called via HTTP 
-        in any language or using our node.js and Golang specific clients.
-      </p>
-      <p>
-        Examples can be found under the usage tab:
-        <a routerLink="/db" fragment="Read-usage"
-          >https://m3o.com/db#Read-usage</a
-        >.
-      </p>
+      <div class="my-8">
+        <h3 class="font-black text-xl md:text-2xl my-8">Using an API</h3>
+        <p>
+          Micro APIs can be accessed via the url
+          "https://api.m3o.com/v1/[service]/[endpoint]". All API calls require
+          an API token provided via the "Authorization: Bearer" header. Our APIs
+          provide a JSON based request/response format and also require a
+          `Content-Type: application/json` header for each request.
+        </p>
 
-      <h3>Billing</h3>
-      <p>
-        The majority of Micro APIs are free during the beta period. Third party APIs or
-        calls that perform specific functions such as SMS or email are charged for and 
-        billed per request.
+        <p class="mt-4">
+          After familiarising yourself with an API by reading the API reference
+          (for example:
+          <a
+            routerLink="/db"
+            fragment="Read"
+            class="text-indigo-700 hover:underline"
+            >https://m3o.com/db#Read</a
+          >) you probably want to start calling the API. Micro APIs can be
+          called via HTTP in any language or using our node.js and Golang
+          specific clients.
+        </p>
+        <p class="mt-4">
+          Examples can be found under the usage tab:
+          <a
+            routerLink="/db"
+            fragment="Read-usage"
+            class="text-indigo-700 hover:underline"
+            >https://m3o.com/db#Read-usage</a
+          >.
+        </p>
+      </div>
 
-        Each account has a credit based balance. Any request made to a paid API will be 
-        debited from the balance in real time. When your balance is zero requests to paid 
-        APIs will return a blocked status. 
-        <br><br>
-        To check your balance and top-up your account head to the billing page at 
-        <a routerLink="/overview/billing">https://m3o.com/overview/billing</a>
-      </p>
+      <div class="my-8">
+        <h3 class="font-black text-xl md:text-2xl my-8">Billing</h3>
+        <p>
+          The majority of Micro APIs are free during the beta period. Third
+          party APIs or calls that perform specific functions such as SMS or
+          email are charged for and billed per request. Each account has a
+          credit based balance. Any request made to a paid API will be debited
+          from the balance in real time. When your balance is zero requests to
+          paid APIs will return a blocked status.
+        </p>
+        <p class="mt-4">
+          To check your balance and top-up your account head to the billing page
+          at
+          <a
+            routerLink="/overview/billing"
+            class="text-indigo-700 hover:underline"
+            >https://m3o.com/overview/billing</a
+          >
+        </p>
+      </div>
 
-      <h3>Next Steps</h3>
-      <p>
-        You can come back to this page by clicking on Getting Started in the menu at any time. 
-        Otherwise feel free to ask questions or send feedback to <a routerLink="mailto:support@m3o.com">support@m3o.com</a> or 
-        join the #support channel in our <a routerLink="https://slack.m3o.com">Slack community</a>.
-      </p>
-    </mat-card>
-  </div>
+      <div class="my-8">
+        <h3 class="font-black text-xl md:text-2xl my-8">Next Steps</h3>
+        <p>
+          You can come back to this page by clicking on Getting Started in the
+          menu at any time. Otherwise feel free to ask questions or send
+          feedback to
+          <a
+            routerLink="mailto:support@m3o.com"
+            class="text-indigo-700 hover:underline"
+            >support@m3o.com</a
+          >
+          or join the #support channel in our
+          <a
+            routerLink="https://slack.m3o.com"
+            class="text-indigo-700 hover:underline"
+            >Slack community</a
+          >.
+        </p>
+      </div>
+    </div>
+  </app-container>
 </div>
-
