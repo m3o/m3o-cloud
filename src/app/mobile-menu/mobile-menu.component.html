@@ -80,6 +80,13 @@
           >
             Explore API's
           </a>
+          <a
+            routerLink="/getting-started"
+            class="rounded-md hover:bg-gray-50 text-base text-gray-600 p-2"
+            (click)="onClose.emit()"
+          >
+            Getting Started
+          </a>
           <ng-container *ngIf="isLoggedIn">
             <a
               routerLink="/overview/usage"
