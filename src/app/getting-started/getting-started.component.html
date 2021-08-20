@@ -1,45 +1,80 @@
 <div class="bg-gray-50 min-h-screen">
   <div class="md:max-w-4xl lg:max-w-6xl ml-auto mr-auto w-11/12 py-8">
-    <mat-card>
-      <h2 class="font-bold text-3xl mt-0 mb-8">Getting Started</h2>
+    <h2 class="font-bold text-3xl mt-0 mb-8">Getting Started</h2>
 
       <p>
-        Welcome to Micro! We want to help you 10x your development experience by 
-        providing one account to access a catalog of public APIs for everyday use.
-        We hope you'll never have to signup to another third party API provider again. 
-        Follow this getting started guide to get familiar with the platform.
+        Welcome to Micro! Follow this getting started guide to get familiar with the platform.
       </p>
+    <mat-card>
       <div *ngIf="!(user && user.name)">
         <h3>Sign up</h3>
         <p>
           <a routerLink="/register">Sign up</a> or
           <a routerLink="/login">log in</a> to Micro so you can get a token. You
-          can use password based log in or oauth. However, after logging in with
-          oauth, your password is no longer valid unless you reset it (for
-          security reasons).
+          can use password based log in or oauth.<br><br>Note: For security purposes, if you log in with
+          oauth, the password is no longer valid unless you reset it.
         </p>
       </div>
+      
+       <h3>Try out Hello world!</h3>
+      <p>
+        Here's a simple nodejs example to call the helloworld API:
+      </p>
 
+      <pre
+        style="background: #eee; border-radius: 5px; border: 1px solid #eee"
+      ><code class="example" language="'javascript'" 
+        [highlight]="code"></code></pre>
+      <br />
+      <button
+        *ngIf="user && user.name && !revealed"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        (click)="reveal()"
+      >
+        Click here to insert your personal token
+      </button>
+      <button
+        *ngIf="user && user.name && revealed"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        (click)="hide()"
+      >
+        Hide token
+      </button>
+      <button
+        routerLink="/register"
+        *ngIf="!(user && user.name)"
+        mat-raised-button
+        color="primary"
+        type="submit"
+      >
+        Sign in to access your personal token
+      </button>
+
+      <br /><br />
+      
       <h3>Discover APIs</h3>
       <p>
-        Browse all our public APIs on the explore page (<a routerLink="/explore">https://m3o.com/explore</a>).
+        Browse all of our public APIs on the <a routerLink="/explore">Explore page</a>.
       </p>
 
       <h3>Generate an API token</h3>
       <p>
-        To call Micro APIs, you'll need an API token. To create a new API token, visit
-        <a routerLink="/settings/keys">https://m3o.com/settings/keys</a>.
-        Specify which APIs the given token can call or leave scopes blank to
-        create a token that can call any APIs.
+        To create a new access token, visit
+        <a routerLink="/settings/keys">API settings page</a>.
+        You can specify which APIs the token can call or leave scopes blank to
+        create a token that has access to all the APIs.
       </p>
 
       <h3>Using an API</h3>
       <p>
-        Micro APIs can be accessed via the url `https://api.m3o.com/v1/`. The 
-        specific api and endpoint name are appended to the url e.g https://api.m3o.com/v1/helloworld/call.
-        All API calls require an API token provided via the `Authorization: Bearer` header. Our APIs 
-        provide a JSON based request/response format so also require a `Content-Type: application/json` 
-        header.
+        Micro APIs can be accessed via the url "https://api.m3o.com/v1/[service]/[endpoint]". 
+        All API calls require an API token provided via the "Authorization: Bearer" header. Our APIs 
+        provide a JSON based request/response format and also require a `Content-Type: application/json` 
+        header for each request.
       </p>
       
       <p>
@@ -65,56 +100,18 @@
         Each account has a credit based balance. Any request made to a paid API will be 
         debited from the balance in real time. When your balance is zero requests to paid 
         APIs will return a blocked status. 
-
+        <br><br>
         To check your balance and top-up your account head to the billing page at 
         <a routerLink="/overview/billing">https://m3o.com/overview/billing</a>
       </p>
-      
-       <h3>Hello world!</h3>
-      <p>
-        Here's a simple nodejs example to call the helloworld API:
-      </p>
-
-      <pre
-        style="background: #eee; border-radius: 5px; border: 1px solid #eee"
-      ><code class="example" language="'javascript'" 
-        [highlight]="code"></code></pre>
-      <br />
-      <button
-        *ngIf="user && user.name && !revealed"
-        mat-raised-button
-        color="primary"
-        type="submit"
-        (click)="reveal()"
-      >
-        Click here to insert your token
-      </button>
-      <button
-        *ngIf="user && user.name && revealed"
-        mat-raised-button
-        color="primary"
-        type="submit"
-        (click)="hide()"
-      >
-        Hide token
-      </button>
-      <button
-        routerLink="/register"
-        *ngIf="!(user && user.name)"
-        mat-raised-button
-        color="primary"
-        type="submit"
-      >
-        Sign in to get a token
-      </button>
-
-      <br /><br />
 
       <h3>Next Steps</h3>
       <p>
         You can come back to this page by clicking on Getting Started in the menu at any time. 
-        Otherwise feel free to ask questions or send feedback to <a routerLink="mailto:support@m3o.com">support@m3o.com</a>.
+        Otherwise feel free to ask questions or send feedback to <a routerLink="mailto:support@m3o.com">support@m3o.com</a> or 
+        join the #support channel in our <a routerLink="https://slack.m3o.com">Slack community</a>.
       </p>
     </mat-card>
   </div>
 </div>
+
