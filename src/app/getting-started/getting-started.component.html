@@ -37,24 +37,22 @@
         <code class="example" language="'javascript'" [highlight]="code"></code>
       </pre>
       <br />
-      <app-link-button
+      <app-button
         *ngIf="user && user.name && !revealed"
-        mat-raised-button
         color="primary"
         type="submit"
         (click)="reveal()"
       >
         Click here to insert your personal token
-      </app-link-button>
-      <app-link-button
+      </app-button>
+      <app-button
         *ngIf="user && user.name && revealed"
-        mat-raised-button
         color="primary"
         type="submit"
         (click)="hide()"
       >
         Hide token
-      </app-link-button>
+      </app-button>
       <app-link-button
         href="/register"
         *ngIf="!(user && user.name)"
