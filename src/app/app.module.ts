@@ -110,6 +110,7 @@ import { ContainerComponent } from './container/container.component';
 import { TextInputComponent } from './text-input/text-input.component';
 import { GithubLoginComponent } from './github-login/github-login.component';
 import { GettingStartedComponent } from './getting-started/getting-started.component';
+import { OverviewComponent } from './overview/overview.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -164,6 +165,7 @@ import { GettingStartedComponent } from './getting-started/getting-started.compo
     TextInputComponent,
     GithubLoginComponent,
     GettingStartedComponent,
+    OverviewComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

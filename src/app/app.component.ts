@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from './user.service';
 import * as types from './types';
@@ -6,10 +6,26 @@ import { Router } from '@angular/router';
 import { TrackingService } from './tracking.service';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
+import { environment } from '../environments/environment';
 
 // see https://fireflysemantics.medium.com/creating-a-custom-angular-material-google-social-login-button-aee2fe376ea5
 const googleLogoURL =
   'https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg';
+
+var hotjarCode = `(function (h, o, t, j, a, r) {
+    h.hj =
+      h.hj ||
+      function () {
+        (h.hj.q = h.hj.q || []).push(arguments);
+      };
+    h._hjSettings = { hjid: 2533791, hjsv: 6 };
+    a = o.getElementsByTagName('head')[0];
+    r = o.createElement('script');
+    r.async = 1;
+    r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+    a.appendChild(r);
+  })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');`;
 
 @Component({
   selector: 'app-root',
@@ -29,9 +45,13 @@ export class AppComponent implements OnInit {
     private ts: TrackingService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
+    @Inject(DOCUMENT) private doc: any,
   ) {}
 
   ngOnInit() {
+    if (environment.production) {
+      this.addHotJar()
+    }
     this.matIconRegistry.addSvgIcon(
       'logo',
       this.domSanitizer.bypassSecurityTrustResourceUrl(googleLogoURL),
@@ -61,4 +81,15 @@ export class AppComponent implements OnInit {
       },
     });
   }
+
+  // see https://github.com/angular/angular-cli/issues/4451
+  private addHotJar() {
+    const s = this.doc.createElement('script');
+    s.type = 'text/javascript';
+    s.innerHTML = hotjarCode;
+    const head = this.doc.getElementsByTagName('head')[0];
+    head.appendChild(s);
+  }
+
+  private addGoogleAnalytics() {}
 }

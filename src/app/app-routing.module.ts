@@ -22,8 +22,13 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { GoogleLoginComponent } from './google-login/google-login.component';
 import { GithubLoginComponent } from './github-login/github-login.component';
 import { GettingStartedComponent } from './getting-started/getting-started.component';
+import { OverviewComponent } from './overview/overview.component';
 
 const routes: Routes = [
+  {
+    path: 'overview',
+    component: OverviewComponent,
+  },
   {
     path: 'getting-started',
     component: GettingStartedComponent,
