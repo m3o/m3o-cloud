@@ -9,6 +9,7 @@ import { V1ApiService } from '../v1api.service';
 import * as openapi from 'openapi3-ts';
 import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
+import { UsageService } from '../usage.service';
 
 var template = `<div id="content"></div>
 
@@ -64,6 +65,7 @@ export class EndpointCallerComponent implements OnInit {
     private v1api: V1ApiService,
     public us: UserService,
     private route: ActivatedRoute,
+    private usageService: UsageService,
   ) {}
 
   ngOnInit() {
@@ -144,7 +146,6 @@ export class EndpointCallerComponent implements OnInit {
     let e = this.service.summary.endpoints.filter((v) => {
       return v.name == this.selectedEndpoint;
     })[0];
-    console.log('setting', e);
     this.requestJSON = e.requestJSON;
     this.selectExample();
   }
@@ -232,6 +233,11 @@ export class EndpointCallerComponent implements OnInit {
     this.us
       .v1ApiToken()
       .then((tok) => {
+        this.usageService.saveEvent('apicalls', {
+          endpoint: this.selectedEndpoint,
+          service: this.service.api.name,
+          request: this.requestJSON,
+        });
         return this.v1api
           .call(
             {
@@ -253,6 +259,11 @@ export class EndpointCallerComponent implements OnInit {
             // not up to scratch
             return this.us.revokeV1ApiToken().then(() => {
               this.us.v1ApiToken().then((tok) => {
+                this.usageService.saveEvent('apicalls', {
+                  endpoint: this.selectedEndpoint,
+                  service: this.service.api.name,
+                  request: this.requestJSON,
+                });
                 return this.v1api
                   .call(
                     {

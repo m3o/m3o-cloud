@@ -1,0 +1,75 @@
+<div class="grid grid-cols-4">
+  <div class="col-span-3">
+    <h2 class="text-2xl p-6">Recently made calls</h2>
+    <div *ngIf="!apiCalls">No calls found.</div>
+    <div
+      *ngFor="let call of apiCalls"
+      class="bg-white pt-0 p-6 rounded-md flex mb-1 md:mb-0"
+    >
+      <div class="grid grid-cols-6" style="width: 100%">
+        <div class="col-span-1">
+          <h3 class="mt-0 text-1xl mb-1">
+            <a
+              routerLink="/{{ call.record.service }}"
+              class="
+                font-bold
+                text-indigo-600
+                hover:underline hover:text-indigo-700
+              "
+              [ngClass]="{
+                capitalize: call.record.service?.length > 3,
+                uppercase: call.record.service?.length <= 3
+              }"
+            >
+              {{ call.record.service }} </a
+            >/ {{ call.record.endpoint.split('.')[1] }}
+          </h3>
+          {{ call.record.createdAt * 1000 | timeago }}
+        </div>
+        <div class="col-span-5">
+          <pre
+            style="width: 100%"
+          ><code class="example" language="'javascript'" [highlight]="call.record.request"></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h2 class="text-2xl p-6">Overview</h2>
+
+    <div class="pt-0 pb-0 p-6">
+      <h3 class="text-1xl">Total calls: {{ allCalls }}</h3>
+    </div>
+
+    <div class="pt-0 p-6">
+      <h3 class="text-1xl">Balance: ${{ balance }}</h3>
+    </div>
+
+    <h2 class="text-2xl p-6">Recently visited APIs</h2>
+    <div *ngIf="!apiVisits">No visits found.</div>
+    <div
+      *ngFor="let visit of apiVisits"
+      class="bg-white pt-0 p-6 rounded-md flex mb-1 md:mb-0"
+    >
+      <div>
+        <h3 class="mt-0 text-1xl mb-1">
+          <a
+            routerLink="/{{ visit.record.apiName }}"
+            class="
+              font-bold
+              text-indigo-600
+              hover:underline hover:text-indigo-700
+            "
+            [ngClass]="{
+              capitalize: visit.record.apiName?.length > 3,
+              uppercase: visit.record.apiName?.length <= 3
+            }"
+          >
+            {{ visit.record.apiName }}
+          </a>
+        </h3>
+        {{ visit.record.createdAt * 1000 | timeago }}
+      </div>
+    </div>
+  </div>
+</div>

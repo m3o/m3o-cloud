@@ -19,6 +19,7 @@ import { V1ApiService } from '../v1api.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
+import { UsageService } from '../usage.service';
 
 const tabNamesToIndex = {
   '': 0,
@@ -76,6 +77,7 @@ export class ApiSingleComponent implements OnInit {
     private titleService: Title,
     private metaService: Meta,
     private state: TransferState,
+    private usage: UsageService,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -116,6 +118,19 @@ export class ApiSingleComponent implements OnInit {
       const tab = <string>p['tab'];
       if (tab) {
         this.selected = tabNamesToIndex[tab];
+      }
+    });
+
+    // @todo create an callWhenUserAvailable method in the user service
+    // to abstract this cruft out
+    if (this.us.user?.id) {
+      this.usage.saveEvent('apivisit', { apiName: this.serviceName });
+    }
+    this.us.isUserLoggedIn.subscribe((loggedIn) => {
+      if (loggedIn) {
+        if (this.us.user?.id) {
+          this.usage.saveEvent('apivisit', { apiName: this.serviceName });
+        }
       }
     });
   }
