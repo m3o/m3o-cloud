@@ -19,6 +19,7 @@ import { V1ApiService } from '../v1api.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
+import { SingleApiService } from '../single-api.service';
 
 const tabNamesToIndex = {
   '': 0,
@@ -68,6 +69,7 @@ export class ApiSingleComponent implements OnInit {
     private ses: ServiceService,
     private ex: ExploreService,
     private activeRoute: ActivatedRoute,
+    public singleApiService: SingleApiService,
     private location: Location,
     private notif: ToastrService,
     public us: UserService,
@@ -104,7 +106,12 @@ export class ApiSingleComponent implements OnInit {
         this.exampleLanguage = 'curl';
       }
     });
+
     this.activeRoute.params.subscribe((p) => {
+      const serviceName = p.id;
+
+      this.singleApiService.loadService(serviceName);
+
       if (this.intervalId) {
         clearInterval(this.intervalId);
       }
@@ -170,6 +177,7 @@ export class ApiSingleComponent implements OnInit {
       this.loading = true;
       this.ex.service(this.serviceName).then((serv) => {
         this.loading = false;
+        console.log(serv);
         processAPI(serv);
       });
     } else {
@@ -574,6 +582,8 @@ func main() {
   }
 
   ngOnDestroy() {
+    this.singleApiService.reset();
+
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }

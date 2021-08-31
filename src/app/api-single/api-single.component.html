@@ -1,11 +1,26 @@
-<div class="md:max-w-4xl lg:max-w-7xl mx-auto w-11/12 mt-6">
-  <div>
-    <mat-spinner
-      [diameter]="35"
-      style="margin: auto"
-      *ngIf="!service"
-    ></mat-spinner>
+<div class="bg-gray-50 min-h-screen dark:bg-gray-800">
+  <ng-container *ngIf="singleApiService.service">
+    <app-api-page-header></app-api-page-header>
+    <router-outlet></router-outlet>
+  </ng-container>
+  <div
+    *ngIf="!singleApiService.service"
+    class="
+      fixed
+      z-20
+      flex
+      justify-center
+      items-center
+      w-full
+      h-full
+      top-0
+      left-0
+    "
+  >
+    <app-spinner></app-spinner>
   </div>
+</div>
+<div class="md:max-w-4xl lg:max-w-7xl mx-auto w-11/12 mt-6">
   <div *ngIf="service" style="margin: auto; margin-bottom: 50px">
     <mat-card style="margin-top: 0em; padding: 0em" class="mat-card-flat">
       <div fxLayout="row" fxLayouAlign="space-between">
@@ -14,12 +29,6 @@
         >-->
         <div fxFlex="70%">
           <h2 style="display: inline-block; margin-right: 1em">
-            <span
-              *ngIf="
-                service.api.icon !== undefined && service.api.icon.length > 0
-              "
-              [innerHtml]="service.api.icon + '&nbsp;'"
-            ></span>
             {{
               serviceName.length > 3
                 ? (serviceName | title)
@@ -120,7 +129,11 @@
                   <div class="endpoint-description">
                     {{ pathToRequestSchema(path.key).description }}
                   </div>
-                  <mat-tab-group class="endpointtab" [selectedIndex]="tabSelectedIndex()" animationDuration="0ms">
+                  <mat-tab-group
+                    class="endpointtab"
+                    [selectedIndex]="tabSelectedIndex()"
+                    animationDuration="0ms"
+                  >
                     <mat-tab label="Request">
                       <div>
                         <table class="params">

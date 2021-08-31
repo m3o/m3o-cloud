@@ -1,0 +1,10 @@
+<app-container>
+  <app-method-card
+    *ngFor="let item of singleApiService.service.summary.endpoints"
+    [title]="item.name.split('.')[1]"
+    [requestSchema]="getRequestSchema(item.name)"
+    [responseSchema]="getResponseSchema(item.name)"
+    [item]="item"
+    [apiName]="singleApiService.service.api.name"
+  ></app-method-card>
+</app-container>

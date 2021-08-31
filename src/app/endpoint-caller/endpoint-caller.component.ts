@@ -109,6 +109,7 @@ export class EndpointCallerComponent implements OnInit {
             schema = this.pathToRequestSchema(key, openAPI);
           }
         }
+
         endpoint.requestJSON = this.schemaToJSON(schema);
 
         if (endpoint.requestJSON !== undefined) {
@@ -122,6 +123,8 @@ export class EndpointCallerComponent implements OnInit {
 
         // rebuild the request JSON value
         endpoint.requestJSON = JSON.stringify(endpoint.requestValue, null, 4);
+
+        console.log(endpoint);
       });
       this.service = s;
       if (!this.selectedEndpoint) {
@@ -440,8 +443,8 @@ export class EndpointCallerComponent implements OnInit {
         default:
           return schema.type;
       }
-      return '';
     };
+
     return JSON.stringify(recur(schema), null, 2);
   }
 

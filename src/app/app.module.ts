@@ -110,6 +110,15 @@ import { ContainerComponent } from './container/container.component';
 import { TextInputComponent } from './text-input/text-input.component';
 import { GithubLoginComponent } from './github-login/github-login.component';
 import { GettingStartedComponent } from './getting-started/getting-started.component';
+import { ApiPageOverviewComponent } from './api-page-overview/api-page-overview.component';
+import { ApiPageHeaderComponent } from './api-page-header/api-page-header.component';
+import { ApiPageNavigationComponent } from './api-page-navigation/api-page-navigation.component';
+import { ApiPageApiComponent } from './api-page-api/api-page-api.component';
+import { QueryComponent } from './query/query.component';
+import { ApiPageQueryComponent } from './api-page-query/api-page-query.component';
+import { MethodCardComponent } from './method-card/method-card.component';
+import { PropertiesTableComponent } from './properties-table/properties-table.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -164,6 +173,15 @@ import { GettingStartedComponent } from './getting-started/getting-started.compo
     TextInputComponent,
     GithubLoginComponent,
     GettingStartedComponent,
+    ApiPageOverviewComponent,
+    ApiPageHeaderComponent,
+    ApiPageNavigationComponent,
+    ApiPageApiComponent,
+    QueryComponent,
+    ApiPageQueryComponent,
+    MethodCardComponent,
+    PropertiesTableComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

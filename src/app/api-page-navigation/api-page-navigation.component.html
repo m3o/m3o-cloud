@@ -1,0 +1,36 @@
+<div class="border-b border-solid border-gray-200 dark:border-gray-700">
+  <app-container>
+    <div class="flex justify-between items-center">
+      <ul class="flex items-center font-medium text-sm">
+        <li
+          class="mr-8"
+          key="{item.name}"
+          *ngFor="let item of apiNavigationLinks; let i = index"
+        >
+          <a
+            [routerLink]="item.pathname"
+            class="
+              py-4
+              border-b-2 border-solid border-transparent
+              block
+              font-base
+              text-gray-400
+            "
+            [routerLinkActive]="['text-indigo-600', 'border-indigo-600']"
+          >
+            {{ item.name }}
+          </a>
+        </li>
+      </ul>
+      <div class="flex">
+        <button
+          class="ml-8 text-gray-400 text-sm"
+          *ngFor="let item of sideButtons"
+          (click)="item.onClick()"
+        >
+          {{ item.name }}
+        </button>
+      </div>
+    </div>
+  </app-container>
+</div>
