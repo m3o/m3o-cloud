@@ -119,6 +119,8 @@ import { ApiPageQueryComponent } from './api-page-query/api-page-query.component
 import { MethodCardComponent } from './method-card/method-card.component';
 import { PropertiesTableComponent } from './properties-table/properties-table.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { RequestBlockComponent } from './request-block/request-block.component';
+import { ResponseBlockComponent } from './response-block/response-block.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -182,6 +184,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     MethodCardComponent,
     PropertiesTableComponent,
     SpinnerComponent,
+    RequestBlockComponent,
+    ResponseBlockComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

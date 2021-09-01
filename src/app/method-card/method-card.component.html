@@ -14,7 +14,6 @@
         title="Request body fields"
         [properties]="requestSchema.properties"
       ></app-properties-table>
-
       <app-properties-table
         title="Response"
         [properties]="responseSchema.properties"
@@ -22,14 +21,13 @@
       ></app-properties-table>
     </div>
     <div>
-      <h4 class="mt-4 font-bold text-black text-sm">Example code</h4>
-      <!-- <pre class="rounded-md font-mono text-sm">
-        <code class="example" language="'javascript'" [highlight]="getExampleCode()"></code>
-      </pre> -->
-      <h4 class="mt-2 font-bold text-black text-sm">Example response</h4>
-      <!-- <pre class="rounded-md font-mono text-sm">
-        <code class="example" language="'json'" [highlight]="getResponseCode()"></code>
-      </pre> -->
+      <app-request-block
+        [requestSchema]="requestSchema"
+        [apiName]="apiName"
+      ></app-request-block>
+      <app-response-block
+        [responseSchema]="responseSchema"
+      ></app-response-block>
     </div>
   </div>
 </div>
