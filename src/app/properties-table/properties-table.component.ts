@@ -16,5 +16,7 @@ export class PropertiesTableComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.properties);
+  }
 }

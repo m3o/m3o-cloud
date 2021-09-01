@@ -1,18 +1,19 @@
-<div class="bg-white p-8 rounded-md border border-gray-200 border-solid mt-6">
+<div
+  class="bg-white p-8 rounded-md border border-gray-200 border-solid mt-6"
+  *ngIf="requestSchema"
+>
   <h3 class="font-black text-black text-2xl mb-4 dark:text-white">
     {{ title }}
   </h3>
-  <p class="text-gray-500" *ngIf="requestSchema">
+  <p class="text-gray-500">
     {{ requestSchema.description }}
   </p>
-  <div class="grid grid-cols-2 gap-6">
+  <div class="grid grid-cols-2 gap-4">
     <div>
-      <ng-container *ngIf="requestSchema">
-        <app-properties-table
-          title="Request"
-          [properties]="requestSchema.properties"
-        ></app-properties-table>
-      </ng-container>
+      <app-properties-table
+        title="Request body fields"
+        [properties]="requestSchema.properties"
+      ></app-properties-table>
 
       <app-properties-table
         title="Response"

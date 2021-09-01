@@ -23,11 +23,11 @@ export class MethodCardComponent implements OnInit {
   @Input() item: Item;
   @Input() apiName: string;
 
-  constructor() {
-    console.log(this.item);
-  }
+  constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('this.item', this.item, this.responseSchema);
+  }
 
   getResponseCode() {
     return JSON.stringify(this.item.value[0].response, null, 2);

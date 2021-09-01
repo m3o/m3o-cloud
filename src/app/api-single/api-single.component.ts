@@ -304,8 +304,8 @@ export class ApiSingleComponent implements OnInit {
         default:
           return schema.type;
       }
-      return '';
     };
+
     return JSON.stringify(recur(schema), null, 4);
   }
 

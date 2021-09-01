@@ -61,8 +61,23 @@
       <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 w-2/12">
         {{ item.key }}
       </td>
-      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 w-2/12">
-        {{ item.value.type }}
+      <td
+        class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 w-2/12"
+        [ngSwitch]="item.value.type"
+      >
+        <span *ngSwitchCase="'object'">
+          <span class="block">&#123;</span>
+          <span
+            *ngFor="let prop of item.value.properties | keyvalue"
+            class="ml-4 block"
+          >
+            {{ prop.key }}: {{ prop.value.type }}
+          </span>
+          &#125;
+        </span>
+        <span *ngSwitchDefault>
+          {{ item.value.type }}
+        </span>
       </td>
       <td class="px-6 py-4 s text-sm text-gray-500 w-8/12">
         {{ item.value.description || '-' }}
