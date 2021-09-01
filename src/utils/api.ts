@@ -6,6 +6,11 @@ export interface ExampleArguments {
   serviceName: string;
 }
 
+export interface GetPriceArguments {
+  pricing?: Record<string, string>;
+  key: string;
+}
+
 export function requestToCurl({
   request,
   path,
@@ -238,4 +243,10 @@ export function schemaToGoMap(schema: SchemaObject): string {
 export function lastPart(s: string): string {
   const splitString = s.split('/');
   return splitString[splitString.length - 1];
+}
+
+export function getPrice({ pricing = {}, key }: GetPriceArguments): string {
+  return pricing[key]
+    ? `$${parseInt(pricing[key]) / 1000000} per request`
+    : 'Free';
 }

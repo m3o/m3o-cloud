@@ -186,7 +186,7 @@ export class ApiSingleComponent implements OnInit {
   }
 
   displayPrice(
-    pricing: Map<string, string>,
+    pricing: Record<string, string>,
     name: string,
     key: string,
   ): string {

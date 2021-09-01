@@ -2,10 +2,23 @@
   class="bg-white p-8 rounded-md border border-gray-200 border-solid mt-6"
   *ngIf="requestSchema"
 >
-  <h3 class="font-black text-black text-2xl mb-4 dark:text-white">
+  <h3
+    class="
+      font-black
+      text-black text-2xl
+      mb-4
+      dark:text-white
+      flex
+      justify-between
+    "
+  >
     {{ title }}
+    <span
+      class="text-xs font-normal bg-indigo-100 p-2 rounded-md text-indigo-600"
+      >{{ pricing }}</span
+    >
   </h3>
-  <p class="text-gray-500">
+  <p class="text-gray-500 mb-6">
     {{ requestSchema.description }}
   </p>
   <div class="grid grid-cols-2 gap-4">

@@ -1,32 +1,34 @@
 <header class="pt-8 bg-white">
   <app-container>
-    <div class="flex items-center justify-between">
-      <div>
-        <span class="uppercase text-xs text-indigo-600">
-          {{ singleApiService.service.summary.category }}
-        </span>
-        <h1
-          class="
-            font-black
-            text-5xl
-            mb-2
-            mt-2
-            capitalize
-            dark:text-white
-            text-black
-          "
-        >
-          {{
-            singleApiService.service.api.name.length > 3
-              ? (singleApiService.service.api.name | title)
-              : (singleApiService.service.api.name | uppercase)
-          }}
-        </h1>
-        <p class="pb-6 text-gray-500 text-xl font-light">
-          {{ singleApiService.service.api.description.split('#')[0] }}
-        </p>
+    <div className="flex items-center">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="uppercase text-xs text-indigo-600">
+            {{ singleApiService.service.summary.category }}
+          </span>
+          <h1
+            class="
+              font-black
+              text-5xl
+              mb-2
+              mt-2
+              capitalize
+              dark:text-white
+              text-black
+            "
+          >
+            {{
+              singleApiService.service.api.name.length > 3
+                ? (singleApiService.service.api.name | title)
+                : (singleApiService.service.api.name | uppercase)
+            }}
+          </h1>
+          <p class="text-gray-500 text-xl font-light">
+            {{ singleApiService.service.api.description.split('#')[0] }}
+          </p>
+        </div>
+        <app-button>Generate API key</app-button>
       </div>
-      <!-- <app-button>Generate API key</app-button> -->
     </div>
   </app-container>
   <app-api-page-navigation></app-api-page-navigation>

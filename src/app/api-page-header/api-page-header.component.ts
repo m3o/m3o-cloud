@@ -8,7 +8,5 @@ import { SingleApiService } from '../single-api.service';
 export class ApiPageHeaderComponent implements OnInit {
   constructor(public singleApiService: SingleApiService) {}
 
-  ngOnInit(): void {
-    console.log(this.singleApiService);
-  }
+  ngOnInit(): void {}
 }

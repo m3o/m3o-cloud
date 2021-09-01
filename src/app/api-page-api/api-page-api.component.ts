@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OpenAPIObject, SchemaObject } from 'openapi3-ts';
+import { getPrice } from 'src/utils/api';
 import { SingleApiService } from '../single-api.service';
 
 type ApiMethodExample = {
@@ -33,8 +34,6 @@ export class ApiPageApiComponent implements OnInit {
       : {};
 
     this.openApiObject = JSON.parse(api.open_api_json);
-
-    console.log(this.openApiObject, this.singleApiService.service);
   }
 
   capitalizeKey(key: string): string {
@@ -64,22 +63,8 @@ export class ApiPageApiComponent implements OnInit {
     return this.returnSchema(test, 'Request');
   }
 
-  getCodeExample(key: string): string {
-    const {
-      summary: { name },
-    } = this.singleApiService.service;
-
-    return `import m3o from '@m3o/m3o-node';
-
-const client = new m3o.Client({ token: 'YOUR_M3O_API_KEY' });
-
-client.call('${name}', '${this.capitalizeKey(key)}', ${JSON.stringify(
-      this.parsedExamples[key][0].request,
-      null,
-      2,
-    )})
-  .then(response => {
-    console.log(response);          
-  });`;
+  getMethodPricing(key: string): string {
+    const { pricing } = this.singleApiService.service.api;
+    return getPrice({ pricing, key });
   }
 }

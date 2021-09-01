@@ -22,31 +22,9 @@ export class MethodCardComponent implements OnInit {
   @Input() requestSchema: SchemaObject | undefined;
   @Input() item: Item;
   @Input() apiName: string;
+  @Input() pricing: string;
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log('this.item', this.item, this.responseSchema);
-  }
-
-  getResponseCode() {
-    return JSON.stringify(this.item.value[0].response, null, 2);
-  }
-
-  getExampleCode() {
-    const { key } = this.item;
-
-    return `import m3o from '@m3o/m3o-node';
-
-const client = new m3o.Client({ token: 'YOUR_M3O_API_KEY' });
-
-client.call('${this.apiName}', '${key}', ${JSON.stringify(
-      this.item.value[0].request,
-      null,
-      2,
-    )})
-  .then(response => {
-    console.log(response);
-  });`;
-  }
+  ngOnInit(): void {}
 }
