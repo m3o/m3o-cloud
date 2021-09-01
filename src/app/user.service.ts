@@ -77,14 +77,26 @@ export class UserService {
   }
 
   logout() {
-    // todo We are nulling out the name here because that's what we use
-    // for user existence checks.
-    this.user.name = '';
-    this.cookie.set('micro_token', '', 30, '/', null, null, null);
-    this.cookie.set('micro_refresh', '', 30, '/', null, null, null);
-    this.cookie.set('micro_expiry', '', 30, '/', null, null, null);
-    this.revokeV1ApiToken();
-    document.location.href = '/login';
+    this.revokeV1ApiToken().finally(() => {
+      this.http.post<void>(
+        environment.apiUrl + '/customers/Logout',
+        {},
+        {
+          headers: {
+            'Micro-Namespace': 'micro',
+            authorization: this.token(),
+          },
+        },
+      ).toPromise().finally(() => {
+        // todo We are nulling out the name here because that's what we use
+        // for user existence checks.
+        this.user.name = '';
+        this.cookie.set('micro_token', '', 30, '/', null, null, null);
+        this.cookie.set('micro_refresh', '', 30, '/', null, null, null);
+        this.cookie.set('micro_expiry', '', 30, '/', null, null, null);
+        document.location.href = '/login';
+      });
+    });
   }
 
   // mint new v1 api token if not exist
@@ -174,13 +186,9 @@ export class UserService {
   login(email: string, password: string, namespace: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       return this.http
-        .post<TokenResponse>(environment.apiUrl + '/auth/Auth/Token', {
-          id: email,
-          secret: password,
-          options: {
-            namespace: namespace,
-          },
-          token_expiry: 30 * 24 * 3600,
+        .post<TokenResponse>(environment.apiUrl + '/customers/Login', {
+          email,
+          password,
         })
         .toPromise()
         .then((tresp) => {
@@ -500,12 +508,8 @@ export class UserService {
       }
       this.refreshing = true;
       return this.http
-        .post<TokenResponse>(environment.apiUrl + '/auth/Auth/Token', {
+        .post<TokenResponse>(environment.apiUrl + '/customers/Login', {
           refresh_token: this.cookie.get('micro_refresh'),
-          options: {
-            namespace: this.namespace(),
-          },
-          token_expiry: 30 * 24 * 3600,
         })
         .toPromise()
         .then((tokenResponse) => {
