@@ -121,6 +121,8 @@ import { PropertiesTableComponent } from './properties-table/properties-table.co
 import { SpinnerComponent } from './spinner/spinner.component';
 import { RequestBlockComponent } from './request-block/request-block.component';
 import { ResponseBlockComponent } from './response-block/response-block.component';
+import { ModalComponent } from './modal/modal.component';
+import { DownloadModalComponent } from './download-modal/download-modal.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -186,6 +188,8 @@ import { ResponseBlockComponent } from './response-block/response-block.componen
     SpinnerComponent,
     RequestBlockComponent,
     ResponseBlockComponent,
+    ModalComponent,
+    DownloadModalComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

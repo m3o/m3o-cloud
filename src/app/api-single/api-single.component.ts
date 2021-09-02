@@ -20,6 +20,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
 import { SingleApiService } from '../single-api.service';
+import { ModalService } from '../modal.service';
 
 const tabNamesToIndex = {
   '': 0,
@@ -78,6 +79,7 @@ export class ApiSingleComponent implements OnInit {
     private titleService: Title,
     private metaService: Meta,
     private state: TransferState,
+    public modalService: ModalService,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }

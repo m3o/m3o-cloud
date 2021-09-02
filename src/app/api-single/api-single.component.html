@@ -2,6 +2,9 @@
   <ng-container *ngIf="singleApiService.service">
     <app-api-page-header></app-api-page-header>
     <router-outlet></router-outlet>
+    <app-download-modal
+      *ngIf="modalService.currentModal === 'downloads'"
+    ></app-download-modal>
   </ng-container>
   <div
     *ngIf="!singleApiService.service"

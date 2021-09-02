@@ -58,47 +58,4 @@ export class SingleApiService {
       };
     }, {});
   }
-
-  schemaToJSON(schema: SchemaObject): string {
-    let recur = (schema: SchemaObject): Object => {
-      switch (schema.type as string) {
-        case 'object':
-          let ret = {};
-          for (let key in schema.properties) {
-            ret[key] = recur(schema.properties[key]);
-          }
-          return ret;
-        case 'array':
-          switch ((schema.items as any).type) {
-            case 'object':
-              return [recur(schema.items)];
-            case 'string':
-              return [''];
-            case 'int':
-            case 'int32':
-            case 'int64':
-              return [0];
-            case 'bool':
-              return [false];
-          }
-        case 'string':
-          return '';
-        case 'int':
-        case 'int32':
-        case 'int64':
-          return 0;
-        case 'bool':
-          return false;
-        // typescript types below
-        case 'number':
-          return 0;
-        case 'boolean':
-          return false;
-        default:
-          return schema.type;
-      }
-    };
-
-    return JSON.stringify(recur(schema), null, 2);
-  }
 }

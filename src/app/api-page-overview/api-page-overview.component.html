@@ -9,14 +9,10 @@
         border border-gray-200 border-solid
       "
     >
-      <div
-        class="border-b border-solid border-gray-100 pb-4 dark:border-gray-800"
-      >
-        <h2 class="font-black text-black text-lg mb-4 dark:text-white">
-          Introduction
-        </h2>
-        <p>{{ getDescription() }}</p>
-      </div>
+      <h2 class="font-black text-black text-lg mb-4 dark:text-white">
+        Introduction
+      </h2>
+      <p>{{ getDescription() }}</p>
       <div
         class="border-b border-solid border-gray-100 pb-8 dark:border-gray-800"
       >
@@ -38,7 +34,7 @@
         >
           npm install @m3o/m3o-node --save
         </div>
-        <p class="mb-4">
+        <p class="mb-1">
           2. To consume any of the Micro APIs requires an API key. This can
           generated in the admin section. Once this is acquired, you just need
           to use this within your chosen API. All APIs follow the same pattern
@@ -47,7 +43,7 @@
         <pre class="rounded-md font-mono text-sm">
           <code class="example" language="'javascript'" [highlight]="repeatableMicroCode"></code>
         </pre>
-        <p class="mb-6 mt-4">
+        <p class="mb-1">
           3. So, for example to consume the
           <span class="font-medium text-black">{{
             getFirstEndpointName()

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-api-page-navigation',
   templateUrl: './api-page-navigation.component.html',
 })
 export class ApiPageNavigationComponent implements OnInit {
-  constructor() {}
+  constructor(private modalService: ModalService) {}
 
   apiNavigationLinks = [
     {
@@ -25,16 +26,16 @@ export class ApiPageNavigationComponent implements OnInit {
   sideButtons = [
     {
       name: 'Downloads',
-      onClick: this.alert,
+      onClick: () => this.modalService.openModal('downloads'),
     },
-    {
-      name: 'Share',
-      onClick: this.alert,
-    },
-    {
-      name: 'Add to favourites',
-      onClick: this.alert,
-    },
+    // {
+    //   name: 'Share',
+    //   onClick: this.alert,
+    // },
+    // {
+    //   name: 'Add to favourites',
+    //   onClick: this.alert,
+    // },
   ];
 
   ngOnInit(): void {}

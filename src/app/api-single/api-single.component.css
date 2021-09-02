@@ -75,7 +75,7 @@ h2 a {
 }
 
 .example {
-  @apply bg-gray-800 px-6 rounded-md;
+  @apply bg-gray-800 p-6 rounded-md;
   font-family: monospace;
 }
 

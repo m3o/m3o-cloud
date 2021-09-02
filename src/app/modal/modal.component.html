@@ -1,0 +1,30 @@
+<div
+  class="fixed z-10 inset-0 overflow-y-auto flex"
+  aria-labelledby="modal-title"
+  role="dialog"
+  aria-modal="true"
+>
+  <div
+    class="fixed inset-0 bg-gray-900 bg-opacity-90 transition-opacity"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="
+      bg-white
+      rounded-lg
+      text-left
+      shadow-xl
+      transform
+      transition-all
+      sm:max-w-lg sm:w-full
+      m-auto
+      p-8
+      relative
+    "
+  >
+    <button class="w-4 absolute right-8 top-8" (click)="onClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <ng-content></ng-content>
+  </div>
+</div>
