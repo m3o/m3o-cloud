@@ -59,7 +59,6 @@ export class ApiSingleComponent implements OnInit {
   refreshLogs = true;
   loading = false;
 
-  selected = 0;
   tabValueChange = new Subject<number>();
   user: types.Account;
   fragment: string;
@@ -84,30 +83,8 @@ export class ApiSingleComponent implements OnInit {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
-  hasAPIKeys(): void {
-    this.v1api
-      .listKeys()
-      .then((keys) => {
-        this.hasKeys = keys && keys.length > 0;
-      })
-      .catch((e) => {
-        this.hasKeys = false;
-      });
-  }
-
   ngOnInit() {
-    //this.hasAPIKeys();
     this.user = this.us.user;
-    this.activeRoute.fragment.subscribe((fragment) => {
-      this.fragment = fragment;
-      if (this.fragment && this.fragment.includes('-nodejs')) {
-        this.exampleLanguage = 'node';
-      } else if (this.fragment && this.fragment.includes('-go')) {
-        this.exampleLanguage = 'go';
-      } else if (this.fragment && this.fragment.includes('-curl')) {
-        this.exampleLanguage = 'curl';
-      }
-    });
 
     this.activeRoute.params.subscribe((p) => {
       const serviceName = p.id;
@@ -121,25 +98,10 @@ export class ApiSingleComponent implements OnInit {
       this.titleService.setTitle(this.serviceName + ' api | Micro');
 
       this.loadAPI();
-      this.loadVersionData();
-      const tab = <string>p['tab'];
-      if (tab) {
-        this.selected = tabNamesToIndex[tab];
-      }
     });
   }
 
   examples = {};
-
-  tabSelectedIndex(): number {
-    if (!this.fragment) {
-      return 0;
-    } else if (this.fragment && this.fragment.includes('-response')) {
-      return 1;
-    } else if (this.fragment && this.fragment.includes('-usage')) {
-      return 2;
-    }
-  }
 
   loadAPI() {
     let processAPI = (serv: API) => {
@@ -187,77 +149,8 @@ export class ApiSingleComponent implements OnInit {
     }
   }
 
-  displayPrice(
-    pricing: Record<string, string>,
-    name: string,
-    key: string,
-  ): string {
-    if (pricing === undefined) {
-      return 'Free';
-    }
-
-    let ss = key.split('/');
-    let ep = ss[2] + '.' + ss[3];
-    let price = pricing[ep];
-
-    if (price === '' || price === undefined) {
-      return 'Free';
-    }
-
-    let p: number = Number(price);
-
-    return '$' + p / 1000000 + ' per request';
-  }
-
-  formatName(name: string): string {
-    if (name === '') {
-      return '';
-    }
-
-    return name.replace(/([a-z0-9])([A-Z])/g, '$1 $2');
-  }
-
   stringify(a: any): string {
     return JSON.stringify(a, null, ' ');
-  }
-
-  loadVersionData() {}
-  jsOptions = {
-    automaticLayout: true,
-    theme: 'vs-light',
-    folding: false,
-    glyphMargin: false,
-    language: 'json',
-    lineNumbers: false,
-    lineDecorationsWidth: 0,
-    lineNumbersMinChars: 0,
-    renderLineHighlight: false,
-    renderIndentGuides: false,
-    minimap: {
-      enabled: false,
-    },
-    scrollbar: {
-      vertical: 'hidden',
-      horizontal: 'hidden',
-    },
-  };
-
-  specEditing = false;
-  editSpec() {
-    this.specEditing = !this.specEditing;
-  }
-
-  saveSpec() {
-    this.ex
-      .saveMeta(
-        this.service.api.name,
-        this.service.api.description,
-        this.service.api.open_api_json,
-      )
-      .then(() => {
-        this.editSpec();
-        this.loadAPI();
-      });
   }
 
   firstReadmeLine(): string {
@@ -572,15 +465,6 @@ func main() {
       return;
     }
     this.selectedVersion = service.version;
-    this.loadVersionData();
-  }
-
-  tabChange($event: number) {
-    this.selected = $event;
-    this.location.replaceState(
-      '/' + this.serviceName + '/' + tabIndexesToName[this.selected],
-    );
-    this.tabValueChange.next(this.selected);
   }
 
   ngOnDestroy() {
@@ -649,40 +533,6 @@ func main() {
       return this.openAPI.components.schemas['Response'];
     }
     return {};
-  }
-
-  downloadPostman() {
-    var element = document.createElement('a');
-    element.setAttribute(
-      'href',
-      'data:text/plain;charset=utf-8,' +
-        encodeURIComponent(JSON.stringify(this.postman)),
-    );
-    element.setAttribute('download', this.serviceName + '.json');
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
-  }
-
-  downloadOpenAPI() {
-    var element = document.createElement('a');
-    element.setAttribute(
-      'href',
-      'data:text/plain;charset=utf-8,' +
-        encodeURIComponent(JSON.stringify(this.openAPI)),
-    );
-    element.setAttribute('download', this.serviceName + '.json');
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
   }
 }
 

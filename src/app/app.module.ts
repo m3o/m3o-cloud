@@ -115,7 +115,7 @@ import { ApiPageHeaderComponent } from './api-page-header/api-page-header.compon
 import { ApiPageNavigationComponent } from './api-page-navigation/api-page-navigation.component';
 import { ApiPageApiComponent } from './api-page-api/api-page-api.component';
 import { QueryComponent } from './query/query.component';
-import { ApiPageQueryComponent } from './api-page-query/api-page-query.component';
+import { ApiPageConsoleComponent } from './api-page-console/api-page-console.component';
 import { MethodCardComponent } from './method-card/method-card.component';
 import { PropertiesTableComponent } from './properties-table/properties-table.component';
 import { SpinnerComponent } from './spinner/spinner.component';
@@ -182,7 +182,7 @@ import { DownloadModalComponent } from './download-modal/download-modal.componen
     ApiPageNavigationComponent,
     ApiPageApiComponent,
     QueryComponent,
-    ApiPageQueryComponent,
+    ApiPageConsoleComponent,
     MethodCardComponent,
     PropertiesTableComponent,
     SpinnerComponent,

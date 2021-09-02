@@ -24,7 +24,7 @@ import { GithubLoginComponent } from './github-login/github-login.component';
 import { GettingStartedComponent } from './getting-started/getting-started.component';
 import { ApiPageOverviewComponent } from './api-page-overview/api-page-overview.component';
 import { ApiPageApiComponent } from './api-page-api/api-page-api.component';
-import { ApiPageQueryComponent } from './api-page-query/api-page-query.component';
+import { ApiPageConsoleComponent } from './api-page-console/api-page-console.component';
 
 const routes: Routes = [
   {
@@ -110,8 +110,8 @@ const routes: Routes = [
         component: ApiPageApiComponent,
       },
       {
-        path: 'query',
-        component: ApiPageQueryComponent,
+        path: 'console',
+        component: ApiPageConsoleComponent,
       },
     ],
   },

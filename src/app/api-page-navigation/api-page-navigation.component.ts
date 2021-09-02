@@ -19,7 +19,7 @@ export class ApiPageNavigationComponent implements OnInit {
     },
     {
       name: 'Console',
-      pathname: 'query',
+      pathname: 'console',
     },
   ];
 
