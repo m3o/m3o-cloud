@@ -8,7 +8,7 @@ export interface PublicAPI {
   name: string;
   description: string;
   open_api_json: string;
-  examples_json: string;
+  examples_json?: string;
   icon: string;
   category: string;
   pricing?: Record<string, string>;

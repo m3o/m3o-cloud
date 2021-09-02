@@ -250,3 +250,7 @@ export function getPrice({ pricing = {}, key }: GetPriceArguments): string {
     ? `$${parseInt(pricing[key]) / 1000000} per request`
     : 'Free';
 }
+
+export function getEndpointNameFromApiEndpoint(str: string): string {
+  return str.substring(str.indexOf('.') + 1);
+}

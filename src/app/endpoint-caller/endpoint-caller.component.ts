@@ -9,6 +9,7 @@ import { V1ApiService } from '../v1api.service';
 import * as openapi from 'openapi3-ts';
 import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
+import { SingleApiService } from '../single-api.service';
 
 var template = `<div id="content"></div>
 
@@ -33,15 +34,15 @@ var template = `<div id="content"></div>
 @Component({
   selector: 'app-endpoint-caller',
   templateUrl: './endpoint-caller.component.html',
-  styleUrls: ['./endpoint-caller.component.css'],
 })
 export class EndpointCallerComponent implements OnInit {
-  @Input() serviceName: string = '';
-  @Input() endpointQuery: string = '';
-  @Input() selectedVersion: string = '';
+  @Input() serviceName = '';
+  @Input() endpointQuery = '';
+  @Input() selectedVersion = '';
+  @Input() selectedEndpoint = '';
+  @Input() selectedExampleTitle = '';
   service: API;
 
-  selectedEndpoint = '';
   embeddable = template;
   token = '';
 
@@ -49,7 +50,6 @@ export class EndpointCallerComponent implements OnInit {
   examples = [];
   // examples for the selected endpoint
   endpointExamples = [];
-  selectedExampleTitle = 'default';
 
   requestJSON = '';
   responseJSON = '';
@@ -58,37 +58,19 @@ export class EndpointCallerComponent implements OnInit {
 
   constructor(
     private ses: ServiceService,
-    private ex: ExploreService,
     private notif: ToastrService,
-    private cs: CookieService,
     private v1api: V1ApiService,
     public us: UserService,
-    private route: ActivatedRoute,
+    private singleApiService: SingleApiService,
   ) {}
 
   ngOnInit() {
-    this.selectedEndpoint = this.route.snapshot.queryParamMap.get('endpoint');
-    this.route.queryParamMap.subscribe((queryParams) => {
-      // hack
-      if (queryParams.get('endpoint')) {
-        this.selectedEndpoint =
-          this.jsUcfirst(this.serviceName) +
-          '.' +
-          this.jsUcfirst(queryParams.get('endpoint'));
-      }
-    });
-    if (this.route.snapshot.queryParamMap.get('example')) {
-      this.selectedExampleTitle =
-        this.route.snapshot.queryParamMap.get('example');
-    }
-    this.route.queryParamMap.subscribe((queryParams) => {
-      if (queryParams.get('example')) {
-        this.selectedExampleTitle = queryParams.get('example');
-      }
-    });
-
     this.regenJSONs();
     this.us.v1ApiToken();
+  }
+
+  ngOnChanges() {
+    this.selectEndpoint();
   }
 
   public parse(s: string): any {
@@ -96,37 +78,34 @@ export class EndpointCallerComponent implements OnInit {
   }
 
   regenJSONs() {
-    this.ex.service(this.serviceName).then((s) => {
-      var openAPI: openapi.OpenAPIObject = JSON.parse(s.api.open_api_json);
-      if (s.api.examples_json) {
-        this.examples = JSON.parse(s.api.examples_json);
+    const { service } = this.singleApiService;
+    const { examples, openApi } = this.singleApiService.returnParsedContent();
+
+    this.examples = examples;
+
+    service.summary.endpoints.forEach((endpoint) => {
+      let schema: openapi.SchemaObject = {};
+      for (let key in openApi.paths) {
+        if (key.endsWith('/' + endpoint.name.split('.')[1])) {
+          schema = this.pathToRequestSchema(key, openApi);
+        }
       }
 
-      s.summary.endpoints.forEach((endpoint) => {
-        let schema: openapi.SchemaObject = {};
-        for (let key in openAPI.paths) {
-          if (key.endsWith('/' + endpoint.name.split('.')[1])) {
-            schema = this.pathToRequestSchema(key, openAPI);
-          }
-        }
+      endpoint.requestJSON = this.schemaToJSON(schema);
 
-        endpoint.requestJSON = this.schemaToJSON(schema);
+      if (endpoint.requestJSON !== undefined) {
+        endpoint.requestValue = JSON.parse(endpoint.requestJSON);
+      } else {
+        endpoint.requestValue = {};
+      }
 
-        if (endpoint.requestJSON !== undefined) {
-          endpoint.requestValue = JSON.parse(endpoint.requestJSON);
-        } else {
-          endpoint.requestValue = {};
-        }
+      // delete the cruft fro the value;
+      endpoint.requestValue = this.deleteProtoCruft(endpoint.requestValue);
 
-        // delete the cruft fro the value;
-        endpoint.requestValue = this.deleteProtoCruft(endpoint.requestValue);
+      // rebuild the request JSON value
+      endpoint.requestJSON = JSON.stringify(endpoint.requestValue, null, 4);
 
-        // rebuild the request JSON value
-        endpoint.requestJSON = JSON.stringify(endpoint.requestValue, null, 4);
-
-        console.log(endpoint);
-      });
-      this.service = s;
+      this.service = service;
       if (!this.selectedEndpoint) {
         this.selectedEndpoint = this.service.summary.endpoints[0].name;
       }
@@ -162,11 +141,11 @@ export class EndpointCallerComponent implements OnInit {
         this.lowercaseFirstLetter(this.selectedEndpoint.split('.')[1])
       ];
 
-    if (!this.selectedExampleTitle) {
-      return;
-    }
+    // if (!this.selectedExampleTitle) {
+    //   return;
+    // }
 
-    if (this.selectedExampleTitle == 'default' || !this.endpointExamples) {
+    if (this.selectedExampleTitle == '' || !this.endpointExamples) {
       this.requestJSON = this.service.summary.endpoints.find((v) => {
         return v.name == this.selectedEndpoint;
       }).requestJSON;
