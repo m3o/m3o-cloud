@@ -38,6 +38,28 @@
           </mat-card-content>
         </mat-card>
       </mat-card>
+      <mat-card style="margin-bottom: 1em; margin: 0 auto; background: #fcfcfc">
+        <mat-card-title>Personal Token</mat-card-title>
+        <mat-card>
+          <mat-card-content>
+            <p>
+	      Below is your personal API token. This is used 
+              to make requests in the UI and can additionally be used for testing purposes or quick API integration. 
+            </p>
+            <br>
+            <p>
+	      Note: For long term use we recommend generating a scoped API key below.
+            </p>
+            <br />
+            <div
+              style="background: whitesmoke; border-radius: 5px; padding: 0.5em"
+            >
+              <code>{{ personalToken() }}</code>
+            </div>
+            <br />
+          </mat-card-content>
+        </mat-card>
+      </mat-card>
       <mat-card>
         <mat-card-title>API Keys</mat-card-title>
 
