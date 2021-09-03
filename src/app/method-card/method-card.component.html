@@ -22,13 +22,13 @@
     <span class="bg-indigo-50 p-2 inline-block mr-2 rounded-md">POST</span>
     https://api.m3o.com/v1/{{ apiName }}/{{ title }}
   </p>
-  <p class="text-gray-500 mb-6">
+  <p class="text-gray-500 mb-10 font-light max-w-xl">
     {{ requestSchema.description }}
   </p>
-  <div class="grid grid-cols-2 gap-4">
+  <div class="md:grid md:grid-cols-2 md:gap-6">
     <div>
       <app-properties-table
-        title="Request body fields"
+        title="Request payload"
         [properties]="requestSchema.properties"
       ></app-properties-table>
       <app-properties-table
@@ -37,7 +37,7 @@
         *ngIf="responseSchema && responseSchema.properties"
       ></app-properties-table>
     </div>
-    <div>
+    <div class="hidden md:block">
       <app-request-block
         [requestSchema]="requestSchema"
         [apiName]="apiName"

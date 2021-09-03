@@ -123,6 +123,7 @@ import { RequestBlockComponent } from './request-block/request-block.component';
 import { ResponseBlockComponent } from './response-block/response-block.component';
 import { ModalComponent } from './modal/modal.component';
 import { DownloadModalComponent } from './download-modal/download-modal.component';
+import { AttributesListComponent } from './attributes-list/attributes-list.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -190,6 +191,7 @@ import { DownloadModalComponent } from './download-modal/download-modal.componen
     ResponseBlockComponent,
     ModalComponent,
     DownloadModalComponent,
+    AttributesListComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

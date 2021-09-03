@@ -19,4 +19,8 @@ export class PropertiesTableComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.properties);
   }
+
+  hasKeys(obj: object): boolean {
+    return !!Object.keys(obj).length;
+  }
 }
