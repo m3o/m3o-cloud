@@ -27,6 +27,7 @@ export class SettingsComponent implements OnInit {
   languages = ['bash'];
 
   ngOnInit() {
+    this.us.v1ApiToken();
     this.listKeys();
   }
 
