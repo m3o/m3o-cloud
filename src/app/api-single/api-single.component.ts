@@ -69,11 +69,10 @@ export class ApiSingleComponent implements OnInit {
     this.activeRoute.params.subscribe((p) => {
       const serviceName = p.id;
 
-      this.singleApiService.loadService(serviceName);
-
       if (this.intervalId) {
         clearInterval(this.intervalId);
       }
+
       this.serviceName = <string>p['id'];
       this.titleService.setTitle(this.serviceName + ' api | Micro');
 
@@ -84,15 +83,18 @@ export class ApiSingleComponent implements OnInit {
   examples = {};
 
   loadAPI() {
-    let processAPI = (serv: API) => {
-      this.state.set(makeStateKey('api' + this.serviceName), <any>serv);
-      // for (let key in this.openAPI.paths) {
-      //   this.showJSON[key] = false;
-      // }
+    let processAPI = () => {
+      this.state.set(
+        makeStateKey('api' + this.serviceName),
+        <any>this.singleApiService.service,
+      );
 
-      if (this.service.api.examples_json) {
-        this.examples = JSON.parse(this.service.api.examples_json);
+      if (<any>this.singleApiService.service.api.examples_json) {
+        this.examples = JSON.parse(
+          <any>this.singleApiService.service.api.examples_json,
+        );
       }
+
       this.metaService.addTag({
         name: 'description',
         content: this.firstReadmeLine(),
@@ -104,15 +106,17 @@ export class ApiSingleComponent implements OnInit {
       <any>null,
     );
 
+    this.singleApiService.setService(api);
+
     if (api == null) {
+      console.log('q');
       this.loading = true;
-      this.ex.service(this.serviceName).then((serv) => {
+      this.singleApiService.loadService(this.serviceName).then(() => {
         this.loading = false;
-        console.log(serv);
-        processAPI(serv);
+        processAPI();
       });
     } else {
-      processAPI(api);
+      processAPI();
     }
   }
 
@@ -165,6 +169,10 @@ export class ApiSingleComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  setService(api: API) {
+    this.service = api;
   }
 }
 

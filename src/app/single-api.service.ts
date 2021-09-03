@@ -39,6 +39,10 @@ export class SingleApiService {
     };
   }
 
+  setService(api: API) {
+    this.service = api;
+  }
+
   returnFormattedEndpoints(): FormattedEndpoints {
     const { endpoints } = this.service.summary;
     const { openApi } = this.returnParsedContent();
