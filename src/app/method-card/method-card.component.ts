@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SchemaObject } from 'openapi3-ts';
+import { splitEndpointTitle } from 'src/utils/api';
 
 interface ApiMethodExample {
   request: Record<string, any>;
@@ -27,4 +28,8 @@ export class MethodCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  formatTitle(): string {
+    return splitEndpointTitle(this.title);
+  }
 }

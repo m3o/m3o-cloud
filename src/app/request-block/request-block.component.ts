@@ -41,7 +41,7 @@ export class RequestBlockComponent implements OnInit {
   updateCodeBlock() {
     const exampleArguments: ExampleArguments = {
       request: this.requestSchema,
-      path: '/',
+      path: this.requestSchema.title.replace('Request', ''),
       serviceName: this.apiName,
     };
 

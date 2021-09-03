@@ -8,7 +8,19 @@ import { ModalService } from '../modal.service';
 export class ModalComponent implements OnInit {
   constructor(private modalService: ModalService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    document.addEventListener('keydown', this.onEscapePress);
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('keydown', this.onEscapePress);
+  }
+
+  onEscapePress = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      this.modalService.closeModal();
+    }
+  };
 
   onClose() {
     this.modalService.closeModal();

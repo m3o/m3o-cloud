@@ -8,7 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { V1ApiService } from '../v1api.service';
 import * as openapi from 'openapi3-ts';
 import { UserService } from '../user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SingleApiService } from '../single-api.service';
 
 var template = `<div id="content"></div>
@@ -62,6 +62,7 @@ export class EndpointCallerComponent implements OnInit {
     private v1api: V1ApiService,
     public us: UserService,
     private singleApiService: SingleApiService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -71,10 +72,22 @@ export class EndpointCallerComponent implements OnInit {
 
   ngOnChanges() {
     this.selectEndpoint();
+    this.responseJSON = '';
   }
 
   public parse(s: string): any {
     return JSON.parse(s);
+  }
+
+  onRunClick() {
+    const isNotLoggedIn =
+      !this.us.loggedIn() || !this.us.user || !this.us.user.name;
+
+    if (isNotLoggedIn) {
+      this.router.navigate(['/login']);
+    }
+
+    this.callEndpoint();
   }
 
   regenJSONs() {
@@ -141,10 +154,6 @@ export class EndpointCallerComponent implements OnInit {
         this.lowercaseFirstLetter(this.selectedEndpoint.split('.')[1])
       ];
 
-    // if (!this.selectedExampleTitle) {
-    //   return;
-    // }
-
     if (this.selectedExampleTitle == '' || !this.endpointExamples) {
       this.requestJSON = this.service.summary.endpoints.find((v) => {
         return v.name == this.selectedEndpoint;
@@ -157,7 +166,7 @@ export class EndpointCallerComponent implements OnInit {
         return v.title == this.selectedExampleTitle;
       })[0].request,
       null,
-      ' ',
+      4,
     );
   }
 

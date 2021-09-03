@@ -1,21 +1,25 @@
-<div class="grid grid-cols-2 w-full">
-  <div>
-    <div class="p-4 border-b border-solid border-gray-100">Request</div>
-    <div class="p-4">
-      <ngx-monaco-editor
-        [options]="coptions"
-        [(ngModel)]="requestJSON"
-        class="h-full"
-      ></ngx-monaco-editor>
+<div class="w-full">
+  <div class="grid grid-cols-2 border-b border-solid border-gray-100">
+    <div class="flex justify-between items-center p-4">
+      Request
+      <button
+        class="py-1 px-2 bg-indigo-700 text-white text-sm rounded-md"
+        (click)="onRunClick()"
+      >
+        Run
+      </button>
     </div>
+    <div class="p-4">Response</div>
   </div>
-  <div>
-    <div class="p-4 border-b border-solid border-gray-100">Response</div>
-    <div class="p-4">
-      <ngx-monaco-editor
-        [options]="coptions"
-        [(ngModel)]="responseJSON"
-      ></ngx-monaco-editor>
-    </div>
+  <div class="grid grid-cols-2">
+    <ngx-monaco-editor
+      [options]="coptions"
+      [(ngModel)]="requestJSON"
+      class="h-full"
+    ></ngx-monaco-editor>
+    <ngx-monaco-editor
+      [options]="coptions"
+      [(ngModel)]="responseJSON"
+    ></ngx-monaco-editor>
   </div>
 </div>

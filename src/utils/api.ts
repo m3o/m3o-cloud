@@ -71,7 +71,7 @@ var rsp map[string]interface{}
 if err := c.Call("` +
     serviceName +
     `", "` +
-    lastPart(path) +
+    path +
     `", req, &rsp); err != nil {
   fmt.Println(err)
   return
@@ -253,4 +253,8 @@ export function getPrice({ pricing = {}, key }: GetPriceArguments): string {
 
 export function getEndpointNameFromApiEndpoint(str: string): string {
   return str.substring(str.indexOf('.') + 1);
+}
+
+export function splitEndpointTitle(str: string): string {
+  return str.replace(/([a-z])([A-Z])/g, '$1 $2');
 }
