@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '../user.service';
 import { V1ApiService } from '../v1api.service';
 import * as types from '../types';
@@ -17,6 +18,7 @@ import { FormArray, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 export class SettingsComponent implements OnInit {
   constructor(
     public us: UserService,
+    private cookie: CookieService,
     private v1api: V1ApiService,
     public dialog: MatDialog,
   ) {}
@@ -26,6 +28,10 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.listKeys();
+  }
+
+  personalToken(): string {
+    return this.cookie.get('micro_api_token');
   }
 
   listKeys(): void {
