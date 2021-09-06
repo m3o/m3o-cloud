@@ -1,0 +1,71 @@
+<app-container>
+  <section class="bg-white rounded-md border border-gray-200 border-solid mt-6">
+    <div class="md:flex">
+      <aside
+        class="
+          border-gray-200 border-solid border-b
+          w-full
+          md:w-3/12
+          p-4
+          md:border-b-0 md:border-r
+        "
+      >
+        <ng-container
+          *ngFor="let item of singleApiService.service.summary.endpoints"
+        >
+          <h4 class="p-4 font-black text-black text-lg">
+            {{ formatEndpointName(item.name) }}
+          </h4>
+          <button
+            class="
+              w-full
+              text-left
+              px-4
+              py-2
+              text-sm
+              hover:underline
+              text-gray-500
+              rounded-sm
+            "
+            [ngClass]="{
+              'bg-indigo-50 font-medium text-indigo-700':
+                currentEndpoint === item.name && currentExample === ''
+            }"
+            (click)="onExampleClick(item.name, '')"
+          >
+            Blank
+          </button>
+          <button
+            class="
+              w-full
+              text-left
+              px-4
+              py-2
+              text-sm
+              hover:underline
+              text-gray-500
+            "
+            *ngFor="let example of getEndpointExamples(item.name)"
+            [ngClass]="{
+              'bg-indigo-50 font-medium text-indigo-700':
+                currentEndpoint === item.name &&
+                currentExample === example.title
+            }"
+            (click)="onExampleClick(item.name, example.title)"
+          >
+            {{ example.title }}
+          </button>
+        </ng-container>
+      </aside>
+      <div class="w-full md:w-9/12">
+        <app-endpoint-caller
+          [serviceName]="singleApiService.service.api.name"
+          [endpointQuery]="endpointQuery"
+          [selectedVersion]="''"
+          [selectedEndpoint]="currentEndpoint"
+          [selectedExampleTitle]="currentExample"
+        ></app-endpoint-caller>
+      </div>
+    </div>
+  </section>
+</app-container>

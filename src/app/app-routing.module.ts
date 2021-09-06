@@ -22,6 +22,9 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { GoogleLoginComponent } from './google-login/google-login.component';
 import { GithubLoginComponent } from './github-login/github-login.component';
 import { GettingStartedComponent } from './getting-started/getting-started.component';
+import { ApiPageOverviewComponent } from './api-page-overview/api-page-overview.component';
+import { ApiPageApiComponent } from './api-page-api/api-page-api.component';
+import { ApiPageConsoleComponent } from './api-page-console/api-page-console.component';
 
 const routes: Routes = [
   {
@@ -92,6 +95,25 @@ const routes: Routes = [
   {
     path: ':id',
     component: ApiSingleComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'overview',
+        pathMatch: 'full',
+      },
+      {
+        path: 'overview',
+        component: ApiPageOverviewComponent,
+      },
+      {
+        path: 'api',
+        component: ApiPageApiComponent,
+      },
+      {
+        path: 'console',
+        component: ApiPageConsoleComponent,
+      },
+    ],
   },
   {
     path: ':id/:tab',

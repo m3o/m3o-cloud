@@ -110,6 +110,21 @@ import { ContainerComponent } from './container/container.component';
 import { TextInputComponent } from './text-input/text-input.component';
 import { GithubLoginComponent } from './github-login/github-login.component';
 import { GettingStartedComponent } from './getting-started/getting-started.component';
+import { ApiPageOverviewComponent } from './api-page-overview/api-page-overview.component';
+import { ApiPageHeaderComponent } from './api-page-header/api-page-header.component';
+import { ApiPageNavigationComponent } from './api-page-navigation/api-page-navigation.component';
+import { ApiPageApiComponent } from './api-page-api/api-page-api.component';
+import { QueryComponent } from './query/query.component';
+import { ApiPageConsoleComponent } from './api-page-console/api-page-console.component';
+import { MethodCardComponent } from './method-card/method-card.component';
+import { PropertiesTableComponent } from './properties-table/properties-table.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { RequestBlockComponent } from './request-block/request-block.component';
+import { ResponseBlockComponent } from './response-block/response-block.component';
+import { ModalComponent } from './modal/modal.component';
+import { DownloadModalComponent } from './download-modal/download-modal.component';
+import { AttributesListComponent } from './attributes-list/attributes-list.component';
+import { GenerateButtonComponent } from './generate-button/generate-button.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -164,6 +179,21 @@ import { GettingStartedComponent } from './getting-started/getting-started.compo
     TextInputComponent,
     GithubLoginComponent,
     GettingStartedComponent,
+    ApiPageOverviewComponent,
+    ApiPageHeaderComponent,
+    ApiPageNavigationComponent,
+    ApiPageApiComponent,
+    QueryComponent,
+    ApiPageConsoleComponent,
+    MethodCardComponent,
+    PropertiesTableComponent,
+    SpinnerComponent,
+    RequestBlockComponent,
+    ResponseBlockComponent,
+    ModalComponent,
+    DownloadModalComponent,
+    AttributesListComponent,
+    GenerateButtonComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

@@ -1,0 +1,5 @@
+@media (min-width: 768px) {
+  .min-height {
+    min-height: 500px;
+  }
+}

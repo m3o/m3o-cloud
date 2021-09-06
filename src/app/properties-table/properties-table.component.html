@@ -1,0 +1,34 @@
+<div class="mb-4">
+  <h4
+    class="
+      font-bold
+      text-black
+      mb-4
+      text-sm
+      dark:text-white
+      border-b border-solid border-gray-100
+      pb-4
+    "
+  >
+    {{ title }}
+  </h4>
+  <div>
+    <div *ngFor="let item of properties | keyvalue" class="py-2">
+      <p class="text-black text-sm mb-1">
+        {{ item.key }}
+        <span class="font-light ml-1 inline-block text-indigo-400"
+          >{{ item.value.type === 'array' ? item.value.items.type : '' }}
+          {{ item.value.type }}</span
+        >
+      </p>
+      <p class="mb-2 font-light text-sm break-all max-w-md">
+        {{ item.value.description }}
+      </p>
+      <app-attributes-list
+        [item]="item.value"
+        *ngIf="item.value.type === 'object' || item.value.type === 'array'"
+      >
+      </app-attributes-list>
+    </div>
+  </div>
+</div>

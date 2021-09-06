@@ -75,10 +75,21 @@ h2 a {
 }
 
 .example {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 15px;
+  @apply bg-gray-800 p-6 rounded-md;
   font-family: monospace;
+}
+
+.example .hljs-string {
+  @apply text-indigo-300;
+}
+
+.example .hljs-keyword {
+  @apply text-indigo-400;
+}
+
+.example .hljs-attr,
+.example .hljs-built_in {
+  @apply text-indigo-100;
 }
 
 .mat-card .category {

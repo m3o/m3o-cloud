@@ -1,0 +1,52 @@
+<div
+  class="bg-white p-8 rounded-md border border-gray-200 border-solid mt-6"
+  *ngIf="requestSchema"
+  id="{{ title }}"
+>
+  <h3
+    class="
+      font-black
+      text-black text-2xl
+      mb-4
+      dark:text-white
+      flex
+      justify-between
+    "
+  >
+    {{ formatTitle() }}
+    <span
+      class="text-xs font-normal bg-indigo-100 p-2 rounded-md text-indigo-600"
+      >{{ pricing }}</span
+    >
+  </h3>
+  <p class="text-indigo-600 text-sm">
+    <span class="bg-indigo-50 p-2 inline-block mr-2 rounded-md">POST</span>
+    https://api.m3o.com/v1/{{ apiName }}/{{ title }}
+  </p>
+  <p class="text-gray-500 mb-10 font-light max-w-xl">
+    {{ requestSchema.description }}
+  </p>
+  <div class="md:grid md:grid-cols-2 md:gap-6">
+    <div>
+      <app-properties-table
+        title="Request payload"
+        [properties]="requestSchema.properties"
+      ></app-properties-table>
+      <app-properties-table
+        title="Response"
+        [properties]="responseSchema.properties"
+        *ngIf="responseSchema && responseSchema.properties"
+      ></app-properties-table>
+    </div>
+    <div class="hidden md:block">
+      <app-request-block
+        [requestSchema]="requestSchema"
+        [apiName]="apiName"
+        [isStream]="pathResponseIsStream()"
+      ></app-request-block>
+      <app-response-block
+        [responseSchema]="responseSchema"
+      ></app-response-block>
+    </div>
+  </div>
+</div>

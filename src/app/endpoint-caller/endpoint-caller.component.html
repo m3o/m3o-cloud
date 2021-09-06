@@ -1,107 +1,50 @@
-<ng-container *ngIf="service">
-  <div>
+<div class="w-full">
+  <div class="md:grid md:grid-cols-2">
     <div>
-      <mat-card
-        style="padding: 1px; padding-top: 1em; border: none; box-shadow: none"
+      <div
+        class="
+          flex
+          justify-between
+          items-center
+          p-4
+          border-gray-200 border-solid border-b
+          h-14
+          text-sm
+        "
       >
-        <div fxLayoutGap="2em" fxLayout="row">
-          <mat-form-field fxFlex="49%" fxFlex.lt-md="100%" appearance="fill">
-            <mat-label>Endpoint</mat-label>
-            <mat-select
-              *ngIf="service.summary.endpoints"
-              [(ngModel)]="selectedEndpoint"
-              (ngModelChange)="selectEndpoint()"
-            >
-              <mat-option
-                [value]="e.name"
-                style="
-                  cursor: pointer;
-                  font-weight: normal;
-                  border-top: 1px solid whitesmoke;
-                "
-                *ngFor="let e of service.summary.endpoints"
-              >
-                <span>{{ formatName(e.name) }}</span>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field
-            *ngIf="endpointExamples"
-            fxFlex="49%"
-            fxFlex.lt-md="100%"
-            appearance="fill"
-          >
-            <mat-label>Example</mat-label>
-            <mat-select
-              [(ngModel)]="selectedExampleTitle"
-              (ngModelChange)="selectExample()"
-            >
-              <mat-option value="default">Default</mat-option>
-              <mat-option
-                value="{{ e.title }}"
-                style="
-                  cursor: pointer;
-                  font-weight: normal;
-                  border-top: 1px solid whitesmoke;
-                "
-                *ngFor="let e of endpointExamples"
-              >
-                <span>{{ e.title }}</span>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <br />
-        <div fxLayout="row wrap" fxLayoutAlign="space-between">
-          <div fxFlex="49%" fxFlex.lt-md="100%">
-            Request<br /><br />
-            <ngx-monaco-editor
-              style="
-                height: 20em;
-                overflow: hidden;
-                border: 1px solid #eee;
-                padding: 10px;
-              "
-              [options]="coptions"
-              [(ngModel)]="requestJSON"
-            ></ngx-monaco-editor>
-            <br />
-          </div>
-          <div fxFlex="49%" fxFlex.lt-md="100%">
-            Response<br /><br />
-            <ngx-monaco-editor
-              style="
-                height: 20em;
-                overflow: hidden;
-                border: 1px solid #eee;
-                padding: 10px;
-              "
-              [options]="coptions"
-              [(ngModel)]="responseJSON"
-            ></ngx-monaco-editor>
-          </div>
-        </div>
+        Request
         <button
-          *ngIf="us.user?.name"
-          mat-raised-button
-          style="font-weight: bold"
-          (click)="callEndpoint()"
-          color="primary"
+          class="py-1 px-2 bg-indigo-700 text-white text-sm rounded-md"
+          (click)="onRunClick()"
         >
-          Call
+          Run
         </button>
-        <button
-          *ngIf="!us.user?.name"
-          mat-raised-button
-          style="font-weight: bold"
-          routerLink="/register"
-          color="primary"
-        >
-          Sign up to call endpoint
-        </button>
-      </mat-card>
+      </div>
+      <ngx-monaco-editor
+        [options]="coptions"
+        [(ngModel)]="requestJSON"
+        class="min-height"
+      ></ngx-monaco-editor>
     </div>
-    <br />
+    <div>
+      <div
+        class="
+          p-4
+          border-gray-200 border-solid border-b border-t
+          md:border-t-0
+          h-14
+          text-sm
+          flex
+          items-center
+        "
+      >
+        Response
+      </div>
+      <ngx-monaco-editor
+        [options]="coptions"
+        [(ngModel)]="responseJSON"
+        class="min-height"
+      ></ngx-monaco-editor>
+    </div>
   </div>
-</ng-container>
+</div>

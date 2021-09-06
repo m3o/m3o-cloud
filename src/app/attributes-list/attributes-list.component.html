@@ -1,0 +1,54 @@
+<button
+  class="mt-2 bg-indigo-600 px-2 py-1 rounded-md text-xs text-white"
+  (click)="open = !open"
+  *ngIf="shouldShowButton()"
+>
+  {{ open ? 'Hide' : 'Show' }} attributes
+</button>
+<div
+  *ngIf="open"
+  class="w-full p-4 border border-gray-100 border-solid mt-4 rounded-md"
+>
+  <ng-container *ngIf="item.type === 'object'">
+    <div
+      *ngFor="let item of item.properties | keyvalue; let index = i"
+      class="py-2"
+      [ngClass]="{ 'pt-0': index == 0 }"
+    >
+      <p class="font-medium text-black text-sm mb-1">
+        {{ item.key }}
+        <span class="font-light ml-1 inline-block text-indigo-400"
+          >{{ item.value.type === 'array' ? item.value.items.type : '' }}
+          {{ item.value.type }}</span
+        >
+      </p>
+      <p class="mb-0 font-light text-sm">{{ item.value.description }}</p>
+      <app-attributes-list
+        [item]="item.value"
+        *ngIf="item.value.type === 'object' || item.value.type === 'array'"
+      >
+      </app-attributes-list>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="item.type === 'array'">
+    <div
+      *ngFor="let item of returnItems(item.items) | keyvalue; let index = i"
+      class="py-2"
+      [ngClass]="{ 'pt-0': index == 0 }"
+    >
+      <p class="font-medium text-black text-sm mb-1">
+        {{ item.key }}
+        <span class="font-light ml-1 inline-block text-indigo-400"
+          >{{ item.value.type === 'array' ? item.value.items.type : '' }}
+          {{ item.value.type }}</span
+        >
+      </p>
+      <p class="mb-0 font-light text-sm">{{ item.value.description }}</p>
+      <app-attributes-list
+        [item]="item.value"
+        *ngIf="item.value.type === 'object' || item.value.type === 'array'"
+      >
+      </app-attributes-list>
+    </div>
+  </ng-container>
+</div>

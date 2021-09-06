@@ -51,7 +51,7 @@
           *ngFor="let endpoint of service.endpoints.slice(0, 3); let i = index"
         >
           <a
-            href="{{ service.name }}#{{ endpoint.name.split('.')[1] }}"
+            href="{{ service.name }}/api#{{ endpoint.name.split('.')[1] }}"
             class="text-indigo-600 hover:text-indigo-700 hover:underline"
             >{{ formatName(endpoint.name.split('.')[1]) }}&nbsp;
             <span
