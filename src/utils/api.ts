@@ -60,22 +60,22 @@ import (
   
 func main() {
     c := client.NewClient(&client.Options{
-      Token: "INSERT_YOUR_TOKEN_HERE",
+          Token: "INSERT_YOUR_TOKEN_HERE",
     })
 
-req := ` +
+    req := ` +
     schemaToGoMap(request) +
     `
-var rsp map[string]interface{}
+    var rsp map[string]interface{}
 
-if err := c.Call("` +
+    if err := c.Call("` +
     serviceName +
     `", "` +
     path +
     `", req, &rsp); err != nil {
-  fmt.Println(err)
-  return
-}
+          fmt.Println(err)
+          return
+    }
 }`
   );
   // }
