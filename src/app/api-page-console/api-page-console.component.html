@@ -1,11 +1,19 @@
 <app-container>
   <section class="bg-white rounded-md border border-gray-200 border-solid mt-6">
-    <div class="flex">
-      <aside class="border-r border-gray-200 border-solid w-3/12 p-4">
+    <div class="md:flex">
+      <aside
+        class="
+          border-gray-200 border-solid border-b
+          w-full
+          md:w-3/12
+          p-4
+          md:border-b-0 md:border-r
+        "
+      >
         <ng-container
           *ngFor="let item of singleApiService.service.summary.endpoints"
         >
-          <h4 class="p-4 font-bold text-black text-lg">
+          <h4 class="p-4 font-black text-black text-lg">
             {{ formatEndpointName(item.name) }}
           </h4>
           <button
@@ -49,7 +57,7 @@
           </button>
         </ng-container>
       </aside>
-      <div class="w-9/12">
+      <div class="w-full md:w-9/12">
         <app-endpoint-caller
           [serviceName]="singleApiService.service.api.name"
           [endpointQuery]="endpointQuery"

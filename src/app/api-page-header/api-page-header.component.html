@@ -27,7 +27,9 @@
             {{ singleApiService.service.api.description.split('#')[0] }}
           </p>
         </div>
-        <app-button (click)="onGenerateClick()">Generate API key</app-button>
+        <app-button (click)="onGenerateClick()" class="hidden md:block"
+          >Generate API key</app-button
+        >
       </div>
     </div>
   </app-container>

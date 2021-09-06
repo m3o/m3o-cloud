@@ -1,6 +1,19 @@
 <div class="bg-gray-50 min-h-screen dark:bg-gray-800 pb-6">
   <ng-container *ngIf="singleApiService.service">
     <app-api-page-header></app-api-page-header>
+    <div
+      class="
+        m-6
+        bg-white
+        border border-gray-200 border-solid
+        rounded-md
+        p-6
+        mb-0
+        md:hidden
+      "
+    >
+      <app-generate-button></app-generate-button>
+    </div>
     <router-outlet></router-outlet>
     <app-download-modal
       *ngIf="modalService.currentModal === 'downloads'"

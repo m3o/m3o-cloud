@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { getEndpointNameFromApiEndpoint } from 'src/utils/api';
+import {
+  getEndpointNameFromApiEndpoint,
+  splitEndpointTitle,
+} from 'src/utils/api';
 import { SingleApiService } from '../single-api.service';
 
 @Component({
@@ -29,7 +32,7 @@ export class ApiPageConsoleComponent implements OnInit {
   }
 
   formatEndpointName(endpointName: string): string {
-    return getEndpointNameFromApiEndpoint(endpointName);
+    return splitEndpointTitle(getEndpointNameFromApiEndpoint(endpointName));
   }
 
   getEndpointExamples(endpointName: string): any[] {

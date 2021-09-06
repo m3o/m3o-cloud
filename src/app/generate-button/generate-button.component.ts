@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SingleApiService } from '../single-api.service';
 import { UserService } from '../user.service';
 
 @Component({
-  selector: 'app-api-page-header',
-  templateUrl: './api-page-header.component.html',
+  selector: 'app-generate-button',
+  templateUrl: './generate-button.component.html',
+  styleUrls: ['./generate-button.component.css'],
 })
-export class ApiPageHeaderComponent implements OnInit {
-  constructor(
-    public singleApiService: SingleApiService,
-    private us: UserService,
-    private router: Router,
-  ) {}
+export class GenerateButtonComponent implements OnInit {
+  constructor(private router: Router, private us: UserService) {}
 
   ngOnInit(): void {}
 
