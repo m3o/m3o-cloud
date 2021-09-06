@@ -34,6 +34,7 @@ var template = `<div id="content"></div>
 @Component({
   selector: 'app-endpoint-caller',
   templateUrl: './endpoint-caller.component.html',
+  styleUrls: ['./endpoint-caller.component.css'],
 })
 export class EndpointCallerComponent implements OnInit {
   @Input() serviceName = '';
