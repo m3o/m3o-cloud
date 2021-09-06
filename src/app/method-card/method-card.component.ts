@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SchemaObject } from 'openapi3-ts';
 import { splitEndpointTitle } from 'src/utils/api';
+import { SingleApiService } from '../single-api.service';
 
 interface ApiMethodExample {
   request: Record<string, any>;
@@ -21,15 +22,38 @@ export class MethodCardComponent implements OnInit {
   @Input() title = '';
   @Input() responseSchema: SchemaObject | undefined;
   @Input() requestSchema: SchemaObject | undefined;
-  @Input() item: Item;
+  @Input() item: any;
   @Input() apiName: string;
   @Input() pricing: string;
 
-  constructor() {}
+  constructor(private singleApiService: SingleApiService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const test = this.pathResponseIsStream();
+    console.log({ test });
+  }
 
   formatTitle(): string {
     return splitEndpointTitle(this.title);
+  }
+
+  pathResponseIsStream() {
+    const { openApi } = this.singleApiService.returnParsedContent();
+    const key = `/${this.apiName}/${this.item.name.replace('.', '/')}`;
+    const path = openApi.paths[key];
+
+    if (
+      path === undefined ||
+      path.post === undefined ||
+      path.post.responses === undefined
+    ) {
+      return false;
+    }
+
+    if (path.post.responses['stream'] != undefined) {
+      return true;
+    }
+
+    return false;
   }
 }

@@ -109,7 +109,6 @@ export class ApiSingleComponent implements OnInit {
     this.singleApiService.setService(api);
 
     if (api == null) {
-      console.log('q');
       this.loading = true;
       this.singleApiService.loadService(this.serviceName).then(() => {
         this.loading = false;

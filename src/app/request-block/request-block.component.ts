@@ -17,7 +17,7 @@ type LanguagesObject = Record<Languages, string>;
 })
 export class RequestBlockComponent implements OnInit {
   @Input() requestSchema: SchemaObject = {};
-
+  @Input() isStream = false;
   @Input() apiName = '';
 
   showDropdown = false;
@@ -43,6 +43,7 @@ export class RequestBlockComponent implements OnInit {
       request: this.requestSchema,
       path: this.requestSchema.title.replace('Request', ''),
       serviceName: this.apiName,
+      isStream: this.isStream,
     };
 
     switch (this.selectedLanguage) {

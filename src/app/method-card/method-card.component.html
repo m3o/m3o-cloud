@@ -42,6 +42,7 @@
       <app-request-block
         [requestSchema]="requestSchema"
         [apiName]="apiName"
+        [isStream]="pathResponseIsStream()"
       ></app-request-block>
       <app-response-block
         [responseSchema]="responseSchema"

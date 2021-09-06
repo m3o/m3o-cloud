@@ -4,6 +4,7 @@ export interface ExampleArguments {
   path: string;
   request: SchemaObject;
   serviceName: string;
+  isStream: boolean;
 }
 
 export interface GetPriceArguments {
@@ -15,42 +16,44 @@ export function requestToCurl({
   request,
   path,
   serviceName,
+  isStream,
 }: ExampleArguments): string {
-  // if (stream != true) {
-  return `curl "https://api.m3o.com/v1/${serviceName}/${lastPart(path)}" \\
+  if (isStream != true) {
+    return `curl "https://api.m3o.com/v1/${serviceName}/${lastPart(path)}" \\
 -H "Content-Type: application/json" \\
 -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" \\
 -d '${schemaToJSON(request)}'`;
-  // }
+  }
 
-  //   return (
-  //     `curl "https://api.m3o.com/v1/` +
-  //     this.serviceName +
-  //     `/` +
-  //     this.lastPart(path) +
-  //     `" \\
-  // --include \\
-  // --no-buffer \\
-  // --header "Connection: Upgrade" \\
-  // --header "Upgrade: websocket" \\
-  // --header "Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ==" \\
-  // --header "Sec-WebSocket-Version: 13" \\
-  // -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" \\
-  // -H 'Content-Type: application/json' \\
-  // -d '` +
-  //     this.schemaToJSON(request) +
-  //     `'`
-  //   );
+  return (
+    `curl "https://api.m3o.com/v1/` +
+    serviceName +
+    `/` +
+    path +
+    `" \\
+  --include \\
+  --no-buffer \\
+  --header "Connection: Upgrade" \\
+  --header "Upgrade: websocket" \\
+  --header "Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ==" \\
+  --header "Sec-WebSocket-Version: 13" \\
+  -H "Authorization: Bearer INSERT_YOUR_TOKEN_HERE" \\
+  -H 'Content-Type: application/json' \\
+  -d '` +
+    schemaToJSON(request) +
+    `'`
+  );
 }
 
 export function requestToGo({
   request,
   path,
   serviceName,
+  isStream,
 }: ExampleArguments): string {
-  // if (stream != true) {
-  return (
-    `package main
+  if (isStream != true) {
+    return (
+      `package main
 
 import (
     "fmt"
@@ -64,65 +67,77 @@ func main() {
     })
 
     req := ` +
-    schemaToGoMap(request) +
-    `
+      schemaToGoMap(request) +
+      `
     var rsp map[string]interface{}
 
     if err := c.Call("` +
-    serviceName +
-    `", "` +
-    path +
-    `", req, &rsp); err != nil {
+      serviceName +
+      `", "` +
+      path +
+      `", req, &rsp); err != nil {
           fmt.Println(err)
           return
     }
 }`
+    );
+  }
+
+  return (
+    `package main
+
+import (
+    "fmt"
+
+    "github.com/m3o/m3o-go/client"
+)
+
+func main() {
+    c := client.NewClient(&client.Options{
+        Token: "INSERT_YOUR_TOKEN_HERE",
+    })
+
+    req := ` +
+    schemaToGoMap(request) +
+    `
+    stream, err := c.Stream("` +
+    serviceName +
+    `", "` +
+    path +
+    `", req)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    for {
+        var rsp map[string]interface{}
+        if err := stream.Recv(&rsp); err != nil {
+            return
+        }
+        fmt.Println(rsp)
+    }
+}`
   );
-  // }
-
-  //   return (
-  //     `package main
-
-  // import (
-  // "fmt"
-
-  // "github.com/m3o/m3o-go/client"
-  // )
-
-  // func main() {
-  // c := client.NewClient(&client.Options{
-  //   Token: "INSERT_YOUR_TOKEN_HERE",
-  // })
-
-  // req := ` +
-  //     this.schemaToGoMap(request) +
-  //     `
-  // stream, err := c.Stream("` +
-  //     this.serviceName +
-  //     `", "` +
-  //     this.lastPart(path) +
-  //     `", req)
-  // if err != nil {
-  //   fmt.Println(err)
-  //   return
-  // }
-
-  // for {
-  //   var rsp map[string]interface{}
-  //   if err := stream.Recv(&rsp); err != nil {
-  //     return
-  //   }
-  //   fmt.Println(rsp)
-  // }
-  // }`
-  //   );
 }
 
 export function requestToNode({
   serviceName,
   path,
   request,
+  isStream,
 }: ExampleArguments): string {
+  if (isStream) {
+    return `import m3o from '@m3o/m3o-node';
+
+const client = new m3o.Client({ token: 'YOUR_M3O_API_KEY' });
+
+new client.stream('${serviceName}', '${path}', ${schemaToJSON(request)})
+  .then(stream => {
+    stream.recv(msg => { console.log(msg) };
+  })`;
+  }
+
   return `import m3o from '@m3o/m3o-node';
 
 const client = new m3o.Client({ token: 'YOUR_M3O_API_KEY' });
