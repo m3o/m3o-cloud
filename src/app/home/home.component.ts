@@ -28,9 +28,9 @@ export class HomeComponent implements OnInit {
     if (services.length == 0) {
       this.loading = true;
       this.exp
-        .index(6)
+        .index(50)
         .then((ss) => {
-          this.services = ss.filter((s) => s.description);
+          this.services = ss.filter((s) => ['crypto', 'db', 'image', 'stock', 'weather', 'user'].includes(s.name));
           this.state.set(STATE_KEY_HOME, <any>this.services);
         })
         .finally(() => {
