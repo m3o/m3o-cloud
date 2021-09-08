@@ -97,7 +97,11 @@ export class ApiSingleComponent implements OnInit {
 
       this.metaService.addTag({
         name: 'description',
-        content: this.firstReadmeLine(),
+        content: this.singleApiService.service.api.description
+          .split('\n')
+          .filter((l) => {
+            return !l.startsWith('#') && l.length > 5;
+          })[0],
       });
     };
 
@@ -124,9 +128,11 @@ export class ApiSingleComponent implements OnInit {
   }
 
   firstReadmeLine(): string {
-    return this.service.api.description.split('\n').filter((l) => {
-      return !l.startsWith('#') && l.length > 5;
-    })[0];
+    return this.singleApiService.service.api.description
+      .split('\n')
+      .filter((l) => {
+        return !l.startsWith('#') && l.length > 5;
+      })[0];
   }
 
   lastPart(s: string): string {

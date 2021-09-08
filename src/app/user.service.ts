@@ -78,24 +78,27 @@ export class UserService {
 
   logout() {
     this.revokeV1ApiToken().finally(() => {
-      this.http.post<void>(
-        environment.apiUrl + '/customers/Logout',
-        {},
-        {
-          headers: {
-            'Micro-Namespace': 'micro',
-            authorization: this.token(),
+      this.http
+        .post<void>(
+          environment.apiUrl + '/customers/Logout',
+          {},
+          {
+            headers: {
+              'Micro-Namespace': 'micro',
+              authorization: this.token(),
+            },
           },
-        },
-      ).toPromise().finally(() => {
-        // todo We are nulling out the name here because that's what we use
-        // for user existence checks.
-        this.user.name = '';
-        this.cookie.set('micro_token', '', 30, '/', null, null, null);
-        this.cookie.set('micro_refresh', '', 30, '/', null, null, null);
-        this.cookie.set('micro_expiry', '', 30, '/', null, null, null);
-        document.location.href = '/login';
-      });
+        )
+        .toPromise()
+        .finally(() => {
+          // todo We are nulling out the name here because that's what we use
+          // for user existence checks.
+          this.user.name = '';
+          this.cookie.set('micro_token', '', 30, '/', null, null, null);
+          this.cookie.set('micro_refresh', '', 30, '/', null, null, null);
+          this.cookie.set('micro_expiry', '', 30, '/', null, null, null);
+          document.location.href = '/login';
+        });
     });
   }
 
