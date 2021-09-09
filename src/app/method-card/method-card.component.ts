@@ -14,6 +14,10 @@ interface Item {
   value: ApiMethodExample[];
 }
 
+interface ParsedExamples {
+  [key: string]: Array<ApiMethodExample>;
+}
+
 @Component({
   selector: 'app-method-card',
   templateUrl: './method-card.component.html',
@@ -25,6 +29,7 @@ export class MethodCardComponent implements OnInit {
   @Input() item: any;
   @Input() apiName: string;
   @Input() pricing: string;
+  @Input() examples: ParsedExamples;
 
   constructor(private singleApiService: SingleApiService) {}
 
