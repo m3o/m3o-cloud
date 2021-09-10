@@ -20,7 +20,6 @@ export class SingleApiService {
   async loadService(serviceName: string) {
     try {
       this.service = await this.exploreService.service(serviceName);
-      console.log(this.service);
     } catch (e) {
       console.log(e);
     }
