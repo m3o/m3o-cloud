@@ -1,3 +1,13 @@
+export interface ApiMethodExample {
+  request: Record<string, any>;
+  response: Record<string, any>;
+  title: string;
+}
+
+export interface ParsedExamples {
+  [key: string]: Array<ApiMethodExample>;
+}
+
 export interface Account {
   id: string;
   type: string;

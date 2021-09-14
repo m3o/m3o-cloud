@@ -7,20 +7,11 @@ import {
   requestToGo,
   requestToNode,
 } from 'src/utils/api';
+import * as types from '../types';
 
 type Languages = 'javascript' | 'curl' | 'go';
 
 type LanguagesObject = Record<Languages, string>;
-
-interface ApiMethodExample {
-  request: Record<string, any>;
-  response: Record<string, any>;
-  title: string;
-}
-
-interface ParsedExamples {
-  [key: string]: Array<ApiMethodExample>;
-}
 
 // taken from https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
 function camelize(str) {
@@ -38,7 +29,7 @@ export class RequestBlockComponent implements OnInit {
   @Input() requestSchema: SchemaObject = {};
   @Input() isStream = false;
   @Input() apiName = '';
-  @Input() examples: ParsedExamples;
+  @Input() examples: types.ParsedExamples;
 
   showDropdown = false;
 
@@ -92,9 +83,32 @@ export class RequestBlockComponent implements OnInit {
             console.log('Error getting code example: ', e);
             this.code = requestToGo(exampleArguments);
           }
+          this.selectedLanguage = 'go';
           break;
         case 'curl':
-          this.code = requestToCurl(exampleArguments);
+          try {
+            let rsp = await this.http
+              .get(
+                'https://gitcdn.link/repo/micro/micro-go/main/' +
+                  this.apiName +
+                  '/examples/' +
+                  exampleArguments.path.toLowerCase() +
+                  '/' +
+                  camelize(
+                    this.examples[exampleArguments.path.toLowerCase()][0].title,
+                  ) +
+                  '.sh',
+                {
+                  responseType: 'text',
+                },
+              )
+              .toPromise();
+            this.code = rsp;
+          } catch (e) {
+            console.log('Error getting code example: ', e);
+            this.code = requestToCurl(exampleArguments);
+          }
+          this.selectedLanguage = 'curl';
           break;
         case 'javascript':
           try {
@@ -119,6 +133,7 @@ export class RequestBlockComponent implements OnInit {
             console.log('Error getting code example: ', e);
             this.code = requestToGo(exampleArguments);
           }
+          this.selectedLanguage = 'javascript';
           break;
         default:
           this.code = '';

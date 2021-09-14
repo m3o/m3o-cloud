@@ -2,20 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SchemaObject } from 'openapi3-ts';
 import { splitEndpointTitle } from 'src/utils/api';
 import { SingleApiService } from '../single-api.service';
-
-interface ApiMethodExample {
-  request: Record<string, any>;
-  response: Record<string, any>;
-  title: string;
-}
+import * as types from '../types'
 
 interface Item {
   key: string;
-  value: ApiMethodExample[];
-}
-
-interface ParsedExamples {
-  [key: string]: Array<ApiMethodExample>;
+  value: types.ApiMethodExample[];
 }
 
 @Component({
@@ -29,7 +20,7 @@ export class MethodCardComponent implements OnInit {
   @Input() item: any;
   @Input() apiName: string;
   @Input() pricing: string;
-  @Input() examples: ParsedExamples;
+  @Input() examples: types.ParsedExamples;
 
   constructor(private singleApiService: SingleApiService) {}
 
