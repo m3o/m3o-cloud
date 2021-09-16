@@ -44,6 +44,10 @@ client.call('${
   });`;
   }
 
+  formatJSON(val: any): string {
+    return JSON.stringify(val, null, 4);
+  }
+
   formatTitle(name: string): string {
     return splitEndpointTitle(name);
   }

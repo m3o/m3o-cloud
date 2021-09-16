@@ -52,11 +52,15 @@ export class SingleApiService {
 
       if (!components?.schemas) return obj;
 
+      var ep = key.charAt(0).toLowerCase() + key.slice(1);
+      var examples = JSON.parse(this.service.api.examples_json)[ep];
+      console.log(examples);
       return {
         ...obj,
         [key]: {
           request: components.schemas[`${key}Request`],
           response: components.schemas[`${key}Response`],
+          examples: examples != undefined ? examples : [],
         },
       };
     }, {});

@@ -22,6 +22,30 @@
          <li><span class="font-bold">{{ formatTitle(endpoint.key) }}</span> - {{ endpoint.value.request.description }}</li>
        </ul>
      
+      <br>
+      <h2 class="font-black text-black text-lg mb-4 dark:text-white">
+        Examples
+      </h2>
+
+      <div *ngFor="let endpoint of endpoints | keyvalue"
+	  >
+          <span *ngIf="endpoint.value.examples.length == 0">
+            No examples available
+          </span>
+
+          <span *ngFor="let example of endpoint.value.examples">
+            {{ formatTitle(example.title) }}
+
+            <pre class="rounded-md font-mono text-sm">
+              <code class="example" language="'curl'" [highlight]="formatJSON(example.request)"></code>
+            </pre>
+             <br>
+            <pre class="rounded-md font-mono text-sm">
+              <code class="example" language="'curl'" [highlight]="formatJSON(example.response)"></code>
+            </pre>
+          </span>
+       </div>
+
       <div class="">
         <h2 class="font-black text-black text-lg my-6 dark:text-white">
           How to use
