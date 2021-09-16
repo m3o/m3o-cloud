@@ -18,6 +18,7 @@ client.call('API_NAME', 'API_METHOD', API_PAYLOAD)
 })
 export class ApiPageOverviewComponent implements OnInit {
   endpoints: FormattedEndpoints;
+  example = undefined;
 
   repeatableMicroCode = REPEATABLE_MICRO_NODE_CODE;
 
@@ -31,6 +32,7 @@ export class ApiPageOverviewComponent implements OnInit {
 
   setExampleCode(): void {
     this.endpoints = this.singleApiService.returnFormattedEndpoints();
+
     const [firstKey] = Object.keys(this.endpoints);
     this.exampleCode = `import m3o from '@m3o/m3o-node';
 
@@ -42,6 +44,15 @@ client.call('${
   .then(response => {
     console.log(response);
   });`;
+
+    for(let key in this.endpoints) {
+      let value = this.endpoints[key];
+      if ((value["examples"] != undefined) && (value["examples"].length > 0)) {
+        this.example = value["examples"][0];
+        console.log(this.example);
+        return;
+      }
+    };
   }
 
   formatJSON(val: any): string {
