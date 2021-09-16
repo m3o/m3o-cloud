@@ -17,21 +17,17 @@
         Features
       </h2>
 
-      <ul class="list-none list-inside border-t border-gray-200 border-solid">
+      <ul class="list-none list-inside">
         <li
-          class="
-            flex
-            border-b border-gray-200 border-solid
-            pb-4
-            mt-4
-            items-center
-          "
+          class="flex items-center py-2 border-b border-gray-100 border-solid"
           *ngFor="let endpoint of endpoints | keyvalue"
         >
-          <p class="w-1/6 font-bold text-black text-sm mb-0">
+          <p class="w-1/6 font-bold text-black mb-0">
             {{ formatTitle(endpoint.key) }}
           </p>
-          <p class="w-5/6 mb-0">{{ endpoint.value.request.description }}</p>
+          <p class="w-5/6 mb-0">
+            {{ endpoint.value.request.description }}
+          </p>
         </li>
       </ul>
 
