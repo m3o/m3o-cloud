@@ -19,7 +19,7 @@
 
       <ul class="list-none list-inside" *ngFor="let endpoint of endpoints | keyvalue"
 	  >
-         <li><span class="font-bold">{{ endpoint.key }}</span> - {{ endpoint.value.request.description }}</li>
+         <li><span class="font-bold">{{ formatTitle(endpoint.key) }}</span> - {{ endpoint.value.request.description }}</li>
        </ul>
      
       <div class="">
