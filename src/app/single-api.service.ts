@@ -52,6 +52,8 @@ export class SingleApiService {
 
       if (!components?.schemas) return obj;
 
+      if (!components.schemas[`${key}Request`]) return obj;
+
       var ep = key.charAt(0).toLowerCase() + key.slice(1);
       var examples = JSON.parse(this.service.api.examples_json)[ep];
       console.log(examples);
