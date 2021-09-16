@@ -17,11 +17,24 @@
         Features
       </h2>
 
-      <ul class="list-none list-inside" *ngFor="let endpoint of endpoints | keyvalue"
-	  >
-         <li><span class="font-bold">{{ formatTitle(endpoint.key) }}</span> - {{ endpoint.value.request.description }}</li>
-       </ul>
-     
+      <ul class="list-none list-inside border-t border-gray-200 border-solid">
+        <li
+          class="
+            flex
+            border-b border-gray-200 border-solid
+            pb-4
+            mt-4
+            items-center
+          "
+          *ngFor="let endpoint of endpoints | keyvalue"
+        >
+          <p class="w-1/6 font-bold text-black text-sm mb-0">
+            {{ formatTitle(endpoint.key) }}
+          </p>
+          <p class="w-5/6 mb-0">{{ endpoint.value.request.description }}</p>
+        </li>
+      </ul>
+
       <div class="">
         <h2 class="font-black text-black text-lg my-6 dark:text-white">
           How to use
