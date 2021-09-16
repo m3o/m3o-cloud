@@ -22,7 +22,7 @@ export class RequestBlockComponent implements OnInit {
 
   showDropdown = false;
 
-  selectedLanguage: Languages = 'javascript';
+  selectedLanguage: Languages = 'curl';
 
   code = '';
 
