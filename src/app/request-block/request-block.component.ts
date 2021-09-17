@@ -60,17 +60,20 @@ export class RequestBlockComponent implements OnInit {
 
       switch (this.selectedLanguage) {
         case 'go':
-          // example url https://gitcdn.link/repo/micro/micro-go/main/file/examples/save/saveFile.go
+          // example url https://gitcdn.link/repo/micro/services/main/examples/file/save/go/saveFile.go
           try {
             let rsp = await this.http
               .get(
-                'https://gitcdn.link/repo/micro/micro-go/main/' +
-                  this.apiName +
+                'https://gitcdn.link/repo/micro/services/main' +
                   '/examples/' +
-                  exampleArguments.path.toLowerCase() +
+                  this.apiName +
                   '/' +
+                  exampleArguments.path.toLowerCase() +
+                  '/go/' +
                   camelize(
-                    this.examples[exampleArguments.path.toLowerCase()][0].title,
+                    this.examples[
+                      exampleArguments.path.toLowerCase()
+                    ][0].title.replace(',', ''),
                   ) +
                   '.go',
                 {
@@ -89,13 +92,16 @@ export class RequestBlockComponent implements OnInit {
           try {
             let rsp = await this.http
               .get(
-                'https://gitcdn.link/repo/micro/micro-go/main/' +
-                  this.apiName +
+                'https://gitcdn.link/repo/micro/services/main' +
                   '/examples/' +
-                  exampleArguments.path.toLowerCase() +
+                  this.apiName +
                   '/' +
+                  exampleArguments.path.toLowerCase() +
+                  '/curl/' +
                   camelize(
-                    this.examples[exampleArguments.path.toLowerCase()][0].title,
+                    this.examples[
+                      exampleArguments.path.toLowerCase()
+                    ][0].title.replace(',', ''),
                   ) +
                   '.sh',
                 {
@@ -114,13 +120,16 @@ export class RequestBlockComponent implements OnInit {
           try {
             let rsp = await this.http
               .get(
-                'https://gitcdn.link/repo/m3o/m3o-js/main/' +
-                  this.apiName +
+                'https://gitcdn.link/repo/micro/services/main' +
                   '/examples/' +
-                  exampleArguments.path.toLowerCase() +
+                  this.apiName +
                   '/' +
+                  exampleArguments.path.toLowerCase() +
+                  '/node/' +
                   camelize(
-                    this.examples[exampleArguments.path.toLowerCase()][0].title,
+                    this.examples[
+                      exampleArguments.path.toLowerCase()
+                    ][0].title.replace(',', ''),
                   ) +
                   '.js',
                 {

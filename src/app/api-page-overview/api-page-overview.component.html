@@ -13,6 +13,15 @@
         Introduction
       </h2>
       <p>{{ getDescription() }}</p>
+      <h2 class="font-black text-black text-lg mb-4 dark:text-white">
+        Features
+      </h2>
+
+      <ul class="list-none list-inside" *ngFor="let endpoint of endpoints | keyvalue"
+	  >
+         <li><span class="font-bold">{{ formatTitle(endpoint.key) }}</span> - {{ endpoint.value.request.description }}</li>
+       </ul>
+     
       <div class="">
         <h2 class="font-black text-black text-lg my-6 dark:text-white">
           How to use

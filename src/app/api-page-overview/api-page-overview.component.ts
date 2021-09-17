@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { schemaToJSON } from 'src/utils/api';
 import { SingleApiService, FormattedEndpoints } from '../single-api.service';
+import { splitEndpointTitle } from 'src/utils/api';
 
 const REPEATABLE_MICRO_NODE_CODE = `import m3o from '@m3o/m3o-node';
 
@@ -41,6 +42,10 @@ client.call('${
   .then(response => {
     console.log(response);
   });`;
+  }
+
+  formatTitle(name: string): string {
+    return splitEndpointTitle(name);
   }
 
   getDescription(): string {

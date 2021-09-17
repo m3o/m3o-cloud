@@ -53,7 +53,7 @@
       </div>
     </div>
   </div>
-  <pre class="text-sm">
-    <code class="example" [lang]="selectedLanguage != 'curl' ? selectedLanguage: 'bash'" [highlight]="code"></code>
+  <pre class="text-sm p-0">
+    <code class="example" [lang]="selectedLanguage != 'curl' ? selectedLanguage : 'bash'" [highlight]="code"></code>
   </pre>
 </div>

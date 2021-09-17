@@ -24,10 +24,7 @@ export class MethodCardComponent implements OnInit {
 
   constructor(private singleApiService: SingleApiService) {}
 
-  ngOnInit(): void {
-    const test = this.pathResponseIsStream();
-    console.log({ test });
-  }
+  ngOnInit(): void {}
 
   formatTitle(): string {
     return splitEndpointTitle(this.title);
