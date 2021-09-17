@@ -17,49 +17,41 @@
         Features
       </h2>
 
-      <ul class="list-none list-inside" *ngFor="let endpoint of endpoints | keyvalue"
-	  >
-         <li><span class="font-bold">{{ formatTitle(endpoint.key) }}</span> - {{ endpoint.value.request.description }}</li>
-       </ul>
-     
-      <div class="">
-        <h2 class="font-black text-black text-lg my-6 dark:text-white">
-          How to use
-        </h2>
-        <p class="mb-6">1. Firstly install the Micro node package</p>
-        <div
+      <ul class="list-none list-inside border-t border-gray-100 border-solid">
+        <li
           class="
-            bg-gray-700
-            py-4
-            px-6
-            rounded-md
-            text-xs text-white
-            font-mono
-            inline-block
-            mb-6
+            md:flex
+            border-b border-gray-100 border-solid
+            pb-4
+            mt-4
+            items-center
           "
+          *ngFor="let endpoint of endpoints | keyvalue"
         >
-          npm install @m3o/m3o-node --save
+          <p class="md:w-1/6 font-bold text-black text-sm mb-2 md:mb-0">
+            {{ formatTitle(endpoint.key) }}
+          </p>
+          <p class="md:w-5/6 mb-0">{{ endpoint.value.request.description }}</p>
+        </li>
+      </ul>
+
+      <br />
+      <h2 class="font-black text-black text-lg mb-4 dark:text-white">
+        Examples
+      </h2>
+
+      <span *ngIf="example == undefined"> No examples available </span>
+
+      <div *ngIf="example != undefined">
+        <p class="font-bold mb-4">{{ formatTitle(example.title) }}</p>
+        <div class="mb-4">
+          <pre
+            class="rounded-md font-mono text-sm"
+          ><code class="example" language="'curl'" [highlight]="formatJSON(example.request)"></code></pre>
         </div>
-        <p class="mb-1">
-          2. To consume any of the Micro APIs requires an API key. This can
-          generated in the admin section. Once this is acquired, you just need
-          to use this within your chosen API. All APIs follow the same pattern
-          which you can see below:
-        </p>
-        <pre class="rounded-md font-mono text-sm">
-          <code class="example" language="'javascript'" [highlight]="repeatableMicroCode"></code>
-        </pre>
-        <p class="mb-1">
-          3. So, for example to consume the
-          <span class="font-medium text-black">{{
-            getFirstEndpointName()
-          }}</span>
-          method on the {{ singleApiService.service.summary.name }} service:
-        </p>
-        <pre class="rounded-md font-mono text-sm">
-          <code class="example" language="'javascript'" [highlight]="exampleCode"></code>
-        </pre>
+        <pre
+          class="rounded-md font-mono text-sm"
+        ><code class="example" language="'curl'" [highlight]="formatJSON(example.response)"></code></pre>
       </div>
     </div>
     <div
