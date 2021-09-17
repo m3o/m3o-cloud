@@ -6,7 +6,7 @@ A public API platform
 
 Micro Cloud is a public API platform which streamlines the developer experience. Consume public APIs as simpler programmable building blocks for lightning fast development of products and services. Micro Cloud is powered by the original [Micro](https://github.com/micro/micro) project and programmable real world [Micro Services](https://github.com/micro/services).
 
-<a href="https://m3o.com"><img src="https://raw.githubusercontent.com/micro/cloud/main/web.png" /></a>
+<a href="https://m3o.com"><img src="https://raw.githubusercontent.com/micro/cloud/main/images/web.png" /></a>
 
 ## Features
 
