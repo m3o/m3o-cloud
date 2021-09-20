@@ -71,7 +71,7 @@ client.call('${
     } = this.singleApiService;
 
     const [, desc] = description.split('Service');
-    return desc.replace('\n', ' ').split('Powered')[0];
+    return desc.replace('\n', ' ');
   }
 
   getFirstEndpointName(): string {
