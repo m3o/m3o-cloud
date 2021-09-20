@@ -14,12 +14,13 @@ type Languages = 'javascript' | 'curl' | 'go';
 type LanguagesObject = Record<Languages, string>;
 
 // taken from https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
-function camelize(str) {
+function camelize(str: string): string {
+  str =  str.replace("ID", "Id").replace("'", "").toLowerCase()
   let v = str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
     if (+match === 0) return ''; // or if (/\s+/.test(match)) for white spaces
     return index === 0 ? match.toLowerCase() : match.toUpperCase();
   });
-  return v.replace("ID", "Id")
+  return v
 }
 
 @Component({
