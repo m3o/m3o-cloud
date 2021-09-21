@@ -42,6 +42,7 @@
                   tracking-wider
                   py-3
                   text-gray-400
+                  px-3
                 "
               >
                 Description
@@ -74,11 +75,11 @@
                   {{ formatTitle(endpoint.key) }}
                 </a>
               </td>
-              <td class="py-3 text-sm w-7/12">
+              <td class="py-3 text-sm w-7/12 px-3">
                 {{ endpoint.value.request.description }}
               </td>
               <td class="py-3 text-sm w-3/12">
-                <span class="text-xs font-normal rounded-md">
+                <span class="font-normal rounded-md">
                   {{ getEndpointPrice(endpoint) }}
                 </span>
               </td>
