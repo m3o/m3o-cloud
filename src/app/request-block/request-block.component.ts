@@ -15,12 +15,12 @@ type LanguagesObject = Record<Languages, string>;
 
 // taken from https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
 function camelize(str: string): string {
-  str =  str.replace("ID", "Id").replace("'", "").toLowerCase()
+  str = str.replace('ID', 'Id').replace("'", '').toLowerCase();
   let v = str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
     if (+match === 0) return ''; // or if (/\s+/.test(match)) for white spaces
     return index === 0 ? match.toLowerCase() : match.toUpperCase();
   });
-  return v
+  return v;
 }
 
 @Component({
@@ -142,7 +142,7 @@ export class RequestBlockComponent implements OnInit {
             this.code = rsp;
           } catch (e) {
             console.log('Error getting code example: ', e);
-            this.code = requestToGo(exampleArguments);
+            this.code = requestToNode(exampleArguments);
           }
           this.selectedLanguage = 'javascript';
           break;
