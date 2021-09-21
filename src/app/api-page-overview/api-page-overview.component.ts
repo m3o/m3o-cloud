@@ -3,15 +3,6 @@ import { schemaToJSON } from 'src/utils/api';
 import { SingleApiService, FormattedEndpoints } from '../single-api.service';
 import { splitEndpointTitle } from 'src/utils/api';
 
-const REPEATABLE_MICRO_NODE_CODE = `import m3o from '@m3o/m3o-node';
-
-const client = new m3o.Client({ token: 'INSERT_YOUR_YOUR_M3O_API_KEY_HERE' });
-
-client.call('API_NAME', 'API_METHOD', API_PAYLOAD)
-  .then(response => {
-    console.log(response);
-  });`;
-
 @Component({
   selector: 'app-api-page-overview',
   templateUrl: './api-page-overview.component.html',
@@ -19,8 +10,6 @@ client.call('API_NAME', 'API_METHOD', API_PAYLOAD)
 export class ApiPageOverviewComponent implements OnInit {
   endpoints: FormattedEndpoints;
   example = undefined;
-
-  repeatableMicroCode = REPEATABLE_MICRO_NODE_CODE;
 
   exampleCode = '';
 
@@ -45,14 +34,14 @@ client.call('${
     console.log(response);
   });`;
 
-    for(let key in this.endpoints) {
+    for (let key in this.endpoints) {
       let value = this.endpoints[key];
-      if ((value["examples"] != undefined) && (value["examples"].length > 0)) {
-        this.example = value["examples"][0];
+      if (value['examples'] != undefined && value['examples'].length > 0) {
+        this.example = value['examples'][0];
         console.log(this.example);
         return;
       }
-    };
+    }
   }
 
   formatJSON(val: any): string {
@@ -77,5 +66,18 @@ client.call('${
   getFirstEndpointName(): string {
     const [firstKey] = Object.keys(this.endpoints);
     return firstKey;
+  }
+
+  getEndpointPrice(endpoint: any) {
+    let price: string = 'Free';
+    const { pricing = {} } = this.singleApiService.service.api;
+
+    Object.keys(pricing).forEach((key) => {
+      if (key.includes(endpoint.key)) {
+        price = `$${parseInt(pricing[key]) / 1000000}`;
+      }
+    });
+
+    return price;
   }
 }

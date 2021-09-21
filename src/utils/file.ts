@@ -1,9 +1,9 @@
-export function downloadFile<O>(data: O, name: string): void {
+export function downloadFile(data: string, name: string): void {
   const element = document.createElement('a');
 
   element.setAttribute(
     'href',
-    'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)),
+    'data:text/plain;charset=utf-8,' + encodeURIComponent(data),
   );
 
   element.setAttribute('download', `${name}.json`);
