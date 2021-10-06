@@ -1,6 +1,6 @@
 # Micro Cloud
 
-A public API cloud platform
+[M3O](https://m3o.com) is a public cloud platform
 
 ## Overview
 
