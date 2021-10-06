@@ -39,7 +39,7 @@ M3O is built on existing public cloud infrastructure with managed kubernetes alo
 and abstraction layer. We host the open source [Micro](https://github.com/micro/micro) project as the base Cloud OS and use it to 
 power all the [Services](https://github.com/micro/services), which are also open source.
 
-We then have our own custom dev UX on top for which the source exists in this repo.
+We then have our own custom dev UX on top and [backend](https://github.com/m3o/backend) for management.
 
 ## Development
 
