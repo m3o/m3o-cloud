@@ -36,7 +36,7 @@ M3O is powered by the open source [Micro](https://github.com/micro/micro) projec
 ## How it Works
 
 M3O is built on existing public cloud infrastructure with managed kubernetes along with our own [infrastructure automation](https://github.com/m3o/platform) 
-and abstraction layer. We use the open source [Micro](https://github.com/micro/micro) as the base Cloud OS and use it to 
+and abstraction layer. We host the open source [Micro](https://github.com/micro/micro) as the base Cloud OS and use it to 
 power all the [Services](https://github.com/micro/services), which are also open source.
 
 We then have our own custom dev UX on top for which the source exists in this repo.
