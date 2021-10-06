@@ -29,6 +29,14 @@ Micro Cloud is a public API platform which streamlines the developer experience.
 - Join the [Discord](https://discord.gg/TBR9bRjd6Z) channel
 - Email [Support](mailto:support@m3o.com) for help
 
+## How it Works
+
+M3O is built on existing public cloud infrastructure with managed kubernetes along with our own infrastructure automation 
+and abstraction layer. We use the open source [Micro](https://github.com/micro/micro) as the base Cloud OS and use it to 
+power all the [Services](https://github.com/micro/services), which are also open source.
+
+We then have our own custom dev UX on top for which the source exists in this repo.
+
 ## Development
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
