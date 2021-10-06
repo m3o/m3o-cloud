@@ -13,10 +13,11 @@ M3O is powered by the open source [Micro](https://github.com/micro/micro) projec
 
 ## Features
 
-- **One Account** - Use one Micro account to fulfill all your API needs. Access multiple APIs with a single token and Micro account.
-- **Fast Access** - Using a new API is simple - no need to learn yet another documentation, it's all the same Micro UX.
-- **Free to start** - It's a simple pay as you go model and everything is priced per request. Top up your account and start making calls.
-- **Anti AWS Billing** - Don't get lost in a sea of infinite cloud billing. We show you exactly what you use and don't hide any of the costs.
+- **🔥 Dev UX** - The developer experience is first priority. A slick new UX for the next generation of developers.
+- **☝️ One Token** - Use one Micro API token to fulfill all your API needs. Access multiple APIs with a single token.
+- **⚡ Fast Access** - Using a new API is easy - no need to learn yet another API, it's all the same Micro developer experience.
+- **🆓 Free to start** - It's a simple pay as you go model and everything is priced per request. Top up your account and start making calls.
+- **🚫 Anti AWS Billing** - Don't get lost in a sea of infinite cloud billing. We show you exactly what you use and don't hide any of the costs.
 
 ## Getting Started
 
