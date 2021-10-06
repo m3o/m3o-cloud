@@ -9,8 +9,6 @@
 AWS has becoming the monstrous behemoth public cloud provider we all love to hate. It's massive complexity and confusing pricing has made it an incredibly 
 difficult choice for developers to adopt. But what's the alternative? M3O is a new open source public cloud platform for the next generation of developers. Consume public APIs as simpler programmable building blocks for lightning fast development of products and services. 
 
-<a href="https://m3o.com"><img src="https://cdn.m3ocontent.com/micro/images/micro/3db66283-55b5-4e6e-9c83-de9e53959db0/800cad11-91b0-4664-bcac-aa91b2ce92f4.png" /></a>
-
 M3O is powered by the open source [Micro](https://github.com/micro/micro) project and programmable real world [Micro Services](https://github.com/micro/services).
 
 ## Features
