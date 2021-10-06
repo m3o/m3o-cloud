@@ -1,6 +1,4 @@
-<center><img src="https://avatars.githubusercontent.com/u/65984637?s=200&v=4" />
-             </center>
-# M3O
+# <img src="https://avatars.githubusercontent.com/u/65984637?s=50" /> M3O
 
 [M3O](https://m3o.com) is an open source public cloud platform. We are building a new AWS alternative for the next generation of developers.
 
