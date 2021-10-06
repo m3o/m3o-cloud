@@ -43,9 +43,11 @@ We then have our own custom dev UX on top for which the source exists in this re
 
 ## Development
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
+This project is venture funded with a combination of open source services, managed hosting and a team with much distain for AWS.
 
 ## How to run
+
+The source in this project provides an open UX for anyone to run locally or host themselves. The backend is hosted at [api.m3o.com](https://api.m3o.com).
 
 ```
 npm install && ng serve
