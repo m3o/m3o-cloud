@@ -1,4 +1,4 @@
-# Micro Cloud
+# M3O
 
 [M3O](https://m3o.com) is an open source public cloud platform. We are building a new AWS alternative for the next generation of developers.
 
