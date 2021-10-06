@@ -1,4 +1,4 @@
-<div style="background: black; text-align: center;">
+<div style="background: black; text-align: center; width: 100%">
   <img src="https://avatars.githubusercontent.com/u/65984637?s=200" />
 </div>
 
