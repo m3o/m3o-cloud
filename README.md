@@ -7,14 +7,14 @@
 ## Overview
 
 AWS has becoming the monstrous behemoth public cloud provider we all love to hate. It's massive complexity and confusing pricing has made it an incredibly 
-difficult choice for developers to adopt. But what's the alternative? M3O is a new open source public cloud platform for the next generation of developers. Consume public APIs as simpler programmable building blocks for lightning fast development of products and services. 
+difficult choice for developers to adopt. But what's the alternative? M3O is a new open source public cloud platform for the next generation of developers. Consume existing public APIs all in one place as simpler programmable building blocks. 
 
-M3O is powered by the open source [Micro](https://github.com/micro/micro) project and programmable real world [Micro Services](https://github.com/micro/services).
+M3O is powered by the open source [Micro](https://github.com/micro/micro) platform and programmable real world [Micro Services](https://github.com/micro/services).
 
 ## Features
 
 - **🔥 Dev UX** - The developer experience is first priority. A slick new UX for the next generation of developers.
-- **☝️ One Token** - Use one Micro API token to fulfill all your API needs. Access multiple APIs with a single token.
+- **☝️ One Token** - Use one Micro API token to fulfill all your API needs. Access multiple public APIs with a single token.
 - **⚡ Fast Access** - Using a new API is easy - no need to learn yet another API, it's all the same Micro developer experience.
 - **🆓 Free to start** - It's a simple pay as you go model and everything is priced per request. Top up your account and start making calls.
 - **🚫 Anti AWS Billing** - Don't get lost in a sea of infinite cloud billing. We show you exactly what you use and don't hide any of the costs.
@@ -36,10 +36,10 @@ M3O is powered by the open source [Micro](https://github.com/micro/micro) projec
 ## How it Works
 
 M3O is built on existing public cloud infrastructure with managed kubernetes along with our own [infrastructure automation](https://github.com/m3o/platform) 
-and abstraction layer. We host the open source [Micro](https://github.com/micro/micro) project as the base Cloud OS and use it to 
-power all the [Services](https://github.com/micro/services), which are also open source.
+and abstraction layer for existing public APIs. We host the open source [Micro](https://github.com/micro/micro) project as our base Cloud OS and use it to 
+power all the [Micro Services](https://github.com/micro/services), which provide simpler building blocks for existing cloud primitives.
 
-We then have our own custom dev UX on top and [backend](https://github.com/m3o/backend) for management.
+We then host our own custom dev UX on top and a [backend](https://github.com/m3o/backend) as the management control plane.
 
 ## Development
 
