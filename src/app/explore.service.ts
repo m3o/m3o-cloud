@@ -6,6 +6,7 @@ import { UserService } from './user.service';
 
 export interface PublicAPI {
   name: string;
+  display_name: string;
   description: string;
   open_api_json: string;
   examples_json?: string;
@@ -17,6 +18,7 @@ export interface PublicAPI {
 
 export interface ExploreAPI {
   name: string;
+  display_name: string;
   description: string;
   category: string;
   icon: string;

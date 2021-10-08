@@ -9,7 +9,7 @@
           <h1
             class="
               font-black
-              text-5xl
+              text-4xl
               mb-2
               mt-2
               capitalize
@@ -17,11 +17,7 @@
               text-black
             "
           >
-            {{
-              singleApiService.service.api.name.length > 3
-                ? (singleApiService.service.api.name | title)
-                : (singleApiService.service.api.name | uppercase)
-            }}
+            {{ singleApiService.service.api.display_name }}
           </h1>
           <p class="text-gray-500 text-xl font-light">
             {{ singleApiService.service.api.description.split('#')[0] }}
