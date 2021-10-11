@@ -62,11 +62,11 @@ export class RequestBlockComponent implements OnInit {
 
       switch (this.selectedLanguage) {
         case 'go':
-          // example url https://gitcdn.link/repo/micro/services/main/examples/file/save/go/saveFile.go
+          // example url https://services.m3o.com/examples/file/save/go/saveFile.go
           try {
             let rsp = await this.http
               .get(
-                'https://gitcdn.link/repo/micro/services/main' +
+                'https://services.m3o.com' +
                   '/examples/' +
                   this.apiName +
                   '/' +
@@ -94,7 +94,7 @@ export class RequestBlockComponent implements OnInit {
           try {
             let rsp = await this.http
               .get(
-                'https://gitcdn.link/repo/micro/services/main' +
+                'https://services.m3o.com' +
                   '/examples/' +
                   this.apiName +
                   '/' +
@@ -122,7 +122,7 @@ export class RequestBlockComponent implements OnInit {
           try {
             let rsp = await this.http
               .get(
-                'https://gitcdn.link/repo/micro/services/main' +
+                'https://services.m3o.com' +
                   '/examples/' +
                   this.apiName +
                   '/' +
