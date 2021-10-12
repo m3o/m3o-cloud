@@ -35,10 +35,6 @@
             text-indigo-600
             hover:underline hover:text-indigo-700
           "
-          [ngClass]="{
-            capitalize: service.name.length > 3,
-            uppercase: service.name.length <= 3
-          }"
         >
           {{ service.display_name }}
         </a>
