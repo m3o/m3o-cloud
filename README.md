@@ -43,7 +43,7 @@ We then host our own custom dev UX on top and a [backend](https://github.com/m3o
 
 ## Development
 
-This project is the open source self hostable cloud UX built in angular. 
+This project is the open source self hostable cloud UX built in angular. It's currently in maintanence mode as we move onto a Next.js version.
 
 ## How to run
 
