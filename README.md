@@ -43,7 +43,7 @@ We then host our own custom dev UX on top and a [backend](https://github.com/m3o
 
 ## Development
 
-This project is venture funded with a combination of open source services, managed hosting and a team with much distain for AWS.
+This project is the open source self hostable cloud UX built in angular. 
 
 ## How to run
 
