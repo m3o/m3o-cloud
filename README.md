@@ -61,6 +61,6 @@ npm run dev:ssr
 
 Navigate to `http://localhost:4200/`.
 
-## How to regenerate the sitemap?
+## Regenerate Sitemap
 
 Go to any sitemap generator (example: https://www.xml-sitemaps.com/) site and commit the output to src/sitemap.xml
