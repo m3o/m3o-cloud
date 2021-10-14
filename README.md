@@ -9,7 +9,8 @@ This repo is for the open source cloud UX built in angular. It's powering the cu
 ## Development
 
 This project is the open source self hostable cloud UX built in angular. It's currently in maintanence mode as we move onto a Next.js version. 
-However please feel free to contribute any updates.
+
+Please feel free to contribute any updates.
 
 ## How to run
 
