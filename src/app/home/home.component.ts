@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
       this.exp
         .index(50)
         .then((ss) => {
-          this.services = ss.filter((s) => ['db', 'function', 'image', 'stream', 'weather', 'user'].includes(s.name));
+          this.services = ss.filter((s) => ['db', 'function', 'geocoding', 'image', 'sms', 'weather'].includes(s.name));
           this.state.set(STATE_KEY_HOME, <any>this.services);
         })
         .finally(() => {
