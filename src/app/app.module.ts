@@ -125,6 +125,7 @@ import { ModalComponent } from './modal/modal.component';
 import { DownloadModalComponent } from './download-modal/download-modal.component';
 import { AttributesListComponent } from './attributes-list/attributes-list.component';
 import { GenerateButtonComponent } from './generate-button/generate-button.component';
+import { PricingComponent } from './pricing/pricing.component';
 
 // document.defaultView['hljs'] = hljs;
 
@@ -194,6 +195,7 @@ import { GenerateButtonComponent } from './generate-button/generate-button.compo
     DownloadModalComponent,
     AttributesListComponent,
     GenerateButtonComponent,
+    PricingComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

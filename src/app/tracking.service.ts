@@ -2,8 +2,7 @@ import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { isPlatformBrowser }
-from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import * as types from './types';
 import * as uuid from 'uuid';
 
@@ -11,8 +10,12 @@ import * as uuid from 'uuid';
   providedIn: 'root',
 })
 export class TrackingService {
-  isBrowser = false
-  constructor(private cs: CookieService, private http: HttpClient, @Inject(PLATFORM_ID) platformId: Object) {
+  isBrowser = false;
+  constructor(
+    private cs: CookieService,
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) platformId: Object,
+  ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
@@ -28,7 +31,7 @@ export class TrackingService {
         '/',
         null,
         null,
-        null
+        null,
       );
       this.track({ id: id, firstVerification: fverif, email: email });
     }
@@ -42,7 +45,7 @@ export class TrackingService {
 
   trackFirstVisit() {
     if (!this.isBrowser) {
-      return
+      return;
     }
     let firstVisit = this.cs.get('first_visit');
     if (!firstVisit) {

@@ -151,3 +151,7 @@ a {
 }
 
 @import '~ngx-toastr/toastr';
+
+.app-container {
+  @apply container px-6 mx-auto max-w-7xl relative;
+}
