@@ -25,6 +25,7 @@ import { GettingStartedComponent } from './getting-started/getting-started.compo
 import { ApiPageOverviewComponent } from './api-page-overview/api-page-overview.component';
 import { ApiPageApiComponent } from './api-page-api/api-page-api.component';
 import { ApiPageConsoleComponent } from './api-page-console/api-page-console.component';
+import { PricingComponent } from './pricing/pricing.component';
 
 const routes: Routes = [
   {
@@ -91,6 +92,10 @@ const routes: Routes = [
     path: 'overview/billing',
     component: PaymentsComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'pricing',
+    component: PricingComponent,
   },
   {
     path: ':id',

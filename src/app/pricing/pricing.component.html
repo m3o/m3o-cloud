@@ -1,0 +1,76 @@
+<header class="border-b border-solid border-gray-200 py-6 md:py-10 bg-white">
+  <div class="app-container">
+    <h1 class="font-bold text-black text-2xl md:text-5xl mb-4">Pricing</h1>
+    <p class="text-xl font-light">Simple, straight forward pricing</p>
+  </div>
+</header>
+<section class="bg-gray-50 min-h-screen pb-6">
+  <div class="app-container pt-6">
+    <div class="bg-white rounded-md p-6 border border-gray-200 border-solid">
+      <p class="mb-4">
+        The majority of our API's are
+        <strong class="font-bold text-black">FREE</strong> to use. Please see
+        below for a list of our paid API's.
+      </p>
+      <div *ngFor="let item of paidItems" class="py-4">
+        <h3 class="text-lg font-bold text-black mb-4">
+          {{ item.icon }} {{ item.display_name }}
+        </h3>
+        <div class="flex flex-col">
+          <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div
+              class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"
+            >
+              <div class="overflow-hidden border border-gray-200 border-solid">
+                <table class="min-w-full divide-y divide-gray-200">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th
+                        scope="col"
+                        class="
+                          px-6
+                          py-3
+                          text-left text-xs
+                          font-medium
+                          text-gray-500
+                          uppercase
+                          tracking-wider
+                        "
+                      >
+                        Feature
+                      </th>
+                      <th
+                        scope="col"
+                        class="
+                          px-6
+                          py-3
+                          text-left text-xs
+                          font-medium
+                          text-gray-500
+                          uppercase
+                          tracking-wider
+                        "
+                      >
+                        Price (per request)
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-gray-200">
+                    <tr *ngFor="let pricing of item.pricing | keyvalue">
+                      <td class="px-6 py-4 whitespace-nowrap w-1/2 text-sm">
+                        {{ formatEndpointName(pricing.key) }}
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap w-1/2 text-sm">
+                        {{ formatPricing(pricing.value) }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
